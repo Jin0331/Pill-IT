@@ -7,25 +7,39 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB56005D2B9A372400E6558E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = DB56005C2B9A372400E6558E /* Alamofire */; };
 		DBF446592B9983930021BC0F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF446582B9983930021BC0F /* AppDelegate.swift */; };
 		DBF4465B2B9983930021BC0F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF4465A2B9983930021BC0F /* SceneDelegate.swift */; };
-		DBF4465D2B9983930021BC0F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF4465C2B9983930021BC0F /* ViewController.swift */; };
 		DBF446622B9983940021BC0F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBF446612B9983940021BC0F /* Assets.xcassets */; };
 		DBF446652B9983940021BC0F /* Base in Resources */ = {isa = PBXBuildFile; fileRef = DBF446642B9983940021BC0F /* Base */; };
 		DBF4466F2B9985FE0021BC0F /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = DBF4466E2B9985FE0021BC0F /* .gitignore */; };
 		DBF446712B998DBD0021BC0F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DBF446702B998DBD0021BC0F /* GoogleService-Info.plist */; };
+		DBF446772B9990500021BC0F /* PillAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF446762B9990500021BC0F /* PillAPI.swift */; };
+		DBF4467E2B9990EF0021BC0F /* PillModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF4467D2B9990EF0021BC0F /* PillModel.swift */; };
+		DBF446802B9991820021BC0F /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF4467F2B9991820021BC0F /* APIKey.swift */; };
+		DBF446822B99AA4C0021BC0F /* RegisterPillViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF446812B99AA4C0021BC0F /* RegisterPillViewController.swift */; };
+		DBF446842B99ADC60021BC0F /* FileDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF446832B99ADC60021BC0F /* FileDownloadManager.swift */; };
+		DBF446892B99EDB10021BC0F /* MetaDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF446882B99EDB10021BC0F /* MetaDataModel.swift */; };
+		DBF4468C2B99F4690021BC0F /* CoreXLSX in Frameworks */ = {isa = PBXBuildFile; productRef = DBF4468B2B99F4690021BC0F /* CoreXLSX */; };
+		DBF4468E2B9A350E0021BC0F /* PillRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF4468D2B9A350E0021BC0F /* PillRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		DBF446552B9983930021BC0F /* Pill-IT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pill-IT.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBF446582B9983930021BC0F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DBF4465A2B9983930021BC0F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		DBF4465C2B9983930021BC0F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		DBF446612B9983940021BC0F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DBF446642B9983940021BC0F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DBF446662B9983940021BC0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DBF4466E2B9985FE0021BC0F /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		DBF446702B998DBD0021BC0F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		DBF446762B9990500021BC0F /* PillAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillAPI.swift; sourceTree = "<group>"; };
+		DBF4467D2B9990EF0021BC0F /* PillModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillModel.swift; sourceTree = "<group>"; };
+		DBF4467F2B9991820021BC0F /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
+		DBF446812B99AA4C0021BC0F /* RegisterPillViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPillViewController.swift; sourceTree = "<group>"; };
+		DBF446832B99ADC60021BC0F /* FileDownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDownloadManager.swift; sourceTree = "<group>"; };
+		DBF446882B99EDB10021BC0F /* MetaDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaDataModel.swift; sourceTree = "<group>"; };
+		DBF4468D2B9A350E0021BC0F /* PillRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +47,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBF4468C2B99F4690021BC0F /* CoreXLSX in Frameworks */,
+				DB56005D2B9A372400E6558E /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,7 +79,6 @@
 				DBF4466C2B9985AC0021BC0F /* Resource */,
 				DBF446582B9983930021BC0F /* AppDelegate.swift */,
 				DBF4465A2B9983930021BC0F /* SceneDelegate.swift */,
-				DBF4465C2B9983930021BC0F /* ViewController.swift */,
 				DBF446612B9983940021BC0F /* Assets.xcassets */,
 				DBF446632B9983940021BC0F /* LaunchScreen.storyboard */,
 				DBF446662B9983940021BC0F /* Info.plist */,
@@ -75,6 +90,10 @@
 		DBF4466C2B9985AC0021BC0F /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				DBF446852B99B11B0021BC0F /* Extension */,
+				DBF4468F2B9A351E0021BC0F /* Realm */,
+				DBF446752B998FE00021BC0F /* NetworkManager */,
+				DBF446832B99ADC60021BC0F /* FileDownloadManager.swift */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -82,9 +101,9 @@
 		DBF4466D2B9985B30021BC0F /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				DBF446742B998E950021BC0F /* Model */,
-				DBF446732B998E8E0021BC0F /* ViewModel */,
 				DBF446722B998E840021BC0F /* View */,
+				DBF446732B998E8E0021BC0F /* ViewModel */,
+				DBF446742B998E950021BC0F /* Model */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -92,6 +111,7 @@
 		DBF446722B998E840021BC0F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				DBF446812B99AA4C0021BC0F /* RegisterPillViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -106,8 +126,34 @@
 		DBF446742B998E950021BC0F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				DBF4467D2B9990EF0021BC0F /* PillModel.swift */,
+				DBF446882B99EDB10021BC0F /* MetaDataModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		DBF446752B998FE00021BC0F /* NetworkManager */ = {
+			isa = PBXGroup;
+			children = (
+				DBF446762B9990500021BC0F /* PillAPI.swift */,
+				DBF4467F2B9991820021BC0F /* APIKey.swift */,
+			);
+			path = NetworkManager;
+			sourceTree = "<group>";
+		};
+		DBF446852B99B11B0021BC0F /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		DBF4468F2B9A351E0021BC0F /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				DBF4468D2B9A350E0021BC0F /* PillRepository.swift */,
+			);
+			path = Realm;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -126,6 +172,10 @@
 			dependencies = (
 			);
 			name = "Pill-IT";
+			packageProductDependencies = (
+				DBF4468B2B99F4690021BC0F /* CoreXLSX */,
+				DB56005C2B9A372400E6558E /* Alamofire */,
+			);
 			productName = "Pill-IT";
 			productReference = DBF446552B9983930021BC0F /* Pill-IT.app */;
 			productType = "com.apple.product-type.application";
@@ -154,6 +204,10 @@
 				Base,
 			);
 			mainGroup = DBF4464C2B9983930021BC0F;
+			packageReferences = (
+				DBF4468A2B99F4690021BC0F /* XCRemoteSwiftPackageReference "CoreXLSX" */,
+				DB56005B2B9A372400E6558E /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = DBF446562B9983930021BC0F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -182,9 +236,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DBF4465D2B9983930021BC0F /* ViewController.swift in Sources */,
+				DBF446892B99EDB10021BC0F /* MetaDataModel.swift in Sources */,
+				DBF446842B99ADC60021BC0F /* FileDownloadManager.swift in Sources */,
 				DBF446592B9983930021BC0F /* AppDelegate.swift in Sources */,
+				DBF4468E2B9A350E0021BC0F /* PillRepository.swift in Sources */,
+				DBF446822B99AA4C0021BC0F /* RegisterPillViewController.swift in Sources */,
 				DBF4465B2B9983930021BC0F /* SceneDelegate.swift in Sources */,
+				DBF4467E2B9990EF0021BC0F /* PillModel.swift in Sources */,
+				DBF446802B9991820021BC0F /* APIKey.swift in Sources */,
+				DBF446772B9990500021BC0F /* PillAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -401,6 +461,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DB56005B2B9A372400E6558E /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = exactVersion;
+				version = 5.8.0;
+			};
+		};
+		DBF4468A2B99F4690021BC0F /* XCRemoteSwiftPackageReference "CoreXLSX" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CoreOffice/CoreXLSX.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.14.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DB56005C2B9A372400E6558E /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB56005B2B9A372400E6558E /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		DBF4468B2B99F4690021BC0F /* CoreXLSX */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DBF4468A2B99F4690021BC0F /* XCRemoteSwiftPackageReference "CoreXLSX" */;
+			productName = CoreXLSX;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DBF4464D2B9983930021BC0F /* Project object */;
 }

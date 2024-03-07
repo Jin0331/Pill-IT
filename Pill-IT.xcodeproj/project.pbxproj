@@ -13,6 +13,7 @@
 		DBF446622B9983940021BC0F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBF446612B9983940021BC0F /* Assets.xcassets */; };
 		DBF446652B9983940021BC0F /* Base in Resources */ = {isa = PBXBuildFile; fileRef = DBF446642B9983940021BC0F /* Base */; };
 		DBF4466F2B9985FE0021BC0F /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = DBF4466E2B9985FE0021BC0F /* .gitignore */; };
+		DBF446712B998DBD0021BC0F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DBF446702B998DBD0021BC0F /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		DBF446642B9983940021BC0F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DBF446662B9983940021BC0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DBF4466E2B9985FE0021BC0F /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		DBF446702B998DBD0021BC0F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +67,7 @@
 				DBF446612B9983940021BC0F /* Assets.xcassets */,
 				DBF446632B9983940021BC0F /* LaunchScreen.storyboard */,
 				DBF446662B9983940021BC0F /* Info.plist */,
+				DBF446702B998DBD0021BC0F /* GoogleService-Info.plist */,
 			);
 			path = "Pill-IT";
 			sourceTree = "<group>";
@@ -79,8 +82,32 @@
 		DBF4466D2B9985B30021BC0F /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				DBF446742B998E950021BC0F /* Model */,
+				DBF446732B998E8E0021BC0F /* ViewModel */,
+				DBF446722B998E840021BC0F /* View */,
 			);
 			path = Presentation;
+			sourceTree = "<group>";
+		};
+		DBF446722B998E840021BC0F /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DBF446732B998E8E0021BC0F /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		DBF446742B998E950021BC0F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,6 +169,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBF4466F2B9985FE0021BC0F /* .gitignore in Resources */,
+				DBF446712B998DBD0021BC0F /* GoogleService-Info.plist in Resources */,
 				DBF446622B9983940021BC0F /* Assets.xcassets in Resources */,
 				DBF446652B9983940021BC0F /* Base in Resources */,
 			);

@@ -13,6 +13,7 @@
 		DBF048632B9AA89D0020750F /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DBF048622B9AA89D0020750F /* RealmSwift */; };
 		DBF048662B9AA97B0020750F /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = DBF048652B9AA97B0020750F /* Alamofire */; };
 		DBF048682B9AAA080020750F /* PillAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF048672B9AAA080020750F /* PillAPIManager.swift */; };
+		DBF0486A2B9B0E9C0020750F /* PillPermitDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF048692B9B0E9C0020750F /* PillPermitDetailModel.swift */; };
 		DBF446592B9983930021BC0F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF446582B9983930021BC0F /* AppDelegate.swift */; };
 		DBF4465B2B9983930021BC0F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF4465A2B9983930021BC0F /* SceneDelegate.swift */; };
 		DBF446622B9983940021BC0F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBF446612B9983940021BC0F /* Assets.xcassets */; };
@@ -20,7 +21,7 @@
 		DBF4466F2B9985FE0021BC0F /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = DBF4466E2B9985FE0021BC0F /* .gitignore */; };
 		DBF446712B998DBD0021BC0F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DBF446702B998DBD0021BC0F /* GoogleService-Info.plist */; };
 		DBF446772B9990500021BC0F /* PillAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF446762B9990500021BC0F /* PillAPI.swift */; };
-		DBF4467E2B9990EF0021BC0F /* PillModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF4467D2B9990EF0021BC0F /* PillModel.swift */; };
+		DBF4467E2B9990EF0021BC0F /* PillPermitModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF4467D2B9990EF0021BC0F /* PillPermitModel.swift */; };
 		DBF446802B9991820021BC0F /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF4467F2B9991820021BC0F /* APIKey.swift */; };
 		DBF446822B99AA4C0021BC0F /* RegisterPillViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF446812B99AA4C0021BC0F /* RegisterPillViewController.swift */; };
 		DBF446842B99ADC60021BC0F /* FileDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF446832B99ADC60021BC0F /* FileDownloadManager.swift */; };
@@ -35,6 +36,7 @@
 		DB5600632B9A458900E6558E /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
 		DBF0485E2B9AA73A0020750F /* Pill-IT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pill-IT.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBF048672B9AAA080020750F /* PillAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillAPIManager.swift; sourceTree = "<group>"; };
+		DBF048692B9B0E9C0020750F /* PillPermitDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillPermitDetailModel.swift; sourceTree = "<group>"; };
 		DBF446582B9983930021BC0F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DBF4465A2B9983930021BC0F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		DBF446612B9983940021BC0F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -43,7 +45,7 @@
 		DBF4466E2B9985FE0021BC0F /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		DBF446702B998DBD0021BC0F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DBF446762B9990500021BC0F /* PillAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillAPI.swift; sourceTree = "<group>"; };
-		DBF4467D2B9990EF0021BC0F /* PillModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillModel.swift; sourceTree = "<group>"; };
+		DBF4467D2B9990EF0021BC0F /* PillPermitModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillPermitModel.swift; sourceTree = "<group>"; };
 		DBF4467F2B9991820021BC0F /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		DBF446812B99AA4C0021BC0F /* RegisterPillViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPillViewController.swift; sourceTree = "<group>"; };
 		DBF446832B99ADC60021BC0F /* FileDownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDownloadManager.swift; sourceTree = "<group>"; };
@@ -148,7 +150,8 @@
 		DBF446742B998E950021BC0F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				DBF4467D2B9990EF0021BC0F /* PillModel.swift */,
+				DBF4467D2B9990EF0021BC0F /* PillPermitModel.swift */,
+				DBF048692B9B0E9C0020750F /* PillPermitDetailModel.swift */,
 				DBF446882B99EDB10021BC0F /* MetaDataModel.swift */,
 				DB5600632B9A458900E6558E /* RealmModel.swift */,
 			);
@@ -289,13 +292,14 @@
 			files = (
 				DBF446892B99EDB10021BC0F /* MetaDataModel.swift in Sources */,
 				DBF446842B99ADC60021BC0F /* FileDownloadManager.swift in Sources */,
+				DBF0486A2B9B0E9C0020750F /* PillPermitDetailModel.swift in Sources */,
 				DBF446592B9983930021BC0F /* AppDelegate.swift in Sources */,
 				DBF048682B9AAA080020750F /* PillAPIManager.swift in Sources */,
 				DB5600642B9A458900E6558E /* RealmModel.swift in Sources */,
 				DBF4468E2B9A350E0021BC0F /* PillRepository.swift in Sources */,
 				DBF446822B99AA4C0021BC0F /* RegisterPillViewController.swift in Sources */,
 				DBF4465B2B9983930021BC0F /* SceneDelegate.swift in Sources */,
-				DBF4467E2B9990EF0021BC0F /* PillModel.swift in Sources */,
+				DBF4467E2B9990EF0021BC0F /* PillPermitModel.swift in Sources */,
 				DBF446802B9991820021BC0F /* APIKey.swift in Sources */,
 				DBF446772B9990500021BC0F /* PillAPI.swift in Sources */,
 			);

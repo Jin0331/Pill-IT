@@ -1,5 +1,5 @@
 //
-//  PillModel.swift
+//  PillPermit.swift
 //  Pill-IT
 //
 //  Created by JinwooLee on 3/7/24.
@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct PermitHeader : Decodable {
-    let body: PillPermit
+// 의약품 품목 허가 정보
+struct PillPermit : Decodable {
+    let body: PillPermitBody
 }
 
-// 의약품 품목 허가 정보
-struct PillPermit: Decodable {
+struct PillPermitBody: Decodable {
     let pageNo, totalCount, numOfRows: Int
     let items: [PillPermitItems]
 }
@@ -46,7 +46,7 @@ struct PillPermitItems : Decodable {
         self.spcltyPblc = try container.decode(String.self, forKey: .spcltyPblc)
         self.prductType = try container.decode(String.self, forKey: .prductType)
         self.itemIngrName = try container.decode(String.self, forKey: .itemIngrName)
-        self.bigPrdtImgURL = try container.decode(String.self, forKey: .bigPrdtImgURL)
+        self.bigPrdtImgURL = (try? container.decode(String.self, forKey: .bigPrdtImgURL)) ?? ""
         self.permitKindCode = try container.decode(String.self, forKey: .permitKindCode)
     }
 }

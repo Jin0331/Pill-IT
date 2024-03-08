@@ -23,7 +23,7 @@ class RegisterPillViewController : UIViewController {
         
         
         // 의약품 허가
-//        PillAPIManager.shared.callRequest(type: PermitHeader.self, api: .permit(itemName: "크레오신")) { response, error in
+//        PillAPIManager.shared.callRequest(type: PillPermit.self, api: .permit(itemName: "크레오신")) { response, error in
 //            if let error {
 //                print("에러")
 //            } else {
@@ -32,12 +32,13 @@ class RegisterPillViewController : UIViewController {
 //            }
 //        }
         
-        PillAPIManager.shared.callRequest(type: PermitHeader.self, api: .permit(itemName: "크레오신")) { response, error in
+        // 의약품 허가 상세 정보
+        PillAPIManager.shared.callRequest(type: PillPermitDetail.self, api: .permitSpecific(itemSeq: "200108399")) { response, error in
             if let error {
                 print("에러")
             } else {
                 guard let response = response else { return }
-                dump(response.body.items)
+                dump(response.body)
             }
         }
         

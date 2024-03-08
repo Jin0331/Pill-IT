@@ -27,9 +27,9 @@ enum PillAPI : CaseIterable {
         case .permit:
             return URL(string: PillAPI.baseURL + PillAPI.basePermitURL + "getDrugPrdtPrmsnInq05")!
         case .permitSpecific:
-            return URL(string: PillAPI.baseURL + PillAPI.basePermitURL + "getDrugPrdtPrmsnDtlInq03")!
-        case .permitMcpn:
             return URL(string: PillAPI.baseURL + PillAPI.basePermitURL + "getDrugPrdtPrmsnDtlInq04")!
+        case .permitMcpn:
+            return URL(string: PillAPI.baseURL + PillAPI.basePermitURL + "getDrugPrdtMcpnDtlInq04")!
         case .grainInfo:
             return URL(string: PillAPI.baseURL + "MdcinGrnIdntfcInfoService01")!
         }

@@ -7,7 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DB56005D2B9A372400E6558E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = DB56005C2B9A372400E6558E /* Alamofire */; };
+		36C17CC5EEFB965587D9C641 /* Pods_Pill_IT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F575B4DFCF9739A45D4627B /* Pods_Pill_IT.framework */; };
+		DB5600642B9A458900E6558E /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5600632B9A458900E6558E /* RealmModel.swift */; };
+		DBF048612B9AA89D0020750F /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = DBF048602B9AA89D0020750F /* Realm */; };
+		DBF048632B9AA89D0020750F /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DBF048622B9AA89D0020750F /* RealmSwift */; };
+		DBF048662B9AA97B0020750F /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = DBF048652B9AA97B0020750F /* Alamofire */; };
+		DBF048682B9AAA080020750F /* PillAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF048672B9AAA080020750F /* PillAPIManager.swift */; };
 		DBF446592B9983930021BC0F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF446582B9983930021BC0F /* AppDelegate.swift */; };
 		DBF4465B2B9983930021BC0F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF4465A2B9983930021BC0F /* SceneDelegate.swift */; };
 		DBF446622B9983940021BC0F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBF446612B9983940021BC0F /* Assets.xcassets */; };
@@ -20,12 +25,16 @@
 		DBF446822B99AA4C0021BC0F /* RegisterPillViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF446812B99AA4C0021BC0F /* RegisterPillViewController.swift */; };
 		DBF446842B99ADC60021BC0F /* FileDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF446832B99ADC60021BC0F /* FileDownloadManager.swift */; };
 		DBF446892B99EDB10021BC0F /* MetaDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF446882B99EDB10021BC0F /* MetaDataModel.swift */; };
-		DBF4468C2B99F4690021BC0F /* CoreXLSX in Frameworks */ = {isa = PBXBuildFile; productRef = DBF4468B2B99F4690021BC0F /* CoreXLSX */; };
 		DBF4468E2B9A350E0021BC0F /* PillRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF4468D2B9A350E0021BC0F /* PillRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		DBF446552B9983930021BC0F /* Pill-IT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pill-IT.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		876F7A9E99AC6655235324F7 /* Pods-Pill-IT.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pill-IT.release.xcconfig"; path = "Target Support Files/Pods-Pill-IT/Pods-Pill-IT.release.xcconfig"; sourceTree = "<group>"; };
+		9F575B4DFCF9739A45D4627B /* Pods_Pill_IT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pill_IT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7EDB677E79D32DE550D91CD /* Pods-Pill-IT.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pill-IT.debug.xcconfig"; path = "Target Support Files/Pods-Pill-IT/Pods-Pill-IT.debug.xcconfig"; sourceTree = "<group>"; };
+		DB5600632B9A458900E6558E /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
+		DBF0485E2B9AA73A0020750F /* Pill-IT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pill-IT.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DBF048672B9AAA080020750F /* PillAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillAPIManager.swift; sourceTree = "<group>"; };
 		DBF446582B9983930021BC0F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DBF4465A2B9983930021BC0F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		DBF446612B9983940021BC0F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -47,29 +56,42 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DBF4468C2B99F4690021BC0F /* CoreXLSX in Frameworks */,
-				DB56005D2B9A372400E6558E /* Alamofire in Frameworks */,
+				DBF048632B9AA89D0020750F /* RealmSwift in Frameworks */,
+				DBF048662B9AA97B0020750F /* Alamofire in Frameworks */,
+				DBF048612B9AA89D0020750F /* Realm in Frameworks */,
+				36C17CC5EEFB965587D9C641 /* Pods_Pill_IT.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8257AD21077D406D41979B50 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9F575B4DFCF9739A45D4627B /* Pods_Pill_IT.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D0BA31E44DEA2148B9E6572A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D7EDB677E79D32DE550D91CD /* Pods-Pill-IT.debug.xcconfig */,
+				876F7A9E99AC6655235324F7 /* Pods-Pill-IT.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		DBF4464C2B9983930021BC0F = {
 			isa = PBXGroup;
 			children = (
 				DBF4466E2B9985FE0021BC0F /* .gitignore */,
 				DBF446572B9983930021BC0F /* Pill-IT */,
-				DBF446562B9983930021BC0F /* Products */,
+				D0BA31E44DEA2148B9E6572A /* Pods */,
+				8257AD21077D406D41979B50 /* Frameworks */,
+				DBF0485E2B9AA73A0020750F /* Pill-IT.app */,
 			);
-			sourceTree = "<group>";
-		};
-		DBF446562B9983930021BC0F /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				DBF446552B9983930021BC0F /* Pill-IT.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		DBF446572B9983930021BC0F /* Pill-IT */ = {
@@ -128,6 +150,7 @@
 			children = (
 				DBF4467D2B9990EF0021BC0F /* PillModel.swift */,
 				DBF446882B99EDB10021BC0F /* MetaDataModel.swift */,
+				DB5600632B9A458900E6558E /* RealmModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -136,6 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				DBF446762B9990500021BC0F /* PillAPI.swift */,
+				DBF048672B9AAA080020750F /* PillAPIManager.swift */,
 				DBF4467F2B9991820021BC0F /* APIKey.swift */,
 			);
 			path = NetworkManager;
@@ -163,6 +187,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DBF446692B9983940021BC0F /* Build configuration list for PBXNativeTarget "Pill-IT" */;
 			buildPhases = (
+				2895B36157A7A7E7FB0944F4 /* [CP] Check Pods Manifest.lock */,
 				DBF446512B9983930021BC0F /* Sources */,
 				DBF446522B9983930021BC0F /* Frameworks */,
 				DBF446532B9983930021BC0F /* Resources */,
@@ -173,11 +198,12 @@
 			);
 			name = "Pill-IT";
 			packageProductDependencies = (
-				DBF4468B2B99F4690021BC0F /* CoreXLSX */,
-				DB56005C2B9A372400E6558E /* Alamofire */,
+				DBF048602B9AA89D0020750F /* Realm */,
+				DBF048622B9AA89D0020750F /* RealmSwift */,
+				DBF048652B9AA97B0020750F /* Alamofire */,
 			);
 			productName = "Pill-IT";
-			productReference = DBF446552B9983930021BC0F /* Pill-IT.app */;
+			productReference = DBF0485E2B9AA73A0020750F /* Pill-IT.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -205,10 +231,10 @@
 			);
 			mainGroup = DBF4464C2B9983930021BC0F;
 			packageReferences = (
-				DBF4468A2B99F4690021BC0F /* XCRemoteSwiftPackageReference "CoreXLSX" */,
-				DB56005B2B9A372400E6558E /* XCRemoteSwiftPackageReference "Alamofire" */,
+				DBF0485F2B9AA89C0020750F /* XCRemoteSwiftPackageReference "realm-swift" */,
+				DBF048642B9AA97B0020750F /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
-			productRefGroup = DBF446562B9983930021BC0F /* Products */;
+			productRefGroup = DBF4464C2B9983930021BC0F;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -231,6 +257,31 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		2895B36157A7A7E7FB0944F4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Pill-IT-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		DBF446512B9983930021BC0F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -239,6 +290,8 @@
 				DBF446892B99EDB10021BC0F /* MetaDataModel.swift in Sources */,
 				DBF446842B99ADC60021BC0F /* FileDownloadManager.swift in Sources */,
 				DBF446592B9983930021BC0F /* AppDelegate.swift in Sources */,
+				DBF048682B9AAA080020750F /* PillAPIManager.swift in Sources */,
+				DB5600642B9A458900E6558E /* RealmModel.swift in Sources */,
 				DBF4468E2B9A350E0021BC0F /* PillRepository.swift in Sources */,
 				DBF446822B99AA4C0021BC0F /* RegisterPillViewController.swift in Sources */,
 				DBF4465B2B9983930021BC0F /* SceneDelegate.swift in Sources */,
@@ -383,6 +436,7 @@
 		};
 		DBF4466A2B9983940021BC0F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D7EDB677E79D32DE550D91CD /* Pods-Pill-IT.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -404,14 +458,19 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jinoo.Pill-IT";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		DBF4466B2B9983940021BC0F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 876F7A9E99AC6655235324F7 /* Pods-Pill-IT.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -433,9 +492,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jinoo.Pill-IT";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -463,7 +526,15 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		DB56005B2B9A372400E6558E /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+		DBF0485F2B9AA89C0020750F /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				kind = exactVersion;
+				version = 10.45.0;
+			};
+		};
+		DBF048642B9AA97B0020750F /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire";
 			requirement = {
@@ -471,26 +542,23 @@
 				version = 5.8.0;
 			};
 		};
-		DBF4468A2B99F4690021BC0F /* XCRemoteSwiftPackageReference "CoreXLSX" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/CoreOffice/CoreXLSX.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.14.2;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		DB56005C2B9A372400E6558E /* Alamofire */ = {
+		DBF048602B9AA89D0020750F /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DB56005B2B9A372400E6558E /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
+			package = DBF0485F2B9AA89C0020750F /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
 		};
-		DBF4468B2B99F4690021BC0F /* CoreXLSX */ = {
+		DBF048622B9AA89D0020750F /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DBF4468A2B99F4690021BC0F /* XCRemoteSwiftPackageReference "CoreXLSX" */;
-			productName = CoreXLSX;
+			package = DBF0485F2B9AA89C0020750F /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+		DBF048652B9AA97B0020750F /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DBF048642B9AA97B0020750F /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -17,13 +17,19 @@ enum PillAPI : CaseIterable {
     static let basePermitURL = "DrugPrdtPrmsnInfoService05/"
     static let method : HTTPMethod = .get
     
+    case permit(itemName : String)
     case permitSpecific(itemSeq : String)
+    case permitMcpn(itemSeq : String)
     case grainInfo(itemSeq : String)
     
     var endPoint : URL {
         switch self {
+        case .permit:
+            return URL(string: PillAPI.baseURL + PillAPI.basePermitURL + "getDrugPrdtPrmsnInq05")!
         case .permitSpecific:
             return URL(string: PillAPI.baseURL + PillAPI.basePermitURL + "getDrugPrdtPrmsnDtlInq03")!
+        case .permitMcpn:
+            return URL(string: PillAPI.baseURL + PillAPI.basePermitURL + "getDrugPrdtPrmsnDtlInq04")!
         case .grainInfo:
             return URL(string: PillAPI.baseURL + "MdcinGrnIdntfcInfoService01")!
         }
@@ -31,10 +37,10 @@ enum PillAPI : CaseIterable {
     
     var parameter : Parameters {
         switch self {
-        case .permitSpecific(let itemSeq):
-            return ["serviceKey": API.OpenAPIKey, "item_seq": itemSeq]
-        case .grainInfo:
-            return ["serviceKey": API.OpenAPIKey]
+        case .permit(let itemName) :
+            return ["serviceKey": API.OpenAPIKeyDecoding, "type":"json", "item_name": itemName]
+        case .permitSpecific(let itemSeq), .permitMcpn(let itemSeq), .grainInfo(let itemSeq):
+            return ["serviceKey": API.OpenAPIKeyDecoding, "type":"json", "item_seq": itemSeq]
         }
     }
     

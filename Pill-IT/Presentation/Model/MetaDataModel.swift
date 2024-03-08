@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 struct MetaList: Decodable {
     let itemSeq: Int
@@ -18,11 +19,11 @@ struct MetaList: Decodable {
         case etcOtcCode = "전문일반구분"
     }
         
-    enum excelColumnReference : Int, CaseIterable  {
-        case itemSeq = 0
-        case itemName = 1
-        case entpName = 3
-        case etcOtcCode = 8
+    enum excelColumnReference : String  {
+        case itemSeq = "A"
+        case itemName = "B"
+        case entpName = "D"
+        case etcOtcCode = "I"
     }
 }
 

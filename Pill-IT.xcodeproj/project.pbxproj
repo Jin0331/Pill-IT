@@ -27,6 +27,8 @@
 		DBF735082B9CB58100326852 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF735072B9CB58100326852 /* MainTabBarController.swift */; };
 		DBF7350A2B9CBC3000326852 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF735092B9CBC3000326852 /* NotificationViewController.swift */; };
 		DBF7350C2B9CBC4300326852 /* PillListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF7350B2B9CBC4300326852 /* PillListViewController.swift */; };
+		DBF735102B9CC6FD00326852 /* extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF7350F2B9CC6FD00326852 /* extension.swift */; };
+		DBF735122B9CC71800326852 /* WHTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF735112B9CC71800326852 /* WHTabbarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +55,8 @@
 		DBF735072B9CB58100326852 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		DBF735092B9CBC3000326852 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		DBF7350B2B9CBC4300326852 /* PillListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillListViewController.swift; sourceTree = "<group>"; };
+		DBF7350F2B9CC6FD00326852 /* extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extension.swift; sourceTree = "<group>"; };
+		DBF735112B9CC71800326852 /* WHTabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WHTabbarController.swift; sourceTree = "<group>"; };
 		EF4796FC09B9EA3CCC7E0B08 /* Pods-Pill-IT.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pill-IT.release.xcconfig"; path = "Target Support Files/Pods-Pill-IT/Pods-Pill-IT.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -105,6 +109,7 @@
 		DBF4466C2B9985AC0021BC0F /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				DBF7350D2B9CC6C700326852 /* CustomPods */,
 				DBF446852B99B11B0021BC0F /* Extension */,
 				DBF4468F2B9A351E0021BC0F /* Realm */,
 				DBF446752B998FE00021BC0F /* NetworkManager */,
@@ -175,6 +180,23 @@
 				DBF4468D2B9A350E0021BC0F /* PillRepository.swift */,
 			);
 			path = Realm;
+			sourceTree = "<group>";
+		};
+		DBF7350D2B9CC6C700326852 /* CustomPods */ = {
+			isa = PBXGroup;
+			children = (
+				DBF7350E2B9CC6D900326852 /* WHTabbar */,
+			);
+			path = CustomPods;
+			sourceTree = "<group>";
+		};
+		DBF7350E2B9CC6D900326852 /* WHTabbar */ = {
+			isa = PBXGroup;
+			children = (
+				DBF7350F2B9CC6FD00326852 /* extension.swift */,
+				DBF735112B9CC71800326852 /* WHTabbarController.swift */,
+			);
+			path = WHTabbar;
 			sourceTree = "<group>";
 		};
 		E765AAEA483798C8D9CB2B84 /* Pods */ = {
@@ -309,9 +331,11 @@
 				DBF048682B9AAA080020750F /* PillAPIManager.swift in Sources */,
 				DB5600642B9A458900E6558E /* RealmModel.swift in Sources */,
 				DBF4468E2B9A350E0021BC0F /* PillRepository.swift in Sources */,
+				DBF735102B9CC6FD00326852 /* extension.swift in Sources */,
 				DBF735082B9CB58100326852 /* MainTabBarController.swift in Sources */,
 				DBF446822B99AA4C0021BC0F /* RegisterPillViewController.swift in Sources */,
 				DBF7350C2B9CBC4300326852 /* PillListViewController.swift in Sources */,
+				DBF735122B9CC71800326852 /* WHTabbarController.swift in Sources */,
 				DBF4465B2B9983930021BC0F /* SceneDelegate.swift in Sources */,
 				DBF7350A2B9CBC3000326852 /* NotificationViewController.swift in Sources */,
 				DBF4467E2B9990EF0021BC0F /* PillPermitModel.swift in Sources */,

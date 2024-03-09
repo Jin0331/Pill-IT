@@ -5,26 +5,26 @@ PODS:
   - Realm/Headers (10.45.3)
   - RealmSwift (10.45.3):
     - Realm (= 10.45.3)
-  - WHTabbar (0.0.1)
+  - SwipeableTabBarController (3.4.2)
 
 DEPENDENCIES:
   - Alamofire (~> 5.8)
   - RealmSwift (~> 10.45.0)
-  - WHTabbar
+  - SwipeableTabBarController
 
 SPEC REPOS:
   trunk:
     - Alamofire
     - Realm
     - RealmSwift
-    - WHTabbar
+    - SwipeableTabBarController
 
 SPEC CHECKSUMS:
   Alamofire: 02b772c9910e8eba1a079227c32fbd9e46c90a24
   Realm: b277b843c7505c1e30e3a70322a24a09283e62bb
   RealmSwift: f6690053e81733801e6619eb5b39993ab76f7050
-  WHTabbar: add14cb164535a8e5db2068c85a6c523345b681f
+  SwipeableTabBarController: 9a218bdee9426d1bfe36d7962f852024bb08d61b
 
-PODFILE CHECKSUM: dd11c5e12f0f1b71db2ff911960e92e707c899e6
+PODFILE CHECKSUM: c250b389d3e938a6b29fe0054da12d846ee1b860
 
 COCOAPODS: 1.15.2

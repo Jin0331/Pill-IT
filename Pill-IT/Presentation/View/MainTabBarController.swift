@@ -6,10 +6,9 @@
 //
 
 import UIKit
-import WHTabbar
+//import SwipeableTabBarController
 
 class MainTabBarController: WHTabbarController {
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()

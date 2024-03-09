@@ -1,3 +1,30 @@
-PODFILE CHECKSUM: 802b87ada8287b7b157f334d5c733ad0f44b0238
+PODS:
+  - Alamofire (5.9.0)
+  - Realm (10.45.3):
+    - Realm/Headers (= 10.45.3)
+  - Realm/Headers (10.45.3)
+  - RealmSwift (10.45.3):
+    - Realm (= 10.45.3)
+  - WHTabbar (0.0.1)
+
+DEPENDENCIES:
+  - Alamofire (~> 5.8)
+  - RealmSwift (~> 10.45.0)
+  - WHTabbar
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - Realm
+    - RealmSwift
+    - WHTabbar
+
+SPEC CHECKSUMS:
+  Alamofire: 02b772c9910e8eba1a079227c32fbd9e46c90a24
+  Realm: b277b843c7505c1e30e3a70322a24a09283e62bb
+  RealmSwift: f6690053e81733801e6619eb5b39993ab76f7050
+  WHTabbar: add14cb164535a8e5db2068c85a6c523345b681f
+
+PODFILE CHECKSUM: dd11c5e12f0f1b71db2ff911960e92e707c899e6
 
 COCOAPODS: 1.15.2

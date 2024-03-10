@@ -16,7 +16,7 @@ class RegisterPillView: BaseView {
     var viewModel = RegisterPillViewModel()
     
     let exitButton = UIButton().then {
-        $0.setImage(UIImage(systemName: "x.circle"), for: .normal)
+        $0.setImage(DesignSystem.iconImage.clear, for: .normal)
         $0.tintColor = .black
     }
     
@@ -36,13 +36,14 @@ class RegisterPillView: BaseView {
         $0.layer.cornerRadius = 4.0
         $0.layer.borderWidth = 3
         
-        $0.theme.font = UIFont.systemFont(ofSize: 20)
+        $0.theme.font = UIFont.systemFont(ofSize: 15)
         $0.theme.bgColor = UIColor (red: 0.9, green: 0.9, blue: 0.9, alpha: 0.3)
         $0.theme.borderColor = .darkGray
         $0.theme.borderWidth = 3
         $0.theme.separatorColor = UIColor (red: 0.9, green: 0.9, blue: 0.9, alpha: 0.5)
         $0.theme.cellHeight = 50
         $0.forceNoFiltering = false
+        $0.hideResultsList()
     }
     
     override func configureHierarchy() {
@@ -53,7 +54,7 @@ class RegisterPillView: BaseView {
         
         exitButton.snp.makeConstraints { make in
             make.top.leading.equalToSuperview().inset(20)
-            make.size.equalTo(80)
+            make.size.equalTo(40)
         }
         
         titleLabel.snp.makeConstraints { make in

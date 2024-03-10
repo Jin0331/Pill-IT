@@ -42,7 +42,7 @@ class BaseViewController : UIViewController {
         
         // back button
         let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil) // title 부분 수정
-        backBarButtonItem.tintColor = DesignSystem.colorSet.purple
+        backBarButtonItem.tintColor = DesignSystem.colorSet.lightBlack
         self.navigationItem.backBarButtonItem = backBarButtonItem
     }
     

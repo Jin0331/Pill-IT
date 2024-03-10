@@ -26,14 +26,11 @@ class RegisterPillViewModel {
     }
     
     func callRequest(_ searchPill : String) {
-        
-        
         PillAPIManager.shared.callRequest(type: PillPermit.self, api: .permit(itemName: searchPill)) { response, error in
             if let error {
                 print(error)
             } else {
                 guard let response = response else { return }
-//                dump(response.body.items)
                 self.outputItemName.value = response.body.items.map({ value in
                     return value.itemName
                 })

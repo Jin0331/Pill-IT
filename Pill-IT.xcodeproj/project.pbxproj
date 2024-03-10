@@ -29,6 +29,12 @@
 		DBF7350C2B9CBC4300326852 /* PillListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF7350B2B9CBC4300326852 /* PillListViewController.swift */; };
 		DBF735102B9CC6FD00326852 /* extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF7350F2B9CC6FD00326852 /* extension.swift */; };
 		DBF735122B9CC71800326852 /* WHTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF735112B9CC71800326852 /* WHTabbarController.swift */; };
+		DBF735192B9DD3BE00326852 /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF735152B9DD3BE00326852 /* BaseCollectionViewCell.swift */; };
+		DBF7351A2B9DD3BE00326852 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF735162B9DD3BE00326852 /* BaseTableViewCell.swift */; };
+		DBF7351B2B9DD3BE00326852 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF735172B9DD3BE00326852 /* BaseViewController.swift */; };
+		DBF7351C2B9DD3BE00326852 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF735182B9DD3BE00326852 /* BaseView.swift */; };
+		DBF7351E2B9DD3E700326852 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF7351D2B9DD3E600326852 /* Observable.swift */; };
+		DBF735202B9DD3FC00326852 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF7351F2B9DD3FC00326852 /* DesignSystem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +63,12 @@
 		DBF7350B2B9CBC4300326852 /* PillListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillListViewController.swift; sourceTree = "<group>"; };
 		DBF7350F2B9CC6FD00326852 /* extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extension.swift; sourceTree = "<group>"; };
 		DBF735112B9CC71800326852 /* WHTabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WHTabbarController.swift; sourceTree = "<group>"; };
+		DBF735152B9DD3BE00326852 /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
+		DBF735162B9DD3BE00326852 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
+		DBF735172B9DD3BE00326852 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		DBF735182B9DD3BE00326852 /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		DBF7351D2B9DD3E600326852 /* Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		DBF7351F2B9DD3FC00326852 /* DesignSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
 		EF4796FC09B9EA3CCC7E0B08 /* Pods-Pill-IT.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pill-IT.release.xcconfig"; path = "Target Support Files/Pods-Pill-IT/Pods-Pill-IT.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -95,11 +107,10 @@
 			isa = PBXGroup;
 			children = (
 				DBF4466D2B9985B30021BC0F /* Presentation */,
+				DBF735132B9DD35B00326852 /* Utility */,
 				DBF4466C2B9985AC0021BC0F /* Resource */,
 				DBF446582B9983930021BC0F /* AppDelegate.swift */,
 				DBF4465A2B9983930021BC0F /* SceneDelegate.swift */,
-				DBF446612B9983940021BC0F /* Assets.xcassets */,
-				DBF446632B9983940021BC0F /* LaunchScreen.storyboard */,
 				DBF446662B9983940021BC0F /* Info.plist */,
 				DBF446702B998DBD0021BC0F /* GoogleService-Info.plist */,
 			);
@@ -109,11 +120,9 @@
 		DBF4466C2B9985AC0021BC0F /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				DBF7350D2B9CC6C700326852 /* CustomPods */,
-				DBF446852B99B11B0021BC0F /* Extension */,
-				DBF4468F2B9A351E0021BC0F /* Realm */,
-				DBF446752B998FE00021BC0F /* NetworkManager */,
-				DBF446832B99ADC60021BC0F /* FileDownloadManager.swift */,
+				DBF7351F2B9DD3FC00326852 /* DesignSystem.swift */,
+				DBF446612B9983940021BC0F /* Assets.xcassets */,
+				DBF446632B9983940021BC0F /* LaunchScreen.storyboard */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -121,6 +130,7 @@
 		DBF4466D2B9985B30021BC0F /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				DBF735142B9DD38B00326852 /* Base */,
 				DBF446722B998E840021BC0F /* View */,
 				DBF446732B998E8E0021BC0F /* ViewModel */,
 				DBF446742B998E950021BC0F /* Model */,
@@ -197,6 +207,30 @@
 				DBF735112B9CC71800326852 /* WHTabbarController.swift */,
 			);
 			path = WHTabbar;
+			sourceTree = "<group>";
+		};
+		DBF735132B9DD35B00326852 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				DBF7350D2B9CC6C700326852 /* CustomPods */,
+				DBF446852B99B11B0021BC0F /* Extension */,
+				DBF4468F2B9A351E0021BC0F /* Realm */,
+				DBF446752B998FE00021BC0F /* NetworkManager */,
+				DBF446832B99ADC60021BC0F /* FileDownloadManager.swift */,
+				DBF7351D2B9DD3E600326852 /* Observable.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		DBF735142B9DD38B00326852 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				DBF735152B9DD3BE00326852 /* BaseCollectionViewCell.swift */,
+				DBF735162B9DD3BE00326852 /* BaseTableViewCell.swift */,
+				DBF735182B9DD3BE00326852 /* BaseView.swift */,
+				DBF735172B9DD3BE00326852 /* BaseViewController.swift */,
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 		E765AAEA483798C8D9CB2B84 /* Pods */ = {
@@ -324,21 +358,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBF7351E2B9DD3E700326852 /* Observable.swift in Sources */,
 				DBF446892B99EDB10021BC0F /* MetaDataModel.swift in Sources */,
 				DBF446842B99ADC60021BC0F /* FileDownloadManager.swift in Sources */,
 				DBF0486A2B9B0E9C0020750F /* PillPermitDetailModel.swift in Sources */,
+				DBF7351A2B9DD3BE00326852 /* BaseTableViewCell.swift in Sources */,
 				DBF446592B9983930021BC0F /* AppDelegate.swift in Sources */,
+				DBF7351B2B9DD3BE00326852 /* BaseViewController.swift in Sources */,
 				DBF048682B9AAA080020750F /* PillAPIManager.swift in Sources */,
 				DB5600642B9A458900E6558E /* RealmModel.swift in Sources */,
+				DBF735202B9DD3FC00326852 /* DesignSystem.swift in Sources */,
 				DBF4468E2B9A350E0021BC0F /* PillRepository.swift in Sources */,
 				DBF735102B9CC6FD00326852 /* extension.swift in Sources */,
 				DBF735082B9CB58100326852 /* MainTabBarController.swift in Sources */,
 				DBF446822B99AA4C0021BC0F /* RegisterPillViewController.swift in Sources */,
 				DBF7350C2B9CBC4300326852 /* PillListViewController.swift in Sources */,
+				DBF735192B9DD3BE00326852 /* BaseCollectionViewCell.swift in Sources */,
 				DBF735122B9CC71800326852 /* WHTabbarController.swift in Sources */,
 				DBF4465B2B9983930021BC0F /* SceneDelegate.swift in Sources */,
 				DBF7350A2B9CBC3000326852 /* NotificationViewController.swift in Sources */,
 				DBF4467E2B9990EF0021BC0F /* PillPermitModel.swift in Sources */,
+				DBF7351C2B9DD3BE00326852 /* BaseView.swift in Sources */,
 				DBF446802B9991820021BC0F /* APIKey.swift in Sources */,
 				DBF446772B9990500021BC0F /* PillAPI.swift in Sources */,
 			);

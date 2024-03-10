@@ -8,6 +8,8 @@ target 'Pill-IT' do
   # Pods for Pill-IT
   pod 'Alamofire', '~> 5.8'
   pod 'RealmSwift', '~> 10.45.0'
-  #pod 'WHTabbar'
   pod 'SwipeableTabBarController'
+  pod 'SnapKit', '~> 5.7.0'
+  pod 'Then'
+  pod 'SearchTextField'
 end

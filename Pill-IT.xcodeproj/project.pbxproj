@@ -35,6 +35,10 @@
 		DBF7351C2B9DD3BE00326852 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF735182B9DD3BE00326852 /* BaseView.swift */; };
 		DBF7351E2B9DD3E700326852 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF7351D2B9DD3E600326852 /* Observable.swift */; };
 		DBF735202B9DD3FC00326852 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF7351F2B9DD3FC00326852 /* DesignSystem.swift */; };
+		DBF735222B9DD6F900326852 /* RegisterPillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF735212B9DD6F900326852 /* RegisterPillView.swift */; };
+		DBF735242B9DE34900326852 /* UITextfield+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF735232B9DE34900326852 /* UITextfield+Extension.swift */; };
+		DBF735262B9DECCE00326852 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF735252B9DECCE00326852 /* Protocol.swift */; };
+		DBF735282B9DF02500326852 /* RegisterPillViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF735272B9DF02500326852 /* RegisterPillViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +73,10 @@
 		DBF735182B9DD3BE00326852 /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		DBF7351D2B9DD3E600326852 /* Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		DBF7351F2B9DD3FC00326852 /* DesignSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
+		DBF735212B9DD6F900326852 /* RegisterPillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPillView.swift; sourceTree = "<group>"; };
+		DBF735232B9DE34900326852 /* UITextfield+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextfield+Extension.swift"; sourceTree = "<group>"; };
+		DBF735252B9DECCE00326852 /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
+		DBF735272B9DF02500326852 /* RegisterPillViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPillViewModel.swift; sourceTree = "<group>"; };
 		EF4796FC09B9EA3CCC7E0B08 /* Pods-Pill-IT.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pill-IT.release.xcconfig"; path = "Target Support Files/Pods-Pill-IT/Pods-Pill-IT.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -144,6 +152,7 @@
 				DBF735072B9CB58100326852 /* MainTabBarController.swift */,
 				DBF735092B9CBC3000326852 /* NotificationViewController.swift */,
 				DBF7350B2B9CBC4300326852 /* PillListViewController.swift */,
+				DBF735212B9DD6F900326852 /* RegisterPillView.swift */,
 				DBF446812B99AA4C0021BC0F /* RegisterPillViewController.swift */,
 			);
 			path = View;
@@ -152,6 +161,7 @@
 		DBF446732B998E8E0021BC0F /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				DBF735272B9DF02500326852 /* RegisterPillViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -180,6 +190,7 @@
 		DBF446852B99B11B0021BC0F /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				DBF735232B9DE34900326852 /* UITextfield+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -218,6 +229,7 @@
 				DBF446752B998FE00021BC0F /* NetworkManager */,
 				DBF446832B99ADC60021BC0F /* FileDownloadManager.swift */,
 				DBF7351D2B9DD3E600326852 /* Observable.swift */,
+				DBF735252B9DECCE00326852 /* Protocol.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -225,10 +237,10 @@
 		DBF735142B9DD38B00326852 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				DBF735172B9DD3BE00326852 /* BaseViewController.swift */,
 				DBF735152B9DD3BE00326852 /* BaseCollectionViewCell.swift */,
 				DBF735162B9DD3BE00326852 /* BaseTableViewCell.swift */,
 				DBF735182B9DD3BE00326852 /* BaseView.swift */,
-				DBF735172B9DD3BE00326852 /* BaseViewController.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -358,8 +370,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBF735282B9DF02500326852 /* RegisterPillViewModel.swift in Sources */,
 				DBF7351E2B9DD3E700326852 /* Observable.swift in Sources */,
+				DBF735262B9DECCE00326852 /* Protocol.swift in Sources */,
 				DBF446892B99EDB10021BC0F /* MetaDataModel.swift in Sources */,
+				DBF735222B9DD6F900326852 /* RegisterPillView.swift in Sources */,
 				DBF446842B99ADC60021BC0F /* FileDownloadManager.swift in Sources */,
 				DBF0486A2B9B0E9C0020750F /* PillPermitDetailModel.swift in Sources */,
 				DBF7351A2B9DD3BE00326852 /* BaseTableViewCell.swift in Sources */,
@@ -369,6 +384,7 @@
 				DB5600642B9A458900E6558E /* RealmModel.swift in Sources */,
 				DBF735202B9DD3FC00326852 /* DesignSystem.swift in Sources */,
 				DBF4468E2B9A350E0021BC0F /* PillRepository.swift in Sources */,
+				DBF735242B9DE34900326852 /* UITextfield+Extension.swift in Sources */,
 				DBF735102B9CC6FD00326852 /* extension.swift in Sources */,
 				DBF735082B9CB58100326852 /* MainTabBarController.swift in Sources */,
 				DBF446822B99AA4C0021BC0F /* RegisterPillViewController.swift in Sources */,

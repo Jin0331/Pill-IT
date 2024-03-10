@@ -5,26 +5,38 @@ PODS:
   - Realm/Headers (10.45.3)
   - RealmSwift (10.45.3):
     - Realm (= 10.45.3)
+  - SearchTextField (1.2.4)
+  - SnapKit (5.7.1)
   - SwipeableTabBarController (3.4.2)
+  - Then (3.0.0)
 
 DEPENDENCIES:
   - Alamofire (~> 5.8)
   - RealmSwift (~> 10.45.0)
+  - SearchTextField
+  - SnapKit (~> 5.7.0)
   - SwipeableTabBarController
+  - Then
 
 SPEC REPOS:
   trunk:
     - Alamofire
     - Realm
     - RealmSwift
+    - SearchTextField
+    - SnapKit
     - SwipeableTabBarController
+    - Then
 
 SPEC CHECKSUMS:
   Alamofire: 02b772c9910e8eba1a079227c32fbd9e46c90a24
   Realm: b277b843c7505c1e30e3a70322a24a09283e62bb
   RealmSwift: f6690053e81733801e6619eb5b39993ab76f7050
+  SearchTextField: 40dc3cc57def5a211f263cac263622c163bbc25a
+  SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
   SwipeableTabBarController: 9a218bdee9426d1bfe36d7962f852024bb08d61b
+  Then: 844265ae87834bbe1147d91d5d41a404da2ec27d
 
-PODFILE CHECKSUM: c250b389d3e938a6b29fe0054da12d846ee1b860
+PODFILE CHECKSUM: d708fc17d629eeb7c90228a6431aa4e81582a924
 
 COCOAPODS: 1.15.2

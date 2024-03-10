@@ -94,6 +94,14 @@ class RegisterPillView: BaseView {
                 }
             }
         }
+        
+        // autocomplete이 선택되었을 때
+        userInputTextfield.itemSelectionHandler = {item, itemPosition in
+            self.userInputTextfield.text = item[itemPosition].title
+            
+            // 커서 맨 앞으로 옮기기
+            self.userInputTextfield.selectedTextRange = self.userInputTextfield.textRange(from: self.userInputTextfield.beginningOfDocument, to: self.userInputTextfield.beginningOfDocument)
+        }
     }
     
     @objc func exitButtonClickedd(_ sender : UIButton) {

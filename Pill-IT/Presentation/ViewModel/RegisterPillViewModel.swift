@@ -9,7 +9,10 @@ import Foundation
 
 class RegisterPillViewModel {
     
-    var outputItemName : Observable<[String]> = Observable([])
+    var outputItemNameList : Observable<[String]> = Observable([])
+    var outputItemNameSeqList : Observable<[String]> = Observable([])
+    var inputItemSeq : Observable<String?> = Observable(nil)
+    
     
     var callRequestTrigger : Observable<String?> = Observable(nil)
     
@@ -21,20 +24,46 @@ class RegisterPillViewModel {
         
         callRequestTrigger.bind { value in
             guard let value = value else { return }
-            self.callRequest(value)
+            self.callRequestForItemList(value)
         }
+        
+        inputItemSeq.bind { value in
+            guard let value = value else { return }
+            
+            
+        }
+        
     }
     
-    func callRequest(_ searchPill : String) {
+    private func callRequestForItemList(_ searchPill : String) {
         PillAPIManager.shared.callRequest(type: PillPermit.self, api: .permit(itemName: searchPill)) { response, error in
             if let error {
                 print(error)
             } else {
                 guard let response = response else { return }
-                self.outputItemName.value = response.body.items.map({ value in
+                self.outputItemNameList.value = response.body.items.map({ value in
+                    return value.itemName
+                })
+                self.outputItemNameSeqList.value = response.body.items.map({ value in
+                    return value.itemSeq
+                })
+
+            }
+        }
+    }
+    
+    private func callRequestForImage(_ searchPillSeq : String) {
+        PillAPIManager.shared.callRequest(type: PillPermit.self, api: .permit(itemName: searchPillSeq)) { response, error in
+            if let error {
+                print(error)
+            } else {
+                guard let response = response else { return }
+                self.outputItemNameList.value = response.body.items.map({ value in
                     return value.itemName
                 })
             }
         }
     }
 }
+
+

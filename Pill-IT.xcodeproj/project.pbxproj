@@ -39,6 +39,7 @@
 		DBF735242B9DE34900326852 /* UITextfield+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF735232B9DE34900326852 /* UITextfield+Extension.swift */; };
 		DBF735262B9DECCE00326852 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF735252B9DECCE00326852 /* Protocol.swift */; };
 		DBF735282B9DF02500326852 /* RegisterPillViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF735272B9DF02500326852 /* RegisterPillViewModel.swift */; };
+		DBF7352C2B9E9F2700326852 /* PillGrainInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF7352B2B9E9F2700326852 /* PillGrainInfo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,6 +78,7 @@
 		DBF735232B9DE34900326852 /* UITextfield+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextfield+Extension.swift"; sourceTree = "<group>"; };
 		DBF735252B9DECCE00326852 /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
 		DBF735272B9DF02500326852 /* RegisterPillViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPillViewModel.swift; sourceTree = "<group>"; };
+		DBF7352B2B9E9F2700326852 /* PillGrainInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillGrainInfo.swift; sourceTree = "<group>"; };
 		EF4796FC09B9EA3CCC7E0B08 /* Pods-Pill-IT.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pill-IT.release.xcconfig"; path = "Target Support Files/Pods-Pill-IT/Pods-Pill-IT.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -173,6 +175,7 @@
 				DBF048692B9B0E9C0020750F /* PillPermitDetailModel.swift */,
 				DBF446882B99EDB10021BC0F /* MetaDataModel.swift */,
 				DB5600632B9A458900E6558E /* RealmModel.swift */,
+				DBF7352B2B9E9F2700326852 /* PillGrainInfo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -382,6 +385,7 @@
 				DBF7351B2B9DD3BE00326852 /* BaseViewController.swift in Sources */,
 				DBF048682B9AAA080020750F /* PillAPIManager.swift in Sources */,
 				DB5600642B9A458900E6558E /* RealmModel.swift in Sources */,
+				DBF7352C2B9E9F2700326852 /* PillGrainInfo.swift in Sources */,
 				DBF735202B9DD3FC00326852 /* DesignSystem.swift in Sources */,
 				DBF4468E2B9A350E0021BC0F /* PillRepository.swift in Sources */,
 				DBF735242B9DE34900326852 /* UITextfield+Extension.swift in Sources */,

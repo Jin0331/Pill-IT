@@ -27,18 +27,20 @@ class RegisterPillView: BaseView {
     }
     
     let userInputTextfield = SearchTextField().then {
-        $0.attributedPlaceholder = NSAttributedString(string: "복용중인 약을 입력해주세요", attributes: [NSAttributedString.Key.foregroundColor : UIColor.darkGray])
+        
+        $0.attributedPlaceholder = NSAttributedString(string: "복용중인 약을 입력해주세요", attributes: [NSAttributedString.Key.foregroundColor : DesignSystem.colorSet.lightBlack])
         $0.addLeftPadding()
+        $0.clearButtonMode = .always
         $0.font = .systemFont(ofSize: 23, weight: .heavy)
         $0.textColor = .black
         $0.layer.borderWidth = 1.0
-        $0.layer.borderColor = UIColor.darkGray.cgColor
+        $0.layer.borderColor = DesignSystem.colorSet.lightBlack.cgColor
         $0.layer.cornerRadius = 4.0
         $0.layer.borderWidth = 3
         
         $0.theme.font = UIFont.systemFont(ofSize: 15)
         $0.theme.bgColor = UIColor (red: 0.9, green: 0.9, blue: 0.9, alpha: 0.3)
-        $0.theme.borderColor = .darkGray
+        $0.theme.borderColor = DesignSystem.colorSet.lightBlack
         $0.theme.borderWidth = 3
         $0.theme.separatorColor = UIColor (red: 0.9, green: 0.9, blue: 0.9, alpha: 0.5)
         $0.theme.cellHeight = 50
@@ -75,19 +77,34 @@ class RegisterPillView: BaseView {
         super.configureView()
         
         exitButton.addTarget(self, action: #selector(exitButtonClickedd), for: .touchUpInside)
+        textfieldHandler()
         
+    }
+    
+    @objc func exitButtonClickedd(_ sender : UIButton) {
+        
+        print(#function)
+        actionDelegate?.disMissPresent()
+    }
+    
+    private func textfieldHandler() {
         // 2글자 이상 입력될때 실행되도록
         userInputTextfield.userStoppedTypingHandler = {
             if let criteria = self.userInputTextfield.text {
-                if criteria.count >= 2 {
-
+                
+                let whipeSpaceRemovedText = criteria.replacingOccurrences(of: " ", with: "")
+                
+                print(whipeSpaceRemovedText)
+                
+                if whipeSpaceRemovedText.count >= 2 {
+                    
                     // Show the loading indicator
                     self.userInputTextfield.showLoadingIndicator()
-
-                    self.viewModel.callRequestTrigger.value = criteria
-                    self.viewModel.outputItemName.bind { value in
+                    
+                    self.viewModel.callRequestTrigger.value = whipeSpaceRemovedText
+                    self.viewModel.outputItemNameList.bind { value in
                         self.userInputTextfield.filterStrings(value)
-
+                        
                         // Hide loading indicator
                         self.userInputTextfield.stopLoadingIndicator()
                     }
@@ -98,16 +115,19 @@ class RegisterPillView: BaseView {
         // autocomplete이 선택되었을 때
         userInputTextfield.itemSelectionHandler = {item, itemPosition in
             self.userInputTextfield.text = item[itemPosition].title
+            self.viewModel.inputItemSeq.value = self.viewModel.outputItemNameSeqList.value[itemPosition]
+            
+            print(self.viewModel.inputItemSeq.value)
             
             // 커서 맨 앞으로 옮기기
             self.userInputTextfield.selectedTextRange = self.userInputTextfield.textRange(from: self.userInputTextfield.beginningOfDocument, to: self.userInputTextfield.beginningOfDocument)
+            
+            // 기존 autucomplete 삭제
+            self.userInputTextfield.filterItems([])
+            
+            self.endEditing(true)
+            
         }
     }
     
-    @objc func exitButtonClickedd(_ sender : UIButton) {
-        
-        print(#function)
-        actionDelegate?.disMissPresent()
-    }
-
 }

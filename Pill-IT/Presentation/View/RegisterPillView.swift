@@ -54,14 +54,14 @@ class RegisterPillView: BaseView {
         $0.text = "이미지 등록하기"
         $0.textColor = DesignSystem.colorSet.gray
         $0.font = .systemFont(ofSize: 18, weight: .heavy)
-        $0.isHidden = false
+        $0.isHidden = true
     }
     
     let buttonStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.distribution = .fillEqually
         $0.spacing = 10
-        $0.isHidden = false
+        $0.isHidden = true
     }
     
     let defaultButton = UIButton(type: .system).then{
@@ -96,7 +96,7 @@ class RegisterPillView: BaseView {
         $0.layer.borderColor = DesignSystem.colorSet.lightBlack.cgColor
         $0.layer.cornerRadius = 4.0
         $0.layer.borderWidth = 3
-        $0.isHidden = false
+        $0.isHidden = true
     }
     
     let completeButton = UIButton().then {

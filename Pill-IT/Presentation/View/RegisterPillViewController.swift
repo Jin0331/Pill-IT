@@ -12,7 +12,7 @@ import YPImagePicker
 
 //TODO: - 복용약 이름이 제대로 설정되지 않았을 때, Timer를 통해서 메세지 알리기 - Toast로 해결
 //TODO: - 의약품 일련번호, 이름 DB Migration 해야됨
-class RegisterPillViewController : BaseViewController {
+final class RegisterPillViewController : BaseViewController {
     
     let mainView = RegisterPillView()
     var viewModel = RegisterPillViewModel()
@@ -118,32 +118,61 @@ extension RegisterPillViewController : RegisterPillAction {
     }
     
     func defaultButtonAction() {
-        guard let defaultImage = self.viewModel.outputLocalImageURL.value else {
-            self.view.makeToast("식품의약처에 등록된 이미지가 없습니다 🥲", duration: 3.0, position: .center)
-            return
-        }
         
-        self.mainView.pillImageView.isHidden = false
-        let url = URL(fileURLWithPath: defaultImage)
-        let provider = LocalFileImageDataProvider(fileURL: url)
-        self.mainView.pillImageView.kf.setImage(with: provider, options: [.transition(.fade(1))])
+        self.view.makeToast("잠시만 기다려주세요 😓", duration: 1.0, position: .center)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+        viewModel.callcallRequestForImageTrigger.value = viewModel.inputItemSeq.value
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.5, qos: .background) {
+            
+            guard let defaultImage = self.viewModel.localImageURL.value else {
+                self.view.makeToast("식품의약처에 등록된 이미지가 없습니다 🥲", duration: 3.0, position: .center)
+                return
+            }
+            
+            self.mainView.pillImageView.isHidden = false
+            self.getLocalImage(imagePath: defaultImage)
             self.mainView.completeButton.isHidden = false
+            
+            self.view.makeToast("이미지를 불러왔어요 ✅", duration: 3.0, position: .center)
         }
     }
     
     func cameraGalleryButtonAction() {
-        let picker = YPImagePicker()
-        picker.didFinishPicking { [unowned picker] items, _ in
-            if let photo = items.singlePhoto {
-                print(photo.fromCamera) // Image source (camera or library)
-                print(photo.image) // Final image selected by the user
-                print(photo.originalImage) // original image selected by the user, unfiltered
-                print(photo.modifiedImage) // Transformed image, can be nil
-                print(photo.exifMeta) // Print exif meta data of original image.
+        var config = YPImagePickerConfiguration()
+        config.shouldSaveNewPicturesToAlbum = true // YPImagePicker의 카메라로 찍은 사진 핸드폰에 저장하기
+        config.showsPhotoFilters = false
+        let picker = YPImagePicker(configuration: config)
+        
+        picker.didFinishPicking { [weak self] items, cancelled in
+            guard let self = self else { return }
+
+            if cancelled {
+                self.view.makeToast("이미지 촬영 또는 선택이 취소되었습니다 🥲", duration: 3.0, position: .center)
             }
-            picker.dismiss(animated: true, completion: nil)
+
+            if let photo = items.singlePhoto {
+                guard let itemSeq = self.viewModel.inputItemSeq.value else { return }
+                
+                FileDownloadManager.shared.saveLocalImage(image: photo.image, pillID: itemSeq) { [weak self] value in
+                    guard let self = self else { return }
+                    
+                    switch value {
+                    case .success(let result):
+                        self.viewModel.localImageURL.value = result.path
+                        self.mainView.pillImageView.isHidden = false
+                        self.getLocalImage(imagePath: result.path)
+                        self.mainView.completeButton.isHidden = false // complete 활성화
+                        
+                        self.view.makeToast("이미지를 불러왔어요 ✅", duration: 3.0, position: .center)
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
+                
+                
+            }
+            picker.dismiss(animated: true)
         }
         present(picker, animated: true, completion: nil)
     }
@@ -152,6 +181,11 @@ extension RegisterPillViewController : RegisterPillAction {
         
     }
     
+    private func getLocalImage(imagePath : String ) {
+        let url = URL(fileURLWithPath: imagePath)
+        let provider = LocalFileImageDataProvider(fileURL: url)
+        self.mainView.pillImageView.kf.setImage(with: provider, options: [.transition(.fade(1)), .forceRefresh])
+    }
     
 }
 

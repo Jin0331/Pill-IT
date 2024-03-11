@@ -13,7 +13,7 @@ class RegisterPillViewModel {
     
     var outputItemNameList : Observable<[String]?> = Observable(nil)
     var outputItemNameSeqList : Observable<[String]?> = Observable(nil)
-    var outputLocalImageURL : Observable<String?> = Observable(nil)
+    var localImageURL : Observable<String?> = Observable(nil)
     
     var callRequestForItemListTrigger : Observable<String?> = Observable(nil)
     var callcallRequestForImageTrigger : Observable<String?> = Observable(nil)
@@ -31,11 +31,19 @@ class RegisterPillViewModel {
             self.callRequestForItemList(value)
         }
         
-        inputItemSeq.bind { [weak self] value in
+        callcallRequestForImageTrigger.bind { [weak self] value in
             guard let self = self else { return }
             guard let value = value else { return }
             
             self.callRequestForImage(value)
+        }
+        
+        
+        inputItemSeq.bind { [weak self] value in
+            guard let self = self else { return }
+            guard let value = value else { return }
+            
+            // 흐음???
         }
         
     }
@@ -69,7 +77,7 @@ class RegisterPillViewModel {
         PillAPIManager.shared.callRequest(type: PillGrainInfo.self, api: .grainInfo(itemSeq: searchPillSeq)) { response, error in
             if let error {
                 print("callRequestForImage - No Search List - 데이터 없음")
-                self.outputLocalImageURL.value = nil
+                self.localImageURL.value = nil
             } else {
                 guard let response = response else { return }
                 guard let imageURLKey = response.body.items.first?.itemImage.split(separator: "/").last else { return }
@@ -83,7 +91,7 @@ class RegisterPillViewModel {
                     switch value {
                     case .success(let result):
                         print(result.path)
-                        self.outputLocalImageURL.value = result.path
+                        self.localImageURL.value = result.path
                     case .failure(let error):
                         print(error)
                     }

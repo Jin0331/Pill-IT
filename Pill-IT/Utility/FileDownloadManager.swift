@@ -5,7 +5,7 @@
 //  Created by JinwooLee on 3/7/24.
 //
 
-import Foundation
+import UIKit
 
 final class FileDownloadManager {
     
@@ -27,6 +27,15 @@ final class FileDownloadManager {
                 return URL(string: FileDownloadManager.FileType.xls + "OpenData_ItemPermit")!
             case .image(let id):
                 return URL(string : FileDownloadManager.FileType.image + id)!
+            }
+        }
+        
+        var dirExtension : String {
+            switch self {
+            case .image :
+                return "image"
+            default :
+                return "meta"
             }
         }
         
@@ -56,11 +65,8 @@ final class FileDownloadManager {
             }
             
             let fileManager = FileManager.default
-            // Specify the directory where you want to save the file
             let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
-            
-            let directoryURL = documentsDirectory.appendingPathComponent("image/\(pillID)")
-            
+            let directoryURL = documentsDirectory.appendingPathComponent("\(type.dirExtension)/\(pillID)")
             let destinationURL = directoryURL.appendingPathComponent(pillID + type.endPointExtension)
             
             // 폴더 생성
@@ -84,4 +90,27 @@ final class FileDownloadManager {
         
         task.resume()
     }
+    
+    func saveLocalImage(image: UIImage, pillID : String, completion: @escaping (Result<URL, Error>) -> Void) {
+        guard let data = image.jpegData(compressionQuality: 0.6) else { return }
+        
+        let fileManager = FileManager.default
+        let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let directoryURL = documentsDirectory.appendingPathComponent("image/\(pillID)")
+        let destinationURL = directoryURL.appendingPathComponent(pillID + ".jpg")
+        
+        do {
+            try fileManager.createDirectory(at: directoryURL, withIntermediateDirectories: true)
+        } catch let error {
+            print("Create file error: \(error.localizedDescription)")
+        }
+        
+        do {
+            try data.write(to: destinationURL)
+            completion(.success(destinationURL))
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+
 }

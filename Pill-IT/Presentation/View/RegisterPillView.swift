@@ -102,7 +102,7 @@ class RegisterPillView: BaseView {
         $0.setTitle("복용약 등록 🥰", for: .normal)
         $0.setTitleColor(DesignSystem.colorSet.white, for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 23, weight: .heavy)
-        $0.layer.borderWidth = DesignSystem.viewLayout.borderWidth
+        $0.backgroundColor = DesignSystem.colorSet.lightBlack
         $0.layer.cornerRadius = DesignSystem.viewLayout.cornerRadius
         $0.isHidden = true
     }

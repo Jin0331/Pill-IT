@@ -54,7 +54,10 @@ final class RegisterPillViewController : BaseViewController {
                     self.viewModel.callRequestForItemListTrigger.value = whipeSpaceRemovedText
                     self.viewModel.outputItemNameList.bind { [weak self] value in
                         guard let self = self else { return }
-                        guard let value = value else { print("wrong text!");return }
+                        guard let value = value else {
+                            self.view.makeToast("검색어를 확인해주세요❗️", duration: 1.0, position: .center)
+                            return
+                        }
                         
                         self.mainView.userInputTextfield.filterStrings(value)
                         self.mainView.userInputTextfield.stopLoadingIndicator()
@@ -68,10 +71,14 @@ final class RegisterPillViewController : BaseViewController {
             guard let self = self else { return }
             guard let outputItemNameSeqList = self.viewModel.outputItemNameSeqList.value else { return }
             
-            self.mainView.endEditing(true)
+            DispatchQueue.main.async {
+                self.mainView.endEditing(true)
+            }
+            
             self.mainView.setActivityIndicator()
             
             self.mainView.userInputTextfield.text = item[itemPosition].title
+            self.viewModel.inputeItemName.value = item[itemPosition].title
             self.viewModel.inputItemSeq.value = outputItemNameSeqList[itemPosition]
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, qos: .background) {
@@ -93,7 +100,7 @@ final class RegisterPillViewController : BaseViewController {
                 self.mainView.activityIndicator.stopAnimating()
                 self.mainView.loadingBgView.removeFromSuperview()
                 
-                self.view.makeToast("약에 대한 검색이 완료되었어요 ✅", duration: 3.0, position: .center)
+                self.view.makeToast("약에 대한 검색이 완료되었어요 ✅", duration: 1.0, position: .center)
             }
         }
     }
@@ -123,7 +130,7 @@ extension RegisterPillViewController : RegisterPillAction {
         
         viewModel.callcallRequestForImageTrigger.value = viewModel.inputItemSeq.value
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.5, qos: .background) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.7, qos: .background) {
             
             guard let defaultImage = self.viewModel.localImageURL.value else {
                 self.view.makeToast("식품의약처에 등록된 이미지가 없습니다 🥲", duration: 3.0, position: .center)

@@ -10,6 +10,7 @@ import Foundation
 class RegisterPillViewModel {
     
     var inputItemSeq : Observable<String?> = Observable(nil)
+    var inputeItemName : Observable<String?> = Observable(nil)
     
     var outputItemNameList : Observable<[String]?> = Observable(nil)
     var outputItemNameSeqList : Observable<[String]?> = Observable(nil)

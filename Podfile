@@ -15,4 +15,5 @@ target 'Pill-IT' do
   pod 'Kingfisher', '~> 7.0'
   pod 'Toast-Swift', '~> 5.1.0'
   pod 'NVActivityIndicatorView'
+  pod 'YPImagePicker'
 end

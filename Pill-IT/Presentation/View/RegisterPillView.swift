@@ -47,21 +47,21 @@ class RegisterPillView: BaseView {
         $0.forceNoFiltering = false
         $0.minCharactersNumberToStartFiltering = 2
         $0.comparisonOptions = [.caseInsensitive]
-//        $0.hideResultsList()
+        $0.hideResultsList()
     }
     
     let addImageTitleLabel = UILabel().then {
         $0.text = "이미지 등록하기"
         $0.textColor = DesignSystem.colorSet.gray
         $0.font = .systemFont(ofSize: 18, weight: .heavy)
-        $0.isHidden = true
+        $0.isHidden = false
     }
     
     let buttonStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.distribution = .fillEqually
         $0.spacing = 10
-        $0.isHidden = true
+        $0.isHidden = false
     }
     
     let defaultButton = UIButton(type: .system).then{
@@ -96,7 +96,7 @@ class RegisterPillView: BaseView {
         $0.layer.borderColor = DesignSystem.colorSet.lightBlack.cgColor
         $0.layer.cornerRadius = 4.0
         $0.layer.borderWidth = 3
-        $0.isHidden = true
+        $0.isHidden = false
     }
     
     let completeButton = UIButton().then {
@@ -108,7 +108,7 @@ class RegisterPillView: BaseView {
         $0.isHidden = true
     }
     
-    // lazy: 사용되기 전까지 연산되지 않는다. 로딩이 불필요한 경우에도 메모리를 잡아먹지 않는다.
+    // Loading
     lazy var loadingBgView: UIView = {
         let bgView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
         bgView.backgroundColor = .clear
@@ -117,7 +117,6 @@ class RegisterPillView: BaseView {
     }()
     
     lazy var activityIndicator: NVActivityIndicatorView = {
-        // ✅ activity indicator 설정
         let activityIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40),
                                                         type: .circleStrokeSpin,
                                                         color: DesignSystem.colorSet.lightBlack,
@@ -191,7 +190,7 @@ class RegisterPillView: BaseView {
         webSearchButton.addTarget(self, action: #selector(webSearchButtonClicked), for: .touchUpInside)
     }
     
-    @objc func exitButtonClicked(_ sender : UIButton) {
+    @objc func exitButtonClicked() {
         print(#function)
         actionDelegate?.disMissPresent()
     }

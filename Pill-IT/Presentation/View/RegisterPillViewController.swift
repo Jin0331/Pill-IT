@@ -8,9 +8,10 @@
 import UIKit
 import Toast_Swift
 import Kingfisher
+import YPImagePicker
 
-//TODO: - 복용약 이름이 제대로 설정되지 않았을 때, Timer를 통해서 메세지 알리기
-
+//TODO: - 복용약 이름이 제대로 설정되지 않았을 때, Timer를 통해서 메세지 알리기 - Toast로 해결
+//TODO: - 의약품 일련번호, 이름 DB Migration 해야됨
 class RegisterPillViewController : BaseViewController {
     
     let mainView = RegisterPillView()
@@ -133,7 +134,18 @@ extension RegisterPillViewController : RegisterPillAction {
     }
     
     func cameraGalleryButtonAction() {
-        
+        let picker = YPImagePicker()
+        picker.didFinishPicking { [unowned picker] items, _ in
+            if let photo = items.singlePhoto {
+                print(photo.fromCamera) // Image source (camera or library)
+                print(photo.image) // Final image selected by the user
+                print(photo.originalImage) // original image selected by the user, unfiltered
+                print(photo.modifiedImage) // Transformed image, can be nil
+                print(photo.exifMeta) // Print exif meta data of original image.
+            }
+            picker.dismiss(animated: true, completion: nil)
+        }
+        present(picker, animated: true, completion: nil)
     }
     
     func webSearchButtonAction() {
@@ -143,7 +155,7 @@ extension RegisterPillViewController : RegisterPillAction {
     
 }
 
-extension RegisterPillViewController :  UITextFieldDelegate {
+extension RegisterPillViewController : UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         print(#function)

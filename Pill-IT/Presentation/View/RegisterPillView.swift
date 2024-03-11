@@ -18,7 +18,7 @@ class RegisterPillView: BaseView {
     
     let exitButton = UIButton().then {
         $0.setImage(DesignSystem.iconImage.clear, for: .normal)
-        $0.tintColor = .black
+        $0.tintColor = DesignSystem.colorSet.black
     }
     
     let titleLabel = UILabel().then {
@@ -28,21 +28,20 @@ class RegisterPillView: BaseView {
     }
     
     let userInputTextfield = SearchTextField().then {
-        
         $0.attributedPlaceholder = NSAttributedString(string: "복용중인 약을 입력해주세요", attributes: [NSAttributedString.Key.foregroundColor : DesignSystem.colorSet.lightBlack])
         $0.addLeftPadding()
         $0.clearButtonMode = .always
         $0.font = .systemFont(ofSize: 23, weight: .heavy)
-        $0.textColor = .black
+        $0.textColor = DesignSystem.colorSet.black
+        $0.layer.borderWidth = DesignSystem.viewLayout.borderWidth
         $0.layer.borderColor = DesignSystem.colorSet.lightBlack.cgColor
-        $0.layer.cornerRadius = 4.0
-        $0.layer.borderWidth = 3
+        $0.layer.cornerRadius = DesignSystem.viewLayout.cornerRadius
         
-        $0.theme.font = UIFont.systemFont(ofSize: 15)
-        $0.theme.bgColor = UIColor (red: 0.9, green: 0.9, blue: 0.9, alpha: 0.7)
+        
+        $0.theme.font = .systemFont(ofSize: 15)
+        $0.theme.bgColor = DesignSystem.colorSet.lightGray
         $0.theme.borderColor = DesignSystem.colorSet.lightBlack
-        $0.theme.borderWidth = 3
-        $0.theme.separatorColor = UIColor (red: 0.9, green: 0.9, blue: 0.9, alpha: 0.5)
+        $0.theme.borderWidth = DesignSystem.viewLayout.borderWidth
         $0.theme.cellHeight = 50
         $0.forceNoFiltering = false
         $0.minCharactersNumberToStartFiltering = 2
@@ -68,34 +67,34 @@ class RegisterPillView: BaseView {
         $0.setTitle("식약처", for: .normal)
         $0.setTitleColor(DesignSystem.colorSet.lightBlack, for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 20, weight: .heavy)
+        $0.layer.borderWidth = DesignSystem.viewLayout.borderWidth
         $0.layer.borderColor = DesignSystem.colorSet.lightBlack.cgColor
-        $0.layer.cornerRadius = 4.0
-        $0.layer.borderWidth = 3
+        $0.layer.cornerRadius = DesignSystem.viewLayout.cornerRadius
     }
     
     let cameraGalleryButton = UIButton(type: .system).then{
         $0.setTitle("카메라", for: .normal)
         $0.setTitleColor(DesignSystem.colorSet.lightBlack, for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 20, weight: .heavy)
+        $0.layer.borderWidth = DesignSystem.viewLayout.borderWidth
         $0.layer.borderColor = DesignSystem.colorSet.lightBlack.cgColor
-        $0.layer.cornerRadius = 4.0
-        $0.layer.borderWidth = 3
+        $0.layer.cornerRadius = DesignSystem.viewLayout.cornerRadius
     }
     
     let webSearchButton = UIButton(type: .system).then{
         $0.setTitle("WEB", for: .normal)
         $0.setTitleColor(DesignSystem.colorSet.lightBlack, for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 20, weight: .heavy)
+        $0.layer.borderWidth = DesignSystem.viewLayout.borderWidth
         $0.layer.borderColor = DesignSystem.colorSet.lightBlack.cgColor
-        $0.layer.cornerRadius = 4.0
-        $0.layer.borderWidth = 3
+        $0.layer.cornerRadius = DesignSystem.viewLayout.cornerRadius
     }
 
     let pillImageView = UIImageView().then {
         $0.backgroundColor = DesignSystem.colorSet.white
+        $0.layer.borderWidth = DesignSystem.viewLayout.borderWidth
         $0.layer.borderColor = DesignSystem.colorSet.lightBlack.cgColor
-        $0.layer.cornerRadius = 4.0
-        $0.layer.borderWidth = 3
+        $0.layer.cornerRadius = DesignSystem.viewLayout.cornerRadius
         $0.isHidden = true
     }
     
@@ -103,8 +102,8 @@ class RegisterPillView: BaseView {
         $0.setTitle("복용약 등록 🥰", for: .normal)
         $0.setTitleColor(DesignSystem.colorSet.white, for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 23, weight: .heavy)
-        $0.backgroundColor = DesignSystem.colorSet.lightBlack
-        $0.layer.cornerRadius = 4.0
+        $0.layer.borderWidth = DesignSystem.viewLayout.borderWidth
+        $0.layer.cornerRadius = DesignSystem.viewLayout.cornerRadius
         $0.isHidden = true
     }
     

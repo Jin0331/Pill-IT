@@ -160,6 +160,7 @@ extension RegisterPillViewController : RegisterPillAction {
                     switch value {
                     case .success(let result):
                         self.viewModel.localImageURL.value = result.path
+                        
                         self.mainView.pillImageView.isHidden = false
                         self.getLocalImage(imagePath: result.path)
                         self.mainView.completeButton.isHidden = false // complete 활성화
@@ -169,8 +170,6 @@ extension RegisterPillViewController : RegisterPillAction {
                         print(error)
                     }
                 }
-                
-                
             }
             picker.dismiss(animated: true)
         }
@@ -181,7 +180,7 @@ extension RegisterPillViewController : RegisterPillAction {
         
     }
     
-    private func getLocalImage(imagePath : String ) {
+    private func getLocalImage(imagePath : String) {
         let url = URL(fileURLWithPath: imagePath)
         let provider = LocalFileImageDataProvider(fileURL: url)
         self.mainView.pillImageView.kf.setImage(with: provider, options: [.transition(.fade(1)), .forceRefresh])

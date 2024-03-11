@@ -14,10 +14,13 @@ class RegisterPillViewModel {
     
     var outputItemNameList : Observable<[String]?> = Observable(nil)
     var outputItemNameSeqList : Observable<[String]?> = Observable(nil)
+    var outputItemImageWebLink : Observable<[URL]?> = Observable(nil)
+    
     var localImageURL : Observable<String?> = Observable(nil)
     
     var callRequestForItemListTrigger : Observable<String?> = Observable(nil)
     var callcallRequestForImageTrigger : Observable<String?> = Observable(nil)
+    var callcallRequestForWebTrigger : Observable<String?> = Observable(nil)
     
     init() {
         transform()
@@ -39,6 +42,12 @@ class RegisterPillViewModel {
             self.callRequestForImage(value)
         }
         
+        callcallRequestForWebTrigger.bind { [weak self] value in
+            guard let self = self else { return }
+            guard let value = value else { return }
+            
+            self.callRequestForWeb(value)
+        }
         
         inputItemSeq.bind { [weak self] value in
             guard let self = self else { return }
@@ -101,6 +110,29 @@ class RegisterPillViewModel {
             }
         }
     }
+    
+    private func callRequestForWeb(_ searchPill : String) {
+        
+        print(searchPill, "callRequestForWeb")
+        
+        PillAPIManager.shared.callRequest(type: NaverSearch.self, api: .searchImage(query: searchPill)) { response, error in
+            
+            if let error {
+                print(error)
+            } else {
+                guard let response = response else { return }
+                
+                self.outputItemImageWebLink.value = response.items.compactMap {
+                    let url = URL(string:$0.link)
+                    return url
+                }
+                
+                print(self.outputItemImageWebLink.value)
+                
+            }
+        }
+    }
+    
     
     deinit {
         print(#function, " - RegisterPillViewModel")

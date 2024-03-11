@@ -13,6 +13,7 @@ class NotificationViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .red
+        
     }
 
 }

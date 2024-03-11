@@ -20,7 +20,9 @@ class PillAPIManager {
         AF.request(api.endPoint,
                    method: PillAPI.method,
                    parameters: api.parameter,
-                   encoding: URLEncoding(destination: .queryString))
+                   encoding: URLEncoding(destination: .queryString),
+                   headers: api.header
+        )
         .responseDecodable(of: type) { response in
             
             switch response.result {
@@ -52,41 +54,6 @@ class PillAPIManager {
 
 
 /*
- 
- //        FileDownloadManager.shared.downloadFile(type: .OpenData_ItemPermit) { result in
- //            switch result {
- //            case .success(let savedURL):
- //                print("File downloaded and saved at: \(savedURL)")
- //
- //            case .failure(let error):
- //                print("Error downloading file: \(error)")
- //            }
- //        }
-         
-         
-         // 의약품 허가
- //        PillAPIManager.shared.callRequest(type: PillPermit.self, api: .permit(itemName: "크레오신")) { response, error in
- //            if let error {
- //                print("에러")
- //            } else {
- //                guard let response = response else { return }
- //                dump(response.body.items)
- //            }
- //        }
- //
- //        // 의약품 허가 상세 정보
- //        PillAPIManager.shared.callRequest(type: PillPermitDetail.self, api: .permitSpecific(itemSeq: "200108399")) { response, error in
- //            if let error {
- //                print("에러")
- //            } else {
- //                guard let response = response else { return }
- //                dump(response.body)
- //            }
- //        }
-         
-         
- //    }
-     
  //    Using CoreXLSX
  //    func getXLSX2Josn(filepath : String) -> Meta {
  //

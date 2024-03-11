@@ -7,7 +7,8 @@
 
 import Foundation
 
-protocol RegisterPillAction {
+protocol RegisterPillAction : AnyObject {
     
     func disMissPresent()
+    func completePillRegister()
 }

@@ -9,12 +9,14 @@ import Foundation
 
 class RegisterPillViewModel {
     
-    var outputItemNameList : Observable<[String]> = Observable([])
-    var outputItemNameSeqList : Observable<[String]> = Observable([])
     var inputItemSeq : Observable<String?> = Observable(nil)
     
+    var outputItemNameList : Observable<[String]> = Observable([])
+    var outputItemNameSeqList : Observable<[String]> = Observable([])
+    var outputLocalImageURL : Observable<String?> = Observable(nil)
     
-    var callRequestTrigger : Observable<String?> = Observable(nil)
+    var callRequestForItemListTrigger : Observable<String?> = Observable(nil)
+    var callcallRequestForImageTrigger : Observable<String?> = Observable(nil)
     
     init() {
         transform()
@@ -22,23 +24,28 @@ class RegisterPillViewModel {
     
     private func transform() {
         
-        callRequestTrigger.bind { value in
+        callRequestForItemListTrigger.bind { [weak self] value in
+            guard let self = self else { return }
             guard let value = value else { return }
+            
             self.callRequestForItemList(value)
         }
         
-        inputItemSeq.bind { value in
+        inputItemSeq.bind { [weak self] value in
+            guard let self = self else { return }
             guard let value = value else { return }
             
-            
+            self.callRequestForImage(value)
         }
         
     }
     
     private func callRequestForItemList(_ searchPill : String) {
-        PillAPIManager.shared.callRequest(type: PillPermit.self, api: .permit(itemName: searchPill)) { response, error in
+        PillAPIManager.shared.callRequest(type: PillPermit.self, api: .permit(itemName: searchPill)) { [weak self] response, error in
+            guard let self = self else { return }
+            
             if let error {
-                print(error)
+                print("callRequestForItemList - No Search List")
             } else {
                 guard let response = response else { return }
                 self.outputItemNameList.value = response.body.items.map({ value in
@@ -53,16 +60,38 @@ class RegisterPillViewModel {
     }
     
     private func callRequestForImage(_ searchPillSeq : String) {
-        PillAPIManager.shared.callRequest(type: PillPermit.self, api: .permit(itemName: searchPillSeq)) { response, error in
+        
+        print(searchPillSeq, "callRequestForImage")
+        
+        PillAPIManager.shared.callRequest(type: PillGrainInfo.self, api: .grainInfo(itemSeq: searchPillSeq)) { response, error in
             if let error {
-                print(error)
+                print("callRequestForImage - No Search List - 데이터 없음")
+                self.outputLocalImageURL.value = nil
             } else {
                 guard let response = response else { return }
-                self.outputItemNameList.value = response.body.items.map({ value in
-                    return value.itemName
-                })
+                guard let imageURLKey = response.body.items.first?.itemImage.split(separator: "/").last else { return }
+                
+                print(imageURLKey, "grainPill - image")
+                
+                FileDownloadManager.shared.downloadFile(type: .image(id: String(imageURLKey)), pillID: searchPillSeq) { [weak self] value in
+                    
+                    guard let self = self else { return }
+                    
+                    switch value {
+                    case .success(let result):
+                        print(result.path)
+                        self.outputLocalImageURL.value = result.path
+                    case .failure(let error):
+                        print(error)
+                    }
+                    
+                }
             }
         }
+    }
+    
+    deinit {
+        print(#function, " - RegisterPillViewModel")
     }
 }
 

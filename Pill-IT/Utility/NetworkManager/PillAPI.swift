@@ -15,6 +15,7 @@ enum PillAPI : CaseIterable {
     
     static let baseURL = "http://apis.data.go.kr/1471000/"
     static let basePermitURL = "DrugPrdtPrmsnInfoService05/"
+    static let baseGrainInfoURL = "MdcinGrnIdntfcInfoService01/"
     static let method : HTTPMethod = .get
     
     case permit(itemName : String)
@@ -31,7 +32,7 @@ enum PillAPI : CaseIterable {
         case .permitMcpn:
             return URL(string: PillAPI.baseURL + PillAPI.basePermitURL + "getDrugPrdtMcpnDtlInq04")!
         case .grainInfo:
-            return URL(string: PillAPI.baseURL + "MdcinGrnIdntfcInfoService01")!
+            return URL(string: PillAPI.baseURL + PillAPI.baseGrainInfoURL + "getMdcinGrnIdntfcInfoList01")!
         }
     }
     

@@ -173,9 +173,9 @@
 			children = (
 				DBF4467D2B9990EF0021BC0F /* PillPermitModel.swift */,
 				DBF048692B9B0E9C0020750F /* PillPermitDetailModel.swift */,
+				DBF7352B2B9E9F2700326852 /* PillGrainInfo.swift */,
 				DBF446882B99EDB10021BC0F /* MetaDataModel.swift */,
 				DB5600632B9A458900E6558E /* RealmModel.swift */,
-				DBF7352B2B9E9F2700326852 /* PillGrainInfo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";

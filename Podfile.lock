@@ -1,5 +1,7 @@
 PODS:
   - Alamofire (5.9.0)
+  - IQKeyboardManagerSwift (7.0.1)
+  - Kingfisher (7.11.0)
   - Realm (10.45.3):
     - Realm/Headers (= 10.45.3)
   - Realm/Headers (10.45.3)
@@ -12,6 +14,8 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 5.8)
+  - IQKeyboardManagerSwift
+  - Kingfisher (~> 7.0)
   - RealmSwift (~> 10.45.0)
   - SearchTextField
   - SnapKit (~> 5.7.0)
@@ -21,6 +25,8 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - IQKeyboardManagerSwift
+    - Kingfisher
     - Realm
     - RealmSwift
     - SearchTextField
@@ -30,6 +36,8 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: 02b772c9910e8eba1a079227c32fbd9e46c90a24
+  IQKeyboardManagerSwift: 7f6b1b1d1497855d2beea7f2f10ffcc6978525b1
+  Kingfisher: b9c985d864d43515f404f1ef4a8ce7d802ace3ac
   Realm: b277b843c7505c1e30e3a70322a24a09283e62bb
   RealmSwift: f6690053e81733801e6619eb5b39993ab76f7050
   SearchTextField: 40dc3cc57def5a211f263cac263622c163bbc25a
@@ -37,6 +45,6 @@ SPEC CHECKSUMS:
   SwipeableTabBarController: 9a218bdee9426d1bfe36d7962f852024bb08d61b
   Then: 844265ae87834bbe1147d91d5d41a404da2ec27d
 
-PODFILE CHECKSUM: d708fc17d629eeb7c90228a6431aa4e81582a924
+PODFILE CHECKSUM: e1eb932ca2c464aba6e79ff1da3fc80644c08d0a
 
 COCOAPODS: 1.15.2

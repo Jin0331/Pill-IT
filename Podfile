@@ -12,4 +12,6 @@ target 'Pill-IT' do
   pod 'SnapKit', '~> 5.7.0'
   pod 'Then'
   pod 'SearchTextField'
+  pod 'Kingfisher', '~> 7.0'
+  pod 'IQKeyboardManagerSwift'
 end

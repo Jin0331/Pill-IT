@@ -9,11 +9,11 @@ import UIKit
 import SnapKit
 import Then
 import SearchTextField
+import Kingfisher
 
 class RegisterPillView: BaseView {
     
-    var actionDelegate : RegisterPillAction?
-    var viewModel = RegisterPillViewModel()
+    weak var actionDelegate : RegisterPillAction?
     
     let exitButton = UIButton().then {
         $0.setImage(DesignSystem.iconImage.clear, for: .normal)
@@ -39,7 +39,7 @@ class RegisterPillView: BaseView {
         $0.layer.borderWidth = 3
         
         $0.theme.font = UIFont.systemFont(ofSize: 15)
-        $0.theme.bgColor = UIColor (red: 0.9, green: 0.9, blue: 0.9, alpha: 0.3)
+        $0.theme.bgColor = UIColor (red: 0.9, green: 0.9, blue: 0.9, alpha: 0.7)
         $0.theme.borderColor = DesignSystem.colorSet.lightBlack
         $0.theme.borderWidth = 3
         $0.theme.separatorColor = UIColor (red: 0.9, green: 0.9, blue: 0.9, alpha: 0.5)
@@ -48,8 +48,26 @@ class RegisterPillView: BaseView {
         $0.hideResultsList()
     }
     
+    let pillImageView = UIImageView().then {
+        $0.backgroundColor = .darkGray
+        $0.layer.borderWidth = 1.0
+        $0.layer.borderColor = DesignSystem.colorSet.lightBlack.cgColor
+        $0.layer.cornerRadius = 4.0
+        $0.layer.borderWidth = 3
+        $0.isHidden = true
+    }
+    
+    let completeButton = UIButton().then {
+        $0.setTitle("복용약 등록 🥰", for: .normal)
+        $0.setTitleColor(DesignSystem.colorSet.white, for: .normal)
+        $0.titleLabel?.font = .systemFont(ofSize: 23, weight: .heavy)
+        $0.backgroundColor = DesignSystem.colorSet.lightBlack
+        $0.layer.cornerRadius = 4.0
+    }
+    
+    
     override func configureHierarchy() {
-        [exitButton,titleLabel,userInputTextfield].forEach { addSubview($0)}
+        [exitButton,titleLabel,userInputTextfield,pillImageView,completeButton].forEach { addSubview($0)}
     }
     
     override func configureLayout() {
@@ -71,63 +89,40 @@ class RegisterPillView: BaseView {
             
             make.height.equalTo(70)
         }
+        
+        pillImageView.snp.makeConstraints { make in
+            make.top.equalTo(userInputTextfield.snp.bottom).offset(40)
+            make.centerX.equalTo(userInputTextfield)
+            make.width.equalTo(userInputTextfield)
+            make.height.equalTo(userInputTextfield.snp.width)
+        }
+        
+        completeButton.snp.makeConstraints { make in
+            make.top.equalTo(pillImageView.snp.bottom).offset(40)
+            make.horizontalEdges.equalTo(pillImageView)
+            make.height.equalTo(userInputTextfield)
+        }
     }
     
     override func configureView() {
         super.configureView()
         
-        exitButton.addTarget(self, action: #selector(exitButtonClickedd), for: .touchUpInside)
-        textfieldHandler()
-        
+        exitButton.addTarget(self, action: #selector(exitButtonClicked), for: .touchUpInside)
+        completeButton.addTarget(self, action: #selector(completeButtonClicked), for: .touchUpInside)
     }
     
-    @objc func exitButtonClickedd(_ sender : UIButton) {
-        
+    @objc func exitButtonClicked(_ sender : UIButton) {
         print(#function)
         actionDelegate?.disMissPresent()
     }
     
-    private func textfieldHandler() {
-        // 2글자 이상 입력될때 실행되도록
-        userInputTextfield.userStoppedTypingHandler = {
-            if let criteria = self.userInputTextfield.text {
-                
-                let whipeSpaceRemovedText = criteria.replacingOccurrences(of: " ", with: "")
-                
-                print(whipeSpaceRemovedText)
-                
-                if whipeSpaceRemovedText.count >= 2 {
-                    
-                    // Show the loading indicator
-                    self.userInputTextfield.showLoadingIndicator()
-                    
-                    self.viewModel.callRequestTrigger.value = whipeSpaceRemovedText
-                    self.viewModel.outputItemNameList.bind { value in
-                        self.userInputTextfield.filterStrings(value)
-                        
-                        // Hide loading indicator
-                        self.userInputTextfield.stopLoadingIndicator()
-                    }
-                }
-            }
-        }
-        
-        // autocomplete이 선택되었을 때
-        userInputTextfield.itemSelectionHandler = {item, itemPosition in
-            self.userInputTextfield.text = item[itemPosition].title
-            self.viewModel.inputItemSeq.value = self.viewModel.outputItemNameSeqList.value[itemPosition]
-            
-            print(self.viewModel.inputItemSeq.value)
-            
-            // 커서 맨 앞으로 옮기기
-            self.userInputTextfield.selectedTextRange = self.userInputTextfield.textRange(from: self.userInputTextfield.beginningOfDocument, to: self.userInputTextfield.beginningOfDocument)
-            
-            // 기존 autucomplete 삭제
-            self.userInputTextfield.filterItems([])
-            
-            self.endEditing(true)
-            
-        }
+    @objc func completeButtonClicked() {
+        print(#function)
+        actionDelegate?.completePillRegister()
+    }
+    
+    deinit {
+        print(#function, " - RegisterPillView in-Side")
     }
     
 }

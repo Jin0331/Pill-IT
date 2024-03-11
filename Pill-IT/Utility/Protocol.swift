@@ -11,4 +11,7 @@ protocol RegisterPillAction : AnyObject {
     
     func disMissPresent()
     func completePillRegister()
+    func defaultButtonAction()
+    func cameraGalleryButtonAction()
+    func webSearchButtonAction()
 }

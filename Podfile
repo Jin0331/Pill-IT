@@ -13,5 +13,6 @@ target 'Pill-IT' do
   pod 'Then'
   pod 'SearchTextField'
   pod 'Kingfisher', '~> 7.0'
-  pod 'IQKeyboardManagerSwift'
+  pod 'Toast-Swift', '~> 5.1.0'
+  pod 'NVActivityIndicatorView'
 end

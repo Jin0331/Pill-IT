@@ -11,8 +11,8 @@ class RegisterPillViewModel {
     
     var inputItemSeq : Observable<String?> = Observable(nil)
     
-    var outputItemNameList : Observable<[String]> = Observable([])
-    var outputItemNameSeqList : Observable<[String]> = Observable([])
+    var outputItemNameList : Observable<[String]?> = Observable(nil)
+    var outputItemNameSeqList : Observable<[String]?> = Observable(nil)
     var outputLocalImageURL : Observable<String?> = Observable(nil)
     
     var callRequestForItemListTrigger : Observable<String?> = Observable(nil)
@@ -46,6 +46,9 @@ class RegisterPillViewModel {
             
             if let error {
                 print("callRequestForItemList - No Search List")
+                self.outputItemNameList.value = nil
+                self.outputItemNameSeqList.value = nil
+                
             } else {
                 guard let response = response else { return }
                 self.outputItemNameList.value = response.body.items.map({ value in

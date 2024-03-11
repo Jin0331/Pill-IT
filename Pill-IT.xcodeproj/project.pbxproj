@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		BD62AE5409713E6182D9F760 /* Pods_Pill_IT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 659394A6D31F48048CED413D /* Pods_Pill_IT.framework */; };
+		DB0F10D92B9F311B000DC430 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F10D82B9F311B000DC430 /* UIView+Extension.swift */; };
 		DB5600642B9A458900E6558E /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5600632B9A458900E6558E /* RealmModel.swift */; };
 		DBF048682B9AAA080020750F /* PillAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF048672B9AAA080020750F /* PillAPIManager.swift */; };
 		DBF0486A2B9B0E9C0020750F /* PillPermitDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF048692B9B0E9C0020750F /* PillPermitDetailModel.swift */; };
@@ -45,6 +46,7 @@
 /* Begin PBXFileReference section */
 		659394A6D31F48048CED413D /* Pods_Pill_IT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pill_IT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAD492785086F4F1603A51EC /* Pods-Pill-IT.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pill-IT.debug.xcconfig"; path = "Target Support Files/Pods-Pill-IT/Pods-Pill-IT.debug.xcconfig"; sourceTree = "<group>"; };
+		DB0F10D82B9F311B000DC430 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		DB5600632B9A458900E6558E /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
 		DBF048672B9AAA080020750F /* PillAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillAPIManager.swift; sourceTree = "<group>"; };
 		DBF048692B9B0E9C0020750F /* PillPermitDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillPermitDetailModel.swift; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				DBF735232B9DE34900326852 /* UITextfield+Extension.swift */,
+				DB0F10D82B9F311B000DC430 /* UIView+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -226,13 +229,13 @@
 		DBF735132B9DD35B00326852 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				DBF735252B9DECCE00326852 /* Protocol.swift */,
 				DBF7350D2B9CC6C700326852 /* CustomPods */,
 				DBF446852B99B11B0021BC0F /* Extension */,
 				DBF4468F2B9A351E0021BC0F /* Realm */,
 				DBF446752B998FE00021BC0F /* NetworkManager */,
 				DBF446832B99ADC60021BC0F /* FileDownloadManager.swift */,
 				DBF7351D2B9DD3E600326852 /* Observable.swift */,
-				DBF735252B9DECCE00326852 /* Protocol.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -374,6 +377,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBF735282B9DF02500326852 /* RegisterPillViewModel.swift in Sources */,
+				DB0F10D92B9F311B000DC430 /* UIView+Extension.swift in Sources */,
 				DBF7351E2B9DD3E700326852 /* Observable.swift in Sources */,
 				DBF735262B9DECCE00326852 /* Protocol.swift in Sources */,
 				DBF446892B99EDB10021BC0F /* MetaDataModel.swift in Sources */,

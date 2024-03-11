@@ -1,7 +1,9 @@
 PODS:
   - Alamofire (5.9.0)
-  - IQKeyboardManagerSwift (7.0.1)
   - Kingfisher (7.11.0)
+  - NVActivityIndicatorView (5.1.1):
+    - NVActivityIndicatorView/Base (= 5.1.1)
+  - NVActivityIndicatorView/Base (5.1.1)
   - Realm (10.45.3):
     - Realm/Headers (= 10.45.3)
   - Realm/Headers (10.45.3)
@@ -11,40 +13,44 @@ PODS:
   - SnapKit (5.7.1)
   - SwipeableTabBarController (3.4.2)
   - Then (3.0.0)
+  - Toast-Swift (5.1.0)
 
 DEPENDENCIES:
   - Alamofire (~> 5.8)
-  - IQKeyboardManagerSwift
   - Kingfisher (~> 7.0)
+  - NVActivityIndicatorView
   - RealmSwift (~> 10.45.0)
   - SearchTextField
   - SnapKit (~> 5.7.0)
   - SwipeableTabBarController
   - Then
+  - Toast-Swift (~> 5.1.0)
 
 SPEC REPOS:
   trunk:
     - Alamofire
-    - IQKeyboardManagerSwift
     - Kingfisher
+    - NVActivityIndicatorView
     - Realm
     - RealmSwift
     - SearchTextField
     - SnapKit
     - SwipeableTabBarController
     - Then
+    - Toast-Swift
 
 SPEC CHECKSUMS:
   Alamofire: 02b772c9910e8eba1a079227c32fbd9e46c90a24
-  IQKeyboardManagerSwift: 7f6b1b1d1497855d2beea7f2f10ffcc6978525b1
   Kingfisher: b9c985d864d43515f404f1ef4a8ce7d802ace3ac
+  NVActivityIndicatorView: 1f6c5687f1171810aa27a3296814dc2d7dec3667
   Realm: b277b843c7505c1e30e3a70322a24a09283e62bb
   RealmSwift: f6690053e81733801e6619eb5b39993ab76f7050
   SearchTextField: 40dc3cc57def5a211f263cac263622c163bbc25a
   SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
   SwipeableTabBarController: 9a218bdee9426d1bfe36d7962f852024bb08d61b
   Then: 844265ae87834bbe1147d91d5d41a404da2ec27d
+  Toast-Swift: dd369e68ee529f542c65bd0d0c6c50cd743cf6f2
 
-PODFILE CHECKSUM: e1eb932ca2c464aba6e79ff1da3fc80644c08d0a
+PODFILE CHECKSUM: f58abaf58c78361ae7369d9af335ff57d05ad4a7
 
 COCOAPODS: 1.15.2

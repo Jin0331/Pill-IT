@@ -16,9 +16,7 @@ final class RegisterPillViewController : BaseViewController {
     
     let mainView = RegisterPillView()
     var viewModel = RegisterPillViewModel()
-    
 
-    
     override func loadView() {
         self.view = mainView
         mainView.actionDelegate = self
@@ -48,6 +46,11 @@ final class RegisterPillViewController : BaseViewController {
                 let whipeSpaceRemovedText = criteria.replacingOccurrences(of: " ", with: "")
                 print(whipeSpaceRemovedText)
                 
+                if !whipeSpaceRemovedText.isHangul {
+                    self.view.makeToast("한글 검색만 지원됩니다❗️", duration: 1.0, position: .center)
+                    return
+                }
+                
                 if whipeSpaceRemovedText.count >= 2 {
                     self.mainView.userInputTextfield.showLoadingIndicator()
                     
@@ -55,11 +58,17 @@ final class RegisterPillViewController : BaseViewController {
                     self.viewModel.outputItemNameList.bind { [weak self] value in
                         guard let self = self else { return }
                         guard let value = value else {
-                            self.view.makeToast("검색어를 확인해주세요❗️", duration: 1.0, position: .center)
                             return
                         }
                         
-                        self.mainView.userInputTextfield.filterStrings(value)
+                        let convertValue = value.map {
+                            var temp = $0.regxRemove(regString: "(수출명")
+                            var result = temp.regxRemove(regString: "[수출명")
+                            
+                            return result
+                        }
+                        
+                        self.mainView.userInputTextfield.filterStrings(convertValue)
                         self.mainView.userInputTextfield.stopLoadingIndicator()
                     }
                 }
@@ -185,6 +194,16 @@ extension RegisterPillViewController : RegisterPillAction {
     
     func webSearchButtonAction() {
         
+        viewModel.callcallRequestForWebTrigger.value = nil
+        
+        
+        viewModel.outputItemImageWebLink.value
+        
+        
+        let vc = RegisterPillWebSearchViewController()
+        vc.viewModel = viewModel
+        
+        present(vc, animated: true)
     }
     
     private func getLocalImage(imagePath : String) {

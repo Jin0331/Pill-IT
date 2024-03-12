@@ -7,8 +7,16 @@
 
 import Foundation
 
+// 여기 위치가 맞는것인가?
+enum Section : CaseIterable{
+    case main
+}
+
 class RegisterPillViewModel {
     
+    enum Section : CaseIterable{
+        case main
+    }
     var inputItemSeq : Observable<String?> = Observable(nil)
     var inputeItemName : Observable<String?> = Observable(nil)
     
@@ -42,18 +50,15 @@ class RegisterPillViewModel {
             self.callRequestForImage(value)
         }
         
-        callcallRequestForWebTrigger.bind { [weak self] value in
+        callcallRequestForWebTrigger.bind { [weak self] _ in
             guard let self = self else { return }
-            guard let value = value else { return }
+            guard let inputItemName = self.inputeItemName.value else { return }
             
-            self.callRequestForWeb(value)
+            self.callRequestForWeb(inputItemName)
         }
         
-        inputItemSeq.bind { [weak self] value in
-            guard let self = self else { return }
-            guard let value = value else { return }
-            
-            // 흐음???
+        inputItemSeq.bind { _ in
+
         }
         
     }
@@ -118,7 +123,7 @@ class RegisterPillViewModel {
         PillAPIManager.shared.callRequest(type: NaverSearch.self, api: .searchImage(query: searchPill)) { response, error in
             
             if let error {
-                print(error)
+                print(error, " - Naver Search API")
             } else {
                 guard let response = response else { return }
                 

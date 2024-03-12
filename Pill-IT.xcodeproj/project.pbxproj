@@ -10,6 +10,9 @@
 		BD62AE5409713E6182D9F760 /* Pods_Pill_IT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 659394A6D31F48048CED413D /* Pods_Pill_IT.framework */; };
 		DB0F10D92B9F311B000DC430 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F10D82B9F311B000DC430 /* UIView+Extension.swift */; };
 		DB0F10DB2B9F7FCB000DC430 /* NaverSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F10DA2B9F7FCB000DC430 /* NaverSearchModel.swift */; };
+		DB0F10DD2B9F83CD000DC430 /* RegisterPillWebSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F10DC2B9F83CD000DC430 /* RegisterPillWebSearchViewController.swift */; };
+		DB0F10E02B9F885E000DC430 /* RegisterPillWebSearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F10DF2B9F885E000DC430 /* RegisterPillWebSearchCollectionViewCell.swift */; };
+		DB21CDA92BA03CF00041C892 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB21CDA82BA03CF00041C892 /* String+Extension.swift */; };
 		DB5600642B9A458900E6558E /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5600632B9A458900E6558E /* RealmModel.swift */; };
 		DBF048682B9AAA080020750F /* PillAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF048672B9AAA080020750F /* PillAPIManager.swift */; };
 		DBF0486A2B9B0E9C0020750F /* PillPermitDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF048692B9B0E9C0020750F /* PillPermitDetailModel.swift */; };
@@ -49,6 +52,9 @@
 		AAD492785086F4F1603A51EC /* Pods-Pill-IT.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pill-IT.debug.xcconfig"; path = "Target Support Files/Pods-Pill-IT/Pods-Pill-IT.debug.xcconfig"; sourceTree = "<group>"; };
 		DB0F10D82B9F311B000DC430 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		DB0F10DA2B9F7FCB000DC430 /* NaverSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverSearchModel.swift; sourceTree = "<group>"; };
+		DB0F10DC2B9F83CD000DC430 /* RegisterPillWebSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPillWebSearchViewController.swift; sourceTree = "<group>"; };
+		DB0F10DF2B9F885E000DC430 /* RegisterPillWebSearchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPillWebSearchCollectionViewCell.swift; sourceTree = "<group>"; };
+		DB21CDA82BA03CF00041C892 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		DB5600632B9A458900E6558E /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
 		DBF048672B9AAA080020750F /* PillAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillAPIManager.swift; sourceTree = "<group>"; };
 		DBF048692B9B0E9C0020750F /* PillPermitDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillPermitDetailModel.swift; sourceTree = "<group>"; };
@@ -106,6 +112,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		DB0F10DE2B9F8848000DC430 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				DB0F10DF2B9F885E000DC430 /* RegisterPillWebSearchCollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		DBF4464C2B9983930021BC0F = {
 			isa = PBXGroup;
 			children = (
@@ -155,11 +169,13 @@
 		DBF446722B998E840021BC0F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				DB0F10DE2B9F8848000DC430 /* Cell */,
 				DBF735072B9CB58100326852 /* MainTabBarController.swift */,
 				DBF735092B9CBC3000326852 /* NotificationViewController.swift */,
 				DBF7350B2B9CBC4300326852 /* PillListViewController.swift */,
 				DBF735212B9DD6F900326852 /* RegisterPillView.swift */,
 				DBF446812B99AA4C0021BC0F /* RegisterPillViewController.swift */,
+				DB0F10DC2B9F83CD000DC430 /* RegisterPillWebSearchViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -200,6 +216,7 @@
 			children = (
 				DBF735232B9DE34900326852 /* UITextfield+Extension.swift */,
 				DB0F10D82B9F311B000DC430 /* UIView+Extension.swift */,
+				DB21CDA82BA03CF00041C892 /* String+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -380,11 +397,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB0F10DB2B9F7FCB000DC430 /* NaverSearchModel.swift in Sources */,
+				DB21CDA92BA03CF00041C892 /* String+Extension.swift in Sources */,
 				DBF735282B9DF02500326852 /* RegisterPillViewModel.swift in Sources */,
 				DB0F10D92B9F311B000DC430 /* UIView+Extension.swift in Sources */,
 				DBF7351E2B9DD3E700326852 /* Observable.swift in Sources */,
 				DBF735262B9DECCE00326852 /* Protocol.swift in Sources */,
 				DBF446892B99EDB10021BC0F /* MetaDataModel.swift in Sources */,
+				DB0F10DD2B9F83CD000DC430 /* RegisterPillWebSearchViewController.swift in Sources */,
 				DBF735222B9DD6F900326852 /* RegisterPillView.swift in Sources */,
 				DBF446842B99ADC60021BC0F /* FileDownloadManager.swift in Sources */,
 				DBF0486A2B9B0E9C0020750F /* PillPermitDetailModel.swift in Sources */,
@@ -403,6 +422,7 @@
 				DBF7350C2B9CBC4300326852 /* PillListViewController.swift in Sources */,
 				DBF735192B9DD3BE00326852 /* BaseCollectionViewCell.swift in Sources */,
 				DBF735122B9CC71800326852 /* WHTabbarController.swift in Sources */,
+				DB0F10E02B9F885E000DC430 /* RegisterPillWebSearchCollectionViewCell.swift in Sources */,
 				DBF4465B2B9983930021BC0F /* SceneDelegate.swift in Sources */,
 				DBF7350A2B9CBC3000326852 /* NotificationViewController.swift in Sources */,
 				DBF4467E2B9990EF0021BC0F /* PillPermitModel.swift in Sources */,

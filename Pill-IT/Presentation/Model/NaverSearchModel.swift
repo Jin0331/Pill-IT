@@ -13,7 +13,7 @@ struct NaverSearch: Decodable {
 }
 
 // MARK: - Item
-struct NaverSearchItem: Decodable {
+struct NaverSearchItem: Decodable, Hashable {
     let title: String
     let link: String
     let thumbnail: String

@@ -89,7 +89,9 @@ class RegisterPillViewModel {
         
         print(searchPillSeq, "callRequestForImage")
         
-        PillAPIManager.shared.callRequest(type: PillGrainInfo.self, api: .grainInfo(itemSeq: searchPillSeq)) { response, error in
+        PillAPIManager.shared.callRequest(type: PillGrainInfo.self, api: .grainInfo(itemSeq: searchPillSeq)) { [weak self] response, error in
+            guard let self = self else { return }
+            
             if let error {
                 print("callRequestForImage - No Search List - 데이터 없음")
                 self.localImageURL.value = nil
@@ -120,8 +122,8 @@ class RegisterPillViewModel {
         
         print(searchPill, "callRequestForWeb")
         
-        PillAPIManager.shared.callRequest(type: NaverSearch.self, api: .searchImage(query: searchPill)) { response, error in
-            
+        PillAPIManager.shared.callRequest(type: NaverSearch.self, api: .searchImage(query: searchPill)) { [weak self] response, error in
+            guard let self = self else { return }
             if let error {
                 print(error, " - Naver Search API")
             } else {
@@ -130,10 +132,7 @@ class RegisterPillViewModel {
                 self.outputItemImageWebLink.value = response.items.compactMap {
                     let url = URL(string:$0.link)
                     return url
-                }
-                
-                print(self.outputItemImageWebLink.value)
-                
+                }                
             }
         }
     }

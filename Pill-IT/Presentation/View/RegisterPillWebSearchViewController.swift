@@ -13,7 +13,7 @@ import collection_view_layouts
 
 final class RegisterPillWebSearchViewController: BaseViewController {
         
-    var viewModel : RegisterPillViewModel?
+    weak var viewModel : RegisterPillViewModel?
     var dataSource : UICollectionViewDiffableDataSource<Section, URL>!
     var sendData : ((URL) -> Void)?
     
@@ -35,9 +35,9 @@ final class RegisterPillWebSearchViewController: BaseViewController {
     private func bindData() {
         guard let viewModel = viewModel else { return }
         
-        viewModel.outputItemImageWebLink.bind { value in
+        viewModel.outputItemImageWebLink.bind { [weak self] value in
+            guard let self = self else { return }
             guard let value = value else { return }
-            print(value, "이거 어디여 bindData여?")
             
             self.updateSnapshot()
         }
@@ -131,8 +131,8 @@ extension RegisterPillWebSearchViewController : UICollectionViewDelegate {
         guard let itemSeq = viewModel.inputItemSeq.value else { return}
         guard let data = dataSource.itemIdentifier(for: indexPath) else { return }
         
-        FileDownloadManager.shared.downloadFile(url: data, pillID: itemSeq) { response in
-            
+        FileDownloadManager.shared.downloadFile(url: data, pillID: itemSeq) { [weak self] response in
+            guard let self = self else { return }
             switch response {
                 
             case .success(let success):

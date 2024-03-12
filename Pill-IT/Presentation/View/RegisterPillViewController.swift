@@ -85,7 +85,8 @@ final class RegisterPillViewController : BaseViewController {
             guard let self = self else { return }
             guard let outputItemNameSeqList = self.viewModel.outputItemNameSeqList.value else { return }
             
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
                 self.mainView.endEditing(true)
             }
             
@@ -95,7 +96,9 @@ final class RegisterPillViewController : BaseViewController {
             self.viewModel.inputeItemName.value = item[itemPosition].title
             self.viewModel.inputItemSeq.value = outputItemNameSeqList[itemPosition]
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, qos: .background) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, qos: .background) { [weak self] in
+                
+                guard let self = self else { return }
                 
                 // 커서 맨 앞으로 옮기기
                 self.mainView.userInputTextfield.selectedTextRange = self.mainView.userInputTextfield.textRange(from: self.mainView.userInputTextfield.beginningOfDocument, to: self.mainView.userInputTextfield.beginningOfDocument)
@@ -135,12 +138,6 @@ extension RegisterPillViewController : RegisterPillAction {
     func completePillRegister() {
         
         //TODO: - Databse에 데이터 넣어야 됨
-        
-        print(viewModel.inputItemSeq.value, " itemSeq")
-        print(viewModel.inputeItemName.value, " itemSeq")
-        print(viewModel.localImageURL.value, " localImageUrl")
-        
-        
         dismiss(animated: true)
     }
     
@@ -215,13 +212,17 @@ extension RegisterPillViewController : RegisterPillAction {
         
         let vc = RegisterPillWebSearchViewController()
         vc.viewModel = viewModel
-        vc.sendData = { webURL in
+        vc.sendData = { [weak self] webURL in
             print(webURL)
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
+                
+                guard let self = self else { return }
+                
                 self.viewModel.localImageURL.value = webURL.path
                 self.mainView.pillImageView.isHidden = false
                 self.getLocalImage(imagePath: webURL.path)
                 self.mainView.completeButton.isHidden = false
+                self.view.makeToast("이미지를 불러왔어요 ✅", duration: 2.0, position: .center)
             }
         }
         

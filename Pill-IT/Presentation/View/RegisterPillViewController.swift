@@ -196,12 +196,17 @@ extension RegisterPillViewController : RegisterPillAction {
         
         viewModel.callcallRequestForWebTrigger.value = nil
         
-        
-        viewModel.outputItemImageWebLink.value
-        
-        
         let vc = RegisterPillWebSearchViewController()
         vc.viewModel = viewModel
+        vc.sendData = { webURL in
+            print(webURL)
+            DispatchQueue.main.async {
+                self.viewModel.localImageURL.value = webURL.path
+                self.mainView.pillImageView.isHidden = false
+                self.getLocalImage(imagePath: webURL.path)
+                self.mainView.completeButton.isHidden = false
+            }
+        }
         
         present(vc, animated: true)
     }

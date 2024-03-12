@@ -49,6 +49,50 @@ final class FileDownloadManager {
         }
     }
     
+    // web image
+    func downloadFile(url : URL, pillID : String, completion: @escaping (Result<URL, Error>) -> Void) {
+        let task = URLSession.shared.downloadTask(with: url) { (localURL, _, error) in
+            if let error = error {
+                completion(.failure(error))
+                
+                return
+            }
+            
+            guard let localURL = localURL else {
+                let customError = NSError(domain: "DownloadError", code: 0, userInfo: nil)
+                
+                completion(.failure(customError))
+                return
+            }
+            
+            let fileManager = FileManager.default
+            let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+            let directoryURL = documentsDirectory.appendingPathComponent("image/\(pillID)")
+            let destinationURL = directoryURL.appendingPathComponent(pillID + ".jpg")
+            
+            // 폴더 생성
+            do {
+                try fileManager.createDirectory(at: directoryURL, withIntermediateDirectories: true)
+            } catch let error {
+                print("Create file error: \(error.localizedDescription)")
+            }
+            
+            // 파일 생성 및 이름 변경
+            do {
+                if FileManager.default.fileExists(atPath: destinationURL.path) {
+                    try FileManager.default.removeItem(at: destinationURL)
+                }
+                try FileManager.default.moveItem(at: localURL, to: destinationURL)
+                completion(.success(destinationURL))
+            } catch {
+                completion(.failure(error))
+            }
+        }
+        
+        task.resume()
+    }
+    
+    // default image
     func downloadFile(type : FileType, pillID : String, completion: @escaping (Result<URL, Error>) -> Void) {
         let task = URLSession.shared.downloadTask(with: type.endPoint) { (localURL, _, error) in
             if let error = error {
@@ -90,6 +134,7 @@ final class FileDownloadManager {
         
         task.resume()
     }
+    
     
     func saveLocalImage(image: UIImage, pillID : String, completion: @escaping (Result<URL, Error>) -> Void) {
         guard let data = image.jpegData(compressionQuality: 0.6) else { return }

@@ -11,8 +11,7 @@ import Then
 
 class RegisterPillWebSearchCollectionViewCell: BaseCollectionViewCell {
     
-    let webImage = UIImageView().then {
-        $0.contentMode = .scaleAspectFill
+    let webImage = UIImageView().then { _ in
     }
     
     override func configureHierarchy() {

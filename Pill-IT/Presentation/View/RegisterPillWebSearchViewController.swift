@@ -15,6 +15,9 @@ final class RegisterPillWebSearchViewController: BaseViewController {
         
     var viewModel : RegisterPillViewModel?
     var dataSource : UICollectionViewDiffableDataSource<Section, URL>!
+    var sendData : ((URL) -> Void)?
+    
+    // UI
     private lazy var seaerchCollectionView : UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         view.delegate = self
@@ -24,20 +27,20 @@ final class RegisterPillWebSearchViewController: BaseViewController {
         
     override func viewDidLoad() {
         super.viewDidLoad()
-            
-        print(viewModel?.outputItemImageWebLink.value)
         
-        bindData()
         configureDataSource()
-        updateSnapshot()
+        bindData()
     }
     
     private func bindData() {
-//        guard let viewModel = viewModel else { return }
-//        
-//        viewModel.outputItemImageWebLink.bind { <#[URL]?#> in
-//            <#code#>
-//        }
+        guard let viewModel = viewModel else { return }
+        
+        viewModel.outputItemImageWebLink.bind { value in
+            guard let value = value else { return }
+            print(value, "이거 어디여 bindData여?")
+            
+            self.updateSnapshot()
+        }
         
     }
     
@@ -102,11 +105,13 @@ final class RegisterPillWebSearchViewController: BaseViewController {
 
     private func updateSnapshot() {
         guard let viewModel = viewModel else { return }
-        guard let outputItemImageWebLink = viewModel.outputItemImageWebLink.value else { return }
+        guard let outputItemImageWebLink = viewModel.outputItemImageWebLink.value else { print("안찍히냐");return }
         var snapshot = NSDiffableDataSourceSnapshot<Section, URL>()
         snapshot.appendSections(Section.allCases)
         snapshot.appendItems(outputItemImageWebLink, toSection: .main)
         dataSource.apply(snapshot) // reloadData
+        
+//        dataSource.applySnapshotUsingReloadData(<#T##snapshot: NSDiffableDataSourceSnapshot<Section, URL>##NSDiffableDataSourceSnapshot<Section, URL>#>)
     }
     
     
@@ -114,5 +119,27 @@ final class RegisterPillWebSearchViewController: BaseViewController {
 
 
 extension RegisterPillWebSearchViewController : UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        print(#function, " - image select")
+        
+        guard let viewModel = viewModel else { return }
+        guard let itemSeq = viewModel.inputItemSeq.value else { return}
+        guard let data = dataSource.itemIdentifier(for: indexPath) else { return }
+        
+        FileDownloadManager.shared.downloadFile(url: data, pillID: itemSeq) { response in
+            
+            switch response {
+                
+            case .success(let success):
+                print(success, " - Collection View")
+                self.sendData?(success)
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
+        dismiss(animated: true)
+        
+    }
 }

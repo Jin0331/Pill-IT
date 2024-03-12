@@ -67,8 +67,8 @@ final class RegisterPillViewController : BaseViewController {
                         }
                         
                         let convertValue = value.map {
-                            var temp = $0.regxRemove(regString: "(수출명")
-                            var result = temp.regxRemove(regString: "[수출명")
+                            let temp = $0.regxRemove(regString: "(수출명")
+                            let result = temp.regxRemove(regString: "[수출명")
                             
                             return result
                         }

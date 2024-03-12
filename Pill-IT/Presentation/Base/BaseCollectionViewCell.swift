@@ -32,5 +32,6 @@ class BaseCollectionViewCell: UICollectionViewCell {
     }
     
     func configureView() {
+        backgroundColor = DesignSystem.colorSet.white
     }
 }

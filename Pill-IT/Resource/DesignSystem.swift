@@ -16,6 +16,7 @@ enum DesignSystem {
         static let lightGray = UIColor.pillLightGray
         static let red = UIColor.pillRed
         static let white = UIColor.pillWhite
+        static let purple = UIColor.pillpurple
     }
 
     enum iconImage {

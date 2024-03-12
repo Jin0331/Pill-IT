@@ -52,6 +52,11 @@ final class RegisterPillViewController : BaseViewController {
                 }
                 
                 if whipeSpaceRemovedText.count >= 2 {
+                    
+                    DispatchQueue.main.async {
+                        self.mainView.endEditing(true)
+                    }
+                    
                     self.mainView.userInputTextfield.showLoadingIndicator()
                     
                     self.viewModel.callRequestForItemListTrigger.value = whipeSpaceRemovedText
@@ -130,12 +135,18 @@ extension RegisterPillViewController : RegisterPillAction {
     func completePillRegister() {
         
         //TODO: - Databse에 데이터 넣어야 됨
+        
+        print(viewModel.inputItemSeq.value, " itemSeq")
+        print(viewModel.inputeItemName.value, " itemSeq")
+        print(viewModel.localImageURL.value, " localImageUrl")
+        
+        
         dismiss(animated: true)
     }
     
     func defaultButtonAction() {
         
-        self.view.makeToast("잠시만 기다려주세요 😓", duration: 1.0, position: .center)
+        self.mainView.setActivityIndicator()
         
         viewModel.callcallRequestForImageTrigger.value = viewModel.inputItemSeq.value
         
@@ -143,6 +154,9 @@ extension RegisterPillViewController : RegisterPillAction {
             
             guard let defaultImage = self.viewModel.localImageURL.value else {
                 self.view.makeToast("식품의약처에 등록된 이미지가 없습니다 🥲", duration: 3.0, position: .center)
+                self.mainView.activityIndicator.stopAnimating()
+                self.mainView.loadingBgView.removeFromSuperview()
+                
                 return
             }
             
@@ -150,7 +164,10 @@ extension RegisterPillViewController : RegisterPillAction {
             self.getLocalImage(imagePath: defaultImage)
             self.mainView.completeButton.isHidden = false
             
-            self.view.makeToast("이미지를 불러왔어요 ✅", duration: 3.0, position: .center)
+            self.mainView.activityIndicator.stopAnimating()
+            self.mainView.loadingBgView.removeFromSuperview()
+
+            self.view.makeToast("이미지를 불러왔어요 ✅", duration: 1.5, position: .center)
         }
     }
     
@@ -164,7 +181,7 @@ extension RegisterPillViewController : RegisterPillAction {
             guard let self = self else { return }
 
             if cancelled {
-                self.view.makeToast("이미지 촬영 또는 선택이 취소되었습니다 🥲", duration: 3.0, position: .center)
+                self.view.makeToast("이미지 촬영 또는 선택이 취소되었습니다 🥲", duration: 2.0, position: .center)
             }
 
             if let photo = items.singlePhoto {
@@ -181,7 +198,7 @@ extension RegisterPillViewController : RegisterPillAction {
                         self.getLocalImage(imagePath: result.path)
                         self.mainView.completeButton.isHidden = false // complete 활성화
                         
-                        self.view.makeToast("이미지를 불러왔어요 ✅", duration: 3.0, position: .center)
+                        self.view.makeToast("이미지를 불러왔어요 ✅", duration: 2.0, position: .center)
                     case .failure(let error):
                         print(error)
                     }
@@ -223,12 +240,13 @@ extension RegisterPillViewController : UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         print(#function)
-        textField.text = ""
+        textField.text = nil
         self.mainView.userInputTextfield.filterStrings([])
         self.mainView.addImageTitleLabel.isHidden = true
         self.mainView.addImageTitleLabel.isHidden = true
         self.mainView.buttonStackView.isHidden = true
         self.mainView.pillImageView.isHidden = true
+        self.mainView.completeButton.isHidden = true
         self.mainView.pillImageView.image = nil
     }
     

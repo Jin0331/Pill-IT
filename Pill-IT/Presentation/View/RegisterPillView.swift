@@ -39,6 +39,8 @@ class RegisterPillView: BaseView {
         
         
         $0.theme.font = .systemFont(ofSize: 15)
+        $0.highlightAttributes = [NSAttributedString.Key.backgroundColor: DesignSystem.colorSet.lightGray, NSAttributedString.Key.font:UIFont.systemFont(ofSize: 15, weight: .heavy),
+                                  NSAttributedString.Key.foregroundColor : DesignSystem.colorSet.purple.cgColor]
         $0.theme.bgColor = DesignSystem.colorSet.lightGray
         $0.theme.borderColor = DesignSystem.colorSet.lightBlack
         $0.theme.borderWidth = DesignSystem.viewLayout.borderWidth

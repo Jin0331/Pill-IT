@@ -114,6 +114,10 @@ final class RegisterPillWebSearchViewController: BaseViewController {
 //        dataSource.applySnapshotUsingReloadData(<#T##snapshot: NSDiffableDataSourceSnapshot<Section, URL>##NSDiffableDataSourceSnapshot<Section, URL>#>)
     }
     
+    deinit {
+        print(#function, "RegisterPillWebSearchViewController")
+    }
+    
     
 }
 

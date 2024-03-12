@@ -123,7 +123,7 @@ final class RegisterPillViewController : BaseViewController {
     }
         
     deinit {
-        print(#function, " - RegisterPillView")
+        print(#function, " - ✅ RegisterPillView")
     }
 }
 

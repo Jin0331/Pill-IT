@@ -151,7 +151,7 @@ final class RegisterPillWebSearchViewController: BaseViewController {
     }
     
     deinit {
-        print(#function, "RegisterPillWebSearchViewController")
+        print(#function, " - ✅ RegisterPillWebSearchViewController")
     }
     
     

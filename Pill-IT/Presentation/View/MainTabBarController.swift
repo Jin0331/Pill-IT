@@ -13,7 +13,7 @@ class MainTabBarController: WHTabbarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setViewControllers([NotificationViewController(), PillListViewController()], animated: true)
+        setViewControllers([PillListViewController(), NotificationViewController()], animated: true)
     
     }
     

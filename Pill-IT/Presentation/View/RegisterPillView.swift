@@ -232,7 +232,7 @@ class RegisterPillView: BaseView {
     }
     
     deinit {
-        print(#function, " - RegisterPillView in-Side")
+        print(#function, " - ✅ RegisterPillView in-Side")
     }
     
 }

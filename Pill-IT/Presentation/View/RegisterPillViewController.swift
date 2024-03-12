@@ -96,7 +96,7 @@ final class RegisterPillViewController : BaseViewController {
             self.viewModel.inputeItemName.value = item[itemPosition].title
             self.viewModel.inputItemSeq.value = outputItemNameSeqList[itemPosition]
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, qos: .background) { [weak self] in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5, qos: .background) { [weak self] in
                 
                 guard let self = self else { return }
                 

@@ -10,6 +10,7 @@ import SnapKit
 import Then
 import Kingfisher
 import collection_view_layouts
+import Toast_Swift
 
 final class RegisterPillWebSearchViewController: BaseViewController {
         
@@ -18,6 +19,11 @@ final class RegisterPillWebSearchViewController: BaseViewController {
     var sendData : ((URL) -> Void)?
     
     // UI
+    let titleLabel = UILabel().then {
+        $0.textColor = DesignSystem.colorSet.black
+        $0.font = .systemFont(ofSize: 22, weight: .heavy)
+        $0.textAlignment = .center
+    }
     private lazy var seaerchCollectionView : UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         view.delegate = self
@@ -35,9 +41,8 @@ final class RegisterPillWebSearchViewController: BaseViewController {
     private func bindData() {
         guard let viewModel = viewModel else { return }
         
-        viewModel.outputItemImageWebLink.bind { [weak self] value in
+        viewModel.outputItemImageWebLink.bind { [weak self] _ in
             guard let self = self else { return }
-            guard let value = value else { return }
             
             self.updateSnapshot()
         }
@@ -45,15 +50,34 @@ final class RegisterPillWebSearchViewController: BaseViewController {
     }
     
     override func configureHierarchy() {
+        view.addSubview(titleLabel)
         view.addSubview(seaerchCollectionView)
     }
     
     override func configureLayout() {
+        
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide).inset(20)
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+            make.height.equalTo(40)
+        }
+        
         seaerchCollectionView.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
+            make.top.equalTo(titleLabel.snp.bottom).offset(15)
+            make.bottom.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
         }
     }
     
+    override func configureView() {
+        super.configureView()
+        
+        guard let viewModel = viewModel else { return }
+        guard let title = viewModel.inputeItemName.value else { return }
+        
+        titleLabel.text = "\(title) 검색 결과"
+    }
+    
+    //MARK: - Modern collection View
     // Like 인스타그램
     // 출처: https://kangheeseon.tistory.com/16
     private func createLayout() -> UICollectionViewLayout {
@@ -86,12 +110,13 @@ final class RegisterPillWebSearchViewController: BaseViewController {
         
         let cellRegistration = UICollectionView.CellRegistration<RegisterPillWebSearchCollectionViewCell, URL> { cell, indexPath, itemIdentifier in
             
-            DispatchQueue.global().async(qos : .userInteractive) {
+            DispatchQueue.global().async {
                 let url = itemIdentifier
                 let data = try? Data(contentsOf: url)
                 
+                guard let data = data else {return}
                 DispatchQueue.main.async {
-                    cell.webImage.image = UIImage(data: data!)
+                    cell.webImage.image = UIImage(data: data)
                 }
             }
         }
@@ -106,6 +131,15 @@ final class RegisterPillWebSearchViewController: BaseViewController {
     private func updateSnapshot() {
         guard let viewModel = viewModel else { return }
         guard let outputItemImageWebLink = viewModel.outputItemImageWebLink.value else { print("안찍히냐");return }
+        
+        if outputItemImageWebLink.count < 1 {
+            self.view.makeToast("이미지 검색 결과가 없어요 🥲", duration: 3.0, position: .center)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3.5) { [weak self] in
+                self?.dismiss(animated: true)
+            }
+        }
+        
         var snapshot = NSDiffableDataSourceSnapshot<Section, URL>()
         snapshot.appendSections(Section.allCases)
         snapshot.appendItems(outputItemImageWebLink, toSection: .main)

@@ -13,10 +13,16 @@ class MainTabBarController: WHTabbarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setViewControllers([PillListViewController(), NotificationViewController()], animated: true)
+        // 추후 접근을 이용해서 수정일 일이 생길 수 있으므로, 변수에 할당해서 관리
+        let firstVC = PillListViewController()
+        let firstNav = UINavigationController(rootViewController: firstVC)
+        
+        let secondVC = NotificationViewController()
+        let secondNav = UINavigationController(rootViewController: secondVC)
+        
+        setViewControllers([firstNav, secondNav], animated: true)
         
     }
-    
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -34,6 +40,27 @@ class MainTabBarController: WHTabbarController {
             self.present(vc, animated: true)
         }
     }
+//    
+//    private func configureItemDesing(tabBar : UITabBar) {
+//
+//        tabBar.tintColor = DesignSystem.colorSet.gray
+//        tabBar.barTintColor = DesignSystem.colorSet.white
+//        
+//        // item 디자인
+//        if let item = tabBar.items {
+//            //TODO: - Active, Inactive 구현해야됨. 지금은 Inactive 상태
+//            item[0].image = DesignSystem.tabbarImage.trendInactive
+//            item[0].selectedImage = DesignSystem.tabbarImage.trend
+//            
+//            item[1].image = DesignSystem.tabbarImage.searchInactive
+//            item[1].selectedImage = DesignSystem.tabbarImage.search
+//            
+//            item[2].image = DesignSystem.tabbarImage.portfolioInactive
+//            item[2].selectedImage = DesignSystem.tabbarImage.portfolio
+//            
+//        }
+//    }
+    
 }
 
 extension MainTabBarController : PillListAction {

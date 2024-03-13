@@ -27,4 +27,9 @@ enum DesignSystem {
         static let borderWidth = 3.0
         static let cornerRadius = 4.0
     }
+    
+    enum tabbarImage {
+        static let pillList = UIImage(named: "tab_list_inactive")
+        static let calendar = UIImage(named: "tab_notification_inactive")
+    }
 }

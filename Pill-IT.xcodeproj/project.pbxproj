@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		BD62AE5409713E6182D9F760 /* Pods_Pill_IT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 659394A6D31F48048CED413D /* Pods_Pill_IT.framework */; };
+		DB0368232BA1D18A006A62AD /* UITabbarController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0368222BA1D18A006A62AD /* UITabbarController+Extension.swift */; };
 		DB0F10D92B9F311B000DC430 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F10D82B9F311B000DC430 /* UIView+Extension.swift */; };
 		DB0F10DB2B9F7FCB000DC430 /* NaverSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F10DA2B9F7FCB000DC430 /* NaverSearchModel.swift */; };
 		DB0F10DD2B9F83CD000DC430 /* RegisterPillWebSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F10DC2B9F83CD000DC430 /* RegisterPillWebSearchViewController.swift */; };
@@ -50,6 +51,7 @@
 /* Begin PBXFileReference section */
 		659394A6D31F48048CED413D /* Pods_Pill_IT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pill_IT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAD492785086F4F1603A51EC /* Pods-Pill-IT.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pill-IT.debug.xcconfig"; path = "Target Support Files/Pods-Pill-IT/Pods-Pill-IT.debug.xcconfig"; sourceTree = "<group>"; };
+		DB0368222BA1D18A006A62AD /* UITabbarController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabbarController+Extension.swift"; sourceTree = "<group>"; };
 		DB0F10D82B9F311B000DC430 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		DB0F10DA2B9F7FCB000DC430 /* NaverSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverSearchModel.swift; sourceTree = "<group>"; };
 		DB0F10DC2B9F83CD000DC430 /* RegisterPillWebSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPillWebSearchViewController.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 		DBF446852B99B11B0021BC0F /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				DB0368222BA1D18A006A62AD /* UITabbarController+Extension.swift */,
 				DBF735232B9DE34900326852 /* UITextfield+Extension.swift */,
 				DB0F10D82B9F311B000DC430 /* UIView+Extension.swift */,
 				DB21CDA82BA03CF00041C892 /* String+Extension.swift */,
@@ -423,6 +426,7 @@
 				DBF735192B9DD3BE00326852 /* BaseCollectionViewCell.swift in Sources */,
 				DBF735122B9CC71800326852 /* WHTabbarController.swift in Sources */,
 				DB0F10E02B9F885E000DC430 /* RegisterPillWebSearchCollectionViewCell.swift in Sources */,
+				DB0368232BA1D18A006A62AD /* UITabbarController+Extension.swift in Sources */,
 				DBF4465B2B9983930021BC0F /* SceneDelegate.swift in Sources */,
 				DBF7350A2B9CBC3000326852 /* NotificationViewController.swift in Sources */,
 				DBF4467E2B9990EF0021BC0F /* PillPermitModel.swift in Sources */,

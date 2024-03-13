@@ -137,7 +137,7 @@ final class RegisterPillViewController : BaseViewController {
 extension RegisterPillViewController : PillRegisterAction {
     
     func disMissPresent() {
-        kfCacheClear()
+//        kfCacheClear()
         dismiss(animated: true)
     }
     
@@ -149,7 +149,7 @@ extension RegisterPillViewController : PillRegisterAction {
             switch result {
             case .success:
                 pillListDelegate?.completeToast()
-                kfCacheClear()
+//                kfCacheClear()
                 dismiss(animated: true)
             case .failure:
                 view.makeToast("이미 등록된 복용약입니다 😓", duration: 1.5, position: .center)
@@ -255,8 +255,7 @@ extension RegisterPillViewController : PillRegisterAction {
     
     private func kfCacheClear() {
         let cache = ImageCache.default
-        cache.clearMemoryCache()
-        cache.clearDiskCache { print("KF cache remove") }
+        cache.cleanExpiredMemoryCache()
     }
     
 }

@@ -69,9 +69,7 @@ class PillManagementViewController : BaseViewController {
         var snapshot = NSDiffableDataSourceSnapshot<PillManagementViewSection, Pill>()
         snapshot.appendSections(PillManagementViewSection.allCases)
         snapshot.appendItems(outputRegisteredPill, toSection: .main)
-        
-        print(#function, snapshot)
-        
+
         dataSource.apply(snapshot) // reloadData
     }
     

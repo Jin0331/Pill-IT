@@ -6,20 +6,31 @@
 //
 
 import UIKit
-//import SwipeableTabBarController
+import Toast_Swift
 
 class MainTabBarController: WHTabbarController {
-
+    
+    private var firstVC : PillManagementViewController!
+    private var secondVC : NotificationViewController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        setViewControllers([NotificationViewController(), PillListViewController()], animated: true)
-    
+        
+        // 추후 접근을 이용해서 수정일 일이 생길 수 있으므로, 변수에 할당해서 관리
+        firstVC = PillManagementViewController()
+        let firstNav = UINavigationController(rootViewController: firstVC)
+        
+        secondVC = NotificationViewController()
+        let secondNav = UINavigationController(rootViewController: secondVC)
+        
+        setViewControllers([firstNav, secondNav], animated: true)
+        
     }
-    
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+                
+        configureItemDesing(tabBar: tabBar)
         
         centerButtonSize  = 60.0
         centerButtonBackroundColor =  .clear
@@ -27,21 +38,23 @@ class MainTabBarController: WHTabbarController {
         centerButtonBorderWidth = 0
         centerButtonImageSize = 50
         centerButtonImage = UIImage(named: "pillIcon")
-        
-        
-        
-        // vPosition +ev value will move button Up
-        // vPosition -ev value will move button Down
-        setupCenetrButton(vPosition: 0) {
-            print("center button clicked")
-            self.present(RegisterPillViewController(), animated: true)
+        setupCenetrButton(vPosition: 0) { [weak self] in
+            guard let self = self else { return }
+            let vc = RegisterPillViewController()
+            vc.pillListDelegate = self
             
-            // you can navigate to some view controler from here
-            
-            // or you can enable the babbar selected item jsut like
-           // self.tabBarController?.selectedIndex = 1
+            self.present(vc, animated: true)
         }
-        
-        
+    }
+    
+}
+
+extension MainTabBarController : PillListAction {
+    func fetchPillTable() {
+        firstVC.viewModel.fetchPillItemTrigger.value = ()
+    }
+    
+    func completeToast() {
+        view.makeToast("복용약이 등록되었습니다 ✅", duration: 2, position: .center)
     }
 }

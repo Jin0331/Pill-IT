@@ -9,13 +9,17 @@ import UIKit
 import Toast_Swift
 import Kingfisher
 import YPImagePicker
+import SearchTextField
 
 //TODO: - 복용약 이름이 제대로 설정되지 않았을 때, Timer를 통해서 메세지 알리기 - Toast로 해결
 //TODO: - 의약품 일련번호, 이름 DB Migration 해야됨
+//TODO: - 의약품 허가 목록에 이미지파일 있음. 현재 itemSeq으로 다시 호출하여 검색하는데, 추후 버전 업데이트시 변경 해야 됨
 final class RegisterPillViewController : BaseViewController {
     
-    let mainView = RegisterPillView()
-    var viewModel = RegisterPillViewModel()
+    private let mainView = RegisterPillView()
+    private var viewModel = RegisterPillViewModel()
+    weak var pillListDelegate : PillListAction?
+    var sendData : (() -> Void)?
 
     override func loadView() {
         self.view = mainView
@@ -41,40 +45,41 @@ final class RegisterPillViewController : BaseViewController {
         // 2글자 이상 입력될때 실행되도록
         mainView.userInputTextfield.userStoppedTypingHandler = { [weak self] in
             guard let self = self else { return }
-            if let criteria = self.mainView.userInputTextfield.text {
+            if let criteria = mainView.userInputTextfield.text {
                 
                 let whipeSpaceRemovedText = criteria.replacingOccurrences(of: " ", with: "")
                 print(whipeSpaceRemovedText)
                 
                 if !whipeSpaceRemovedText.isHangul {
-                    self.view.makeToast("한글 검색만 지원됩니다❗️", duration: 1.0, position: .center)
+                    view.makeToast("한글 검색만 지원됩니다❗️", duration: 1.0, position: .center)
                     return
                 }
                 
                 if whipeSpaceRemovedText.count >= 2 {
                     
-                    DispatchQueue.main.async {
-                        self.mainView.endEditing(true)
+                    DispatchQueue.main.async { [weak self] in
+                        guard let self = self else { return }
+                        mainView.endEditing(true)
                     }
                     
-                    self.mainView.userInputTextfield.showLoadingIndicator()
+                    mainView.userInputTextfield.showLoadingIndicator()
                     
-                    self.viewModel.callRequestForItemListTrigger.value = whipeSpaceRemovedText
-                    self.viewModel.outputItemNameList.bind { [weak self] value in
+                    // Trigger
+                    viewModel.callRequestForItemListTrigger.value = whipeSpaceRemovedText
+                    
+                    viewModel.outputItemEntpNameSeqList.bind { [weak self] value in
                         guard let self = self else { return }
-                        guard let value = value else {
-                            return
-                        }
+                        guard let value = value else { return }
                         
-                        let convertValue = value.map {
-                            var temp = $0.regxRemove(regString: "(수출명")
-                            var result = temp.regxRemove(regString: "[수출명")
+                        let convertItemEntpNameList = value.map { value in
+                            let tempItemName = value.itemName.regxRemove(regString: "(수출명")
+                            let resultItemName = tempItemName.regxRemove(regString: "[수출명")
                             
-                            return result
+                            return SearchTextFieldItem(title: resultItemName, subtitle: value.entpName)
                         }
                         
-                        self.mainView.userInputTextfield.filterStrings(convertValue)
-                        self.mainView.userInputTextfield.stopLoadingIndicator()
+                        mainView.userInputTextfield.filterItems(convertItemEntpNameList)
+                        mainView.userInputTextfield.stopLoadingIndicator()
                     }
                 }
             }
@@ -83,62 +88,76 @@ final class RegisterPillViewController : BaseViewController {
         // autocomplete이 선택되었을 때
         mainView.userInputTextfield.itemSelectionHandler = { [weak self] item, itemPosition in
             guard let self = self else { return }
-            guard let outputItemNameSeqList = self.viewModel.outputItemNameSeqList.value else { return }
+            guard let outputItemEntpNameSeqList = viewModel.outputItemEntpNameSeqList.value else { return }
             
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
-                self.mainView.endEditing(true)
+                mainView.endEditing(true)
             }
             
-            self.mainView.setActivityIndicator()
+            mainView.setActivityIndicator()
             
-            self.mainView.userInputTextfield.text = item[itemPosition].title
-            self.viewModel.inputeItemName.value = item[itemPosition].title
-            self.viewModel.inputItemSeq.value = outputItemNameSeqList[itemPosition]
+            mainView.userInputTextfield.text = item[itemPosition].title
+            viewModel.inputItemName.value = item[itemPosition].title
+            viewModel.inputItemSeq.value = outputItemEntpNameSeqList[itemPosition].itemSeq
+            viewModel.inputEntpName.value = outputItemEntpNameSeqList[itemPosition].entpName
+            viewModel.inputEntpNo.value = outputItemEntpNameSeqList[itemPosition].entpNo
+            viewModel.inputPrductType.value = outputItemEntpNameSeqList[itemPosition].prductType
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, qos: .background) { [weak self] in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5, qos: .background) { [weak self] in
                 
                 guard let self = self else { return }
                 
                 // 커서 맨 앞으로 옮기기
-                self.mainView.userInputTextfield.selectedTextRange = self.mainView.userInputTextfield.textRange(from: self.mainView.userInputTextfield.beginningOfDocument, to: self.mainView.userInputTextfield.beginningOfDocument)
+                mainView.userInputTextfield.selectedTextRange = mainView.userInputTextfield.textRange(from: mainView.userInputTextfield.beginningOfDocument, to: mainView.userInputTextfield.beginningOfDocument)
                 
                 // 기존 autucomplete 삭제
-                self.mainView.userInputTextfield.filterItems([])
+                mainView.userInputTextfield.filterItems([])
                 
                 
                 // 이미지 등록하기 true
                 //TODO: -시간되면 Animation 넣기
-                
-                self.mainView.addImageTitleLabel.isHidden = false
-                self.mainView.buttonStackView.isHidden = false
+                mainView.addImageTitleLabel.isHidden = false
+                mainView.buttonStackView.isHidden = false
                 
                 // loading
-                self.mainView.activityIndicator.stopAnimating()
-                self.mainView.loadingBgView.removeFromSuperview()
+                mainView.activityIndicator.stopAnimating()
+                mainView.loadingBgView.removeFromSuperview()
                 
-                self.view.makeToast("약에 대한 검색이 완료되었어요 ✅", duration: 1.0, position: .center)
+                view.makeToast("약에 대한 검색이 완료되었어요 ✅", duration: 1.0, position: .center)
             }
         }
     }
         
     deinit {
-        print(#function, " - RegisterPillView")
+        print(#function, " - ✅ RegisterPillView")
     }
 }
 
 
 //MARK: - View Action Protocol
-extension RegisterPillViewController : RegisterPillAction {
+extension RegisterPillViewController : PillRegisterAction {
     
     func disMissPresent() {
+        kfCacheClear()
         dismiss(animated: true)
     }
     
     func completePillRegister() {
         
         //TODO: - Databse에 데이터 넣어야 됨
-        dismiss(animated: true)
+        viewModel.pillRegister { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success:
+                pillListDelegate?.completeToast()
+                pillListDelegate?.fetchPillTable()
+                kfCacheClear()
+                dismiss(animated: true)
+            case .failure:
+                view.makeToast("이미 등록된 복용약입니다 😓", duration: 1.5, position: .center)
+            }
+        }
     }
     
     func defaultButtonAction() {
@@ -147,24 +166,26 @@ extension RegisterPillViewController : RegisterPillAction {
         
         viewModel.callcallRequestForImageTrigger.value = viewModel.inputItemSeq.value
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.7, qos: .background) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.7, qos: .background) { [weak self] in
+            
+            guard let self = self else { return }
             
             guard let defaultImage = self.viewModel.localImageURL.value else {
-                self.view.makeToast("식품의약처에 등록된 이미지가 없습니다 🥲", duration: 3.0, position: .center)
-                self.mainView.activityIndicator.stopAnimating()
-                self.mainView.loadingBgView.removeFromSuperview()
+                view.makeToast("식품의약처에 등록된 이미지가 없습니다 🥲", duration: 3.0, position: .center)
+                mainView.activityIndicator.stopAnimating()
+                mainView.loadingBgView.removeFromSuperview()
                 
                 return
             }
             
-            self.mainView.pillImageView.isHidden = false
-            self.getLocalImage(imagePath: defaultImage)
-            self.mainView.completeButton.isHidden = false
+            mainView.pillImageView.isHidden = false
+            getLocalImage(imagePath: defaultImage)
+            mainView.completeButton.isHidden = false
             
-            self.mainView.activityIndicator.stopAnimating()
-            self.mainView.loadingBgView.removeFromSuperview()
+            mainView.activityIndicator.stopAnimating()
+            mainView.loadingBgView.removeFromSuperview()
 
-            self.view.makeToast("이미지를 불러왔어요 ✅", duration: 1.5, position: .center)
+            view.makeToast("이미지를 불러왔어요 ✅", duration: 1.5, position: .center)
         }
     }
     
@@ -178,24 +199,24 @@ extension RegisterPillViewController : RegisterPillAction {
             guard let self = self else { return }
 
             if cancelled {
-                self.view.makeToast("이미지 촬영 또는 선택이 취소되었습니다 🥲", duration: 2.0, position: .center)
+                view.makeToast("이미지 촬영 또는 선택이 취소되었습니다 🥲", duration: 2.0, position: .center)
             }
 
             if let photo = items.singlePhoto {
-                guard let itemSeq = self.viewModel.inputItemSeq.value else { return }
+                guard let itemSeq = viewModel.inputItemSeq.value else { return }
                 
                 FileDownloadManager.shared.saveLocalImage(image: photo.image, pillID: itemSeq) { [weak self] value in
                     guard let self = self else { return }
                     
                     switch value {
                     case .success(let result):
-                        self.viewModel.localImageURL.value = result.path
+                        viewModel.localImageURL.value = result.path
                         
-                        self.mainView.pillImageView.isHidden = false
-                        self.getLocalImage(imagePath: result.path)
-                        self.mainView.completeButton.isHidden = false // complete 활성화
+                        mainView.pillImageView.isHidden = false
+                        getLocalImage(imagePath: result.path)
+                        mainView.completeButton.isHidden = false // complete 활성화
                         
-                        self.view.makeToast("이미지를 불러왔어요 ✅", duration: 2.0, position: .center)
+                        view.makeToast("이미지를 불러왔어요 ✅", duration: 2.0, position: .center)
                     case .failure(let error):
                         print(error)
                     }
@@ -218,11 +239,11 @@ extension RegisterPillViewController : RegisterPillAction {
                 
                 guard let self = self else { return }
                 
-                self.viewModel.localImageURL.value = webURL.path
-                self.mainView.pillImageView.isHidden = false
-                self.getLocalImage(imagePath: webURL.path)
-                self.mainView.completeButton.isHidden = false
-                self.view.makeToast("이미지를 불러왔어요 ✅", duration: 2.0, position: .center)
+                viewModel.localImageURL.value = webURL.path
+                mainView.pillImageView.isHidden = false
+                getLocalImage(imagePath: webURL.path)
+                mainView.completeButton.isHidden = false
+                view.makeToast("이미지를 불러왔어요 ✅", duration: 2.0, position: .center)
             }
         }
         
@@ -232,7 +253,12 @@ extension RegisterPillViewController : RegisterPillAction {
     private func getLocalImage(imagePath : String) {
         let url = URL(fileURLWithPath: imagePath)
         let provider = LocalFileImageDataProvider(fileURL: url)
-        self.mainView.pillImageView.kf.setImage(with: provider, options: [.transition(.fade(1)), .forceRefresh])
+        mainView.pillImageView.kf.setImage(with: provider, options: [.transition(.fade(1)), .forceRefresh])
+    }
+    
+    private func kfCacheClear() {
+        let cache = ImageCache.default
+        cache.cleanExpiredMemoryCache()
     }
     
 }
@@ -242,13 +268,13 @@ extension RegisterPillViewController : UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         print(#function)
         textField.text = nil
-        self.mainView.userInputTextfield.filterStrings([])
-        self.mainView.addImageTitleLabel.isHidden = true
-        self.mainView.addImageTitleLabel.isHidden = true
-        self.mainView.buttonStackView.isHidden = true
-        self.mainView.pillImageView.isHidden = true
-        self.mainView.completeButton.isHidden = true
-        self.mainView.pillImageView.image = nil
+        mainView.userInputTextfield.filterStrings([])
+        mainView.addImageTitleLabel.isHidden = true
+        mainView.addImageTitleLabel.isHidden = true
+        mainView.buttonStackView.isHidden = true
+        mainView.pillImageView.isHidden = true
+        mainView.completeButton.isHidden = true
+        mainView.pillImageView.image = nil
     }
     
 }

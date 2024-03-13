@@ -7,11 +7,15 @@
 
 import Foundation
 
-protocol RegisterPillAction : AnyObject {
-    
+protocol PillRegisterAction : AnyObject {
     func disMissPresent()
     func completePillRegister()
     func defaultButtonAction()
     func cameraGalleryButtonAction()
     func webSearchButtonAction()
+}
+
+protocol PillListAction : AnyObject {
+    func completeToast()
+    func fetchPillTable()
 }

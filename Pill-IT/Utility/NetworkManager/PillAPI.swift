@@ -43,7 +43,7 @@ enum PillAPI  {
     
     var header : HTTPHeaders {
         switch self {
-        case .searchImage(query: let query):
+        case .searchImage :
             return ["X-Naver-Client-Id" : API.naverClientId, "X-Naver-Client-Secret": API.naverClientSecret]
         default :
             return [:]

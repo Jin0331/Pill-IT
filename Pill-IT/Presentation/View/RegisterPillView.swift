@@ -12,9 +12,9 @@ import SearchTextField
 import Kingfisher
 import NVActivityIndicatorView
 
-class RegisterPillView: BaseView {
+final class RegisterPillView: BaseView {
     
-    weak var actionDelegate : RegisterPillAction?
+    weak var actionDelegate : PillRegisterAction?
     
     let exitButton = UIButton().then {
         $0.setImage(DesignSystem.iconImage.clear, for: .normal)
@@ -22,9 +22,9 @@ class RegisterPillView: BaseView {
     }
     
     let titleLabel = UILabel().then {
-        $0.text = "복용약 등록"
+        $0.text = "🌟 복용약 등록"
         $0.textColor = DesignSystem.colorSet.black
-        $0.font = .systemFont(ofSize: 40, weight: .heavy)
+        $0.font = .systemFont(ofSize: 35, weight: .heavy)
     }
     
     let userInputTextfield = SearchTextField().then {
@@ -94,9 +94,10 @@ class RegisterPillView: BaseView {
 
     let pillImageView = UIImageView().then {
         $0.backgroundColor = DesignSystem.colorSet.white
-        $0.layer.borderWidth = DesignSystem.viewLayout.borderWidth
-        $0.layer.borderColor = DesignSystem.colorSet.lightBlack.cgColor
-        $0.layer.cornerRadius = DesignSystem.viewLayout.cornerRadius
+//        $0.layer.borderWidth = DesignSystem.viewLayout.borderWidth
+//        $0.layer.borderColor = DesignSystem.colorSet.lightBlack.cgColor
+        $0.layer.cornerRadius = DesignSystem.viewLayout.imageCornetRadius
+        $0.clipsToBounds = true        
         $0.isHidden = true
     }
     
@@ -139,8 +140,8 @@ class RegisterPillView: BaseView {
     override func configureLayout() {
         
         exitButton.snp.makeConstraints { make in
-            make.top.leading.equalToSuperview().inset(20)
-            make.size.equalTo(40)
+            make.top.trailing.equalToSuperview().inset(20)
+            make.size.equalTo(30)
         }
         
         titleLabel.snp.makeConstraints { make in
@@ -232,7 +233,7 @@ class RegisterPillView: BaseView {
     }
     
     deinit {
-        print(#function, " - RegisterPillView in-Side")
+        print(#function, " - ✅ RegisterPillView in-Side")
     }
     
 }

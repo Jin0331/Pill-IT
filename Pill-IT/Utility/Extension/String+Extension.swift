@@ -25,4 +25,13 @@ extension String {
         
         return temp
     }
+    
+    var toInt : Int {
+        let nIntVal : Int? = Int(self)
+        if let nIntVal {
+            return nIntVal
+        } else {
+            return -999
+        }
+    }
 }

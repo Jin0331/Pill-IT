@@ -16,8 +16,8 @@ import SearchTextField
 //TODO: - 의약품 허가 목록에 이미지파일 있음. 현재 itemSeq으로 다시 호출하여 검색하는데, 추후 버전 업데이트시 변경 해야 됨
 final class RegisterPillViewController : BaseViewController {
     
-    let mainView = RegisterPillView()
-    var viewModel = RegisterPillViewModel()
+    private let mainView = RegisterPillView()
+    private var viewModel = RegisterPillViewModel()
     weak var pillListDelegate : PillListAction?
 
     override func loadView() {
@@ -44,7 +44,7 @@ final class RegisterPillViewController : BaseViewController {
         // 2글자 이상 입력될때 실행되도록
         mainView.userInputTextfield.userStoppedTypingHandler = { [weak self] in
             guard let self = self else { return }
-            if let criteria = self.mainView.userInputTextfield.text {
+            if let criteria = mainView.userInputTextfield.text {
                 
                 let whipeSpaceRemovedText = criteria.replacingOccurrences(of: " ", with: "")
                 print(whipeSpaceRemovedText)
@@ -87,7 +87,7 @@ final class RegisterPillViewController : BaseViewController {
         // autocomplete이 선택되었을 때
         mainView.userInputTextfield.itemSelectionHandler = { [weak self] item, itemPosition in
             guard let self = self else { return }
-            guard let outputItemEntpNameSeqList = self.viewModel.outputItemEntpNameSeqList.value else { return }
+            guard let outputItemEntpNameSeqList = viewModel.outputItemEntpNameSeqList.value else { return }
             
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
@@ -137,6 +137,7 @@ final class RegisterPillViewController : BaseViewController {
 extension RegisterPillViewController : PillRegisterAction {
     
     func disMissPresent() {
+        kfCacheClear()
         dismiss(animated: true)
     }
     
@@ -148,6 +149,7 @@ extension RegisterPillViewController : PillRegisterAction {
             switch result {
             case .success:
                 pillListDelegate?.completeToast()
+                kfCacheClear()
                 dismiss(animated: true)
             case .failure:
                 view.makeToast("이미 등록된 복용약입니다 😓", duration: 1.5, position: .center)
@@ -198,7 +200,7 @@ extension RegisterPillViewController : PillRegisterAction {
             }
 
             if let photo = items.singlePhoto {
-                guard let itemSeq = self.viewModel.inputItemSeq.value else { return }
+                guard let itemSeq = viewModel.inputItemSeq.value else { return }
                 
                 FileDownloadManager.shared.saveLocalImage(image: photo.image, pillID: itemSeq) { [weak self] value in
                     guard let self = self else { return }
@@ -248,7 +250,13 @@ extension RegisterPillViewController : PillRegisterAction {
     private func getLocalImage(imagePath : String) {
         let url = URL(fileURLWithPath: imagePath)
         let provider = LocalFileImageDataProvider(fileURL: url)
-        self.mainView.pillImageView.kf.setImage(with: provider, options: [.transition(.fade(1)), .forceRefresh])
+        mainView.pillImageView.kf.setImage(with: provider, options: [.transition(.fade(1)), .forceRefresh])
+    }
+    
+    private func kfCacheClear() {
+        let cache = ImageCache.default
+        cache.clearMemoryCache()
+        cache.clearDiskCache { print("KF cache remove") }
     }
     
 }
@@ -258,13 +266,13 @@ extension RegisterPillViewController : UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         print(#function)
         textField.text = nil
-        self.mainView.userInputTextfield.filterStrings([])
-        self.mainView.addImageTitleLabel.isHidden = true
-        self.mainView.addImageTitleLabel.isHidden = true
-        self.mainView.buttonStackView.isHidden = true
-        self.mainView.pillImageView.isHidden = true
-        self.mainView.completeButton.isHidden = true
-        self.mainView.pillImageView.image = nil
+        mainView.userInputTextfield.filterStrings([])
+        mainView.addImageTitleLabel.isHidden = true
+        mainView.addImageTitleLabel.isHidden = true
+        mainView.buttonStackView.isHidden = true
+        mainView.pillImageView.isHidden = true
+        mainView.completeButton.isHidden = true
+        mainView.pillImageView.image = nil
     }
     
 }

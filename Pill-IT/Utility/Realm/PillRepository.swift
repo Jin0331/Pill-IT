@@ -29,17 +29,18 @@ final class RealmRepository {
     }
     
     //MARK: - READ
-    
-    enum TableError : Error {
-        case noData
-    }
-    
     func pillExist(itemSeq : Int) -> Bool {
         if realm.object(ofType: Pill.self, forPrimaryKey: itemSeq) != nil {
             return true
         } else {
             return false
         }
+    }
+    
+    func fetchPillItem() -> [Pill] {
+        let result = realm.objects(Pill.self)
+        
+        return Array(result)
     }
     
 }

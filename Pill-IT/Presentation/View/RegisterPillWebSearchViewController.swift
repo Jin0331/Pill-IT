@@ -15,7 +15,7 @@ import Toast_Swift
 final class RegisterPillWebSearchViewController: BaseViewController {
         
     weak var viewModel : RegisterPillViewModel?
-    var dataSource : UICollectionViewDiffableDataSource<Section, URL>!
+    private var dataSource : UICollectionViewDiffableDataSource<RegisterPillWebSearchViewSection, URL>!
     var sendData : ((URL) -> Void)?
     
     // UI
@@ -45,7 +45,7 @@ final class RegisterPillWebSearchViewController: BaseViewController {
         viewModel.outputItemImageWebLink.bind { [weak self] _ in
             guard let self = self else { return }
             
-            self.updateSnapshot()
+            updateSnapshot()
         }
         
     }
@@ -111,20 +111,11 @@ final class RegisterPillWebSearchViewController: BaseViewController {
     private func configureDataSource() {
         
         let cellRegistration = UICollectionView.CellRegistration<RegisterPillWebSearchCollectionViewCell, URL> { cell, indexPath, itemIdentifier in
-            
-            DispatchQueue.global().async {
-                let url = itemIdentifier
-                guard let data = try? Data(contentsOf: url) else {
-                    DispatchQueue.main.async {
-                        cell.webImage.image = UIImage(named: "noImage")
-                    }
-                    return
-                }
-                
-                DispatchQueue.main.async {
-                    cell.webImage.image = UIImage(data: data)
-                }
-            }
+
+            //TODO: - Kingfisher로 변경 필요
+            let provider = LocalFileImageDataProvider(fileURL: itemIdentifier)
+            cell.webImage.kf.indicatorType = .activity
+            cell.webImage.kf.setImage(with: provider, options: [.transition(.fade(0.7))])
         }
         
         dataSource = UICollectionViewDiffableDataSource(collectionView: seaerchCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
@@ -146,21 +137,16 @@ final class RegisterPillWebSearchViewController: BaseViewController {
             }
         }
         
-        var snapshot = NSDiffableDataSourceSnapshot<Section, URL>()
-        snapshot.appendSections(Section.allCases)
+        var snapshot = NSDiffableDataSourceSnapshot<RegisterPillWebSearchViewSection, URL>()
+        snapshot.appendSections(RegisterPillWebSearchViewSection.allCases)
         snapshot.appendItems(outputItemImageWebLink, toSection: .main)
         dataSource.apply(snapshot) // reloadData
-        
-//        dataSource.applySnapshotUsingReloadData(<#T##snapshot: NSDiffableDataSourceSnapshot<Section, URL>##NSDiffableDataSourceSnapshot<Section, URL>#>)
     }
     
     deinit {
         print(#function, " - ✅ RegisterPillWebSearchViewController")
     }
-    
-    
 }
-
 
 extension RegisterPillWebSearchViewController : UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

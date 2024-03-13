@@ -7,12 +7,7 @@
 
 import Foundation
 
-// 여기 위치가 맞는것인가?
-enum Section : CaseIterable{
-    case main
-}
-
-class RegisterPillViewModel {
+final class RegisterPillViewModel {
     
     private let repository = RealmRepository()
     
@@ -46,7 +41,7 @@ class RegisterPillViewModel {
             guard let self = self else { return }
             guard let value = value else { return }
             
-            self.callRequestForImage(value)
+            callRequestForImage(value)
         }
         
         callcallRequestForWebTrigger.bind { [weak self] _ in
@@ -143,7 +138,6 @@ class RegisterPillViewModel {
             
         }
     }
-    
     
     func isPillExist(_ itemSeq : String) -> Bool {
         return repository.pillExist(itemSeq: itemSeq.toInt)

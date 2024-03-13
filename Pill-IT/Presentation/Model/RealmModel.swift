@@ -62,5 +62,10 @@ class Pill : Object {
         self.alarmGroup = alarmGroup
     }
     
+    var urlPathToURL : URL {
+        get {
+            return URL(fileURLWithPath: urlPath)
+        }
+    }
     
 }

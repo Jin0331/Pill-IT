@@ -12,7 +12,7 @@ import SearchTextField
 import Kingfisher
 import NVActivityIndicatorView
 
-class RegisterPillView: BaseView {
+final class RegisterPillView: BaseView {
     
     weak var actionDelegate : PillRegisterAction?
     
@@ -94,9 +94,10 @@ class RegisterPillView: BaseView {
 
     let pillImageView = UIImageView().then {
         $0.backgroundColor = DesignSystem.colorSet.white
-        $0.layer.borderWidth = DesignSystem.viewLayout.borderWidth
-        $0.layer.borderColor = DesignSystem.colorSet.lightBlack.cgColor
-        $0.layer.cornerRadius = DesignSystem.viewLayout.cornerRadius
+//        $0.layer.borderWidth = DesignSystem.viewLayout.borderWidth
+//        $0.layer.borderColor = DesignSystem.colorSet.lightBlack.cgColor
+        $0.layer.cornerRadius = DesignSystem.viewLayout.imageCornetRadius
+        $0.clipsToBounds = true        
         $0.isHidden = true
     }
     

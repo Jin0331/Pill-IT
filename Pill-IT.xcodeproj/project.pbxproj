@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		BD62AE5409713E6182D9F760 /* Pods_Pill_IT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 659394A6D31F48048CED413D /* Pods_Pill_IT.framework */; };
 		DB0368232BA1D18A006A62AD /* UITabbarController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0368222BA1D18A006A62AD /* UITabbarController+Extension.swift */; };
+		DB0368252BA1DBBB006A62AD /* PillManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0368242BA1DBBB006A62AD /* PillManagementView.swift */; };
+		DB0368272BA1E7E9006A62AD /* PillManagermentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0368262BA1E7E9006A62AD /* PillManagermentCollectionViewCell.swift */; };
+		DB0368292BA1F889006A62AD /* PillManagementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0368282BA1F889006A62AD /* PillManagementViewModel.swift */; };
+		DB03682B2BA1F9FC006A62AD /* Enumeration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB03682A2BA1F9FC006A62AD /* Enumeration.swift */; };
 		DB0F10D92B9F311B000DC430 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F10D82B9F311B000DC430 /* UIView+Extension.swift */; };
 		DB0F10DB2B9F7FCB000DC430 /* NaverSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F10DA2B9F7FCB000DC430 /* NaverSearchModel.swift */; };
 		DB0F10DD2B9F83CD000DC430 /* RegisterPillWebSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F10DC2B9F83CD000DC430 /* RegisterPillWebSearchViewController.swift */; };
@@ -32,7 +36,7 @@
 		DBF4468E2B9A350E0021BC0F /* PillRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF4468D2B9A350E0021BC0F /* PillRepository.swift */; };
 		DBF735082B9CB58100326852 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF735072B9CB58100326852 /* MainTabBarController.swift */; };
 		DBF7350A2B9CBC3000326852 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF735092B9CBC3000326852 /* NotificationViewController.swift */; };
-		DBF7350C2B9CBC4300326852 /* PillListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF7350B2B9CBC4300326852 /* PillListViewController.swift */; };
+		DBF7350C2B9CBC4300326852 /* PillManagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF7350B2B9CBC4300326852 /* PillManagementViewController.swift */; };
 		DBF735102B9CC6FD00326852 /* extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF7350F2B9CC6FD00326852 /* extension.swift */; };
 		DBF735122B9CC71800326852 /* WHTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF735112B9CC71800326852 /* WHTabbarController.swift */; };
 		DBF735192B9DD3BE00326852 /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF735152B9DD3BE00326852 /* BaseCollectionViewCell.swift */; };
@@ -52,6 +56,10 @@
 		659394A6D31F48048CED413D /* Pods_Pill_IT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pill_IT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAD492785086F4F1603A51EC /* Pods-Pill-IT.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pill-IT.debug.xcconfig"; path = "Target Support Files/Pods-Pill-IT/Pods-Pill-IT.debug.xcconfig"; sourceTree = "<group>"; };
 		DB0368222BA1D18A006A62AD /* UITabbarController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabbarController+Extension.swift"; sourceTree = "<group>"; };
+		DB0368242BA1DBBB006A62AD /* PillManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillManagementView.swift; sourceTree = "<group>"; };
+		DB0368262BA1E7E9006A62AD /* PillManagermentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillManagermentCollectionViewCell.swift; sourceTree = "<group>"; };
+		DB0368282BA1F889006A62AD /* PillManagementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillManagementViewModel.swift; sourceTree = "<group>"; };
+		DB03682A2BA1F9FC006A62AD /* Enumeration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enumeration.swift; sourceTree = "<group>"; };
 		DB0F10D82B9F311B000DC430 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		DB0F10DA2B9F7FCB000DC430 /* NaverSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverSearchModel.swift; sourceTree = "<group>"; };
 		DB0F10DC2B9F83CD000DC430 /* RegisterPillWebSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPillWebSearchViewController.swift; sourceTree = "<group>"; };
@@ -77,7 +85,7 @@
 		DBF4468D2B9A350E0021BC0F /* PillRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillRepository.swift; sourceTree = "<group>"; };
 		DBF735072B9CB58100326852 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		DBF735092B9CBC3000326852 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
-		DBF7350B2B9CBC4300326852 /* PillListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillListViewController.swift; sourceTree = "<group>"; };
+		DBF7350B2B9CBC4300326852 /* PillManagementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillManagementViewController.swift; sourceTree = "<group>"; };
 		DBF7350F2B9CC6FD00326852 /* extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extension.swift; sourceTree = "<group>"; };
 		DBF735112B9CC71800326852 /* WHTabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WHTabbarController.swift; sourceTree = "<group>"; };
 		DBF735152B9DD3BE00326852 /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -118,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				DB0F10DF2B9F885E000DC430 /* RegisterPillWebSearchCollectionViewCell.swift */,
+				DB0368262BA1E7E9006A62AD /* PillManagermentCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -173,7 +182,8 @@
 			children = (
 				DB0F10DE2B9F8848000DC430 /* Cell */,
 				DBF735072B9CB58100326852 /* MainTabBarController.swift */,
-				DBF7350B2B9CBC4300326852 /* PillListViewController.swift */,
+				DB0368242BA1DBBB006A62AD /* PillManagementView.swift */,
+				DBF7350B2B9CBC4300326852 /* PillManagementViewController.swift */,
 				DBF735212B9DD6F900326852 /* RegisterPillView.swift */,
 				DBF446812B99AA4C0021BC0F /* RegisterPillViewController.swift */,
 				DB0F10DC2B9F83CD000DC430 /* RegisterPillWebSearchViewController.swift */,
@@ -185,7 +195,9 @@
 		DBF446732B998E8E0021BC0F /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				DB03682A2BA1F9FC006A62AD /* Enumeration.swift */,
 				DBF735272B9DF02500326852 /* RegisterPillViewModel.swift */,
+				DB0368282BA1F889006A62AD /* PillManagementViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -418,19 +430,23 @@
 				DBF7352C2B9E9F2700326852 /* PillGrainInfo.swift in Sources */,
 				DBF735202B9DD3FC00326852 /* DesignSystem.swift in Sources */,
 				DBF4468E2B9A350E0021BC0F /* PillRepository.swift in Sources */,
+				DB0368292BA1F889006A62AD /* PillManagementViewModel.swift in Sources */,
 				DBF735242B9DE34900326852 /* UITextfield+Extension.swift in Sources */,
+				DB0368252BA1DBBB006A62AD /* PillManagementView.swift in Sources */,
 				DBF735102B9CC6FD00326852 /* extension.swift in Sources */,
 				DBF735082B9CB58100326852 /* MainTabBarController.swift in Sources */,
 				DBF446822B99AA4C0021BC0F /* RegisterPillViewController.swift in Sources */,
-				DBF7350C2B9CBC4300326852 /* PillListViewController.swift in Sources */,
+				DBF7350C2B9CBC4300326852 /* PillManagementViewController.swift in Sources */,
 				DBF735192B9DD3BE00326852 /* BaseCollectionViewCell.swift in Sources */,
 				DBF735122B9CC71800326852 /* WHTabbarController.swift in Sources */,
 				DB0F10E02B9F885E000DC430 /* RegisterPillWebSearchCollectionViewCell.swift in Sources */,
+				DB03682B2BA1F9FC006A62AD /* Enumeration.swift in Sources */,
 				DB0368232BA1D18A006A62AD /* UITabbarController+Extension.swift in Sources */,
 				DBF4465B2B9983930021BC0F /* SceneDelegate.swift in Sources */,
 				DBF7350A2B9CBC3000326852 /* NotificationViewController.swift in Sources */,
 				DBF4467E2B9990EF0021BC0F /* PillPermitModel.swift in Sources */,
 				DBF7351C2B9DD3BE00326852 /* BaseView.swift in Sources */,
+				DB0368272BA1E7E9006A62AD /* PillManagermentCollectionViewCell.swift in Sources */,
 				DBF446802B9991820021BC0F /* APIKey.swift in Sources */,
 				DBF446772B9990500021BC0F /* PillAPI.swift in Sources */,
 			);

@@ -50,7 +50,7 @@ class PillManagementViewController : BaseViewController {
             cell.itemImage.kf.setImage(with: provider, options: [.transition(.fade(0.7))])
             cell.itemNameLabel.text = itemIdentifier.itemName
             cell.entpNameLabel.text = itemIdentifier.entpName
-            cell.productTypeLabel.text = itemIdentifier.entpName // realm table 수정 필요
+            cell.productTypeLabel.text = itemIdentifier.prductType
         }
         
         dataSource = UICollectionViewDiffableDataSource(collectionView: mainView.mainCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
@@ -81,4 +81,7 @@ class PillManagementViewController : BaseViewController {
 
 extension PillManagementViewController : UICollectionViewDelegate {
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(#function)
+    }
 }

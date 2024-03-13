@@ -15,9 +15,10 @@ final class RegisterPillViewModel {
     var inputItemName : Observable<String?> = Observable(nil)
     var inputEntpName : Observable<String?> = Observable(nil)
     var inputEntpNo : Observable<String?> = Observable(nil)
+    var inputPrductType : Observable<String?> = Observable(nil)
     var localImageURL : Observable<String?> = Observable(nil)
     
-    var outputItemEntpNameSeqList : Observable<[(itemSeq:String, itemName:String, entpName:String, entpNo:String)]?> = Observable(nil)
+    var outputItemEntpNameSeqList : Observable<[(itemSeq:String, itemName:String, entpName:String, entpNo:String, prductType:String)]?> = Observable(nil)
     var outputItemImageWebLink : Observable<[URL]?> = Observable(nil)
     
     var callRequestForItemListTrigger : Observable<String?> = Observable(nil)
@@ -62,7 +63,7 @@ final class RegisterPillViewModel {
             } else {
                 guard let response = response else { return }
                 outputItemEntpNameSeqList.value = response.body.items.map({ value in
-                    return (value.itemSeq, value.itemName, value.entpName, value.entpNo)
+                    return (value.itemSeq, value.itemName, value.entpName, value.entpNo, value.prductType)
                 })
             }
         }
@@ -127,12 +128,12 @@ final class RegisterPillViewModel {
     
     func pillRegister(completionHandler : @escaping (Result<Void, PillRegisterError>) -> ()) {
         
-        if let itemSeq = inputItemSeq.value, let itemName = inputItemName.value, let entpName = inputEntpName.value, let entpNo = inputEntpNo.value, let image = localImageURL.value {
+        if let itemSeq = inputItemSeq.value, let itemName = inputItemName.value, let entpName = inputEntpName.value, let entpNo = inputEntpNo.value, let prductType = inputPrductType.value ,let image = localImageURL.value {
             
             if isPillExist(itemSeq) {
                 completionHandler(.failure(.pirmaryKeyExist))
             } else {
-                repository.pillCreate(Pill(itemSeq: itemSeq.toInt, itemName: itemName, entpName: entpName, entpNo: entpNo, urlPath: image))
+                repository.pillCreate(Pill(itemSeq: itemSeq.toInt, itemName: itemName, entpName: entpName, entpNo: entpNo, prductType: prductType, urlPath: image))
                 completionHandler(.success(()))
             }
             

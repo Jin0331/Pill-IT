@@ -101,6 +101,7 @@ final class RegisterPillViewController : BaseViewController {
             viewModel.inputItemSeq.value = outputItemEntpNameSeqList[itemPosition].itemSeq
             viewModel.inputEntpName.value = outputItemEntpNameSeqList[itemPosition].entpName
             viewModel.inputEntpNo.value = outputItemEntpNameSeqList[itemPosition].entpNo
+            viewModel.inputPrductType.value = outputItemEntpNameSeqList[itemPosition].prductType
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.5, qos: .background) { [weak self] in
                 
@@ -137,7 +138,7 @@ final class RegisterPillViewController : BaseViewController {
 extension RegisterPillViewController : PillRegisterAction {
     
     func disMissPresent() {
-//        kfCacheClear()
+        kfCacheClear()
         dismiss(animated: true)
     }
     
@@ -149,7 +150,7 @@ extension RegisterPillViewController : PillRegisterAction {
             switch result {
             case .success:
                 pillListDelegate?.completeToast()
-//                kfCacheClear()
+                kfCacheClear()
                 dismiss(animated: true)
             case .failure:
                 view.makeToast("이미 등록된 복용약입니다 😓", duration: 1.5, position: .center)

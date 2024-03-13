@@ -13,12 +13,17 @@ class PillManagermentCollectionViewCell: BaseCollectionViewCell {
     
     let bgView = UIView().then {
         $0.layer.cornerRadius = DesignSystem.viewLayout.cornerRadius
-        $0.layer.masksToBounds = true
-        $0.backgroundColor = .blue
+        $0.layer.shadowOffset = CGSize(width: 10, height: 5)
+        $0.layer.shadowOpacity = 0.2
+        $0.layer.shadowRadius = 10
+        $0.layer.masksToBounds = false
+        
+        
+        $0.backgroundColor = .white
     }
     
     let itemImage = UIImageView().then {
-        $0.contentMode = .scaleAspectFit
+        $0.contentMode = .scaleToFill
         $0.layer.cornerRadius = DesignSystem.viewLayout.imageCornetRadius
         $0.clipsToBounds = true
         
@@ -26,21 +31,20 @@ class PillManagermentCollectionViewCell: BaseCollectionViewCell {
     }
     
     let itemNameLabel = UILabel().then {
-        $0.text = "타이레놀"
-        $0.textColor = DesignSystem.colorSet.black
-        $0.font = .systemFont(ofSize: 25, weight: .heavy)
+        $0.textColor = DesignSystem.colorSet.lightBlack
+        $0.font = .systemFont(ofSize: 17, weight: .heavy)
+        $0.numberOfLines = 0
     }
     
     let entpNameLabel = UILabel().then {
-        $0.text = "유한양행"
         $0.textColor = DesignSystem.colorSet.gray
-        $0.font = .systemFont(ofSize: 20, weight: .heavy)
+        $0.font = .systemFont(ofSize: 13, weight: .heavy)
     }
     
     let productTypeLabel = UILabel().then {
-        $0.text = "유한양행"
         $0.textColor = DesignSystem.colorSet.gray
-        $0.font = .systemFont(ofSize: 20, weight: .heavy)
+        $0.font = .systemFont(ofSize: 13, weight: .heavy)
+        
     }
     
     override func configureHierarchy() {
@@ -52,31 +56,33 @@ class PillManagermentCollectionViewCell: BaseCollectionViewCell {
     
     override func configureLayout() {
         bgView.snp.makeConstraints { make in
-            make.edges.equalTo(contentView.safeAreaLayoutGuide)
+            make.verticalEdges.equalTo(contentView.safeAreaLayoutGuide)
+            make.horizontalEdges.equalTo(contentView.safeAreaLayoutGuide).inset(10)
         }
         
         itemImage.snp.makeConstraints { make in
-            make.top.leading.equalTo(bgView).inset(10)
-            make.size.equalTo(80)
+            make.verticalEdges.leading.equalTo(bgView).inset(20)
+            make.width.equalTo(150)
         }
         
         itemNameLabel.snp.makeConstraints { make in
             make.top.equalTo(itemImage).inset(5)
             make.leading.equalTo(itemImage.snp.trailing).offset(10)
-            make.height.equalTo(30)
+            make.height.greaterThanOrEqualTo(50)
             make.trailing.equalTo(bgView)
         }
         
         entpNameLabel.snp.makeConstraints { make in
-            make.top.equalTo(itemNameLabel).inset(5)
+            make.top.equalTo(itemNameLabel.snp.bottom).offset(2)
             make.horizontalEdges.equalTo(itemNameLabel)
             make.height.equalTo(30)
         }
         
         productTypeLabel.snp.makeConstraints { make in
-            make.top.equalTo(entpNameLabel).inset(5)
+            make.top.equalTo(entpNameLabel.snp.bottom).offset(5)
             make.horizontalEdges.equalTo(itemNameLabel)
-            make.height.equalTo(20)
+            make.bottom.lessThanOrEqualTo(bgView.snp.bottom).inset(20)
+//            make.bottom.equalTo(bgView.snp.bottom).inset(10)
         }
     }
     

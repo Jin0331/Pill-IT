@@ -9,9 +9,11 @@ import UIKit
 import Toast_Swift
 import Kingfisher
 import YPImagePicker
+import SearchTextField
 
 //TODO: - 복용약 이름이 제대로 설정되지 않았을 때, Timer를 통해서 메세지 알리기 - Toast로 해결
 //TODO: - 의약품 일련번호, 이름 DB Migration 해야됨
+//TODO: - 의약품 허가 목록에 이미지파일 있음. 현재 itemSeq으로 다시 호출하여 검색하는데, 추후 버전 업데이트시 변경 해야 됨
 final class RegisterPillViewController : BaseViewController {
     
     let mainView = RegisterPillView()
@@ -61,21 +63,21 @@ final class RegisterPillViewController : BaseViewController {
                     
                     mainView.userInputTextfield.showLoadingIndicator()
                     
+                    // Trigger
                     viewModel.callRequestForItemListTrigger.value = whipeSpaceRemovedText
-                    viewModel.outputItemNameList.bind { [weak self] value in
+                    
+                    viewModel.outputItemEntpNameSeqList.bind { [weak self] value in
                         guard let self = self else { return }
-                        guard let value = value else {
-                            return
-                        }
+                        guard let value = value else { return }
                         
-                        let convertValue = value.map {
-                            let temp = $0.regxRemove(regString: "(수출명")
-                            let result = temp.regxRemove(regString: "[수출명")
+                        let convertItemEntpNameList = value.map { value in
+                            let tempItemName = value.itemName.regxRemove(regString: "(수출명")
+                            let resultItemName = tempItemName.regxRemove(regString: "[수출명")
                             
-                            return result
+                            return SearchTextFieldItem(title: resultItemName, subtitle: value.entpName)
                         }
                         
-                        mainView.userInputTextfield.filterStrings(convertValue)
+                        mainView.userInputTextfield.filterItems(convertItemEntpNameList)
                         mainView.userInputTextfield.stopLoadingIndicator()
                     }
                 }
@@ -85,7 +87,7 @@ final class RegisterPillViewController : BaseViewController {
         // autocomplete이 선택되었을 때
         mainView.userInputTextfield.itemSelectionHandler = { [weak self] item, itemPosition in
             guard let self = self else { return }
-            guard let outputItemNameSeqList = self.viewModel.outputItemNameSeqList.value else { return }
+            guard let outputItemEntpNameSeqList = self.viewModel.outputItemEntpNameSeqList.value else { return }
             
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
@@ -96,7 +98,9 @@ final class RegisterPillViewController : BaseViewController {
             
             mainView.userInputTextfield.text = item[itemPosition].title
             viewModel.inputItemName.value = item[itemPosition].title
-            viewModel.inputItemSeq.value = outputItemNameSeqList[itemPosition]
+            viewModel.inputItemSeq.value = outputItemEntpNameSeqList[itemPosition].itemSeq
+            viewModel.inputEntpName.value = outputItemEntpNameSeqList[itemPosition].entpName
+            viewModel.inputEntpNo.value = outputItemEntpNameSeqList[itemPosition].entpNo
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.5, qos: .background) { [weak self] in
                 

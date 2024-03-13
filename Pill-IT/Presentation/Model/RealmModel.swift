@@ -40,6 +40,8 @@ class Pill : Object {
     
     @Persisted(primaryKey: true) var itemSeq : Int
     @Persisted var itemName : String
+    @Persisted var entpName : String
+    @Persisted var entpNo : String
     @Persisted var urlPath : String
     @Persisted var regDate : Date
     @Persisted var upDate : Date
@@ -47,10 +49,12 @@ class Pill : Object {
     
     @Persisted(originProperty: "pillList") var alarmGroup : LinkingObjects<PillAlarm>
     
-    convenience init(itemSeq: Int, itemName: String, urlPath: String) {
+    convenience init(itemSeq: Int, itemName: String, entpName: String, entpNo: String, urlPath: String) {
         self.init()
         self.itemSeq = itemSeq
         self.itemName = itemName
+        self.entpName = entpName
+        self.entpNo = entpNo
         self.urlPath = urlPath
         self.regDate = Date()
         self.upDate = Date()

@@ -18,10 +18,11 @@ class RegisterPillViewModel {
     
     var inputItemSeq : Observable<String?> = Observable(nil)
     var inputItemName : Observable<String?> = Observable(nil)
+    var inputEntpName : Observable<String?> = Observable(nil)
+    var inputEntpNo : Observable<String?> = Observable(nil)
     var localImageURL : Observable<String?> = Observable(nil)
     
-    var outputItemNameList : Observable<[String]?> = Observable(nil)
-    var outputItemNameSeqList : Observable<[String]?> = Observable(nil)
+    var outputItemEntpNameSeqList : Observable<[(itemSeq:String, itemName:String, entpName:String, entpNo:String)]?> = Observable(nil)
     var outputItemImageWebLink : Observable<[URL]?> = Observable(nil)
     
     var callRequestForItemListTrigger : Observable<String?> = Observable(nil)
@@ -62,18 +63,12 @@ class RegisterPillViewModel {
             
             if let error {
                 print("callRequestForItemList - No Search List")
-                outputItemNameList.value = nil
-                outputItemNameSeqList.value = nil
-                
+                outputItemEntpNameSeqList.value = nil
             } else {
                 guard let response = response else { return }
-                outputItemNameList.value = response.body.items.map({ value in
-                    return value.itemName
+                outputItemEntpNameSeqList.value = response.body.items.map({ value in
+                    return (value.itemSeq, value.itemName, value.entpName, value.entpNo)
                 })
-                outputItemNameSeqList.value = response.body.items.map({ value in
-                    return value.itemSeq
-                })
-                
             }
         }
     }
@@ -137,12 +132,12 @@ class RegisterPillViewModel {
     
     func pillRegister(completionHandler : @escaping (Result<Void, PillRegisterError>) -> ()) {
         
-        if let itemSeq = inputItemSeq.value, let itemName = inputItemName.value, let image = localImageURL.value {
+        if let itemSeq = inputItemSeq.value, let itemName = inputItemName.value, let entpName = inputEntpName.value, let entpNo = inputEntpNo.value, let image = localImageURL.value {
             
             if isPillExist(itemSeq) {
                 completionHandler(.failure(.pirmaryKeyExist))
             } else {
-                repository.pillCreate(Pill(itemSeq: itemSeq.toInt, itemName: itemName, urlPath: image))
+                repository.pillCreate(Pill(itemSeq: itemSeq.toInt, itemName: itemName, entpName: entpName, entpNo: entpNo, urlPath: image))
                 completionHandler(.success(()))
             }
             

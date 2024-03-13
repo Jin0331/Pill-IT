@@ -23,4 +23,8 @@ class RegisterPillWebSearchCollectionViewCell: BaseCollectionViewCell {
             make.edges.equalToSuperview()
         }
     }
+    
+    override func prepareForReuse() {
+        webImage.image = nil
+    }
 }

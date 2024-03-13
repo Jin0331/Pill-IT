@@ -6,15 +6,15 @@
 //
 
 import UIKit
-//import SwipeableTabBarController
+import Toast_Swift
 
 class MainTabBarController: WHTabbarController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setViewControllers([PillListViewController(), NotificationViewController()], animated: true)
-    
+        
     }
     
     
@@ -27,21 +27,17 @@ class MainTabBarController: WHTabbarController {
         centerButtonBorderWidth = 0
         centerButtonImageSize = 50
         centerButtonImage = UIImage(named: "pillIcon")
-        
-        
-        
-        // vPosition +ev value will move button Up
-        // vPosition -ev value will move button Down
         setupCenetrButton(vPosition: 0) {
-            print("center button clicked")
-            self.present(RegisterPillViewController(), animated: true)
+            let vc = RegisterPillViewController()
+            vc.pillListDelegate = self
             
-            // you can navigate to some view controler from here
-            
-            // or you can enable the babbar selected item jsut like
-           // self.tabBarController?.selectedIndex = 1
+            self.present(vc, animated: true)
         }
-        
-        
+    }
+}
+
+extension MainTabBarController : PillListAction {
+    func completeToast() {
+        view.makeToast("복용약이 등록되었습니다 ✅", duration: 2, position: .center)
     }
 }

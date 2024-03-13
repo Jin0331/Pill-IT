@@ -14,7 +14,7 @@ import NVActivityIndicatorView
 
 class RegisterPillView: BaseView {
     
-    weak var actionDelegate : RegisterPillAction?
+    weak var actionDelegate : PillRegisterAction?
     
     let exitButton = UIButton().then {
         $0.setImage(DesignSystem.iconImage.clear, for: .normal)
@@ -22,9 +22,9 @@ class RegisterPillView: BaseView {
     }
     
     let titleLabel = UILabel().then {
-        $0.text = "복용약 등록"
+        $0.text = "🌟 복용약 등록"
         $0.textColor = DesignSystem.colorSet.black
-        $0.font = .systemFont(ofSize: 40, weight: .heavy)
+        $0.font = .systemFont(ofSize: 35, weight: .heavy)
     }
     
     let userInputTextfield = SearchTextField().then {
@@ -139,8 +139,8 @@ class RegisterPillView: BaseView {
     override func configureLayout() {
         
         exitButton.snp.makeConstraints { make in
-            make.top.leading.equalToSuperview().inset(20)
-            make.size.equalTo(40)
+            make.top.trailing.equalToSuperview().inset(20)
+            make.size.equalTo(30)
         }
         
         titleLabel.snp.makeConstraints { make in

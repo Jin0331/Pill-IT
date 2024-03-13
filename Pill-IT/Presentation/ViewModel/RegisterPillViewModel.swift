@@ -14,17 +14,15 @@ enum Section : CaseIterable{
 
 class RegisterPillViewModel {
     
-    enum Section : CaseIterable{
-        case main
-    }
+    private let repository = RealmRepository()
+    
     var inputItemSeq : Observable<String?> = Observable(nil)
-    var inputeItemName : Observable<String?> = Observable(nil)
+    var inputItemName : Observable<String?> = Observable(nil)
+    var localImageURL : Observable<String?> = Observable(nil)
     
     var outputItemNameList : Observable<[String]?> = Observable(nil)
     var outputItemNameSeqList : Observable<[String]?> = Observable(nil)
     var outputItemImageWebLink : Observable<[URL]?> = Observable(nil)
-    
-    var localImageURL : Observable<String?> = Observable(nil)
     
     var callRequestForItemListTrigger : Observable<String?> = Observable(nil)
     var callcallRequestForImageTrigger : Observable<String?> = Observable(nil)
@@ -40,7 +38,7 @@ class RegisterPillViewModel {
             guard let self = self else { return }
             guard let value = value else { return }
             
-            self.callRequestForItemList(value)
+            callRequestForItemList(value)
         }
         
         callcallRequestForImageTrigger.bind { [weak self] value in
@@ -52,15 +50,10 @@ class RegisterPillViewModel {
         
         callcallRequestForWebTrigger.bind { [weak self] _ in
             guard let self = self else { return }
-            guard let inputItemName = self.inputeItemName.value else { return }
+            guard let inputItemName = self.inputItemName.value else { return }
             
-            self.callRequestForWeb(inputItemName)
+            callRequestForWeb(inputItemName)
         }
-        
-        inputItemSeq.bind { _ in
-
-        }
-        
     }
     
     private func callRequestForItemList(_ searchPill : String) {
@@ -69,18 +62,18 @@ class RegisterPillViewModel {
             
             if let error {
                 print("callRequestForItemList - No Search List")
-                self.outputItemNameList.value = nil
-                self.outputItemNameSeqList.value = nil
+                outputItemNameList.value = nil
+                outputItemNameSeqList.value = nil
                 
             } else {
                 guard let response = response else { return }
-                self.outputItemNameList.value = response.body.items.map({ value in
+                outputItemNameList.value = response.body.items.map({ value in
                     return value.itemName
                 })
-                self.outputItemNameSeqList.value = response.body.items.map({ value in
+                outputItemNameSeqList.value = response.body.items.map({ value in
                     return value.itemSeq
                 })
-
+                
             }
         }
     }
@@ -94,7 +87,7 @@ class RegisterPillViewModel {
             
             if let error {
                 print("callRequestForImage - No Search List - 데이터 없음")
-                self.localImageURL.value = nil
+                localImageURL.value = nil
             } else {
                 guard let response = response else { return }
                 guard let imageURLKey = response.body.items.first?.itemImage.split(separator: "/").last else { return }
@@ -129,17 +122,41 @@ class RegisterPillViewModel {
             } else {
                 guard let response = response else { return }
                 
-                self.outputItemImageWebLink.value = response.items.compactMap {
+                outputItemImageWebLink.value = response.items.compactMap {
                     let url = URL(string:$0.link)
                     return url
-                }                
+                }
             }
         }
     }
     
+    enum PillRegisterError: Error {
+        case pirmaryKeyExist
+        case None
+    }
+    
+    func pillRegister(completionHandler : @escaping (Result<Void, PillRegisterError>) -> ()) {
+        
+        if let itemSeq = inputItemSeq.value, let itemName = inputItemName.value, let image = localImageURL.value {
+            
+            if isPillExist(itemSeq) {
+                completionHandler(.failure(.pirmaryKeyExist))
+            } else {
+                repository.pillCreate(Pill(itemSeq: itemSeq.toInt, itemName: itemName, urlPath: image))
+                completionHandler(.success(()))
+            }
+            
+        }
+    }
+    
+    
+    func isPillExist(_ itemSeq : String) -> Bool {
+        return repository.pillExist(itemSeq: itemSeq.toInt)
+    }
+    
     
     deinit {
-        print(#function, " - RegisterPillViewModel")
+        print(#function, " - ✅ RegisterPillViewModel")
     }
 }
 

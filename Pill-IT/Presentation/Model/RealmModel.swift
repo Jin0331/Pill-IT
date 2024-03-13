@@ -20,7 +20,7 @@ class PillAlarm : Object {
     @Persisted var upDate : Date
     @Persisted var isDeleted : Bool
     
-    convenience init(groupID: ObjectId, pillList: List<Pill>, type: Int, alarmDate: List<Date>, alarmStartDate: Date, alarmEndtDate: Date, regDate: Date, upDate: Date, isDeleted: Bool) {
+    convenience init(groupID: ObjectId, pillList: List<Pill>, type: Int, alarmDate: List<Date>, alarmStartDate: Date, alarmEndtDate: Date) {
         self.init()
         self.groupID = groupID
         self.pillList = pillList
@@ -47,7 +47,7 @@ class Pill : Object {
     
     @Persisted(originProperty: "pillList") var alarmGroup : LinkingObjects<PillAlarm>
     
-    convenience init(itemSeq: Int, itemName: String, urlPath: String, regDate: Date, upDate: Date, isDeleted: Bool) {
+    convenience init(itemSeq: Int, itemName: String, urlPath: String) {
         self.init()
         self.itemSeq = itemSeq
         self.itemName = itemName

@@ -73,7 +73,7 @@ final class RegisterPillWebSearchViewController: BaseViewController {
         super.configureView()
         
         guard let viewModel = viewModel else { return }
-        guard let title = viewModel.inputeItemName.value else { return }
+        guard let title = viewModel.inputItemName.value else { return }
         
         titleLabel.text = "\(title) 검색 결과"
     }
@@ -114,9 +114,13 @@ final class RegisterPillWebSearchViewController: BaseViewController {
             
             DispatchQueue.global().async {
                 let url = itemIdentifier
-                let data = try? Data(contentsOf: url)
+                guard let data = try? Data(contentsOf: url) else {
+                    DispatchQueue.main.async {
+                        cell.webImage.image = UIImage(named: "noImage")
+                    }
+                    return
+                }
                 
-                guard let data = data else {return}
                 DispatchQueue.main.async {
                     cell.webImage.image = UIImage(data: data)
                 }

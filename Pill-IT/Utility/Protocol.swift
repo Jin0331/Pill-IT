@@ -17,4 +17,5 @@ protocol PillRegisterAction : AnyObject {
 
 protocol PillListAction : AnyObject {
     func completeToast()
+    func fetchPillTable()
 }

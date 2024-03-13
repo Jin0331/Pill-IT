@@ -10,14 +10,17 @@ import Toast_Swift
 
 class MainTabBarController: WHTabbarController {
     
+    private var firstVC : PillManagementViewController!
+    private var secondVC : NotificationViewController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // 추후 접근을 이용해서 수정일 일이 생길 수 있으므로, 변수에 할당해서 관리
-        let firstVC = PillManagementViewController()
+        firstVC = PillManagementViewController()
         let firstNav = UINavigationController(rootViewController: firstVC)
         
-        let secondVC = NotificationViewController()
+        secondVC = NotificationViewController()
         let secondNav = UINavigationController(rootViewController: secondVC)
         
         setViewControllers([firstNav, secondNav], animated: true)
@@ -35,7 +38,8 @@ class MainTabBarController: WHTabbarController {
         centerButtonBorderWidth = 0
         centerButtonImageSize = 50
         centerButtonImage = UIImage(named: "pillIcon")
-        setupCenetrButton(vPosition: 0) {
+        setupCenetrButton(vPosition: 0) { [weak self] in
+            guard let self = self else { return }
             let vc = RegisterPillViewController()
             vc.pillListDelegate = self
             
@@ -46,6 +50,10 @@ class MainTabBarController: WHTabbarController {
 }
 
 extension MainTabBarController : PillListAction {
+    func fetchPillTable() {
+        firstVC.viewModel.fetchPillItemTrigger.value = ()
+    }
+    
     func completeToast() {
         view.makeToast("복용약이 등록되었습니다 ✅", duration: 2, position: .center)
     }

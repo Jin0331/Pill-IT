@@ -19,6 +19,7 @@ final class RegisterPillViewController : BaseViewController {
     private let mainView = RegisterPillView()
     private var viewModel = RegisterPillViewModel()
     weak var pillListDelegate : PillListAction?
+    var sendData : (() -> Void)?
 
     override func loadView() {
         self.view = mainView
@@ -150,6 +151,7 @@ extension RegisterPillViewController : PillRegisterAction {
             switch result {
             case .success:
                 pillListDelegate?.completeToast()
+                pillListDelegate?.fetchPillTable()
                 kfCacheClear()
                 dismiss(animated: true)
             case .failure:

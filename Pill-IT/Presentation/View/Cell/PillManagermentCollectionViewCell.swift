@@ -44,6 +44,7 @@ class PillManagermentCollectionViewCell: BaseCollectionViewCell {
     let productTypeLabel = UILabel().then {
         $0.textColor = DesignSystem.colorSet.gray
         $0.font = .systemFont(ofSize: 13, weight: .heavy)
+        $0.numberOfLines = 0
         
     }
     

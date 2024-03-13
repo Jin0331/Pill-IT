@@ -14,7 +14,7 @@ import Kingfisher
 class PillManagementViewController : BaseViewController {
 
     let mainView = PillManagementView()
-    private let viewModel = PillManagementViewModel()
+    let viewModel = PillManagementViewModel()
     private var dataSource : UICollectionViewDiffableDataSource<PillManagementViewSection, Pill>!
 
     override func loadView() {
@@ -39,8 +39,16 @@ class PillManagementViewController : BaseViewController {
     
     override func configureNavigation() {
         super.configureNavigation()
-        navigationItem.title = "나의 복용약 목록"
+        navigationItem.title = "🥲 나의 복용약 목록"
+
+        
+        //TODO: - 검색화면 구현할때 사용할 것
+//        navigationItem.rightBarButtonItem?.target = self
+//        navigationItem.rightBarButtonItem?.action = #selector(hi)
+//        @objc func hi() { print(#function) }
     }
+    
+    
     
     private func configureDataSource() {
         

@@ -17,6 +17,21 @@ final class PillManagementView : BaseView {
         
        return view
     }()
+
+    let customButton = UIButton(frame: CGRect(x: 0, y: 0, width: 150, height: 40)).then {
+        $0.setTitle(" 알림 등록하기", for: .normal)
+        $0.titleLabel?.font = .systemFont(ofSize: 18, weight: .heavy)
+        $0.setTitleColor(DesignSystem.colorSet.lightBlack, for: .normal)
+        $0.tintColor = DesignSystem.colorSet.lightBlack
+        $0.backgroundColor = DesignSystem.colorSet.white
+        $0.setImage(UIImage(systemName: "alarm"), for: .normal)
+        $0.layer.borderColor = DesignSystem.colorSet.lightBlack.cgColor
+        $0.layer.cornerRadius = 20
+        $0.layer.shadowOffset = CGSize(width: 10, height: 5)
+        $0.layer.shadowOpacity = 0.1
+        $0.layer.shadowRadius = 10
+        $0.layer.masksToBounds = false
+    }
     
     override func configureHierarchy() {
         addSubview(mainCollectionView)
@@ -26,6 +41,11 @@ final class PillManagementView : BaseView {
         mainCollectionView.snp.makeConstraints { make in
             make.edges.equalTo(safeAreaLayoutGuide)
         }
+    }
+    
+    override func configureView() {
+        super.configureView()
+        
     }
     
     private func createLayout() -> UICollectionViewLayout {
@@ -46,9 +66,9 @@ final class PillManagementView : BaseView {
         return UICollectionViewCompositionalLayout(section: section)
     }
     
-    func pillManagerMentCellRegistration() -> UICollectionView.CellRegistration<PillManagermentCollectionViewCell, Pill>  {
+    func pillManagementCellRegistration() -> UICollectionView.CellRegistration<PillManagementCollectionViewCell, Pill>  {
         
-        return UICollectionView.CellRegistration<PillManagermentCollectionViewCell, Pill> { cell, indexPath, itemIdentifier in
+        return UICollectionView.CellRegistration<PillManagementCollectionViewCell, Pill> { cell, indexPath, itemIdentifier in
             cell.updateUI(itemIdentifier)
         }
     }

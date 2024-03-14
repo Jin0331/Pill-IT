@@ -1,5 +1,5 @@
 //
-//  PillManagermentCollectionViewCell.swift
+//  PillManagementCollectionViewCell.swift
 //  Pill-IT
 //
 //  Created by JinwooLee on 3/13/24.
@@ -10,7 +10,7 @@ import SnapKit
 import Then
 import Kingfisher
 
-class PillManagermentCollectionViewCell: BaseCollectionViewCell {
+class PillManagementCollectionViewCell: BaseCollectionViewCell {
     
     let bgView = UIView().then {
         $0.layer.cornerRadius = DesignSystem.viewLayout.cornerRadius
@@ -27,8 +27,6 @@ class PillManagermentCollectionViewCell: BaseCollectionViewCell {
         $0.contentMode = .scaleToFill
         $0.layer.cornerRadius = DesignSystem.viewLayout.imageCornetRadius
         $0.clipsToBounds = true
-        
-        $0.backgroundColor = .red
     }
     
     let itemNameLabel = UILabel().then {

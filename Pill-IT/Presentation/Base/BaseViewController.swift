@@ -52,29 +52,7 @@ class BaseViewController : UIViewController {
         // rightButton
         let searchButtonItem = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"))
         searchButtonItem.tintColor = DesignSystem.colorSet.lightBlack
-        
-        // lefe Button
-        let customButton : UIButton = {
-            let view = UIButton(frame: CGRect(x: 0, y: 0, width: 150, height: 40))
-            view.setTitle(" 알림 등록하기", for: .normal)
-            view.titleLabel?.font = .systemFont(ofSize: 18, weight: .heavy)
-            view.setTitleColor(DesignSystem.colorSet.lightBlack, for: .normal)
-            view.tintColor = DesignSystem.colorSet.lightBlack
-            view.backgroundColor = DesignSystem.colorSet.white
-            view.setImage(UIImage(systemName: "alarm"), for: .normal)
-            view.layer.borderColor = DesignSystem.colorSet.lightBlack.cgColor
-            view.layer.cornerRadius = 20
-            view.layer.shadowOffset = CGSize(width: 10, height: 5)
-            view.layer.shadowOpacity = 0.1
-            view.layer.shadowRadius = 10
-            view.layer.masksToBounds = false
-            
-            return view
-        }()
-
-        
         navigationItem.rightBarButtonItem = searchButtonItem
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: customButton)
     }
     
 }

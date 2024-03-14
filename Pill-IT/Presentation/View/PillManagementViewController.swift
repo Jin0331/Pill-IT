@@ -39,21 +39,14 @@ class PillManagementViewController : BaseViewController {
     override func configureNavigation() {
         super.configureNavigation()
         navigationItem.title = "🥲 나의 복용약"
-
         
-//        navigationItem.leftBarButtonItem?.
-//        navigationItem.leftBarButtonItem?.action = #selector(navigationBarButtonClicked)
-        
-        navigationItem.rightBarButtonItem?.target = self
-        navigationItem.rightBarButtonItem?.action = #selector(navigationBarButtonClicked)
+        mainView.customButton.addTarget(self, action: #selector(leftBarButtonClicked), for: .touchUpInside)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: mainView.customButton)
     }
-    
-    @objc func navigationBarButtonClicked() { print(#function) }
-
     
     private func configureDataSource() {
         
-        let cellRegistration = mainView.pillManagerMentCellRegistration()
+        let cellRegistration = mainView.pillManagementCellRegistration()
         dataSource = UICollectionViewDiffableDataSource(collectionView: mainView.mainCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
             let cell = collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
             
@@ -71,10 +64,16 @@ class PillManagementViewController : BaseViewController {
         dataSource.apply(snapshot) // reloadData
     }
     
+    @objc func leftBarButtonClicked(_ sender : UIBarButtonItem){
+        print(#function)
+        
+        let vc =  AlarmViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     deinit {
         print(#function, " - ✅ PillManagementViewController")
     }
-    
 }
 
 //MARK: - Collection View Delegate

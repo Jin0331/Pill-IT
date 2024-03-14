@@ -77,9 +77,20 @@ class PillManagementViewController : BaseViewController {
 }
 
 //MARK: - Collection View Delegate
+//TODO: - 셀 선택은 알림 등록하기 버튼 활성
+//TODO: - Cell Swipe에서 자세히, 삭제 추가 해야됨
 extension PillManagementViewController : UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(#function)
+        if let cell = collectionView.cellForItem(at: indexPath) as? PillManagementCollectionViewCell {
+            cell.showSelectedImage()
+        }
+    }
+
+
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) as? PillManagementCollectionViewCell {
+            cell.hiddneSelectedImage()
+        }
     }
 }

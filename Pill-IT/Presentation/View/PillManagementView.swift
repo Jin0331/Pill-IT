@@ -14,6 +14,7 @@ final class PillManagementView : BaseView {
     lazy var mainCollectionView : UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         view.backgroundColor = DesignSystem.colorSet.white
+        view.allowsMultipleSelection = true
         
        return view
     }()

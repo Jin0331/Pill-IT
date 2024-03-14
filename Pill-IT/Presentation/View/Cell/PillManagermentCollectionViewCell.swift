@@ -47,9 +47,15 @@ class PillManagementCollectionViewCell: BaseCollectionViewCell {
         
     }
     
+    let selectedImage = UIImageView().then {
+        $0.image = UIImage(named: "check")
+        $0.alpha = 0.75
+        $0.isHidden = true
+    }
+    
     override func configureHierarchy() {
         contentView.addSubview(bgView)
-        [itemImage, itemNameLabel, entpNameLabel, productTypeLabel].forEach {
+        [itemImage, itemNameLabel, entpNameLabel, productTypeLabel, selectedImage].forEach {
             bgView.addSubview($0)
         }
     }
@@ -84,6 +90,11 @@ class PillManagementCollectionViewCell: BaseCollectionViewCell {
             make.bottom.lessThanOrEqualTo(bgView.snp.bottom).inset(20)
 //            make.bottom.equalTo(bgView.snp.bottom).inset(10)
         }
+        
+        selectedImage.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.size.equalTo(itemImage.snp.height).multipliedBy(0.75)
+        }
     }
     
     override func prepareForReuse() {
@@ -98,4 +109,12 @@ class PillManagementCollectionViewCell: BaseCollectionViewCell {
         productTypeLabel.text = itemIdentifier.prductType
     }
     
+    func showSelectedImage() {
+        selectedImage.isHidden = false
+    }
+    
+    func hiddneSelectedImage() {
+        selectedImage.isHidden = true
+    }
+
 }

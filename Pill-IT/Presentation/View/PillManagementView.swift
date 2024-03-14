@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Then
 
 final class PillManagementView : BaseView {
 
@@ -44,6 +45,14 @@ final class PillManagementView : BaseView {
         
         return UICollectionViewCompositionalLayout(section: section)
     }
+    
+    func pillManagerMentCellRegistration() -> UICollectionView.CellRegistration<PillManagermentCollectionViewCell, Pill>  {
+        
+        return UICollectionView.CellRegistration<PillManagermentCollectionViewCell, Pill> { cell, indexPath, itemIdentifier in
+            cell.updateUI(itemIdentifier)
+        }
+    }
+    
     
     deinit {
         print(#function, " - ✅ PillManagementView")

@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import Then
+import Kingfisher
 
 class PillManagermentCollectionViewCell: BaseCollectionViewCell {
     
@@ -89,6 +90,14 @@ class PillManagermentCollectionViewCell: BaseCollectionViewCell {
     
     override func prepareForReuse() {
         itemImage.image = nil
+    }
+    
+    func updateUI(_ itemIdentifier : Pill) {
+        let provider = LocalFileImageDataProvider(fileURL: itemIdentifier.urlPathToURL)
+        itemImage.kf.setImage(with: provider, options: [.transition(.fade(0.7))])
+        itemNameLabel.text = itemIdentifier.itemName
+        entpNameLabel.text = itemIdentifier.entpName
+        productTypeLabel.text = itemIdentifier.prductType
     }
     
 }

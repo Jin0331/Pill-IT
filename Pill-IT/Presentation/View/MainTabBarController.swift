@@ -49,6 +49,7 @@ class MainTabBarController: WHTabbarController {
     
 }
 
+//MARK: - Delegate Action
 extension MainTabBarController : PillListAction {
     func fetchPillTable() {
         firstVC.viewModel.fetchPillItemTrigger.value = ()

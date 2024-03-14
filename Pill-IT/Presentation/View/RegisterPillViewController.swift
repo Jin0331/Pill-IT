@@ -263,6 +263,7 @@ extension RegisterPillViewController : PillRegisterAction {
     
 }
 
+//MARK: - Textfield Delegate
 extension RegisterPillViewController : UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {

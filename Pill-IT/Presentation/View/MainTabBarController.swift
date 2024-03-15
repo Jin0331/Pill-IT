@@ -29,7 +29,7 @@ class MainTabBarController: WHTabbarController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-                
+        
         configureItemDesing(tabBar: tabBar)
         
         centerButtonSize  = 60.0
@@ -41,6 +41,7 @@ class MainTabBarController: WHTabbarController {
         setupCenetrButton(vPosition: 0) { [weak self] in
             guard let self = self else { return }
             let vc = RegisterPillViewController()
+            vc.setupSheetPresentation()
             vc.pillListDelegate = self
             
             self.present(vc, animated: true)
@@ -49,8 +50,10 @@ class MainTabBarController: WHTabbarController {
     
 }
 
+//MARK: - Delegate Action
 extension MainTabBarController : PillListAction {
     func fetchPillTable() {
+        print("✅ fetchPillTable")
         firstVC.viewModel.fetchPillItemTrigger.value = ()
     }
     

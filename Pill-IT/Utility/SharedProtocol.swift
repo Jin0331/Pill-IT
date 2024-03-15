@@ -19,3 +19,7 @@ protocol PillListAction : AnyObject {
     func completeToast()
     func fetchPillTable()
 }
+
+protocol PillManagementAction : AnyObject {
+    func alarmVCTransition()
+}

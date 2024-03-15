@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import Then
+import Kingfisher
 
 class RegisterPillWebSearchCollectionViewCell: BaseCollectionViewCell {
     
@@ -26,5 +27,12 @@ class RegisterPillWebSearchCollectionViewCell: BaseCollectionViewCell {
     
     override func prepareForReuse() {
         webImage.image = nil
+    }
+    
+    func updateUI(_ itemIdentifier : URL) {
+        //TODO: - Kingfisher로 변경 필요
+        let provider = LocalFileImageDataProvider(fileURL: itemIdentifier)
+        webImage.kf.indicatorType = .activity
+        webImage.kf.setImage(with: provider, options: [.transition(.fade(0.7))])
     }
 }

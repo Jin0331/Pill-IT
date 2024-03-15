@@ -20,8 +20,9 @@ enum DesignSystem {
     }
 
     enum iconImage {
-        static let clear = UIImage(named: "Clear_input")?.withRenderingMode(.alwaysOriginal)
+        static let clear = UIImage(named: "clear")?.withRenderingMode(.alwaysOriginal)
     }
+    
     
     enum viewLayout {
         static let borderWidth = 1.5
@@ -32,5 +33,19 @@ enum DesignSystem {
     enum tabbarImage {
         static let pillList = UIImage(named: "tab_list_inactive")
         static let calendar = UIImage(named: "tab_notification_inactive")
+    }
+    
+    enum swipeColor {
+        static let more = #colorLiteral(red: 0.7803494334, green: 0.7761332393, blue: 0.7967314124, alpha: 1)
+        static let edit = #colorLiteral(red: 1, green: 0.5803921569, blue: 0, alpha: 1)
+        static let trash = #colorLiteral(red: 1, green: 0.2352941176, blue: 0.1882352941, alpha: 1)
+    }
+    
+    enum swipeImage {
+        static let sfSymbolLargeConfig = UIImage.SymbolConfiguration(pointSize: 25, weight: .bold, scale: .large)
+        static let more = UIImage(systemName: "info.circle", withConfiguration: sfSymbolLargeConfig)
+        static let edit = UIImage(systemName: "square.and.pencil", withConfiguration: sfSymbolLargeConfig)
+        static let trash = UIImage(systemName: "trash", withConfiguration: sfSymbolLargeConfig)
+
     }
 }

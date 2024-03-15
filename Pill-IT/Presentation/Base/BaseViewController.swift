@@ -32,6 +32,10 @@ class BaseViewController : UIViewController {
     }
     
     func configureNavigation() {
+        
+        // bottom border
+        navigationController?.navigationBar.shadowImage = nil
+        
         // 배경색
         navigationController?.navigationBar.scrollEdgeAppearance?.backgroundColor = DesignSystem.colorSet.white
         navigationController?.navigationBar.barTintColor = DesignSystem.colorSet.white

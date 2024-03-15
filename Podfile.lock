@@ -1,8 +1,5 @@
 PODS:
   - Alamofire (5.9.0)
-  - collection-view-layouts/Core (0.2.2)
-  - collection-view-layouts/InstagramLayout (0.2.2):
-    - collection-view-layouts/Core
   - Kingfisher (7.11.0)
   - NVActivityIndicatorView (5.1.1):
     - NVActivityIndicatorView/Base (= 5.1.1)
@@ -17,6 +14,7 @@ PODS:
   - SnapKit (5.7.1)
   - SteviaLayout (5.1.2)
   - SwipeableTabBarController (3.4.2)
+  - SwipeCellKit (2.7.1)
   - Then (3.0.0)
   - Toast-Swift (5.1.0)
   - YPImagePicker (5.2.2):
@@ -25,13 +23,13 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 5.8)
-  - collection-view-layouts/InstagramLayout
   - Kingfisher (~> 7.0)
   - NVActivityIndicatorView
   - RealmSwift (~> 10.45.0)
   - SearchTextField
   - SnapKit (~> 5.7.0)
   - SwipeableTabBarController
+  - SwipeCellKit
   - Then
   - Toast-Swift (~> 5.1.0)
   - YPImagePicker
@@ -39,7 +37,6 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
-    - collection-view-layouts
     - Kingfisher
     - NVActivityIndicatorView
     - PryntTrimmerView
@@ -49,13 +46,13 @@ SPEC REPOS:
     - SnapKit
     - SteviaLayout
     - SwipeableTabBarController
+    - SwipeCellKit
     - Then
     - Toast-Swift
     - YPImagePicker
 
 SPEC CHECKSUMS:
   Alamofire: 02b772c9910e8eba1a079227c32fbd9e46c90a24
-  collection-view-layouts: 474ec4cce601a26247737227a97fa6a4eb30213f
   Kingfisher: b9c985d864d43515f404f1ef4a8ce7d802ace3ac
   NVActivityIndicatorView: 1f6c5687f1171810aa27a3296814dc2d7dec3667
   PryntTrimmerView: 6a43cc90df5d99addeabd33d4ba09b1365322130
@@ -65,10 +62,11 @@ SPEC CHECKSUMS:
   SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
   SteviaLayout: 05424e528d643657d39ce72c786e4adf13cfc5f2
   SwipeableTabBarController: 9a218bdee9426d1bfe36d7962f852024bb08d61b
+  SwipeCellKit: 3972254a826da74609926daf59b08d6c72e619ea
   Then: 844265ae87834bbe1147d91d5d41a404da2ec27d
   Toast-Swift: dd369e68ee529f542c65bd0d0c6c50cd743cf6f2
   YPImagePicker: afc81b3cffab05a6e7261c5daf80dc31b4e917b4
 
-PODFILE CHECKSUM: c77fb7ed4c482a619e4be15193febb43d4fdb988
+PODFILE CHECKSUM: 4d85dbbd3787a4a7c95e9710217d1c541bbba4bd
 
 COCOAPODS: 1.15.2

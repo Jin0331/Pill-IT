@@ -1,5 +1,5 @@
 //
-//  PillManagermentCollectionViewCell.swift
+//  PillManagementCollectionViewCell.swift
 //  Pill-IT
 //
 //  Created by JinwooLee on 3/13/24.
@@ -8,8 +8,9 @@
 import UIKit
 import SnapKit
 import Then
+import Kingfisher
 
-class PillManagermentCollectionViewCell: BaseCollectionViewCell {
+class PillManagementCollectionViewCell: BaseCollectionViewCell {
     
     let bgView = UIView().then {
         $0.layer.cornerRadius = DesignSystem.viewLayout.cornerRadius
@@ -26,8 +27,6 @@ class PillManagermentCollectionViewCell: BaseCollectionViewCell {
         $0.contentMode = .scaleToFill
         $0.layer.cornerRadius = DesignSystem.viewLayout.imageCornetRadius
         $0.clipsToBounds = true
-        
-        $0.backgroundColor = .red
     }
     
     let itemNameLabel = UILabel().then {
@@ -48,9 +47,15 @@ class PillManagermentCollectionViewCell: BaseCollectionViewCell {
         
     }
     
+    let selectedImage = UIImageView().then {
+        $0.image = UIImage(named: "check")
+        $0.alpha = 0.75
+        $0.isHidden = true
+    }
+    
     override func configureHierarchy() {
         contentView.addSubview(bgView)
-        [itemImage, itemNameLabel, entpNameLabel, productTypeLabel].forEach {
+        [itemImage, itemNameLabel, entpNameLabel, productTypeLabel, selectedImage].forEach {
             bgView.addSubview($0)
         }
     }
@@ -85,10 +90,39 @@ class PillManagermentCollectionViewCell: BaseCollectionViewCell {
             make.bottom.lessThanOrEqualTo(bgView.snp.bottom).inset(20)
 //            make.bottom.equalTo(bgView.snp.bottom).inset(10)
         }
+        
+        selectedImage.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.size.equalTo(itemImage.snp.height).multipliedBy(0.75)
+        }
     }
     
     override func prepareForReuse() {
         itemImage.image = nil
     }
     
+    func updateUI(_ itemIdentifier : Pill) {
+        
+        print("🔆 cell updateUI")
+        
+        let provider = LocalFileImageDataProvider(fileURL: itemIdentifier.urlPathToURL)
+        
+        itemImage.kf.setImage(with: provider, options: [.transition(.fade(1))])
+        itemNameLabel.text = itemIdentifier.itemName
+        entpNameLabel.text = itemIdentifier.entpName
+        productTypeLabel.text = itemIdentifier.prductType
+    }
+    
+    func showSelectedImage() {
+        selectedImage.isHidden = false
+    }
+    
+    func hiddneSelectedImage() {
+        selectedImage.isHidden = true
+    }
+    
+    deinit {
+        print(#function, " - ✅ PillManagementCollectionViewcell")
+    }
+
 }

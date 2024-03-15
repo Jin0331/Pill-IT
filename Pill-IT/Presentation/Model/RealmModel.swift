@@ -38,7 +38,8 @@ class PillAlarm : Object {
 
 class Pill : Object {
     
-    @Persisted(primaryKey: true) var itemSeq : Int
+    @Persisted(primaryKey: true) var _id : ObjectId
+    @Persisted var itemSeq : Int
     @Persisted var itemName : String
     @Persisted var entpName : String
     @Persisted var entpNo : String
@@ -46,6 +47,7 @@ class Pill : Object {
     @Persisted var urlPath : String
     @Persisted var regDate : Date
     @Persisted var upDate : Date
+    @Persisted var isSelected : Bool
     @Persisted var isDeleted : Bool
     
     @Persisted(originProperty: "pillList") var alarmGroup : LinkingObjects<PillAlarm>
@@ -60,6 +62,7 @@ class Pill : Object {
         self.urlPath = urlPath
         self.regDate = Date()
         self.upDate = Date()
+        self.isSelected = false
         self.isDeleted = false
         self.alarmGroup = alarmGroup
     }

@@ -116,5 +116,9 @@ class PillManagementCollectionViewCell: BaseCollectionViewCell {
     func hiddneSelectedImage() {
         selectedImage.isHidden = true
     }
+    
+    deinit {
+        print(#function, " - ✅ PillManagementCollectionViewcell")
+    }
 
 }

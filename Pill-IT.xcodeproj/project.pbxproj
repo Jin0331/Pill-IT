@@ -49,7 +49,7 @@
 		DBF735202B9DD3FC00326852 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF7351F2B9DD3FC00326852 /* DesignSystem.swift */; };
 		DBF735222B9DD6F900326852 /* RegisterPillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF735212B9DD6F900326852 /* RegisterPillView.swift */; };
 		DBF735242B9DE34900326852 /* UITextfield+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF735232B9DE34900326852 /* UITextfield+Extension.swift */; };
-		DBF735262B9DECCE00326852 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF735252B9DECCE00326852 /* Protocol.swift */; };
+		DBF735262B9DECCE00326852 /* SharedProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF735252B9DECCE00326852 /* SharedProtocol.swift */; };
 		DBF735282B9DF02500326852 /* RegisterPillViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF735272B9DF02500326852 /* RegisterPillViewModel.swift */; };
 		DBF7352C2B9E9F2700326852 /* PillGrainInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF7352B2B9E9F2700326852 /* PillGrainInfo.swift */; };
 /* End PBXBuildFile section */
@@ -100,7 +100,7 @@
 		DBF7351F2B9DD3FC00326852 /* DesignSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
 		DBF735212B9DD6F900326852 /* RegisterPillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPillView.swift; sourceTree = "<group>"; };
 		DBF735232B9DE34900326852 /* UITextfield+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextfield+Extension.swift"; sourceTree = "<group>"; };
-		DBF735252B9DECCE00326852 /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
+		DBF735252B9DECCE00326852 /* SharedProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedProtocol.swift; sourceTree = "<group>"; };
 		DBF735272B9DF02500326852 /* RegisterPillViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPillViewModel.swift; sourceTree = "<group>"; };
 		DBF7352B2B9E9F2700326852 /* PillGrainInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillGrainInfo.swift; sourceTree = "<group>"; };
 		EF4796FC09B9EA3CCC7E0B08 /* Pods-Pill-IT.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pill-IT.release.xcconfig"; path = "Target Support Files/Pods-Pill-IT/Pods-Pill-IT.release.xcconfig"; sourceTree = "<group>"; };
@@ -274,7 +274,7 @@
 				DBF446852B99B11B0021BC0F /* Extension */,
 				DBF4468F2B9A351E0021BC0F /* Realm */,
 				DBF446752B998FE00021BC0F /* NetworkManager */,
-				DBF735252B9DECCE00326852 /* Protocol.swift */,
+				DBF735252B9DECCE00326852 /* SharedProtocol.swift */,
 				DBF446832B99ADC60021BC0F /* FileDownloadManager.swift */,
 				DBF7351D2B9DD3E600326852 /* Observable.swift */,
 			);
@@ -422,7 +422,7 @@
 				DBF735282B9DF02500326852 /* RegisterPillViewModel.swift in Sources */,
 				DB0F10D92B9F311B000DC430 /* UIView+Extension.swift in Sources */,
 				DBF7351E2B9DD3E700326852 /* Observable.swift in Sources */,
-				DBF735262B9DECCE00326852 /* Protocol.swift in Sources */,
+				DBF735262B9DECCE00326852 /* SharedProtocol.swift in Sources */,
 				DBF446892B99EDB10021BC0F /* MetaDataModel.swift in Sources */,
 				DB0F10DD2B9F83CD000DC430 /* RegisterPillWebSearchViewController.swift in Sources */,
 				DBF735222B9DD6F900326852 /* RegisterPillView.swift in Sources */,

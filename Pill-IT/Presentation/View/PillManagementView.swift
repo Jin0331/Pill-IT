@@ -80,8 +80,4 @@ final class PillManagementView : BaseView {
     deinit {
         print(#function, " - ✅ PillManagementView")
     }
-
-    
 }
-
-

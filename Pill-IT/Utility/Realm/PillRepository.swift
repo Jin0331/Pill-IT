@@ -17,14 +17,13 @@ final class RealmRepository {
     //MARK: - CREATE
     // CREATE
     func pillCreate<T:Object>(_ item : T) {
-
         do {
             try realm.write {
                 realm.add(item)
                 realmLocation()
             }
         } catch {
-            print(error)
+            print(error, "- pillCreate Error")
         }
     }
     
@@ -38,14 +37,35 @@ final class RealmRepository {
     }
     
     func fetchPillItem() -> [Pill] {
-        let result = realm.objects(Pill.self)
+        let result = realm.objects(Pill.self).where {
+            $0.isDeleted == false
+        }
         
         return Array(result)
     }
     
     //MARK: - UPDATE
-    func pillIsSelectedToggle() {
-        
+    func updatePillIsDelete(_ itemSeq : Int) {
+        // target 업데이트
+        do {
+            try realm.write {
+                realm.create(Pill.self, value: ["itemSeq": itemSeq, "isDeleted": true], update: .modified) }
+        } catch {
+            print(error)
+        }
     }
+    
+    //MARK: - REMOVE
+    func removePillItem(row : Pill) {
+        do {
+            try realm.write {
+                realm.delete(row)
+            }
+        } catch {
+            print(error, "- removePillItem Error")
+        }
+    }
+    
+    
     
 }

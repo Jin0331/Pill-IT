@@ -16,4 +16,5 @@ target 'Pill-IT' do
   pod 'Toast-Swift', '~> 5.1.0'
   pod 'NVActivityIndicatorView'
   pod 'YPImagePicker'
+  pod 'SwipeCellKit'
 end

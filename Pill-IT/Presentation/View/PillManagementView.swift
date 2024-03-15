@@ -64,7 +64,9 @@ final class PillManagementView : BaseView {
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 15
         
-        return UICollectionViewCompositionalLayout(section: section)
+        let layout = UICollectionViewCompositionalLayout(section: section)
+        
+        return layout
     }
     
     func pillManagementCellRegistration() -> UICollectionView.CellRegistration<PillManagementCollectionViewCell, Pill>  {

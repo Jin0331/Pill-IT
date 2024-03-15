@@ -48,6 +48,7 @@ class PillManagementViewController : BaseViewController {
             navigationItem.leftBarButtonItem?.isHidden = true
         } else {
             // Fallback on earlier versions
+            navigationItem.leftBarButtonItem?.customView?.isHidden = true
         }
     }
     
@@ -83,7 +84,6 @@ class PillManagementViewController : BaseViewController {
 }
 
 //MARK: - Collection View Delegate
-//TODO: - 셀 선택은 알림 등록하기 버튼 활성 - 완료
 extension PillManagementViewController : UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -133,7 +133,7 @@ extension PillManagementViewController : SwipeCollectionViewCellDelegate {
                 self.viewModel.updatePillItemisDeleteTrigger.value = self.dataSource.itemIdentifier(for: indexPath)
             }
             
-            let cancelAction = UIAlertAction(title: "취소할게요", style: .cancel)
+            let cancelAction = UIAlertAction(title: "취소할래요", style: .cancel)
             cancelAction.setValue(UIColor.red, forKey: "titleTextColor")
             
             self.showAlert(title: "등록된 복용약 삭제", message: "등록된 복용약 삭제하시겠습니까? 🥲", actions: [confirmAction, cancelAction])

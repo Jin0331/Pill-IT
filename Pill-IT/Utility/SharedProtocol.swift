@@ -10,6 +10,7 @@ import Foundation
 protocol PillRegisterAction : AnyObject {
     func disMissPresent()
     func completePillRegister()
+    func defaultImageButtonClicked()
     func defaultButtonAction()
     func cameraGalleryButtonAction()
     func webSearchButtonAction()

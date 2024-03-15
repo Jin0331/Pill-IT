@@ -72,10 +72,15 @@ class PillManagementViewController : BaseViewController {
         
         print(#function, "PillManageMent UpdateSnapShot ❗️❗️❗️❗️❗️❗️❗️")
     }
-    
+    //MARK: - 복용약 알림 화면으로 이동하는 부분
     @objc func leftBarButtonClicked(_ sender : UIBarButtonItem){
         let vc =  AlarmViewController()
-        navigationController?.pushViewController(vc, animated: true)
+        
+        guard let selectedIndexPaths = mainView.mainCollectionView.indexPathsForSelectedItems else { return }
+        let selectedPill = selectedIndexPaths.map{ return dataSource.itemIdentifier(for: $0)}
+        
+        print(selectedPill)
+        
     }
     
     deinit {
@@ -125,10 +130,10 @@ extension PillManagementViewController : UICollectionViewDelegate {
 extension PillManagementViewController : SwipeCollectionViewCellDelegate {
     func collectionView(_ collectionView: UICollectionView, editActionsForItemAt indexPath: IndexPath, for orientation: SwipeCellKit.SwipeActionsOrientation) -> [SwipeCellKit.SwipeAction]? {
         guard orientation == .left else { return nil }
-
+        
         let deleteAction = SwipeAction(style: .destructive, title: "삭제") { [weak self] action, indexPath in
             guard let self = self else { return }
-                        
+            
             let confirmAction = UIAlertAction(title: "지워주세요", style: .default) { (action) in
                 self.viewModel.updatePillItemisDeleteTrigger.value = self.dataSource.itemIdentifier(for: indexPath)
             }
@@ -138,7 +143,7 @@ extension PillManagementViewController : SwipeCollectionViewCellDelegate {
             
             self.showAlert(title: "등록된 복용약 삭제", message: "등록된 복용약 삭제하시겠습니까? 🥲", actions: [confirmAction, cancelAction])
             
-
+            
         }
         
         let editImageAction = SwipeAction(style: .default, title: "이미지 수정") { [weak self] action, indexPath in
@@ -147,7 +152,7 @@ extension PillManagementViewController : SwipeCollectionViewCellDelegate {
             vc.modifyView(itemSeq: dataSource.itemIdentifier(for: indexPath)?.itemSeq.toString)
             vc.pillListDelegate = self
             vc.setupSheetPresentation()
-
+            
             present(vc, animated: true)
         }
         
@@ -155,7 +160,7 @@ extension PillManagementViewController : SwipeCollectionViewCellDelegate {
             print("더보기")
             //TODO: - local Notification 완료 후 진행
         }
-
+        
         // customize the action appearance
         deleteAction.image = DesignSystem.swipeImage.trash
         editImageAction.image = DesignSystem.swipeImage.edit

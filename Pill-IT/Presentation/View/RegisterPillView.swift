@@ -12,6 +12,8 @@ import SearchTextField
 import Kingfisher
 import NVActivityIndicatorView
 
+//TODO: - scrollview 적용해야됨 for iPhone SE
+
 final class RegisterPillView: BaseView {
     
     weak var actionDelegate : PillRegisterAction?
@@ -53,8 +55,15 @@ final class RegisterPillView: BaseView {
     
     let addImageTitleLabel = UILabel().then {
         $0.text = "이미지 등록하기"
-        $0.textColor = DesignSystem.colorSet.gray
+        $0.textColor = DesignSystem.colorSet.lightBlack
         $0.font = .systemFont(ofSize: 18, weight: .heavy)
+        $0.isHidden = true
+    }
+    
+    let defaultImageButton = UIButton().then {
+        $0.setTitle("기본 이미지 불러오기", for: .normal)
+        $0.setTitleColor(DesignSystem.colorSet.gray, for: .normal)
+        $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .bold)
         $0.isHidden = true
     }
     
@@ -94,8 +103,6 @@ final class RegisterPillView: BaseView {
 
     let pillImageView = UIImageView().then {
         $0.backgroundColor = DesignSystem.colorSet.white
-//        $0.layer.borderWidth = DesignSystem.viewLayout.borderWidth
-//        $0.layer.borderColor = DesignSystem.colorSet.lightBlack.cgColor
         $0.layer.cornerRadius = DesignSystem.viewLayout.imageCornetRadius
         $0.clipsToBounds = true        
         $0.isHidden = true
@@ -131,7 +138,7 @@ final class RegisterPillView: BaseView {
     
     override func configureHierarchy() {
         // main
-        [exitButton,titleLabel,userInputTextfield,addImageTitleLabel,buttonStackView,pillImageView,completeButton].forEach { addSubview($0) }
+        [exitButton,titleLabel,userInputTextfield,addImageTitleLabel,defaultImageButton,buttonStackView,pillImageView,completeButton].forEach { addSubview($0) }
         
         // buttonStackView
         [defaultButton, cameraGalleryButton, webSearchButton].forEach { buttonStackView.addArrangedSubview($0) }
@@ -158,12 +165,20 @@ final class RegisterPillView: BaseView {
         
         addImageTitleLabel.snp.makeConstraints { make in
             make.top.equalTo(userInputTextfield.snp.bottom).offset(40)
-            make.horizontalEdges.equalToSuperview().inset(20)
+            make.leading.equalTo(userInputTextfield)
+            make.width.equalTo(userInputTextfield).multipliedBy(0.4)
+        }
+        
+        defaultImageButton.snp.makeConstraints { make in
+            make.top.equalTo(addImageTitleLabel)
+            make.trailing.equalTo(userInputTextfield)
+            make.width.equalTo(userInputTextfield).multipliedBy(0.4)
+            make.centerY.equalTo(addImageTitleLabel)
         }
         
         buttonStackView.snp.makeConstraints { make in
             make.top.equalTo(addImageTitleLabel.snp.bottom).offset(10)
-            make.horizontalEdges.equalTo(addImageTitleLabel)
+            make.horizontalEdges.equalTo(userInputTextfield)
             make.height.equalTo(50)
         }
         
@@ -186,6 +201,7 @@ final class RegisterPillView: BaseView {
         
         exitButton.addTarget(self, action: #selector(exitButtonClicked), for: .touchUpInside)
         completeButton.addTarget(self, action: #selector(completeButtonClicked), for: .touchUpInside)
+        defaultImageButton.addTarget(self, action: #selector(defaultImageButtonClicked), for: .touchUpInside)
         
         defaultButton.addTarget(self, action: #selector(defaultButtonClicked), for: .touchUpInside)
         cameraGalleryButton.addTarget(self, action: #selector(cameraGalleryButtonClicked), for: .touchUpInside)
@@ -200,6 +216,11 @@ final class RegisterPillView: BaseView {
     @objc func completeButtonClicked() {
         print(#function)
         actionDelegate?.completePillRegister()
+    }
+    
+    @objc func defaultImageButtonClicked() {
+        print(#function)
+        actionDelegate?.defaultImageButtonClicked()
     }
     
     @objc func defaultButtonClicked() {
@@ -235,7 +256,7 @@ final class RegisterPillView: BaseView {
     func itemHidden(_ value : Bool = true) {
         userInputTextfield.isEnabled = value
         addImageTitleLabel.isHidden = value
-        addImageTitleLabel.isHidden = value
+        defaultImageButton.isHidden = value
         buttonStackView.isHidden = value
         pillImageView.isHidden = value
         completeButton.isHidden = value

@@ -280,9 +280,9 @@
 				DBF4468F2B9A351E0021BC0F /* Realm */,
 				DBF446752B998FE00021BC0F /* NetworkManager */,
 				DBF735252B9DECCE00326852 /* SharedProtocol.swift */,
+				DB8D12482BA48B38002E34BC /* SharedEnumeration.swift */,
 				DBF446832B99ADC60021BC0F /* FileDownloadManager.swift */,
 				DBF7351D2B9DD3E600326852 /* Observable.swift */,
-				DB8D12482BA48B38002E34BC /* SharedEnumeration.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";

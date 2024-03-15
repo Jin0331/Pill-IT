@@ -8,7 +8,6 @@
 import UIKit
 import SnapKit
 import Then
-import collection_view_layouts
 import Toast_Swift
 
 final class RegisterPillWebSearchViewController: BaseViewController {

@@ -20,7 +20,7 @@ enum DesignSystem {
     }
 
     enum iconImage {
-        static let clear = UIImage(named: "Clear_input")?.withRenderingMode(.alwaysOriginal)
+        static let clear = UIImage(named: "clear")?.withRenderingMode(.alwaysOriginal)
     }
     
     enum viewLayout {

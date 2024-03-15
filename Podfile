@@ -16,5 +16,4 @@ target 'Pill-IT' do
   pod 'Toast-Swift', '~> 5.1.0'
   pod 'NVActivityIndicatorView'
   pod 'YPImagePicker'
-  pod 'collection-view-layouts/InstagramLayout'
 end

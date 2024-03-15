@@ -29,7 +29,7 @@ class MainTabBarController: WHTabbarController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-                
+        
         configureItemDesing(tabBar: tabBar)
         
         centerButtonSize  = 60.0
@@ -41,6 +41,11 @@ class MainTabBarController: WHTabbarController {
         setupCenetrButton(vPosition: 0) { [weak self] in
             guard let self = self else { return }
             let vc = RegisterPillViewController()
+            if let sheet = vc.sheetPresentationController {
+                sheet.detents = [.large()]
+                sheet.prefersGrabberVisible = true // Grabber Show/Hide 설정
+            }
+            
             vc.pillListDelegate = self
             
             self.present(vc, animated: true)

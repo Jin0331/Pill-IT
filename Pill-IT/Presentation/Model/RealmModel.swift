@@ -46,6 +46,7 @@ class Pill : Object {
     @Persisted var urlPath : String
     @Persisted var regDate : Date
     @Persisted var upDate : Date
+    @Persisted var isSelected : Bool
     @Persisted var isDeleted : Bool
     
     @Persisted(originProperty: "pillList") var alarmGroup : LinkingObjects<PillAlarm>
@@ -60,6 +61,7 @@ class Pill : Object {
         self.urlPath = urlPath
         self.regDate = Date()
         self.upDate = Date()
+        self.isSelected = false
         self.isDeleted = false
         self.alarmGroup = alarmGroup
     }

@@ -19,9 +19,9 @@ final class PillManagementView : BaseView {
        return view
     }()
 
-    let customButton = UIButton(frame: CGRect(x: 0, y: 0, width: 150, height: 40)).then {
+    let customButton = UIButton(frame: CGRect(x: 0, y: 0, width: 130, height: 40)).then {
         $0.setTitle(" 알림 등록하기", for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 18, weight: .heavy)
+        $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .heavy)
         $0.setTitleColor(DesignSystem.colorSet.lightBlack, for: .normal)
         $0.tintColor = DesignSystem.colorSet.lightBlack
         $0.backgroundColor = DesignSystem.colorSet.white

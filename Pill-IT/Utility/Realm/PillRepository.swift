@@ -43,4 +43,9 @@ final class RealmRepository {
         return Array(result)
     }
     
+    //MARK: - UPDATE
+    func pillIsSelectedToggle() {
+        
+    }
+    
 }

@@ -20,6 +20,7 @@
 		DB21CDA92BA03CF00041C892 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB21CDA82BA03CF00041C892 /* String+Extension.swift */; };
 		DB5600642B9A458900E6558E /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5600632B9A458900E6558E /* RealmModel.swift */; };
 		DB8D12452BA2EC70002E34BC /* AlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8D12442BA2EC70002E34BC /* AlarmViewController.swift */; };
+		DB8D12472BA3EC69002E34BC /* UICollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8D12462BA3EC69002E34BC /* UICollectionView+Extension.swift */; };
 		DBF048682B9AAA080020750F /* PillAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF048672B9AAA080020750F /* PillAPIManager.swift */; };
 		DBF0486A2B9B0E9C0020750F /* PillPermitDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF048692B9B0E9C0020750F /* PillPermitDetailModel.swift */; };
 		DBF446592B9983930021BC0F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF446582B9983930021BC0F /* AppDelegate.swift */; };
@@ -68,6 +69,7 @@
 		DB21CDA82BA03CF00041C892 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		DB5600632B9A458900E6558E /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
 		DB8D12442BA2EC70002E34BC /* AlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmViewController.swift; sourceTree = "<group>"; };
+		DB8D12462BA3EC69002E34BC /* UICollectionView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extension.swift"; sourceTree = "<group>"; };
 		DBF048672B9AAA080020750F /* PillAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillAPIManager.swift; sourceTree = "<group>"; };
 		DBF048692B9B0E9C0020750F /* PillPermitDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillPermitDetailModel.swift; sourceTree = "<group>"; };
 		DBF0486D2B9CB2120020750F /* Pill-IT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pill-IT.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -235,6 +237,7 @@
 				DBF735232B9DE34900326852 /* UITextfield+Extension.swift */,
 				DB0F10D82B9F311B000DC430 /* UIView+Extension.swift */,
 				DB21CDA82BA03CF00041C892 /* String+Extension.swift */,
+				DB8D12462BA3EC69002E34BC /* UICollectionView+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -430,6 +433,7 @@
 				DBF7351B2B9DD3BE00326852 /* BaseViewController.swift in Sources */,
 				DB8D12452BA2EC70002E34BC /* AlarmViewController.swift in Sources */,
 				DBF048682B9AAA080020750F /* PillAPIManager.swift in Sources */,
+				DB8D12472BA3EC69002E34BC /* UICollectionView+Extension.swift in Sources */,
 				DB5600642B9A458900E6558E /* RealmModel.swift in Sources */,
 				DBF7352C2B9E9F2700326852 /* PillGrainInfo.swift in Sources */,
 				DBF735202B9DD3FC00326852 /* DesignSystem.swift in Sources */,
@@ -522,7 +526,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -579,7 +583,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;

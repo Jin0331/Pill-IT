@@ -42,6 +42,11 @@ class PillManagementViewController : BaseViewController {
         
         mainView.customButton.addTarget(self, action: #selector(leftBarButtonClicked), for: .touchUpInside)
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: mainView.customButton)
+        if #available(iOS 16.0, *) {
+            navigationItem.leftBarButtonItem?.isHidden = true
+        } else {
+            // Fallback on earlier versions
+        }
     }
     
     private func configureDataSource() {
@@ -65,8 +70,7 @@ class PillManagementViewController : BaseViewController {
     }
     
     @objc func leftBarButtonClicked(_ sender : UIBarButtonItem){
-        print(#function)
-        
+        print(#function, mainView.mainCollectionView.indexPathsForSelectedItems)
         let vc =  AlarmViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -84,6 +88,7 @@ extension PillManagementViewController : UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) as? PillManagementCollectionViewCell {
             cell.showSelectedImage()
+            hiddenLeftBarButton(collectionView)
         }
     }
 
@@ -91,6 +96,25 @@ extension PillManagementViewController : UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) as? PillManagementCollectionViewCell {
             cell.hiddneSelectedImage()
+            hiddenLeftBarButton(collectionView)
+        }
+    }
+
+    
+    private func hiddenLeftBarButton(_ collectionView : UICollectionView) {
+        if let isAllHideen = collectionView.indexPathsForSelectedItems, isAllHideen.isEmpty {
+            if #available(iOS 16.0, *) {
+                navigationItem.leftBarButtonItem?.isHidden = true
+            } else {
+                navigationItem.leftBarButtonItem?.customView?.isHidden = true
+            }
+        } else {
+            if #available(iOS 16.0, *) {
+                navigationItem.leftBarButtonItem?.isHidden = false
+            } else {
+                // Fallback on earlier versions
+                navigationItem.leftBarButtonItem?.customView?.isHidden = false
+            }
         }
     }
 }

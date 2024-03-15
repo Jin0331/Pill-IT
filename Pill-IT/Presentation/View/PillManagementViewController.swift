@@ -33,8 +33,6 @@ class PillManagementViewController : BaseViewController {
         viewModel.outputRegisteredPill.bind { [weak self] value in
             guard let self = self else { return }
             guard let value = value else { return }
-            
-            print(#function, value, "❌")
             updateSnapshot(value)
         }
     }

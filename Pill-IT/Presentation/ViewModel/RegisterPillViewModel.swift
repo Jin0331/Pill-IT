@@ -122,8 +122,8 @@ final class RegisterPillViewModel {
     }
     
     enum PillRegisterError: Error {
-        case pirmaryKeyExist
-        case None
+        case duplicate
+        case none
     }
     
     func pillRegister(completionHandler : @escaping (Result<Void, PillRegisterError>) -> ()) {
@@ -131,7 +131,7 @@ final class RegisterPillViewModel {
         if let itemSeq = inputItemSeq.value, let itemName = inputItemName.value, let entpName = inputEntpName.value, let entpNo = inputEntpNo.value, let prductType = inputPrductType.value ,let image = localImageURL.value {
             
             if isPillExist(itemSeq) {
-                completionHandler(.failure(.pirmaryKeyExist))
+                completionHandler(.failure(.duplicate))
             } else {
                 repository.pillCreate(Pill(itemSeq: itemSeq.toInt, itemName: itemName, entpName: entpName, entpNo: entpNo, prductType: prductType, urlPath: image))
                 completionHandler(.success(()))

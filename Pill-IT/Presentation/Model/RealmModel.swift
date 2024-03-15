@@ -38,7 +38,8 @@ class PillAlarm : Object {
 
 class Pill : Object {
     
-    @Persisted(primaryKey: true) var itemSeq : Int
+    @Persisted(primaryKey: true) var _id : ObjectId
+    @Persisted var itemSeq : Int
     @Persisted var itemName : String
     @Persisted var entpName : String
     @Persisted var entpNo : String

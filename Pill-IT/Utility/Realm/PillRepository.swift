@@ -29,7 +29,11 @@ final class RealmRepository {
     
     //MARK: - READ
     func pillExist(itemSeq : Int) -> Bool {
-        if realm.object(ofType: Pill.self, forPrimaryKey: itemSeq) != nil {
+        
+        let table : Pill? = realm.objects(Pill.self).where {
+            $0.itemSeq == itemSeq && $0.isDeleted == false}.first
+        
+        if table != nil {
             return true
         } else {
             return false
@@ -37,19 +41,23 @@ final class RealmRepository {
     }
     
     func fetchPillItem() -> [Pill] {
-        let result = realm.objects(Pill.self).where {
+        let table = realm.objects(Pill.self).where {
             $0.isDeleted == false
         }
         
-        return Array(result)
+        return Array(table)
     }
     
     //MARK: - UPDATE
     func updatePillIsDelete(_ itemSeq : Int) {
-        // target 업데이트
+        
+        let table = realm.objects(Pill.self).where {
+            $0.itemSeq == itemSeq}.first!
+    
         do {
             try realm.write {
-                realm.create(Pill.self, value: ["itemSeq": itemSeq, "isDeleted": true], update: .modified) }
+                table.isDeleted = true
+            }
         } catch {
             print(error)
         }

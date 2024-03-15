@@ -16,4 +16,17 @@ extension UIViewController {
             sheet.prefersGrabberVisible = true // Grabber Show/Hide 설정
         }
     }
+    
+    func showAlert(title: String?, message: String?, preferredStyle: UIAlertController.Style = .alert, actions: [UIAlertAction]) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: preferredStyle)
+        
+        for action in actions {
+            alertController.addAction(action)
+        }
+        
+        DispatchQueue.main.async {
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
+    
 }

@@ -25,7 +25,6 @@ class PillManagementViewController : BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        configureDataSource()
         bindData()
     }
     
@@ -49,6 +48,7 @@ class PillManagementViewController : BaseViewController {
             navigationItem.leftBarButtonItem?.isHidden = true
         } else {
             // Fallback on earlier versions
+            navigationItem.leftBarButtonItem?.customView?.isHidden = true
         }
     }
     
@@ -84,7 +84,6 @@ class PillManagementViewController : BaseViewController {
 }
 
 //MARK: - Collection View Delegate
-//TODO: - 셀 선택은 알림 등록하기 버튼 활성 - 완료
 extension PillManagementViewController : UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -130,7 +129,16 @@ extension PillManagementViewController : SwipeCollectionViewCellDelegate {
         let deleteAction = SwipeAction(style: .destructive, title: "삭제") { [weak self] action, indexPath in
             guard let self = self else { return }
                         
-            viewModel.updatePillItemisDeleteTrigger.value = dataSource.itemIdentifier(for: indexPath)
+            let confirmAction = UIAlertAction(title: "지워주세요", style: .default) { (action) in
+                self.viewModel.updatePillItemisDeleteTrigger.value = self.dataSource.itemIdentifier(for: indexPath)
+            }
+            
+            let cancelAction = UIAlertAction(title: "취소할래요", style: .cancel)
+            cancelAction.setValue(UIColor.red, forKey: "titleTextColor")
+            
+            self.showAlert(title: "등록된 복용약 삭제", message: "등록된 복용약 삭제하시겠습니까? 🥲", actions: [confirmAction, cancelAction])
+            
+
         }
         
         let editImageAction = SwipeAction(style: .default, title: "이미지 수정") { [weak self] action, indexPath in

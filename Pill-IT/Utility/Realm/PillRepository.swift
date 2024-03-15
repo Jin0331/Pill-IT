@@ -62,6 +62,7 @@ final class RealmRepository {
         do {
             try realm.write {
                 table.isDeleted = true
+                table.upDate = Date()
             }
         } catch {
             print(error)
@@ -75,6 +76,7 @@ final class RealmRepository {
         do {
             try realm.write {
                 table.urlPath = imagePath
+                table.upDate = Date()
             }
         } catch {
             print(error)

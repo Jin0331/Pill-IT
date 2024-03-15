@@ -30,7 +30,7 @@ final class RegisterPillView: BaseView {
     let userInputTextfield = SearchTextField().then {
         $0.attributedPlaceholder = NSAttributedString(string: "복용중인 약을 입력해주세요", attributes: [NSAttributedString.Key.foregroundColor : DesignSystem.colorSet.lightBlack])
         $0.addLeftPadding()
-        $0.clearButtonMode = .always
+        $0.clearButtonMode = .whileEditing
         $0.font = .systemFont(ofSize: 23, weight: .heavy)
         $0.textColor = DesignSystem.colorSet.black
         $0.layer.borderWidth = DesignSystem.viewLayout.borderWidth
@@ -230,6 +230,15 @@ final class RegisterPillView: BaseView {
         
         // 애니메이션 시작
         activityIndicator.startAnimating()
+    }
+    
+    func itemHidden(_ value : Bool = true) {
+        userInputTextfield.isEnabled = value
+        addImageTitleLabel.isHidden = value
+        addImageTitleLabel.isHidden = value
+        buttonStackView.isHidden = value
+        pillImageView.isHidden = value
+        completeButton.isHidden = value
     }
     
     deinit {

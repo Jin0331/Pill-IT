@@ -16,7 +16,7 @@ final class RealmRepository {
     
     //MARK: - CREATE
     // CREATE
-    func pillCreate<T:Object>(_ item : T) {
+    func createPill<T:Object>(_ item : T) {
         do {
             try realm.write {
                 realm.add(item)
@@ -28,10 +28,16 @@ final class RealmRepository {
     }
     
     //MARK: - READ
-    func pillExist(itemSeq : Int) -> Bool {
-        
+    func fetchPillSpecific(itemSeq : Int) -> Pill? {
         let table : Pill? = realm.objects(Pill.self).where {
             $0.itemSeq == itemSeq && $0.isDeleted == false}.first
+        
+        return table
+    }
+    
+    func fetchPillExist(itemSeq : Int) -> Bool {
+        
+        let table = fetchPillSpecific(itemSeq: itemSeq)
         
         if table != nil {
             return true
@@ -40,7 +46,7 @@ final class RealmRepository {
         }
     }
     
-    func fetchPillItem() -> [Pill] {
+    func fetchPillItem() -> [Pill]? {
         let table = realm.objects(Pill.self).where {
             $0.isDeleted == false
         }
@@ -49,14 +55,26 @@ final class RealmRepository {
     }
     
     //MARK: - UPDATE
-    func updatePillIsDelete(_ itemSeq : Int) {
+    func updatePillIsDelete(itemSeq : Int) {
         
-        let table = realm.objects(Pill.self).where {
-            $0.itemSeq == itemSeq}.first!
+        let table = fetchPillSpecific(itemSeq: itemSeq)!
     
         do {
             try realm.write {
                 table.isDeleted = true
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
+    func updatePillImage(itemSeq : Int, imagePath : String) {
+        
+        let table = fetchPillSpecific(itemSeq: itemSeq)!
+    
+        do {
+            try realm.write {
+                table.urlPath = imagePath
             }
         } catch {
             print(error)

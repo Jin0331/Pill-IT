@@ -102,8 +102,12 @@ class PillManagementCollectionViewCell: BaseCollectionViewCell {
     }
     
     func updateUI(_ itemIdentifier : Pill) {
+        
+        print("🔆 cell updateUI")
+        
         let provider = LocalFileImageDataProvider(fileURL: itemIdentifier.urlPathToURL)
-        itemImage.kf.setImage(with: provider, options: [.transition(.fade(0.7))])
+        
+        itemImage.kf.setImage(with: provider, options: [.transition(.fade(1))])
         itemNameLabel.text = itemIdentifier.itemName
         entpNameLabel.text = itemIdentifier.entpName
         productTypeLabel.text = itemIdentifier.prductType

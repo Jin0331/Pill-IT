@@ -135,7 +135,7 @@ final class RegisterPillViewController : BaseViewController {
 }
 
 
-//MARK: - View Action Protocol
+//MARK: - View 관련
 extension RegisterPillViewController : PillRegisterAction {
     
     func disMissPresent() {
@@ -150,6 +150,7 @@ extension RegisterPillViewController : PillRegisterAction {
             guard let self = self else { return }
             switch result {
             case .success:
+                print("⭕️⭕️⭕️⭕️⭕️⭕️")
                 pillListDelegate?.completeToast()
                 pillListDelegate?.fetchPillTable()
                 kfCacheClear()
@@ -162,7 +163,7 @@ extension RegisterPillViewController : PillRegisterAction {
     
     func defaultButtonAction() {
         
-        self.mainView.setActivityIndicator()
+        mainView.setActivityIndicator()
         
         viewModel.callcallRequestForImageTrigger.value = viewModel.inputItemSeq.value
         
@@ -250,15 +251,37 @@ extension RegisterPillViewController : PillRegisterAction {
         present(vc, animated: true)
     }
     
-    private func getLocalImage(imagePath : String) {
+    private func getLocalImage(imagePath : String, refresh : Bool = true) {
         let url = URL(fileURLWithPath: imagePath)
         let provider = LocalFileImageDataProvider(fileURL: url)
-        mainView.pillImageView.kf.setImage(with: provider, options: [.transition(.fade(1)), .forceRefresh])
+        
+        if refresh {
+            mainView.pillImageView.kf.setImage(with: provider, options: [.transition(.fade(1)), .forceRefresh])
+        } else {
+            mainView.pillImageView.kf.setImage(with: provider, options: [.transition(.fade(1))])
+        }
+        
+        
     }
     
     private func kfCacheClear() {
         let cache = ImageCache.default
         cache.cleanExpiredMemoryCache()
+    }
+    
+    //MARK: - PillManageMent화면에서 사용하는 함수
+    func modifyView(itemSeq : String?) {
+        guard let itemSeq = itemSeq else { return }
+        viewModel.pillDataBindForModify(itemSeq)
+        
+        print(viewModel.modifyStatus.value )
+        
+        mainView.itemHidden(false)
+        mainView.titleLabel.text = "⚠️ 복용약 수정"
+        mainView.userInputTextfield.backgroundColor = DesignSystem.colorSet.lightGray
+        mainView.userInputTextfield.textColor = DesignSystem.colorSet.gray
+        mainView.userInputTextfield.text = viewModel.inputItemName.value
+        getLocalImage(imagePath: viewModel.localImageURL.value!, refresh: false)
     }
     
 }
@@ -268,13 +291,9 @@ extension RegisterPillViewController : UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         print(#function)
+        mainView.itemHidden()
         textField.text = nil
         mainView.userInputTextfield.filterStrings([])
-        mainView.addImageTitleLabel.isHidden = true
-        mainView.addImageTitleLabel.isHidden = true
-        mainView.buttonStackView.isHidden = true
-        mainView.pillImageView.isHidden = true
-        mainView.completeButton.isHidden = true
         mainView.pillImageView.image = nil
     }
     

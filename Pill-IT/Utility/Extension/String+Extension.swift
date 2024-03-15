@@ -35,3 +35,14 @@ extension String {
         }
     }
 }
+
+extension Int {
+    var toString : String {
+        let nStringVal : String? = String(self)
+        if let nStringVal {
+            return nStringVal
+        } else {
+            return ""
+        }
+    }
+}

@@ -32,7 +32,7 @@ final class PillManagementViewModel {
             guard let self = self else { return }
             guard let value = value else { print("nil -",#function); return }
         
-            repository.updatePillIsDelete(value.itemSeq)
+            repository.updatePillIsDelete(itemSeq : value.itemSeq)
             outputRegisteredPill.value = repository.fetchPillItem()
         }
         

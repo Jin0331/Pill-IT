@@ -25,7 +25,7 @@ class PillManagementViewController : BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureDataSource()
+//        configureDataSource()
         bindData()
     }
     
@@ -33,6 +33,8 @@ class PillManagementViewController : BaseViewController {
         viewModel.outputRegisteredPill.bind { [weak self] value in
             guard let self = self else { return }
             guard let value = value else { return }
+            
+            configureDataSource()
             updateSnapshot(value)
         }
     }
@@ -67,6 +69,8 @@ class PillManagementViewController : BaseViewController {
         snapshot.appendItems(data, toSection: .main)
         
         dataSource.apply(snapshot) // reloadData
+        
+        print(#function, "PillManageMent UpdateSnapShot ❗️❗️❗️❗️❗️❗️❗️")
     }
     
     @objc func leftBarButtonClicked(_ sender : UIBarButtonItem){
@@ -125,15 +129,23 @@ extension PillManagementViewController : SwipeCollectionViewCellDelegate {
 
         let deleteAction = SwipeAction(style: .destructive, title: "삭제") { [weak self] action, indexPath in
             guard let self = self else { return }
+                        
             viewModel.updatePillItemisDeleteTrigger.value = dataSource.itemIdentifier(for: indexPath)
         }
         
-        let editImageAction = SwipeAction(style: .default, title: "이미지 수정") { action, indexPath in
-            print("수정")
+        let editImageAction = SwipeAction(style: .default, title: "이미지 수정") { [weak self] action, indexPath in
+            guard let self = self else { return }
+            let vc = RegisterPillViewController()
+            vc.modifyView(itemSeq: dataSource.itemIdentifier(for: indexPath)?.itemSeq.toString)
+            vc.pillListDelegate = self
+            vc.setupSheetPresentation()
+
+            present(vc, animated: true)
         }
         
         let moreInfoAction = SwipeAction(style: .default, title: "정보") { action, indexPath in
             print("더보기")
+            //TODO: - local Notification 완료 후 진행
         }
 
         // customize the action appearance
@@ -162,4 +174,16 @@ extension PillManagementViewController : SwipeCollectionViewCellDelegate {
         return options
     }
     
+}
+
+//MARK: - Delegate Action
+extension PillManagementViewController : PillListAction {
+    func fetchPillTable() {
+        print("✅ fetchPillTable")
+        viewModel.fetchPillItemTrigger.value = ()
+    }
+    
+    func completeToast() {
+        view.makeToast("복용약이 수정되었습니다 ✅", duration: 2, position: .center)
+    }
 }

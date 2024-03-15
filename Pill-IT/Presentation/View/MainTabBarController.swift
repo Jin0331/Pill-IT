@@ -41,11 +41,7 @@ class MainTabBarController: WHTabbarController {
         setupCenetrButton(vPosition: 0) { [weak self] in
             guard let self = self else { return }
             let vc = RegisterPillViewController()
-            if let sheet = vc.sheetPresentationController {
-                sheet.detents = [.large()]
-                sheet.prefersGrabberVisible = true // Grabber Show/Hide 설정
-            }
-            
+            vc.setupSheetPresentation()
             vc.pillListDelegate = self
             
             self.present(vc, animated: true)
@@ -57,6 +53,7 @@ class MainTabBarController: WHTabbarController {
 //MARK: - Delegate Action
 extension MainTabBarController : PillListAction {
     func fetchPillTable() {
+        print("✅ fetchPillTable")
         firstVC.viewModel.fetchPillItemTrigger.value = ()
     }
     

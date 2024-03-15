@@ -17,6 +17,7 @@ final class RegisterPillViewModel {
     var inputEntpNo : Observable<String?> = Observable(nil)
     var inputPrductType : Observable<String?> = Observable(nil)
     var localImageURL : Observable<String?> = Observable(nil)
+    var modifyStatus : Observable<Bool> = Observable(false)
     
     var outputItemEntpNameSeqList : Observable<[(itemSeq:String, itemName:String, entpName:String, entpNo:String, prductType:String)]?> = Observable(nil)
     var outputItemImageWebLink : Observable<[URL]?> = Observable(nil)
@@ -130,10 +131,15 @@ final class RegisterPillViewModel {
         
         if let itemSeq = inputItemSeq.value, let itemName = inputItemName.value, let entpName = inputEntpName.value, let entpNo = inputEntpNo.value, let prductType = inputPrductType.value ,let image = localImageURL.value {
             
-            if isPillExist(itemSeq) {
+            if isPillExist(itemSeq) && !modifyStatus.value {
                 completionHandler(.failure(.duplicate))
             } else {
-                repository.pillCreate(Pill(itemSeq: itemSeq.toInt, itemName: itemName, entpName: entpName, entpNo: entpNo, prductType: prductType, urlPath: image))
+                
+                if modifyStatus.value {
+                    repository.updatePillImage(itemSeq: itemSeq.toInt, imagePath: localImageURL.value!)
+                } else {
+                    repository.createPill(Pill(itemSeq: itemSeq.toInt, itemName: itemName, entpName: entpName, entpNo: entpNo, prductType: prductType, urlPath: image))
+                }
                 completionHandler(.success(()))
             }
             
@@ -141,9 +147,24 @@ final class RegisterPillViewModel {
     }
     
     func isPillExist(_ itemSeq : String) -> Bool {
-        return repository.pillExist(itemSeq: itemSeq.toInt)
+        return repository.fetchPillExist(itemSeq: itemSeq.toInt)
     }
     
+    func pillDataBindForModify(_ itemSeq : String) {
+        // 기존 데이터 삽입
+        
+        print(#function, itemSeq)
+        
+        if let currentTable = repository.fetchPillSpecific(itemSeq: itemSeq.toInt) {
+            modifyStatus.value = true
+            inputItemSeq.value = currentTable.itemSeq.toString
+            inputItemName.value = currentTable.itemName
+            inputEntpName.value = currentTable.entpName
+            inputEntpNo.value = currentTable.entpNo
+            inputPrductType.value = currentTable.prductType
+            localImageURL.value = currentTable.urlPath
+        }
+    }
     
     deinit {
         print(#function, " - ✅ RegisterPillViewModel")

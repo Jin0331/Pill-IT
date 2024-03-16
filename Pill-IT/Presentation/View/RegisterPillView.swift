@@ -57,6 +57,16 @@ final class RegisterPillView: BaseView {
         $0.hideResultsList()
     }
     
+    let scrollView = UIScrollView().then {
+        $0.backgroundColor = DesignSystem.colorSet.white
+        $0.isScrollEnabled = true
+        $0.showsVerticalScrollIndicator = true
+    }
+    
+    let contentsView = UIView().then {
+        $0.backgroundColor = DesignSystem.colorSet.white
+    }
+    
     let addImageTitleLabel = UILabel().then {
         $0.text = "이미지 등록하기"
         $0.textColor = DesignSystem.colorSet.lightBlack
@@ -142,7 +152,11 @@ final class RegisterPillView: BaseView {
     
     override func configureHierarchy() {
         // main
-        [exitButton,titleLabel,userInputTextfield,addImageTitleLabel,defaultImageButton,buttonStackView,pillImageView,completeButton].forEach { addSubview($0) }
+        [exitButton,titleLabel,userInputTextfield, scrollView].forEach { addSubview($0) }
+        
+        // scroll view
+        scrollView.addSubview(contentsView)
+        [addImageTitleLabel,defaultImageButton,buttonStackView,pillImageView,completeButton].forEach { contentsView.addSubview($0) }
         
         // buttonStackView
         [defaultButton, cameraGalleryButton, webSearchButton].forEach { buttonStackView.addArrangedSubview($0) }
@@ -167,8 +181,19 @@ final class RegisterPillView: BaseView {
             make.height.equalTo(70)
         }
         
+        scrollView.snp.makeConstraints {
+            $0.top.equalTo(userInputTextfield.snp.bottom).offset(40)
+            $0.horizontalEdges.equalToSuperview()
+            $0.bottom.equalToSuperview()
+        }
+        
+        contentsView.snp.makeConstraints {
+            $0.width.equalToSuperview()
+            $0.top.bottom.equalToSuperview()
+        }
+        
         addImageTitleLabel.snp.makeConstraints { make in
-            make.top.equalTo(userInputTextfield.snp.bottom).offset(40)
+            make.top.equalToSuperview()
             make.leading.equalTo(userInputTextfield)
             make.width.equalTo(userInputTextfield).multipliedBy(0.4)
         }
@@ -197,6 +222,7 @@ final class RegisterPillView: BaseView {
             make.top.equalTo(pillImageView.snp.bottom).offset(20)
             make.horizontalEdges.equalTo(pillImageView)
             make.height.equalTo(userInputTextfield)
+            make.bottom.equalToSuperview()
         }
     }
     

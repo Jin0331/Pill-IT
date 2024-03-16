@@ -44,7 +44,7 @@ class PillAlarmViewController: BaseViewController {
     private func configureDataSource() {
         
         let cellRegistration = mainView.pillAlarmCellRegistration()
-        dataSource = UICollectionViewDiffableDataSource(collectionView: mainView.mainCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
+        dataSource = UICollectionViewDiffableDataSource(collectionView: mainView.mainCollectionView, cellProvider: { [weak self] collectionView, indexPath, itemIdentifier in
             let cell = collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
             cell.delegate = self
             
@@ -90,7 +90,7 @@ extension PillAlarmViewController : SwipeCollectionViewCellDelegate {
         
         deleteAction.hidesWhenSelected = true
         
-        return [deleteAction,]
+        return [deleteAction]
     }
     
     func collectionView(_ collectionView: UICollectionView, editActionsOptionsForItemAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {

@@ -11,7 +11,7 @@ import SnapKit
 import Then
 import SwipeCellKit
 
-class PillManagementViewController : BaseViewController {
+final class PillManagementViewController : BaseViewController {
     
     let mainView = PillManagementView()
     let viewModel = PillManagementViewModel()

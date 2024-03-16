@@ -34,7 +34,7 @@ final class RegisterPillView: BaseView {
     }
     
     let userInputTextfield = SearchTextField().then {
-        $0.attributedPlaceholder = NSAttributedString(string: "복용중인 약을 입력해주세요", attributes: [NSAttributedString.Key.foregroundColor : DesignSystem.colorSet.lightBlack])
+        $0.attributedPlaceholder = NSAttributedString(string: "복용중인 약을 입력해주세요", attributes: [NSAttributedString.Key.foregroundColor : DesignSystem.colorSet.gray])
         $0.addLeftPadding()
         $0.clearButtonMode = .whileEditing
         $0.font = .systemFont(ofSize: 23, weight: .heavy)

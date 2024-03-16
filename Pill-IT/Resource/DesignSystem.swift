@@ -23,6 +23,10 @@ enum DesignSystem {
         static let clear = UIImage(named: "clear")?.withRenderingMode(.alwaysOriginal)
     }
     
+    enum iconURL {
+        static let defaultPill = URL(string:"https://cdn-icons-png.flaticon.com/512/8889/8889618.png")
+    }
+    
     
     enum viewLayout {
         static let borderWidth = 1.5
@@ -41,11 +45,15 @@ enum DesignSystem {
         static let trash = #colorLiteral(red: 1, green: 0.2352941176, blue: 0.1882352941, alpha: 1)
     }
     
-    enum swipeImage {
+    enum pillManagementSwipeImage {
         static let sfSymbolLargeConfig = UIImage.SymbolConfiguration(pointSize: 25, weight: .bold, scale: .large)
         static let more = UIImage(systemName: "info.circle", withConfiguration: sfSymbolLargeConfig)
         static let edit = UIImage(systemName: "square.and.pencil", withConfiguration: sfSymbolLargeConfig)
         static let trash = UIImage(systemName: "trash", withConfiguration: sfSymbolLargeConfig)
-
+    }
+    
+    enum pillAlarmSwipeImage {
+        static let sfSymbolLargeConfig = UIImage.SymbolConfiguration(pointSize: 12, weight: .bold, scale: .large)
+        static let trash = UIImage(systemName: "trash", withConfiguration: sfSymbolLargeConfig)
     }
 }

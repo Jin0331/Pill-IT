@@ -167,7 +167,7 @@ extension RegisterPillViewController : PillRegisterAction {
             
             guard let self = self else { return }
             guard let itemSeq = viewModel.inputItemSeq.value else { return }
-            let defaultImage = URL(string:"https://cdn-icons-png.flaticon.com/512/8889/8889618.png")!
+            let defaultImage = DesignSystem.iconURL.defaultPill!
             
             FileDownloadManager.shared.downloadFile(url: defaultImage, pillID: itemSeq) { [weak self] response in
                 guard let self = self else { return }

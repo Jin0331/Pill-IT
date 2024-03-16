@@ -72,14 +72,18 @@ class PillManagementViewController : BaseViewController {
         
         print(#function, "PillManageMent UpdateSnapShot ❗️❗️❗️❗️❗️❗️❗️")
     }
+    
     //MARK: - 복용약 알림 화면으로 이동하는 부분
     @objc func leftBarButtonClicked(_ sender : UIBarButtonItem){
-        let vc =  AlarmViewController()
+        let vc =  PillAlarmViewController()
+        vc.setupSheetPresentation()
         
         guard let selectedIndexPaths = mainView.mainCollectionView.indexPathsForSelectedItems else { return }
         let selectedPill = selectedIndexPaths.map{ return dataSource.itemIdentifier(for: $0)}
         
-        print(selectedPill)
+        vc.viewModel.selectedPill.value = selectedPill
+        
+        present(vc, animated: true)
         
     }
     
@@ -129,7 +133,7 @@ extension PillManagementViewController : UICollectionViewDelegate {
 //MARK: - CollectionView swipe delegate
 extension PillManagementViewController : SwipeCollectionViewCellDelegate {
     func collectionView(_ collectionView: UICollectionView, editActionsForItemAt indexPath: IndexPath, for orientation: SwipeCellKit.SwipeActionsOrientation) -> [SwipeCellKit.SwipeAction]? {
-        guard orientation == .left else { return nil }
+        guard orientation == .right else { return nil }
         
         let deleteAction = SwipeAction(style: .destructive, title: "삭제") { [weak self] action, indexPath in
             guard let self = self else { return }
@@ -162,9 +166,9 @@ extension PillManagementViewController : SwipeCollectionViewCellDelegate {
         }
         
         // customize the action appearance
-        deleteAction.image = DesignSystem.swipeImage.trash
-        editImageAction.image = DesignSystem.swipeImage.edit
-        moreInfoAction.image = DesignSystem.swipeImage.more
+        deleteAction.image = DesignSystem.pillManagementSwipeImage.trash
+        editImageAction.image = DesignSystem.pillManagementSwipeImage.edit
+        moreInfoAction.image = DesignSystem.pillManagementSwipeImage.more
         
         editImageAction.backgroundColor = DesignSystem.swipeColor.edit
         moreInfoAction.backgroundColor = DesignSystem.swipeColor.more
@@ -183,6 +187,7 @@ extension PillManagementViewController : SwipeCollectionViewCellDelegate {
     func collectionView(_ collectionView: UICollectionView, editActionsOptionsForItemAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
         var options = SwipeOptions()
         options.transitionStyle = .reveal
+        options.backgroundColor = DesignSystem.colorSet.white
         
         return options
     }

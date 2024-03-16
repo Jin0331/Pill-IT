@@ -18,8 +18,6 @@ class PillManagementCollectionViewCell: BaseCollectionViewCell {
         $0.layer.shadowOpacity = 0.2
         $0.layer.shadowRadius = 10
         $0.layer.masksToBounds = false
-        
-        
         $0.backgroundColor = .white
     }
     

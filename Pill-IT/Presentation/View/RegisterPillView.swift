@@ -24,9 +24,13 @@ final class RegisterPillView: BaseView {
     }
     
     let titleLabel = UILabel().then {
-        $0.text = "🌟 복용약 등록"
+        $0.text = "🌟 복용약 등록하기"
         $0.textColor = DesignSystem.colorSet.black
-        $0.font = .systemFont(ofSize: 35, weight: .heavy)
+        $0.font = .systemFont(ofSize: 28, weight: .heavy)
+        $0.layer.shadowOffset = CGSize(width: 10, height: 5)
+        $0.layer.shadowOpacity = 0.4
+        $0.layer.shadowRadius = 10
+        $0.layer.masksToBounds = false
     }
     
     let userInputTextfield = SearchTextField().then {

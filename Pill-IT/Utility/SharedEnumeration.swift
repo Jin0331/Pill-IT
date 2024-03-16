@@ -7,7 +7,14 @@
 
 import Foundation
 
-enum titleEnum {
-    case register
-    case modify
+enum RegisterPillWebSearchViewSection : CaseIterable {
+    case main
+}
+
+enum PillManagementViewSection : CaseIterable {
+    case main
+}
+
+enum PillAlarmViewSection : CaseIterable {
+    case main
 }

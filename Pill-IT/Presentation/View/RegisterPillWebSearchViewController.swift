@@ -57,7 +57,7 @@ final class RegisterPillWebSearchViewController: BaseViewController {
         
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).inset(20)
-            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(20)
             make.height.equalTo(40)
         }
         

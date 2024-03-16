@@ -44,7 +44,8 @@ final class PillAlarmView : BaseView {
     
     lazy var mainCollectionView : UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
-        view.backgroundColor = DesignSystem.colorSet.white
+//        view.backgroundColor = DesignSystem.colorSet.white
+        view.backgroundColor = .red
 
         return view
     }()
@@ -144,12 +145,6 @@ final class PillAlarmView : BaseView {
             make.leading.equalTo(titleLabel)
         }
         
-        mainCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(collectionViewtitle.snp.bottom).offset(10)
-            make.horizontalEdges.equalTo(titleLabel)
-            make.height.equalTo(170)
-        }
-        
         userInputTextfieldtitle.snp.makeConstraints { make in
             make.top.equalTo(mainCollectionView.snp.bottom).offset(10)
             make.width.equalTo(collectionViewtitle)
@@ -220,6 +215,21 @@ final class PillAlarmView : BaseView {
             cell.updateUI(itemIdentifier)
         }
     }
+    
+    func collectionViewchangeLayout(itemCount: Int) {
+        
+        print("🥲 CollectionView Resize")
+
+        let defaultSize = itemCount < 5 ? 50 * itemCount : 50 * 3
+    
+        mainCollectionView.snp.updateConstraints { make in
+            make.top.equalTo(collectionViewtitle.snp.bottom).offset(10)
+            make.horizontalEdges.equalTo(titleLabel)
+            make.height.equalTo(defaultSize)
+        }
+    }
+    
+    
     
     deinit {
         print(#function, " - ✅ PillAlaramView in-Side")

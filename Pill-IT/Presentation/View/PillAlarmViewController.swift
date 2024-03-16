@@ -29,7 +29,9 @@ class PillAlarmViewController: BaseViewController {
     private func bindData() {
         viewModel.outputSelectedPill.bind { [weak self] value in
             guard let self = self else { return }
+            mainView.collectionViewchangeLayout(itemCount: value.count)
             
+
             configureDataSource()
             updateSnapshot(value)
         }
@@ -101,4 +103,6 @@ extension PillAlarmViewController : SwipeCollectionViewCellDelegate {
         return options
     }
     
+    
+
 }

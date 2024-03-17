@@ -28,6 +28,18 @@ final class PillManagementViewController : BaseViewController {
         bindData()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        print(#function, "⭕️ Tabbar 전환")
+        for cell in mainView.mainCollectionView.visibleCells {
+            if let cell = cell as? SwipeCollectionViewCell {
+                cell.hideSwipe(animated: true)
+            }
+        }
+        
+        mainView.mainCollectionView.deselectAllItems(animated: true)
+    }
+    
     private func bindData() {
         viewModel.outputRegisteredPill.bind { [weak self] value in
             guard let self = self else { return }
@@ -38,6 +50,7 @@ final class PillManagementViewController : BaseViewController {
 //            updateSnapshot()
         }
     }
+    
     
     override func configureNavigation() {
         super.configureNavigation()

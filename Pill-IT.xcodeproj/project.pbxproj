@@ -158,6 +158,48 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		DB5E59CC2BA7830E00C753BD /* RegisterPill */ = {
+			isa = PBXGroup;
+			children = (
+				DBF735212B9DD6F900326852 /* RegisterPillView.swift */,
+				DB0F10DC2B9F83CD000DC430 /* RegisterPillWebSearchViewController.swift */,
+				DBF446812B99AA4C0021BC0F /* RegisterPillViewController.swift */,
+			);
+			path = RegisterPill;
+			sourceTree = "<group>";
+		};
+		DB5E59CD2BA7833400C753BD /* PillManagement */ = {
+			isa = PBXGroup;
+			children = (
+				DB0368242BA1DBBB006A62AD /* PillManagementView.swift */,
+				DBF7350B2B9CBC4300326852 /* PillManagementViewController.swift */,
+			);
+			path = PillManagement;
+			sourceTree = "<group>";
+		};
+		DB5E59CE2BA7835300C753BD /* PillAlarm */ = {
+			isa = PBXGroup;
+			children = (
+				DB5E59B82BA5D45D00C753BD /* PillAlarmRegisterView.swift */,
+				DB8D12442BA2EC70002E34BC /* PillAlarmRegisterViewController.swift */,
+				DB5E59CA2BA7784D00C753BD /* PillAlarmSpecificViewController.swift */,
+				DB5E59CF2BA783B700C753BD /* PeriodSelect */,
+			);
+			path = PillAlarm;
+			sourceTree = "<group>";
+		};
+		DB5E59CF2BA783B700C753BD /* PeriodSelect */ = {
+			isa = PBXGroup;
+			children = (
+				DB5E59BE2BA6D40F00C753BD /* PeriodSelectView.swift */,
+				DB5E59BC2BA6D07900C753BD /* PeriodSelectViewController.swift */,
+				DB5E59C42BA7156400C753BD /* PeriodSelectDayOfTheWeekViewController.swift */,
+				DB5E59C62BA73D9900C753BD /* PeriodSelectDaysViewController.swift */,
+				DB5E59C82BA768F600C753BD /* PeriodStartDatePickerViewController.swift */,
+			);
+			path = PeriodSelect;
+			sourceTree = "<group>";
+		};
 		DBF4464C2B9983930021BC0F = {
 			isa = PBXGroup;
 			children = (
@@ -207,21 +249,11 @@
 		DBF446722B998E840021BC0F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				DB0F10DE2B9F8848000DC430 /* Cell */,
 				DBF735072B9CB58100326852 /* MainTabBarController.swift */,
-				DBF735212B9DD6F900326852 /* RegisterPillView.swift */,
-				DB0F10DC2B9F83CD000DC430 /* RegisterPillWebSearchViewController.swift */,
-				DBF446812B99AA4C0021BC0F /* RegisterPillViewController.swift */,
-				DB0368242BA1DBBB006A62AD /* PillManagementView.swift */,
-				DBF7350B2B9CBC4300326852 /* PillManagementViewController.swift */,
-				DB5E59B82BA5D45D00C753BD /* PillAlarmRegisterView.swift */,
-				DB8D12442BA2EC70002E34BC /* PillAlarmRegisterViewController.swift */,
-				DB5E59CA2BA7784D00C753BD /* PillAlarmSpecificViewController.swift */,
-				DB5E59BE2BA6D40F00C753BD /* PeriodSelectView.swift */,
-				DB5E59BC2BA6D07900C753BD /* PeriodSelectViewController.swift */,
-				DB5E59C42BA7156400C753BD /* PeriodSelectDayOfTheWeekViewController.swift */,
-				DB5E59C62BA73D9900C753BD /* PeriodSelectDaysViewController.swift */,
-				DB5E59C82BA768F600C753BD /* PeriodStartDatePickerViewController.swift */,
+				DB5E59CC2BA7830E00C753BD /* RegisterPill */,
+				DB5E59CD2BA7833400C753BD /* PillManagement */,
+				DB5E59CE2BA7835300C753BD /* PillAlarm */,
+				DB0F10DE2B9F8848000DC430 /* Cell */,
 				DBF735092B9CBC3000326852 /* NotificationViewController.swift */,
 			);
 			path = View;

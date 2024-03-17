@@ -207,7 +207,7 @@ final class PillAlarmRegisterView : BaseView {
             make.top.equalTo(startDateButton.snp.bottom).offset(20)
             make.horizontalEdges.equalTo(startDateButton)
             make.height.equalTo(userInputTextfield)
-            make.bottom.equalToSuperview()
+            make.bottom.equalToSuperview().inset(20)
         }
     }
     

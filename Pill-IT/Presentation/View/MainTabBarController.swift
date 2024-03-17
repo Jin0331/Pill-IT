@@ -24,7 +24,6 @@ class MainTabBarController: WHTabbarController {
         let secondNav = UINavigationController(rootViewController: secondVC)
         
         setViewControllers([firstNav, secondNav], animated: true)
-        
     }
     
     override func viewDidLayoutSubviews() {

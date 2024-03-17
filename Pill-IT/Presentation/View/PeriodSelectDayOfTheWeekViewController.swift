@@ -55,7 +55,8 @@ final class PeriodSelectDayOfTheWeekViewController: BaseViewController, UICollec
         guard let viewModel = viewModel else { return }
         guard let selectedIndexPaths = mainCollectionView.indexPathsForSelectedItems else { return }
         
-        let selectedPill = selectedIndexPaths.map{ return dataSource.itemIdentifier(for: $0)!}
+        let selectedIndexPathsSorted = selectedIndexPaths.sorted()
+        let selectedPill = selectedIndexPathsSorted.map{ return dataSource.itemIdentifier(for: $0)!}
         viewModel.inputDayOfWeekInterval.value = selectedPill
         sendPeriodSelectedItem?()
 

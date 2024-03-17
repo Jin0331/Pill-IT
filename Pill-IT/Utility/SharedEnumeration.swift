@@ -76,3 +76,31 @@ enum PeriodSpecificDay : Int, CaseIterable {
         }
     }
 }
+
+enum PeriodDays : Int, CaseIterable {
+    case day
+    case week
+    case month
+    
+    var rows : Int {
+        switch self {
+        case .day:
+            return 365
+        case .week:
+            return 52
+        case .month:
+            return 12
+        }
+    }
+    
+    var title : String {
+        switch self {
+        case .day:
+            return "일에 한번"
+        case .week:
+            return "주에 한번"
+        case .month:
+            return "달에 한번"
+        }
+    }
+}

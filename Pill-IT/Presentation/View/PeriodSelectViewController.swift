@@ -98,6 +98,16 @@ extension PeriodSelectViewController : UICollectionViewDelegate {
             
         case .period:
             print(selectItem.rawValue)
+            let vc = PeriodSelectDaysViewController()
+            vc.viewModel = viewModel // ViewModel 공유
+            
+            vc.sendPeriodSelectedItem = { [weak self]  in // PeriodCase list
+                guard let self = self else { return }
+
+                dismiss(animated: true)
+            }
+            
+            navigationController?.pushViewController(vc, animated: true)
         }
     }
 }

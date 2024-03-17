@@ -159,6 +159,9 @@ extension PillManagementViewController : SwipeCollectionViewCellDelegate {
             
             let confirmAction = UIAlertAction(title: "지워주세요", style: .default) { (action) in
                 self.viewModel.updatePillItemisDeleteTrigger.value = self.dataSource.itemIdentifier(for: indexPath)
+                
+                self.hiddenLeftBarButton(collectionView)
+                
             }
             
             let cancelAction = UIAlertAction(title: "취소할래요", style: .cancel)
@@ -175,6 +178,13 @@ extension PillManagementViewController : SwipeCollectionViewCellDelegate {
             vc.modifyView(itemSeq: dataSource.itemIdentifier(for: indexPath)?.itemSeq.toString)
             vc.pillListDelegate = self
             vc.setupSheetPresentationLarge()
+            
+            //TODO: - 복용약 화면이 Dismiss되었을 때, handler로 바 아이템 수정해야됨
+//            if #available(iOS 16.0, *) {
+//                navigationItem.leftBarButtonItem?.isHidden = true
+//            } else {
+//                navigationItem.leftBarButtonItem?.customView?.isHidden = true
+//            }
             
             present(vc, animated: true)
         }

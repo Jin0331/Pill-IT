@@ -118,6 +118,7 @@ final class RegisterPillViewController : BaseViewController {
                 // 이미지 등록하기 true
                 //TODO: -시간되면 Animation 넣기
                 mainView.addImageTitleLabel.isHidden = false
+                mainView.defaultImageButton.isHidden = false
                 mainView.buttonStackView.isHidden = false
                 
                 // loading
@@ -160,6 +161,35 @@ extension RegisterPillViewController : PillRegisterAction {
             }
         }
     }
+    
+    func defaultImageButtonClicked() {
+        DispatchQueue.main.async { [weak self] in
+            
+            guard let self = self else { return }
+            guard let itemSeq = viewModel.inputItemSeq.value else { return }
+            let defaultImage = DesignSystem.iconURL.defaultPill!
+            
+            FileDownloadManager.shared.downloadFile(url: defaultImage, pillID: itemSeq) { [weak self] response in
+                guard let self = self else { return }
+                switch response {
+                case .success(let result):
+                    viewModel.localImageURL.value = result.path
+                    
+                    DispatchQueue.main.async {
+                        self.mainView.pillImageView.isHidden = false
+                        self.getLocalImage(imagePath: result.path)
+                        self.mainView.completeButton.isHidden = false // complete 활성화
+                        self.view.makeToast("이미지를 불러왔어요 ✅", duration: 2.0, position: .center)
+                    }
+                    
+                    
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+    }
+    
     
     func defaultButtonAction() {
         

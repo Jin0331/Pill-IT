@@ -41,7 +41,7 @@ class MainTabBarController: WHTabbarController {
         setupCenetrButton(vPosition: 0) { [weak self] in
             guard let self = self else { return }
             let vc = RegisterPillViewController()
-            vc.setupSheetPresentation()
+            vc.setupSheetPresentationLarge()
             vc.pillListDelegate = self
             
             self.present(vc, animated: true)

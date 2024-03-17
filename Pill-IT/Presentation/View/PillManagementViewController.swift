@@ -11,7 +11,7 @@ import SnapKit
 import Then
 import SwipeCellKit
 
-class PillManagementViewController : BaseViewController {
+final class PillManagementViewController : BaseViewController {
     
     let mainView = PillManagementView()
     let viewModel = PillManagementViewModel()
@@ -35,6 +35,7 @@ class PillManagementViewController : BaseViewController {
             
             configureDataSource()
             updateSnapshot(value)
+//            updateSnapshot()
         }
     }
     
@@ -73,9 +74,37 @@ class PillManagementViewController : BaseViewController {
         print(#function, "PillManageMent UpdateSnapShot ❗️❗️❗️❗️❗️❗️❗️")
     }
     
+//    private func updateSnapshot() {
+//        
+//        guard let data = viewModel.outputRegisteredPill.value else { return }
+//        var snapshot = NSDiffableDataSourceSnapshot<PillManagementViewSection, Pill>()
+//        snapshot.appendSections(PillManagementViewSection.allCases)
+//        snapshot.appendItems(data, toSection: .main)
+//        
+//
+//
+//        dataSource.apply(snapshot) // reloadData
+//        
+//        print(#function, "PillManageMent UpdateSnapShot ❗️❗️❗️❗️❗️❗️❗️")
+//    }
+    
+    //MARK: - 복용약 알림 화면으로 이동하는 부분
     @objc func leftBarButtonClicked(_ sender : UIBarButtonItem){
-        let vc =  AlarmViewController()
-        navigationController?.pushViewController(vc, animated: true)
+        let vc =  PillAlarmRegisterViewController()
+        vc.setupSheetPresentationLarge()
+        
+        guard let selectedIndexPaths = mainView.mainCollectionView.indexPathsForSelectedItems else { return }
+        let selectedPill = selectedIndexPaths.map{ return dataSource.itemIdentifier(for: $0)}
+        
+        vc.viewModel.selectedPill.value = selectedPill
+//        vc.collectionViewDeselectAllItems = { [weak self] in
+//            guard let self = self else { return }
+//            mainView.mainCollectionView.deselectAllItems(animated: true)
+//        }
+        
+        let nav = UINavigationController(rootViewController: vc)
+        present(nav, animated: true)
+        
     }
     
     deinit {
@@ -124,13 +153,16 @@ extension PillManagementViewController : UICollectionViewDelegate {
 //MARK: - CollectionView swipe delegate
 extension PillManagementViewController : SwipeCollectionViewCellDelegate {
     func collectionView(_ collectionView: UICollectionView, editActionsForItemAt indexPath: IndexPath, for orientation: SwipeCellKit.SwipeActionsOrientation) -> [SwipeCellKit.SwipeAction]? {
-        guard orientation == .left else { return nil }
-
+        guard orientation == .right else { return nil }
+        
         let deleteAction = SwipeAction(style: .destructive, title: "삭제") { [weak self] action, indexPath in
             guard let self = self else { return }
-                        
+            
             let confirmAction = UIAlertAction(title: "지워주세요", style: .default) { (action) in
                 self.viewModel.updatePillItemisDeleteTrigger.value = self.dataSource.itemIdentifier(for: indexPath)
+                
+                self.hiddenLeftBarButton(collectionView)
+                
             }
             
             let cancelAction = UIAlertAction(title: "취소할래요", style: .cancel)
@@ -138,7 +170,7 @@ extension PillManagementViewController : SwipeCollectionViewCellDelegate {
             
             self.showAlert(title: "등록된 복용약 삭제", message: "등록된 복용약 삭제하시겠습니까? 🥲", actions: [confirmAction, cancelAction])
             
-
+            
         }
         
         let editImageAction = SwipeAction(style: .default, title: "이미지 수정") { [weak self] action, indexPath in
@@ -146,8 +178,15 @@ extension PillManagementViewController : SwipeCollectionViewCellDelegate {
             let vc = RegisterPillViewController()
             vc.modifyView(itemSeq: dataSource.itemIdentifier(for: indexPath)?.itemSeq.toString)
             vc.pillListDelegate = self
-            vc.setupSheetPresentation()
-
+            vc.setupSheetPresentationLarge()
+            
+            //TODO: - 복용약 화면이 Dismiss되었을 때, handler로 바 아이템 수정해야됨
+//            if #available(iOS 16.0, *) {
+//                navigationItem.leftBarButtonItem?.isHidden = true
+//            } else {
+//                navigationItem.leftBarButtonItem?.customView?.isHidden = true
+//            }
+            
             present(vc, animated: true)
         }
         
@@ -155,11 +194,11 @@ extension PillManagementViewController : SwipeCollectionViewCellDelegate {
             print("더보기")
             //TODO: - local Notification 완료 후 진행
         }
-
+        
         // customize the action appearance
-        deleteAction.image = DesignSystem.swipeImage.trash
-        editImageAction.image = DesignSystem.swipeImage.edit
-        moreInfoAction.image = DesignSystem.swipeImage.more
+        deleteAction.image = DesignSystem.pillManagementSwipeImage.trash
+        editImageAction.image = DesignSystem.pillManagementSwipeImage.edit
+        moreInfoAction.image = DesignSystem.pillManagementSwipeImage.more
         
         editImageAction.backgroundColor = DesignSystem.swipeColor.edit
         moreInfoAction.backgroundColor = DesignSystem.swipeColor.more
@@ -178,6 +217,7 @@ extension PillManagementViewController : SwipeCollectionViewCellDelegate {
     func collectionView(_ collectionView: UICollectionView, editActionsOptionsForItemAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
         var options = SwipeOptions()
         options.transitionStyle = .reveal
+        options.backgroundColor = DesignSystem.colorSet.white
         
         return options
     }

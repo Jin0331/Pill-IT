@@ -24,3 +24,7 @@ protocol PillListAction : AnyObject {
 protocol PillManagementAction : AnyObject {
     func alarmVCTransition()
 }
+
+protocol PillAlarmAction : AnyObject {
+    func disMissPresent()
+}

@@ -27,6 +27,5 @@ class PillAlaramViewModel {
                 self.outputSelectedPill.value.append(item)
             }
         }
-        
     }
 }

@@ -13,9 +13,12 @@ class PillAlarmViewController: BaseViewController {
     let mainView = PillAlarmView()
     let viewModel = PillAlaramViewModel()
     private var dataSource : UICollectionViewDiffableDataSource<PillAlarmViewSection, Pill>!
+    
+    var collectionViewDeselectAllItems :(() -> Void)?
 
     override func loadView() {
         view = mainView
+        mainView.actionDelegate = self
         mainView.mainCollectionView.delegate = self
     }
     
@@ -23,17 +26,18 @@ class PillAlarmViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        configureDataSource()
         bindData()
+        
     }
     
     private func bindData() {
         viewModel.outputSelectedPill.bind { [weak self] value in
             guard let self = self else { return }
             mainView.collectionViewchangeLayout(itemCount: value.count)
-            
-
-            configureDataSource()
             updateSnapshot(value)
+            
+            if value.count < 1 { dismiss(animated: true)}
         }
     }
     override func configureNavigation() {
@@ -81,7 +85,16 @@ extension PillAlarmViewController : SwipeCollectionViewCellDelegate {
         guard orientation == .right else { return nil }
         
         let deleteAction = SwipeAction(style: .destructive, title: nil) { [weak self] action, indexPath in
-
+            guard let self = self else { return }
+            
+            let confirmAction = UIAlertAction(title: "지워주세요", style: .default) { (action) in
+                self.viewModel.outputSelectedPill.value.remove(at: indexPath.row)
+            }
+            
+            let cancelAction = UIAlertAction(title: "취소할래요", style: .cancel)
+            cancelAction.setValue(UIColor.red, forKey: "titleTextColor")
+            
+            self.showAlert(title: "등록된 복용약 삭제", message: "등록된 복용약 삭제하시겠습니까? 🥲", actions: [confirmAction, cancelAction])
         }
         
         
@@ -105,4 +118,15 @@ extension PillAlarmViewController : SwipeCollectionViewCellDelegate {
     
     
 
+}
+
+//MARK: - Delegate Action
+extension PillAlarmViewController : PillAlarmAction {
+    func disMissPresent() {
+
+        collectionViewDeselectAllItems?()
+        dismiss(animated: true)
+    }
+    
+    
 }

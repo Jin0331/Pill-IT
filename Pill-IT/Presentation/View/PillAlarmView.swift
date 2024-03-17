@@ -11,6 +11,8 @@ import Then
 
 final class PillAlarmView : BaseView {
     
+    weak var actionDelegate : PillAlarmAction?
+    
     let exitButton = UIButton().then {
         $0.setImage(DesignSystem.iconImage.clear, for: .normal)
         $0.tintColor = DesignSystem.colorSet.black
@@ -44,8 +46,7 @@ final class PillAlarmView : BaseView {
     
     lazy var mainCollectionView : UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
-//        view.backgroundColor = DesignSystem.colorSet.white
-        view.backgroundColor = .red
+        view.backgroundColor = DesignSystem.colorSet.white
 
         return view
     }()
@@ -60,7 +61,7 @@ final class PillAlarmView : BaseView {
         $0.attributedPlaceholder = NSAttributedString(string: "복용 알림의 이름을 입력해주세요", attributes: [NSAttributedString.Key.foregroundColor : DesignSystem.colorSet.gray])
         $0.addLeftPadding()
         $0.clearButtonMode = .whileEditing
-        $0.font = .systemFont(ofSize: 23, weight: .heavy)
+        $0.font = .systemFont(ofSize: 17, weight: .heavy)
         $0.textColor = DesignSystem.colorSet.black
         $0.layer.borderWidth = DesignSystem.viewLayout.borderWidth
         $0.layer.borderColor = DesignSystem.colorSet.lightBlack.cgColor
@@ -76,7 +77,7 @@ final class PillAlarmView : BaseView {
     let periodSelectButton = UIButton().then {
         $0.setTitle("주기 설정하기", for: .normal)
         $0.setTitleColor(DesignSystem.colorSet.gray, for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 23, weight: .heavy)
+        $0.titleLabel?.font = .systemFont(ofSize: 17, weight: .heavy)
         $0.layer.borderWidth = DesignSystem.viewLayout.borderWidth
         $0.layer.borderColor = DesignSystem.colorSet.lightBlack.cgColor
         $0.layer.cornerRadius = DesignSystem.viewLayout.cornerRadius
@@ -91,7 +92,7 @@ final class PillAlarmView : BaseView {
     let startDateButton = UIButton().then {
         $0.setTitle("시작일 설정하기", for: .normal)
         $0.setTitleColor(DesignSystem.colorSet.gray, for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 23, weight: .heavy)
+        $0.titleLabel?.font = .systemFont(ofSize: 17, weight: .heavy)
         $0.layer.borderWidth = DesignSystem.viewLayout.borderWidth
         $0.layer.borderColor = DesignSystem.colorSet.lightBlack.cgColor
         $0.layer.cornerRadius = DesignSystem.viewLayout.cornerRadius
@@ -189,6 +190,17 @@ final class PillAlarmView : BaseView {
         }
     }
     
+    override func configureView() {
+        super.configureView()
+        
+        exitButton.addTarget(self, action: #selector(exitButtonClicked), for: .touchUpInside)
+    }
+    
+    @objc func exitButtonClicked() {
+        print(#function)
+        actionDelegate?.disMissPresent()
+    }
+    
     private func createLayout() -> UICollectionViewLayout {
         
         // Cell
@@ -219,13 +231,13 @@ final class PillAlarmView : BaseView {
     func collectionViewchangeLayout(itemCount: Int) {
         
         print("🥲 CollectionView Resize")
-
-        let defaultSize = itemCount < 5 ? 50 * itemCount : 50 * 3
+        let oneItemSize = 60
+        let size = itemCount < 4 ? oneItemSize * itemCount : oneItemSize * 3
     
         mainCollectionView.snp.updateConstraints { make in
             make.top.equalTo(collectionViewtitle.snp.bottom).offset(10)
             make.horizontalEdges.equalTo(titleLabel)
-            make.height.equalTo(defaultSize)
+            make.height.equalTo(size)
         }
     }
     

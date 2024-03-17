@@ -246,9 +246,9 @@
 				DB0368222BA1D18A006A62AD /* UITabbarController+Extension.swift */,
 				DBF735232B9DE34900326852 /* UITextfield+Extension.swift */,
 				DB0F10D82B9F311B000DC430 /* UIView+Extension.swift */,
-				DB21CDA82BA03CF00041C892 /* String+Extension.swift */,
 				DB8D12462BA3EC69002E34BC /* UICollectionView+Extension.swift */,
 				DB8D124A2BA48FD0002E34BC /* UIViewController+Extension.swift */,
+				DB21CDA82BA03CF00041C892 /* String+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";

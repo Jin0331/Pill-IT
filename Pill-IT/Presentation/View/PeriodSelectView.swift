@@ -12,7 +12,7 @@ import Then
 final class PeriodSelectView: BaseView {
 
     lazy var mainCollectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout()).then {
-        $0.backgroundColor = DesignSystem.colorSet.red
+        $0.backgroundColor = DesignSystem.colorSet.white
     }
     
     override func configureHierarchy() {

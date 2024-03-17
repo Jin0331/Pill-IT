@@ -16,6 +16,7 @@ final class PillAlaramRegisterViewModel {
     var selectedPill : Observable<[Pill?]> = Observable([])
     var inputStartDate : Observable<Date> = Observable(Date())
     var inputPeriodType : Observable<PeriodCase?> = Observable(nil)
+    var inputDayOfWeekInterval : Observable<[PeriodSpecificDay]?> = Observable(nil)
     var inputAlarmDateList : Observable<[Date]?> = Observable(nil)
     
     var outputPeriodType : Observable<String> = Observable("")
@@ -63,10 +64,13 @@ final class PillAlaramRegisterViewModel {
                     
                 case .specificDay:
                     print("specificDay")
-                                        
-  
-                    //TODO: - VC로부터 값 받아야 됨 // clsoure
-//                    inputAlarmDateList.value = specificDateCalculate(startDate: inputStartDate.value, interval: <#T##PeriodSpecificDay#>)
+                    guard let interval = inputDayOfWeekInterval.value else { print("?????실행되냐⭕️");return }
+                    
+                    inputAlarmDateList.value = specificDateCalculate(startDate: inputStartDate.value, interval: interval)
+                    outputPeriodType.value = interval.map { $0.toString }.joined(separator: ",")
+                    
+                    print(outputPeriodType.value)
+                    
                 case .period:
                     print("period")
                     
@@ -97,10 +101,10 @@ final class PillAlaramRegisterViewModel {
         return datesArray
     }
     
-    private func specificDateCalculate(startDate : Date, interval : PeriodSpecificDay) -> [Date] {
+    private func specificDateCalculate(startDate : Date, interval : [PeriodSpecificDay]) -> [Date] {
 
         let calendar = Calendar.current
-        let targetWeekday: Int = interval.rawValue
+        let targetWeekday : [Int] = interval.map{ return $0.rawValue}
         var datesArray = [Date]()
         if let oneYearLater = calendar.date(byAdding: .year, value: 1, to: startDate) {
 
@@ -108,7 +112,7 @@ final class PillAlaramRegisterViewModel {
             while currentDateToAdd <= oneYearLater {
 
                 let weekday = calendar.component(.weekday, from: currentDateToAdd)
-                if weekday == targetWeekday {
+                if targetWeekday.contains(weekday) {
                     datesArray.append(currentDateToAdd)
                 }
                 currentDateToAdd = calendar.date(byAdding: .day, value: 1, to: currentDateToAdd)!

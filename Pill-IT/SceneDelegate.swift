@@ -24,6 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let tabbarController = MainTabBarController()
 //        tabbarController.configureItemDesing(tabBar: tabbarController.tabBar)
         
+        window?.overrideUserInterfaceStyle = .light // 라이트모드 강제
         window?.rootViewController = tabbarController
         window?.makeKeyAndVisible()
     }

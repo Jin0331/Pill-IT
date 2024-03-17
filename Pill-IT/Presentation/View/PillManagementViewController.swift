@@ -22,12 +22,6 @@ final class PillManagementViewController : BaseViewController {
         mainView.mainCollectionView.delegate = self
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
-        
-        print(#function)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -103,10 +97,10 @@ final class PillManagementViewController : BaseViewController {
         let selectedPill = selectedIndexPaths.map{ return dataSource.itemIdentifier(for: $0)}
         
         vc.viewModel.selectedPill.value = selectedPill
-        vc.collectionViewDeselectAllItems = { [weak self] in
-            guard let self = self else { return }
+//        vc.collectionViewDeselectAllItems = { [weak self] in
+//            guard let self = self else { return }
 //            mainView.mainCollectionView.deselectAllItems(animated: true)
-        }
+//        }
         
         present(vc, animated: true)
         

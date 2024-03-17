@@ -23,9 +23,7 @@ final class PeriodSelectViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        viewModel.
-        
+                
         configureDataSource()
         updateSnapshot(PeriodCase.allCases)
 
@@ -68,20 +66,15 @@ extension PeriodSelectViewController : UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         guard let viewModel = viewModel else { return }
-        
-        print(#function)
-        
         guard let selectItem = dataSource.itemIdentifier(for: indexPath) else { return }
+        
         switch selectItem {
         case .always:
-            print(selectItem.rawValue)
             viewModel.inputPeriodType.value = selectItem
-            
             viewModel.outputPeriodType.bind { [weak self] value in
                 guard let self = self else { return }
                 sendPeriodSelectButtonTitle?(value)
             }
-            
             
             dismiss(animated: true)
             
@@ -89,6 +82,18 @@ extension PeriodSelectViewController : UICollectionViewDelegate {
             print(selectItem.rawValue)
             
             let vc = PeriodSelectDayOfTheWeekViewController()
+            vc.viewModel = viewModel // ViewModel 공유
+            
+            vc.sendPeriodSelectedItem = { [weak self]  in // PeriodCase list
+                guard let self = self else { return }
+                viewModel.inputPeriodType.value = selectItem
+                viewModel.outputPeriodType.bind { [weak self] value in
+                    guard let self = self else { return }
+                    sendPeriodSelectButtonTitle?(value)
+                }
+
+                dismiss(animated: true)
+            }
             navigationController?.pushViewController(vc, animated: true)
             
         case .period:

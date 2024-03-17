@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class PeriodSelectView: BaseView {
+final class PeriodSelectView: BaseView {
 
     lazy var mainCollectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout()).then {
         $0.backgroundColor = DesignSystem.colorSet.red

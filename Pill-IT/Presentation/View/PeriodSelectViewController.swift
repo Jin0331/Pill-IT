@@ -9,10 +9,10 @@ import UIKit
 import SnapKit
 import Then
 
-class PeriodSelectViewController: BaseViewController {
+final class PeriodSelectViewController: BaseViewController {
 
     let mainView = PeriodSelectView()
-    let viewModel = PeriodSelectViewMdoel()
+    weak var viewModel : PillAlaramRegisterViewModel?
     private var dataSource : UICollectionViewDiffableDataSource<PeriodViewSection, PeriodCase>!
     
     override func loadView() {
@@ -22,6 +22,8 @@ class PeriodSelectViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        viewModel.
         
         configureDataSource()
         updateSnapshot(PeriodCase.allCases)
@@ -64,8 +66,20 @@ class PeriodSelectViewController: BaseViewController {
 extension PeriodSelectViewController : UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        guard let viewModel = viewModel else { return }
+        
         print(#function)
         
-        print(dataSource.itemIdentifier(for: indexPath))
+        guard let selectItem = dataSource.itemIdentifier(for: indexPath) else { return }
+        switch selectItem {
+        case .always:
+            print(selectItem.rawValue)
+            viewModel.inputPeriodType.value = selectItem
+            
+        case .specificDay:
+            print(selectItem.rawValue)
+        case .period:
+            print(selectItem.rawValue)
+        }
     }
 }

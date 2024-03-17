@@ -25,7 +25,7 @@ protocol PillManagementAction : AnyObject {
     func alarmVCTransition()
 }
 
-protocol PillAlarmAction : AnyObject {
+protocol PillAlarmReigsterAction : AnyObject {
     func dismissPresent()
     func periodSelectPresent()
 }

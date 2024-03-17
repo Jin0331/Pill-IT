@@ -1,5 +1,5 @@
 //
-//  PillAlarmViewController.swift
+//  PillAlarmRegisterViewController.swift
 //  Pill-IT
 //
 //  Created by JinwooLee on 3/14/24.
@@ -8,10 +8,10 @@
 import UIKit
 import SwipeCellKit
 
-class PillAlarmViewController: BaseViewController {
+class PillAlarmRegisterViewController: BaseViewController {
 
-    let mainView = PillAlarmView()
-    let viewModel = PillAlaramViewModel()
+    let mainView = PillAlarmRegisterView()
+    let viewModel = PillAlaramRegisterViewModel()
     private var dataSource : UICollectionViewDiffableDataSource<PillAlarmViewSection, Pill>!
     
     var collectionViewDeselectAllItems :(() -> Void)?
@@ -38,6 +38,12 @@ class PillAlarmViewController: BaseViewController {
             updateSnapshot(value)
             
             if value.count < 1 { dismiss(animated: true)}
+        }
+        
+        viewModel.outputStartDate.bind { [weak self] value in
+            guard let self = self else { return }
+            
+            mainView.startDateButton.setTitle(value, for: .normal)
         }
     }
     override func configureNavigation() {
@@ -75,12 +81,12 @@ class PillAlarmViewController: BaseViewController {
 }
 
 
-extension PillAlarmViewController : UICollectionViewDelegate {
+extension PillAlarmRegisterViewController : UICollectionViewDelegate {
     
 }
 
 //MARK: - CollectionView swipe delegate
-extension PillAlarmViewController : SwipeCollectionViewCellDelegate {
+extension PillAlarmRegisterViewController : SwipeCollectionViewCellDelegate {
     func collectionView(_ collectionView: UICollectionView, editActionsForItemAt indexPath: IndexPath, for orientation: SwipeCellKit.SwipeActionsOrientation) -> [SwipeCellKit.SwipeAction]? {
         guard orientation == .right else { return nil }
         
@@ -118,7 +124,7 @@ extension PillAlarmViewController : SwipeCollectionViewCellDelegate {
 }
 
 //MARK: - Delegate Action
-extension PillAlarmViewController : PillAlarmAction {
+extension PillAlarmRegisterViewController : PillAlarmReigsterAction {
        
     func dismissPresent() {
         collectionViewDeselectAllItems?()
@@ -126,9 +132,9 @@ extension PillAlarmViewController : PillAlarmAction {
     }
     
     func periodSelectPresent() {
-        
         print("hihi 🥲")
         let vc = PeriodSelectViewController()
+        vc.viewModel = viewModel
         let nav = UINavigationController(rootViewController: vc)
         nav.setupSheetPresentationMedium()
         present(nav, animated: true)

@@ -1,5 +1,5 @@
 //
-//  PillAlarmView.swift
+//  PillAlarmRegisterView.swift
 //  Pill-IT
 //
 //  Created by JinwooLee on 3/16/24.
@@ -9,9 +9,9 @@ import UIKit
 import SnapKit
 import Then
 
-final class PillAlarmView : BaseView {
+final class PillAlarmRegisterView : BaseView {
     
-    weak var actionDelegate : PillAlarmAction?
+    weak var actionDelegate : PillAlarmReigsterAction?
     
     let exitButton = UIButton().then {
         $0.setImage(DesignSystem.iconImage.clear, for: .normal)
@@ -92,7 +92,9 @@ final class PillAlarmView : BaseView {
     let startDateButton = UIButton().then {
         $0.setTitle("시작일 설정하기", for: .normal)
         $0.setTitleColor(DesignSystem.colorSet.gray, for: .normal)
+        $0.setImage(UIImage(systemName: "calendar.badge.plus"), for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 17, weight: .heavy)
+        $0.tintColor = DesignSystem.colorSet.gray
         $0.layer.borderWidth = DesignSystem.viewLayout.borderWidth
         $0.layer.borderColor = DesignSystem.colorSet.lightBlack.cgColor
         $0.layer.cornerRadius = DesignSystem.viewLayout.cornerRadius

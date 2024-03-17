@@ -18,13 +18,14 @@
 		DB0F10E02B9F885E000DC430 /* RegisterPillWebSearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F10DF2B9F885E000DC430 /* RegisterPillWebSearchCollectionViewCell.swift */; };
 		DB21CDA92BA03CF00041C892 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB21CDA82BA03CF00041C892 /* String+Extension.swift */; };
 		DB5600642B9A458900E6558E /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5600632B9A458900E6558E /* RealmModel.swift */; };
-		DB5E59B72BA5D29500C753BD /* PillAlaramViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5E59B62BA5D29500C753BD /* PillAlaramViewModel.swift */; };
-		DB5E59B92BA5D45D00C753BD /* PillAlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5E59B82BA5D45D00C753BD /* PillAlarmView.swift */; };
+		DB5E59B72BA5D29500C753BD /* PillAlaramRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5E59B62BA5D29500C753BD /* PillAlaramRegisterViewModel.swift */; };
+		DB5E59B92BA5D45D00C753BD /* PillAlarmRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5E59B82BA5D45D00C753BD /* PillAlarmRegisterView.swift */; };
 		DB5E59BB2BA5DAFE00C753BD /* PillAlarmCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5E59BA2BA5DAFE00C753BD /* PillAlarmCollectionViewCell.swift */; };
 		DB5E59BD2BA6D07900C753BD /* PeriodSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5E59BC2BA6D07900C753BD /* PeriodSelectViewController.swift */; };
 		DB5E59BF2BA6D40F00C753BD /* PeriodSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5E59BE2BA6D40F00C753BD /* PeriodSelectView.swift */; };
 		DB5E59C12BA6D7AA00C753BD /* PeriodSelectViewMdoel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5E59C02BA6D7AA00C753BD /* PeriodSelectViewMdoel.swift */; };
-		DB8D12452BA2EC70002E34BC /* PillAlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8D12442BA2EC70002E34BC /* PillAlarmViewController.swift */; };
+		DB5E59C32BA6F3EF00C753BD /* Formatter + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5E59C22BA6F3EE00C753BD /* Formatter + Extension.swift */; };
+		DB8D12452BA2EC70002E34BC /* PillAlarmRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8D12442BA2EC70002E34BC /* PillAlarmRegisterViewController.swift */; };
 		DB8D12472BA3EC69002E34BC /* UICollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8D12462BA3EC69002E34BC /* UICollectionView+Extension.swift */; };
 		DB8D12492BA48B38002E34BC /* SharedEnumeration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8D12482BA48B38002E34BC /* SharedEnumeration.swift */; };
 		DB8D124B2BA48FD0002E34BC /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8D124A2BA48FD0002E34BC /* UIViewController+Extension.swift */; };
@@ -74,13 +75,14 @@
 		DB0F10DF2B9F885E000DC430 /* RegisterPillWebSearchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPillWebSearchCollectionViewCell.swift; sourceTree = "<group>"; };
 		DB21CDA82BA03CF00041C892 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		DB5600632B9A458900E6558E /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
-		DB5E59B62BA5D29500C753BD /* PillAlaramViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillAlaramViewModel.swift; sourceTree = "<group>"; };
-		DB5E59B82BA5D45D00C753BD /* PillAlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillAlarmView.swift; sourceTree = "<group>"; };
+		DB5E59B62BA5D29500C753BD /* PillAlaramRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillAlaramRegisterViewModel.swift; sourceTree = "<group>"; };
+		DB5E59B82BA5D45D00C753BD /* PillAlarmRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillAlarmRegisterView.swift; sourceTree = "<group>"; };
 		DB5E59BA2BA5DAFE00C753BD /* PillAlarmCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillAlarmCollectionViewCell.swift; sourceTree = "<group>"; };
 		DB5E59BC2BA6D07900C753BD /* PeriodSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodSelectViewController.swift; sourceTree = "<group>"; };
 		DB5E59BE2BA6D40F00C753BD /* PeriodSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodSelectView.swift; sourceTree = "<group>"; };
 		DB5E59C02BA6D7AA00C753BD /* PeriodSelectViewMdoel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodSelectViewMdoel.swift; sourceTree = "<group>"; };
-		DB8D12442BA2EC70002E34BC /* PillAlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillAlarmViewController.swift; sourceTree = "<group>"; };
+		DB5E59C22BA6F3EE00C753BD /* Formatter + Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Formatter + Extension.swift"; sourceTree = "<group>"; };
+		DB8D12442BA2EC70002E34BC /* PillAlarmRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillAlarmRegisterViewController.swift; sourceTree = "<group>"; };
 		DB8D12462BA3EC69002E34BC /* UICollectionView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extension.swift"; sourceTree = "<group>"; };
 		DB8D12482BA48B38002E34BC /* SharedEnumeration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedEnumeration.swift; sourceTree = "<group>"; };
 		DB8D124A2BA48FD0002E34BC /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
@@ -206,11 +208,11 @@
 				DBF735212B9DD6F900326852 /* RegisterPillView.swift */,
 				DBF446812B99AA4C0021BC0F /* RegisterPillViewController.swift */,
 				DB0F10DC2B9F83CD000DC430 /* RegisterPillWebSearchViewController.swift */,
-				DBF735092B9CBC3000326852 /* NotificationViewController.swift */,
-				DB5E59B82BA5D45D00C753BD /* PillAlarmView.swift */,
-				DB8D12442BA2EC70002E34BC /* PillAlarmViewController.swift */,
+				DB5E59B82BA5D45D00C753BD /* PillAlarmRegisterView.swift */,
+				DB8D12442BA2EC70002E34BC /* PillAlarmRegisterViewController.swift */,
 				DB5E59BE2BA6D40F00C753BD /* PeriodSelectView.swift */,
 				DB5E59BC2BA6D07900C753BD /* PeriodSelectViewController.swift */,
+				DBF735092B9CBC3000326852 /* NotificationViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -220,7 +222,7 @@
 			children = (
 				DBF735272B9DF02500326852 /* RegisterPillViewModel.swift */,
 				DB0368282BA1F889006A62AD /* PillManagementViewModel.swift */,
-				DB5E59B62BA5D29500C753BD /* PillAlaramViewModel.swift */,
+				DB5E59B62BA5D29500C753BD /* PillAlaramRegisterViewModel.swift */,
 				DB5E59C02BA6D7AA00C753BD /* PeriodSelectViewMdoel.swift */,
 			);
 			path = ViewModel;
@@ -258,6 +260,7 @@
 				DB8D12462BA3EC69002E34BC /* UICollectionView+Extension.swift */,
 				DB8D124A2BA48FD0002E34BC /* UIViewController+Extension.swift */,
 				DB21CDA82BA03CF00041C892 /* String+Extension.swift */,
+				DB5E59C22BA6F3EE00C753BD /* Formatter + Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -450,11 +453,11 @@
 				DB5E59BF2BA6D40F00C753BD /* PeriodSelectView.swift in Sources */,
 				DBF446842B99ADC60021BC0F /* FileDownloadManager.swift in Sources */,
 				DBF0486A2B9B0E9C0020750F /* PillPermitDetailModel.swift in Sources */,
-				DB5E59B72BA5D29500C753BD /* PillAlaramViewModel.swift in Sources */,
+				DB5E59B72BA5D29500C753BD /* PillAlaramRegisterViewModel.swift in Sources */,
 				DBF7351A2B9DD3BE00326852 /* BaseTableViewCell.swift in Sources */,
 				DBF446592B9983930021BC0F /* AppDelegate.swift in Sources */,
 				DBF7351B2B9DD3BE00326852 /* BaseViewController.swift in Sources */,
-				DB8D12452BA2EC70002E34BC /* PillAlarmViewController.swift in Sources */,
+				DB8D12452BA2EC70002E34BC /* PillAlarmRegisterViewController.swift in Sources */,
 				DBF048682B9AAA080020750F /* PillAPIManager.swift in Sources */,
 				DB8D12472BA3EC69002E34BC /* UICollectionView+Extension.swift in Sources */,
 				DB5600642B9A458900E6558E /* RealmModel.swift in Sources */,
@@ -472,7 +475,8 @@
 				DBF735192B9DD3BE00326852 /* BaseCollectionViewCell.swift in Sources */,
 				DB5E59BB2BA5DAFE00C753BD /* PillAlarmCollectionViewCell.swift in Sources */,
 				DBF735122B9CC71800326852 /* WHTabbarController.swift in Sources */,
-				DB5E59B92BA5D45D00C753BD /* PillAlarmView.swift in Sources */,
+				DB5E59C32BA6F3EF00C753BD /* Formatter + Extension.swift in Sources */,
+				DB5E59B92BA5D45D00C753BD /* PillAlarmRegisterView.swift in Sources */,
 				DB0F10E02B9F885E000DC430 /* RegisterPillWebSearchCollectionViewCell.swift in Sources */,
 				DB0368232BA1D18A006A62AD /* UITabbarController+Extension.swift in Sources */,
 				DBF4465B2B9983930021BC0F /* SceneDelegate.swift in Sources */,

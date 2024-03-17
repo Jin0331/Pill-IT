@@ -96,7 +96,7 @@ final class PillManagementViewController : BaseViewController {
     
     //MARK: - 복용약 알림 화면으로 이동하는 부분
     @objc func leftBarButtonClicked(_ sender : UIBarButtonItem){
-        let vc =  PillAlarmViewController()
+        let vc =  PillAlarmRegisterViewController()
         vc.setupSheetPresentationLarge()
         
         guard let selectedIndexPaths = mainView.mainCollectionView.indexPathsForSelectedItems else { return }

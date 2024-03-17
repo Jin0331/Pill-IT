@@ -7,7 +7,7 @@
 
 import Foundation
 
-class PeriodSelectViewMdoel {
+final class PeriodSelectViewMdoel {
     private let repository = RealmRepository()
     
     

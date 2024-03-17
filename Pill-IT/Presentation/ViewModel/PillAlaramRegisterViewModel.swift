@@ -18,6 +18,7 @@ final class PillAlaramRegisterViewModel {
     var inputPeriodType : Observable<PeriodCase?> = Observable(nil)
     var inputAlarmDateList : Observable<[Date]?> = Observable(nil)
     
+    var outputPeriodType : Observable<String> = Observable("")
     var outputSelectedPill : Observable<[Pill]> = Observable([])
     var outputStartDate : Observable<String?> = Observable(nil)
     
@@ -58,10 +59,21 @@ final class PillAlaramRegisterViewModel {
                     inputAlarmDateList.value = dateCalculator(startDate: inputStartDate.value,
                                                               byAdding: .day,
                                                               interval: 1)
+                    outputPeriodType.value = "매일"
+                    
                 case .specificDay:
                     print("specificDay")
+                                        
+  
+                    //TODO: - VC로부터 값 받아야 됨 // clsoure
+//                    inputAlarmDateList.value = specificDateCalculate(startDate: inputStartDate.value, interval: <#T##PeriodSpecificDay#>)
                 case .period:
                     print("period")
+                    
+                    //TODO: - VC로부터 값 받아야 됨 // clsoure
+//                    inputAlarmDateList.value = dateCalculator(startDate: inputStartDate.value,
+//                                                              byAdding: .day,
+//                                                              interval: 1)
                 }
             }
         }
@@ -74,7 +86,6 @@ final class PillAlaramRegisterViewModel {
         let calendar = Calendar.current
         var datesArray : [Date] = []
         
-        
         if let oneYearLater = calendar.date(byAdding: .year, value: 1, to: startDate) {
             var currentDateToAdd = startDate
             while currentDateToAdd <= oneYearLater {
@@ -86,10 +97,10 @@ final class PillAlaramRegisterViewModel {
         return datesArray
     }
     
-    private func specificDateCalculate(startDate : Date) -> [Date] {
+    private func specificDateCalculate(startDate : Date, interval : PeriodSpecificDay) -> [Date] {
 
         let calendar = Calendar.current
-        let targetWeekday: Int = 2 //         // (일요일 = 1, 토요일 = 7) -> Enum 정의 필요
+        let targetWeekday: Int = interval.rawValue
         var datesArray = [Date]()
         if let oneYearLater = calendar.date(byAdding: .year, value: 1, to: startDate) {
 

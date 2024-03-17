@@ -14,6 +14,7 @@ final class PeriodSelectViewController: BaseViewController {
     let mainView = PeriodSelectView()
     weak var viewModel : PillAlaramRegisterViewModel?
     private var dataSource : UICollectionViewDiffableDataSource<PeriodViewSection, PeriodCase>!
+    var sendPeriodSelectButtonTitle : ((String) -> Void)?
     
     override func loadView() {
         view = mainView
@@ -76,8 +77,20 @@ extension PeriodSelectViewController : UICollectionViewDelegate {
             print(selectItem.rawValue)
             viewModel.inputPeriodType.value = selectItem
             
+            viewModel.outputPeriodType.bind { [weak self] value in
+                guard let self = self else { return }
+                sendPeriodSelectButtonTitle?(value)
+            }
+            
+            
+            dismiss(animated: true)
+            
         case .specificDay:
             print(selectItem.rawValue)
+            
+            let vc = PeriodSelectDayOfTheWeekViewController()
+            navigationController?.pushViewController(vc, animated: true)
+            
         case .period:
             print(selectItem.rawValue)
         }

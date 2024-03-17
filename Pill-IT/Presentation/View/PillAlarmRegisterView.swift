@@ -76,7 +76,7 @@ final class PillAlarmRegisterView : BaseView {
     
     let periodSelectButton = UIButton().then {
         $0.setTitle("주기 설정하기", for: .normal)
-        $0.setTitleColor(DesignSystem.colorSet.gray, for: .normal)
+        $0.setTitleColor(DesignSystem.colorSet.lightBlack, for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 17, weight: .heavy)
         $0.layer.borderWidth = DesignSystem.viewLayout.borderWidth
         $0.layer.borderColor = DesignSystem.colorSet.lightBlack.cgColor
@@ -91,10 +91,10 @@ final class PillAlarmRegisterView : BaseView {
     
     let startDateButton = UIButton().then {
         $0.setTitle("시작일 설정하기", for: .normal)
-        $0.setTitleColor(DesignSystem.colorSet.gray, for: .normal)
+        $0.setTitleColor(DesignSystem.colorSet.lightBlack, for: .normal)
         $0.setImage(UIImage(systemName: "calendar.badge.plus"), for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 17, weight: .heavy)
-        $0.tintColor = DesignSystem.colorSet.gray
+        $0.tintColor = DesignSystem.colorSet.lightBlack
         $0.layer.borderWidth = DesignSystem.viewLayout.borderWidth
         $0.layer.borderColor = DesignSystem.colorSet.lightBlack.cgColor
         $0.layer.cornerRadius = DesignSystem.viewLayout.cornerRadius

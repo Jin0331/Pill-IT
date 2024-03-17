@@ -134,9 +134,18 @@ extension PillAlarmRegisterViewController : PillAlarmReigsterAction {
     func periodSelectPresent() {
         print("hihi 🥲")
         let vc = PeriodSelectViewController()
+        
+        vc.sendPeriodSelectButtonTitle = { [weak self] value in
+            guard let self = self else { return }
+            mainView.periodSelectButton.setTitle(value, for: .normal)
+            mainView.periodSelectButton.setImage(UIImage(systemName: "calendar.badge.plus"), for: .normal)
+            mainView.periodSelectButton.tintColor = DesignSystem.colorSet.lightBlack
+        }
+        
         vc.viewModel = viewModel
         let nav = UINavigationController(rootViewController: vc)
         nav.setupSheetPresentationMedium()
+        
         present(nav, animated: true)
     }
 

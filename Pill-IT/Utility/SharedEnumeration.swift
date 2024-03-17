@@ -23,8 +23,18 @@ enum PeriodViewSection : CaseIterable {
     case main
 }
 
-enum PeriodCase :  String, CaseIterable {
+enum PeriodCase : String, CaseIterable {
     case always = "매일"
     case specificDay = "특정 요일"
     case period = "간격"
+}
+
+enum PeriodSpecificDay : Int {
+    case sun
+    case mon
+    case tue
+    case wed
+    case thu
+    case fri
+    case sat
 }

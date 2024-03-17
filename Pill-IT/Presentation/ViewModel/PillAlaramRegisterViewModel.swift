@@ -14,7 +14,7 @@ final class PillAlaramRegisterViewModel {
     private let repository = RealmRepository()
     
     var selectedPill : Observable<[Pill?]> = Observable([])
-    var inputStartDate : Observable<Date> = Observable(Date())
+    var inputStartDate : Observable<Date> = Observable(Date()) // default로 오늘 날짜 설정
     var inputPeriodType : Observable<PeriodCase?> = Observable(nil)
     var inputDayOfWeekInterval : Observable<[PeriodSpecificDay]?> = Observable(nil) // 특정 요일에서 사용하는 옵저버
     var inputDaysInterval : Observable<(enumCase:PeriodDays, days:Int)?> = Observable(nil) // 간격에서 사용하는 옵저버
@@ -24,6 +24,8 @@ final class PillAlaramRegisterViewModel {
     var outputSelectedPill : Observable<[Pill]> = Observable([])
     var outputStartDate : Observable<String?> = Observable(nil)
     
+    
+    var reCalculateAlarmDateList : Observable<PeriodCase?> = Observable(nil)
     
     init() {
         transform()
@@ -41,8 +43,13 @@ final class PillAlaramRegisterViewModel {
         
         inputStartDate.bind { [weak self] value in
             guard let self = self else { return }
-            
             outputStartDate.value = value.toString(dateFormat: "yyyy년 MM월 dd일")
+            
+            // 만약 모든 작업 이후에 다시 날짜가 설정될 경우
+            guard let currentPeriodType = inputPeriodType.value else { return }
+            reCalculateAlarmDateList.value = currentPeriodType
+            
+            print(outputAlarmDateList.value)
         }
         
         inputPeriodType.bind { [weak self] value in
@@ -82,6 +89,13 @@ final class PillAlaramRegisterViewModel {
                     outputPeriodType.value = interval.enumCase.byAdding == Calendar.Component.day && interval.days == 1 ? "매일" : "\(interval.days)\(interval.enumCase.title)"
                 }
             }
+        }
+        
+        reCalculateAlarmDateList.bind { [weak self] value in
+            guard let self = self else { return }
+            guard let value = value else { return }
+            
+            inputPeriodType.value = value
         }
     }
     

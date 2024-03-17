@@ -7,8 +7,9 @@
 
 import UIKit
 import SwipeCellKit
+import DatePicker
 
-class PillAlarmRegisterViewController: BaseViewController {
+final class PillAlarmRegisterViewController: BaseViewController {
 
     let mainView = PillAlarmRegisterView()
     let viewModel = PillAlaramRegisterViewModel()
@@ -132,7 +133,6 @@ extension PillAlarmRegisterViewController : PillAlarmReigsterAction {
     }
     
     func periodSelectPresent() {
-        print("hihi 🥲")
         let vc = PeriodSelectViewController()
         
         vc.sendPeriodSelectButtonTitle = { [weak self] value in
@@ -149,6 +149,33 @@ extension PillAlarmRegisterViewController : PillAlarmReigsterAction {
         present(nav, animated: true)
     }
 
+    func startDateSelectPresent() {
+        print("hihi 🥲")
+        
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alert.view.tintColor = DesignSystem.colorSet.lightBlack
+        
+        let datePicker = UIDatePicker()
+        datePicker.datePickerMode = .date
+        datePicker.preferredDatePickerStyle = .inline
+        datePicker.locale = Locale(identifier: "ko_KR")
+        datePicker.setValue(DesignSystem.colorSet.lightBlack, forKeyPath: "textColor")
+        
+        let select = UIAlertAction(title: "선택 완료", style: .cancel) { [weak self] action in
+            guard let self = self else { return }
+            
+            viewModel.inputStartDate.value = datePicker.date
+        }
+                        
+        alert.addAction(select)
+        
+        let vc = UIViewController()
+        vc.view = datePicker
+                
+        alert.setValue(vc, forKey: "contentViewController")
+                
+        present(alert, animated: true)
+    }
     
     
 }

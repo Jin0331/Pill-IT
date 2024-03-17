@@ -101,7 +101,7 @@ final class PillAlarmRegisterView : BaseView {
     }
     
     let completeButton = UIButton().then {
-        $0.setTitle("복용 알람 등록 🥰", for: .normal)
+        $0.setTitle("세부 시간 설정", for: .normal)
         $0.setTitleColor(DesignSystem.colorSet.white, for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 23, weight: .heavy)
         $0.backgroundColor = DesignSystem.colorSet.lightBlack
@@ -197,6 +197,7 @@ final class PillAlarmRegisterView : BaseView {
         
         exitButton.addTarget(self, action: #selector(exitButtonClicked), for: .touchUpInside)
         periodSelectButton.addTarget(self, action: #selector(periodSelectButtonClicked), for: .touchUpInside)
+        startDateButton.addTarget(self, action: #selector(startDateButtonClicked), for: .touchUpInside)
     }
     
     @objc func exitButtonClicked() {
@@ -207,6 +208,11 @@ final class PillAlarmRegisterView : BaseView {
     @objc func periodSelectButtonClicked() {
         print(#function)
         actionDelegate?.periodSelectPresent()
+    }
+    
+    @objc func startDateButtonClicked() {
+        print(#function)
+        actionDelegate?.startDateSelectPresent()
     }
     
     private func createLayout() -> UICollectionViewLayout {
@@ -248,9 +254,7 @@ final class PillAlarmRegisterView : BaseView {
             make.height.equalTo(size)
         }
     }
-    
-    
-    
+
     deinit {
         print(#function, " - ✅ PillAlaramView in-Side")
     }

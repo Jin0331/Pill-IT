@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol PillRegisterAction : AnyObject {
     func disMissPresent()
@@ -28,4 +29,5 @@ protocol PillManagementAction : AnyObject {
 protocol PillAlarmReigsterAction : AnyObject {
     func dismissPresent()
     func periodSelectPresent()
+    func startDateSelectPresent()
 }

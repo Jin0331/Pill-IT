@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import Then
+import NVActivityIndicatorView
 
 final class PillAlarmRegisterView : BaseView {
     
@@ -101,12 +102,30 @@ final class PillAlarmRegisterView : BaseView {
     }
     
     let completeButton = UIButton().then {
-        $0.setTitle("세부 시간 설정", for: .normal)
+        $0.setTitle("세부 알림 시간 설정", for: .normal)
         $0.setTitleColor(DesignSystem.colorSet.white, for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 23, weight: .heavy)
+        $0.titleLabel?.font = .systemFont(ofSize: 20, weight: .heavy)
         $0.backgroundColor = DesignSystem.colorSet.lightBlack
         $0.layer.cornerRadius = DesignSystem.viewLayout.cornerRadius
     }
+    
+    // Loading
+    lazy var loadingBgView: UIView = {
+        let bgView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+        bgView.backgroundColor = .clear
+        
+        return bgView
+    }()
+    
+    lazy var activityIndicator: NVActivityIndicatorView = {
+        let activityIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 60, height: 60),
+                                                        type: .ballPulseSync,
+                                                        color: DesignSystem.colorSet.red,
+                                                        padding: .zero)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        
+        return activityIndicator
+    }()
     
     override func configureHierarchy() {
         
@@ -198,6 +217,7 @@ final class PillAlarmRegisterView : BaseView {
         exitButton.addTarget(self, action: #selector(exitButtonClicked), for: .touchUpInside)
         periodSelectButton.addTarget(self, action: #selector(periodSelectButtonClicked), for: .touchUpInside)
         startDateButton.addTarget(self, action: #selector(startDateButtonClicked), for: .touchUpInside)
+        completeButton.addTarget(self, action: #selector(completeButtonClicked), for: .touchUpInside)
     }
     
     @objc func exitButtonClicked() {
@@ -213,6 +233,26 @@ final class PillAlarmRegisterView : BaseView {
     @objc func startDateButtonClicked() {
         print(#function)
         actionDelegate?.startDateSelectPresent()
+    }
+    
+    @objc func completeButtonClicked() {
+        print(#function)
+        actionDelegate?.completeButtonAction()
+    }
+    
+    func setActivityIndicator() {
+        // 불투명 뷰 추가
+        addSubview(loadingBgView)
+        // activity indicator 추가
+        loadingBgView.addSubview(activityIndicator)
+        
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
+        
+        // 애니메이션 시작
+        activityIndicator.startAnimating()
     }
     
     private func createLayout() -> UICollectionViewLayout {

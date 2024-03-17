@@ -74,6 +74,7 @@ extension PeriodSelectViewController : UICollectionViewDelegate {
             viewModel.inputPeriodType.value = selectItem
             viewModel.outputPeriodType.bind { [weak self] value in
                 guard let self = self else { return }
+                guard let value = value else { return }
                 sendPeriodSelectButtonTitle?(value)
             }
             print(viewModel.outputAlarmDateList.value ?? "")

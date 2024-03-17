@@ -140,9 +140,9 @@ final class RegisterPillView: BaseView {
     }()
     
     lazy var activityIndicator: NVActivityIndicatorView = {
-        let activityIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40),
-                                                        type: .circleStrokeSpin,
-                                                        color: DesignSystem.colorSet.lightBlack,
+        let activityIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 60, height: 60),
+                                                        type: .ballPulseSync,
+                                                        color: DesignSystem.colorSet.red,
                                                         padding: .zero)
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         

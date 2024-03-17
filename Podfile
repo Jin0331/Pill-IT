@@ -17,5 +17,4 @@ target 'Pill-IT' do
   pod 'NVActivityIndicatorView'
   pod 'YPImagePicker'
   pod 'SwipeCellKit'
-  pod 'DatePicker', '~> 1.3.0'
 end

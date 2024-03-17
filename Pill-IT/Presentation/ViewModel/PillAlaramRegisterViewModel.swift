@@ -20,10 +20,9 @@ final class PillAlaramRegisterViewModel {
     var inputDaysInterval : Observable<(enumCase:PeriodDays, days:Int)?> = Observable(nil) // 간격에서 사용하는 옵저버
     
     var outputAlarmDateList : Observable<[Date]?> = Observable(nil)
-    var outputPeriodType : Observable<String> = Observable("")
+    var outputPeriodType : Observable<String?> = Observable(nil)
     var outputSelectedPill : Observable<[Pill]> = Observable([])
     var outputStartDate : Observable<String?> = Observable(nil)
-    
     
     var reCalculateAlarmDateList : Observable<PeriodCase?> = Observable(nil)
     
@@ -48,8 +47,6 @@ final class PillAlaramRegisterViewModel {
             // 만약 모든 작업 이후에 다시 날짜가 설정될 경우
             guard let currentPeriodType = inputPeriodType.value else { return }
             reCalculateAlarmDateList.value = currentPeriodType
-            
-            print(outputAlarmDateList.value)
         }
         
         inputPeriodType.bind { [weak self] value in
@@ -73,11 +70,7 @@ final class PillAlaramRegisterViewModel {
                     guard let interval = inputDayOfWeekInterval.value else { return }
                     
                     outputAlarmDateList.value = specificDateCalculate(startDate: inputStartDate.value, interval: interval)
-                    
-                    
                     outputPeriodType.value = interval.count == 7 ? "매일" :interval.map { $0.toString }.joined(separator: ",")
-                    
-                    print(outputPeriodType.value)
                     
                 case .period:
                     print("period")

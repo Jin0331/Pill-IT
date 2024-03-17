@@ -27,6 +27,7 @@
 		DB5E59C52BA7156400C753BD /* PeriodSelectDayOfTheWeekViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5E59C42BA7156400C753BD /* PeriodSelectDayOfTheWeekViewController.swift */; };
 		DB5E59C72BA73D9900C753BD /* PeriodSelectDaysViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5E59C62BA73D9900C753BD /* PeriodSelectDaysViewController.swift */; };
 		DB5E59C92BA768F600C753BD /* PeriodStartDatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5E59C82BA768F600C753BD /* PeriodStartDatePickerViewController.swift */; };
+		DB5E59CB2BA7784D00C753BD /* PillAlarmSpecificViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5E59CA2BA7784D00C753BD /* PillAlarmSpecificViewController.swift */; };
 		DB8D12452BA2EC70002E34BC /* PillAlarmRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8D12442BA2EC70002E34BC /* PillAlarmRegisterViewController.swift */; };
 		DB8D12472BA3EC69002E34BC /* UICollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8D12462BA3EC69002E34BC /* UICollectionView+Extension.swift */; };
 		DB8D12492BA48B38002E34BC /* SharedEnumeration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8D12482BA48B38002E34BC /* SharedEnumeration.swift */; };
@@ -86,6 +87,7 @@
 		DB5E59C42BA7156400C753BD /* PeriodSelectDayOfTheWeekViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodSelectDayOfTheWeekViewController.swift; sourceTree = "<group>"; };
 		DB5E59C62BA73D9900C753BD /* PeriodSelectDaysViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodSelectDaysViewController.swift; sourceTree = "<group>"; };
 		DB5E59C82BA768F600C753BD /* PeriodStartDatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodStartDatePickerViewController.swift; sourceTree = "<group>"; };
+		DB5E59CA2BA7784D00C753BD /* PillAlarmSpecificViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillAlarmSpecificViewController.swift; sourceTree = "<group>"; };
 		DB8D12442BA2EC70002E34BC /* PillAlarmRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillAlarmRegisterViewController.swift; sourceTree = "<group>"; };
 		DB8D12462BA3EC69002E34BC /* UICollectionView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extension.swift"; sourceTree = "<group>"; };
 		DB8D12482BA48B38002E34BC /* SharedEnumeration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedEnumeration.swift; sourceTree = "<group>"; };
@@ -207,13 +209,14 @@
 			children = (
 				DB0F10DE2B9F8848000DC430 /* Cell */,
 				DBF735072B9CB58100326852 /* MainTabBarController.swift */,
+				DBF735212B9DD6F900326852 /* RegisterPillView.swift */,
+				DB0F10DC2B9F83CD000DC430 /* RegisterPillWebSearchViewController.swift */,
+				DBF446812B99AA4C0021BC0F /* RegisterPillViewController.swift */,
 				DB0368242BA1DBBB006A62AD /* PillManagementView.swift */,
 				DBF7350B2B9CBC4300326852 /* PillManagementViewController.swift */,
-				DBF735212B9DD6F900326852 /* RegisterPillView.swift */,
-				DBF446812B99AA4C0021BC0F /* RegisterPillViewController.swift */,
-				DB0F10DC2B9F83CD000DC430 /* RegisterPillWebSearchViewController.swift */,
 				DB5E59B82BA5D45D00C753BD /* PillAlarmRegisterView.swift */,
 				DB8D12442BA2EC70002E34BC /* PillAlarmRegisterViewController.swift */,
+				DB5E59CA2BA7784D00C753BD /* PillAlarmSpecificViewController.swift */,
 				DB5E59BE2BA6D40F00C753BD /* PeriodSelectView.swift */,
 				DB5E59BC2BA6D07900C753BD /* PeriodSelectViewController.swift */,
 				DB5E59C42BA7156400C753BD /* PeriodSelectDayOfTheWeekViewController.swift */,
@@ -485,6 +488,7 @@
 				DB5E59C32BA6F3EF00C753BD /* Formatter + Extension.swift in Sources */,
 				DB5E59B92BA5D45D00C753BD /* PillAlarmRegisterView.swift in Sources */,
 				DB0F10E02B9F885E000DC430 /* RegisterPillWebSearchCollectionViewCell.swift in Sources */,
+				DB5E59CB2BA7784D00C753BD /* PillAlarmSpecificViewController.swift in Sources */,
 				DB0368232BA1D18A006A62AD /* UITabbarController+Extension.swift in Sources */,
 				DBF4465B2B9983930021BC0F /* SceneDelegate.swift in Sources */,
 				DBF7350A2B9CBC3000326852 /* NotificationViewController.swift in Sources */,

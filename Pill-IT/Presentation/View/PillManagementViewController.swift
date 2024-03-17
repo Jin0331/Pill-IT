@@ -102,7 +102,8 @@ final class PillManagementViewController : BaseViewController {
 //            mainView.mainCollectionView.deselectAllItems(animated: true)
 //        }
         
-        present(vc, animated: true)
+        let nav = UINavigationController(rootViewController: vc)
+        present(nav, animated: true)
         
     }
     

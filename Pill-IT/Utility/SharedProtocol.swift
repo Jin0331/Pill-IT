@@ -30,4 +30,5 @@ protocol PillAlarmReigsterAction : AnyObject {
     func dismissPresent()
     func periodSelectPresent()
     func startDateSelectPresent()
+    func completeButtonAction()
 }

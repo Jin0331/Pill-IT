@@ -7,16 +7,16 @@
 
 import UIKit
 import SwipeCellKit
-import DatePicker
+import Toast_Swift
 
 final class PillAlarmRegisterViewController: BaseViewController {
-
+    
     let mainView = PillAlarmRegisterView()
     let viewModel = PillAlaramRegisterViewModel()
     private var dataSource : UICollectionViewDiffableDataSource<PillAlarmViewSection, Pill>!
     
     var collectionViewDeselectAllItems :(() -> Void)?
-
+    
     override func loadView() {
         view = mainView
         mainView.actionDelegate = self
@@ -121,12 +121,12 @@ extension PillAlarmRegisterViewController : SwipeCollectionViewCellDelegate {
     }
     
     
-
+    
 }
 
 //MARK: - Delegate Action
 extension PillAlarmRegisterViewController : PillAlarmReigsterAction {
-       
+    
     func dismissPresent() {
         collectionViewDeselectAllItems?()
         dismiss(animated: true)
@@ -148,10 +148,10 @@ extension PillAlarmRegisterViewController : PillAlarmReigsterAction {
         
         present(nav, animated: true)
     }
-
+    
     func startDateSelectPresent() {
-        print("hihi 🥲")
         
+        // 이 코드를 어찌한담???
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alert.view.tintColor = DesignSystem.colorSet.lightBlack
         
@@ -163,19 +163,40 @@ extension PillAlarmRegisterViewController : PillAlarmReigsterAction {
         
         let select = UIAlertAction(title: "선택 완료", style: .cancel) { [weak self] action in
             guard let self = self else { return }
-            
             viewModel.inputStartDate.value = datePicker.date
         }
-                        
-        alert.addAction(select)
         
+        alert.addAction(select)
         let vc = UIViewController()
         vc.view = datePicker
-                
         alert.setValue(vc, forKey: "contentViewController")
-                
+        
         present(alert, animated: true)
     }
     
+    func completeButtonAction() {
+        
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            mainView.setActivityIndicator()
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
+            guard let self = self else { return }
+            mainView.activityIndicator.stopAnimating()
+            mainView.loadingBgView.removeFromSuperview()
+            
+            if let pillTitle = mainView.userInputTextfield.text, let alarmDateList = viewModel.outputAlarmDateList.value, let periodType = viewModel.outputPeriodType.value, let startDate = viewModel.outputStartDate.value, !pillTitle.isEmpty, viewModel.selectedPill.value.count > 0 {
+                
+                let vc = PillAlarmSpecificViewController()
+                vc.viewModel = viewModel
+
+                navigationController?.pushViewController(vc, animated: true)
+                
+            } else {
+                view.makeToast("입력된 값을 다시 확인해주세요 🥲", duration: 2, position: .center)
+            }
+        }
+    }
     
 }

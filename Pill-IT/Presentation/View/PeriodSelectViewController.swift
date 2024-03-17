@@ -68,8 +68,9 @@ extension PeriodSelectViewController : UICollectionViewDelegate {
         guard let viewModel = viewModel else { return }
         guard let selectItem = dataSource.itemIdentifier(for: indexPath) else { return }
         
-        switch selectItem {
-        case .always:
+        let setupAndDismiss: () -> Void = { [weak self] in
+            guard let self = self else { return }
+            
             viewModel.inputPeriodType.value = selectItem
             viewModel.outputPeriodType.bind { [weak self] value in
                 guard let self = self else { return }
@@ -78,24 +79,19 @@ extension PeriodSelectViewController : UICollectionViewDelegate {
             print(viewModel.outputAlarmDateList.value)
             
             dismiss(animated: true)
+        }
+        
+        switch selectItem {
+        case .always:
+            setupAndDismiss()
             
         case .specificDay:
             print(selectItem.rawValue)
-            
             let vc = PeriodSelectDayOfTheWeekViewController()
             vc.viewModel = viewModel // ViewModel 공유
             
-            vc.sendPeriodSelectedItem = { [weak self]  in // PeriodCase list
-                guard let self = self else { return }
-                viewModel.inputPeriodType.value = selectItem
-                viewModel.outputPeriodType.bind { [weak self] value in
-                    guard let self = self else { return }
-                    sendPeriodSelectButtonTitle?(value)
-                }
-
-                print(viewModel.outputAlarmDateList.value)
-                
-                dismiss(animated: true)
+            vc.sendPeriodSelectedItem = {
+                setupAndDismiss()
             }
             navigationController?.pushViewController(vc, animated: true)
             
@@ -104,17 +100,8 @@ extension PeriodSelectViewController : UICollectionViewDelegate {
             let vc = PeriodSelectDaysViewController()
             vc.viewModel = viewModel // ViewModel 공유
             
-            vc.sendPeriodSelectedItem = { [weak self]  in // PeriodCase list
-                guard let self = self else { return }
-                viewModel.inputPeriodType.value = selectItem
-                viewModel.outputPeriodType.bind { [weak self] value in
-                    guard let self = self else { return }
-                    sendPeriodSelectButtonTitle?(value)
-                }
-                
-                print(viewModel.outputAlarmDateList.value)
-                
-                dismiss(animated: true)
+            vc.sendPeriodSelectedItem = {
+                setupAndDismiss()
             }
             
             navigationController?.pushViewController(vc, animated: true)

@@ -44,11 +44,6 @@ final class PillManagementView : BaseView {
         }
     }
     
-    override func configureView() {
-        super.configureView()
-        
-    }
-    
     private func createLayout() -> UICollectionViewLayout {
         
         // Cell

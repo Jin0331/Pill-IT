@@ -97,7 +97,7 @@ final class PillManagementViewController : BaseViewController {
     //MARK: - 복용약 알림 화면으로 이동하는 부분
     @objc func leftBarButtonClicked(_ sender : UIBarButtonItem){
         let vc =  PillAlarmViewController()
-        vc.setupSheetPresentation()
+        vc.setupSheetPresentationLarge()
         
         guard let selectedIndexPaths = mainView.mainCollectionView.indexPathsForSelectedItems else { return }
         let selectedPill = selectedIndexPaths.map{ return dataSource.itemIdentifier(for: $0)}
@@ -180,7 +180,7 @@ extension PillManagementViewController : SwipeCollectionViewCellDelegate {
             let vc = RegisterPillViewController()
             vc.modifyView(itemSeq: dataSource.itemIdentifier(for: indexPath)?.itemSeq.toString)
             vc.pillListDelegate = self
-            vc.setupSheetPresentation()
+            vc.setupSheetPresentationLarge()
             
             present(vc, animated: true)
         }

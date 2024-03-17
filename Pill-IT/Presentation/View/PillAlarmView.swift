@@ -194,11 +194,17 @@ final class PillAlarmView : BaseView {
         super.configureView()
         
         exitButton.addTarget(self, action: #selector(exitButtonClicked), for: .touchUpInside)
+        periodSelectButton.addTarget(self, action: #selector(periodSelectButtonClicked), for: .touchUpInside)
     }
     
     @objc func exitButtonClicked() {
         print(#function)
-        actionDelegate?.disMissPresent()
+        actionDelegate?.dismissPresent()
+    }
+    
+    @objc func periodSelectButtonClicked() {
+        print(#function)
+        actionDelegate?.periodSelectPresent()
     }
     
     private func createLayout() -> UICollectionViewLayout {

@@ -97,12 +97,9 @@ extension PillAlarmViewController : SwipeCollectionViewCellDelegate {
             self.showAlert(title: "등록된 복용약 삭제", message: "등록된 복용약 삭제하시겠습니까? 🥲", actions: [confirmAction, cancelAction])
         }
         
-        
         // customize the action appearance
         deleteAction.image = DesignSystem.pillAlarmSwipeImage.trash
-        
         deleteAction.font = .systemFont(ofSize: 17, weight: .heavy)
-        
         deleteAction.hidesWhenSelected = true
         
         return [deleteAction]
@@ -122,11 +119,21 @@ extension PillAlarmViewController : SwipeCollectionViewCellDelegate {
 
 //MARK: - Delegate Action
 extension PillAlarmViewController : PillAlarmAction {
-    func disMissPresent() {
-
+       
+    func dismissPresent() {
         collectionViewDeselectAllItems?()
         dismiss(animated: true)
     }
+    
+    func periodSelectPresent() {
+        
+        print("hihi 🥲")
+        let vc = PeriodSelectViewController()
+        let nav = UINavigationController(rootViewController: vc)
+        nav.setupSheetPresentationMedium()
+        present(nav, animated: true)
+    }
+
     
     
 }

@@ -28,4 +28,8 @@ class PillAlaramViewModel {
             }
         }
     }
+    
+    deinit {
+        print(#function, " - ✅ PillAlarmViewModel")
+    }
 }

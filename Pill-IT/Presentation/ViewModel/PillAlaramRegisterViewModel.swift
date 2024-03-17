@@ -16,14 +16,13 @@ final class PillAlaramRegisterViewModel {
     var selectedPill : Observable<[Pill?]> = Observable([])
     var inputStartDate : Observable<Date> = Observable(Date())
     var inputPeriodType : Observable<PeriodCase?> = Observable(nil)
-    var inputDayOfWeekInterval : Observable<[PeriodSpecificDay]?> = Observable(nil)
-    var inputAlarmDateList : Observable<[Date]?> = Observable(nil)
+    var inputDayOfWeekInterval : Observable<[PeriodSpecificDay]?> = Observable(nil) // 특정 요일에서 사용하는 옵저버
+    var inputDaysInterval : Observable<(enumCase:PeriodDays, days:Int)?> = Observable(nil) // 간격에서 사용하는 옵저버
     
+    var outputAlarmDateList : Observable<[Date]?> = Observable(nil)
     var outputPeriodType : Observable<String> = Observable("")
     var outputSelectedPill : Observable<[Pill]> = Observable([])
     var outputStartDate : Observable<String?> = Observable(nil)
-    
-
     
     
     init() {
@@ -57,36 +56,39 @@ final class PillAlaramRegisterViewModel {
                 case .always:
                     print("always", inputStartDate.value)
                     
-                    inputAlarmDateList.value = dateCalculator(startDate: inputStartDate.value,
+                    outputAlarmDateList.value = dateCalculator(startDate: inputStartDate.value,
                                                               byAdding: .day,
                                                               interval: 1)
                     outputPeriodType.value = "매일"
                     
                 case .specificDay:
                     print("specificDay")
-                    guard let interval = inputDayOfWeekInterval.value else { print("?????실행되냐⭕️");return }
+                    guard let interval = inputDayOfWeekInterval.value else { return }
                     
-                    inputAlarmDateList.value = specificDateCalculate(startDate: inputStartDate.value, interval: interval)
-                    outputPeriodType.value = interval.map { $0.toString }.joined(separator: ",")
+                    outputAlarmDateList.value = specificDateCalculate(startDate: inputStartDate.value, interval: interval)
+                    
+                    
+                    outputPeriodType.value = interval.count == 7 ? "매일" :interval.map { $0.toString }.joined(separator: ",")
                     
                     print(outputPeriodType.value)
                     
                 case .period:
                     print("period")
                     
-                    //TODO: - VC로부터 값 받아야 됨 // clsoure
-//                    inputAlarmDateList.value = dateCalculator(startDate: inputStartDate.value,
-//                                                              byAdding: .day,
-//                                                              interval: 1)
+                    guard let interval = inputDaysInterval.value else { print("?????실행되냐⭕️");return }
+                    outputAlarmDateList.value = dateCalculator(startDate: inputStartDate.value,
+                                                              byAdding: interval.enumCase.byAdding,
+                                                              interval: interval.days)
+                    outputPeriodType.value = interval.enumCase.byAdding == Calendar.Component.day && interval.days == 1 ? "매일" : "\(interval.days)\(interval.enumCase.title)"
                 }
             }
         }
     }
     
-    private func dateCalculator(startDate : Date, 
+    private func dateCalculator(startDate : Date,
                                 byAdding : Calendar.Component,
                                 interval : Int) -> [Date] {
-
+        
         let calendar = Calendar.current
         var datesArray : [Date] = []
         
@@ -102,15 +104,15 @@ final class PillAlaramRegisterViewModel {
     }
     
     private func specificDateCalculate(startDate : Date, interval : [PeriodSpecificDay]) -> [Date] {
-
+        
         let calendar = Calendar.current
         let targetWeekday : [Int] = interval.map{ return $0.rawValue}
         var datesArray = [Date]()
         if let oneYearLater = calendar.date(byAdding: .year, value: 1, to: startDate) {
-
+            
             var currentDateToAdd = startDate
             while currentDateToAdd <= oneYearLater {
-
+                
                 let weekday = calendar.component(.weekday, from: currentDateToAdd)
                 if targetWeekday.contains(weekday) {
                     datesArray.append(currentDateToAdd)

@@ -7,14 +7,17 @@
 
 import Foundation
 
+//MARK: - 복용약 등록 화면
 enum RegisterPillWebSearchViewSection : CaseIterable {
     case main
 }
 
+//MARK: - 복용약 관리 화면
 enum PillManagementViewSection : CaseIterable {
     case main
 }
 
+//MARK: - 복용약 알람 등록 화면
 enum PillAlarmViewSection : CaseIterable {
     case main
 }
@@ -101,6 +104,17 @@ enum PeriodDays : Int, CaseIterable {
             return "주에 한번"
         case .month:
             return "달에 한번"
+        }
+    }
+    
+    var byAdding : Calendar.Component {
+        switch self {
+        case .day:
+            return .day
+        case .week:
+            return .weekday
+        case .month:
+            return .month
         }
     }
 }

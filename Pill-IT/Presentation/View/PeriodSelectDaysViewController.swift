@@ -9,23 +9,15 @@ import UIKit
 import SnapKit
 import Then
 
-class PeriodSelectDaysViewController: BaseViewController {
+final class PeriodSelectDaysViewController: BaseViewController {
     
     var viewModel : PillAlaramRegisterViewModel?
     var sendPeriodSelectedItem : (() -> Void)? //  PeriodSelectViewController 으로 보냄. popup 할때
     
-    // viewModel로 옮겨야
-    var selectedFrequencyIndex : PeriodDays = PeriodDays(rawValue: 0).unsafelyUnwrapped
+    private var selectedFrequencyIndex : PeriodDays = PeriodDays(rawValue: 0).unsafelyUnwrapped
     
-    let dataPicker = UIPickerView().then { _ in
+    private let dataPicker = UIPickerView().then { _ in  }
         
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-    }
-    
     override func configureView() {
         super.configureView()
         
@@ -42,9 +34,7 @@ class PeriodSelectDaysViewController: BaseViewController {
         rightCompleteBarButton.tintColor = DesignSystem.colorSet.lightBlack
         navigationItem.rightBarButtonItem = rightCompleteBarButton
     }
-    
-    
-    
+
     override func configureHierarchy() {
         view.addSubview(dataPicker)
     }
@@ -58,6 +48,9 @@ class PeriodSelectDaysViewController: BaseViewController {
     @objc private func rightBarButtonClicked() {
         guard let viewModel = viewModel else { return }
         
+        let byadding = PeriodDays(rawValue: dataPicker.selectedRow(inComponent: 1)).unsafelyUnwrapped
+        let day = dataPicker.selectedRow(inComponent: 0) + 1
+        viewModel.inputDaysInterval.value = (byadding, day)
         sendPeriodSelectedItem?()
         
         navigationController?.popViewController(animated: true)
@@ -68,6 +61,7 @@ class PeriodSelectDaysViewController: BaseViewController {
     }
 }
 
+//MARK: - PickerView Deleagte
 extension PeriodSelectDaysViewController : UIPickerViewDelegate, UIPickerViewDataSource {
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -104,10 +98,6 @@ extension PeriodSelectDaysViewController : UIPickerViewDelegate, UIPickerViewDat
             selectedFrequencyIndex = PeriodDays(rawValue: row).unsafelyUnwrapped
             pickerView.reloadComponent(0)
         }
-        
-        
-        print(row, component)
-        
     }
     
 }

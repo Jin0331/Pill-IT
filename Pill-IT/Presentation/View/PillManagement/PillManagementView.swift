@@ -22,9 +22,9 @@ final class PillManagementView : BaseView {
     let customButton = UIButton(frame: CGRect(x: 0, y: 0, width: 130, height: 40)).then {
         $0.setTitle(" 알림 등록하기", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .heavy)
-        $0.setTitleColor(DesignSystem.colorSet.lightBlack, for: .normal)
-        $0.tintColor = DesignSystem.colorSet.lightBlack
-        $0.backgroundColor = DesignSystem.colorSet.white
+        $0.setTitleColor(DesignSystem.colorSet.white, for: .normal)
+        $0.tintColor = DesignSystem.colorSet.white
+        $0.backgroundColor = DesignSystem.colorSet.lightBlack
         $0.setImage(UIImage(systemName: "alarm"), for: .normal)
         $0.layer.borderColor = DesignSystem.colorSet.lightBlack.cgColor
         $0.layer.cornerRadius = 20

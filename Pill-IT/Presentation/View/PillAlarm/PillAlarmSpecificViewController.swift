@@ -14,7 +14,7 @@ import Toast_Swift
 // 동일한 시간 판단해서 동일한 시간 있으면 추가 안 되도록, 수정도 마찬가지임
 
 final class PillAlarmSpecificViewController: BaseViewController {
-
+    
     let mainView = PillAlarmSpecificView()
     weak var viewModel : PillAlaramRegisterViewModel?
     private var dataSource : UICollectionViewDiffableDataSource<PillAlarmSpecificViewSection, Date>!
@@ -30,15 +30,15 @@ final class PillAlarmSpecificViewController: BaseViewController {
         
         configureDataSource()
         bindData()
-
+        
     }
     
     private func bindData() {
         guard let viewModel = viewModel else { return }
-        viewModel.inputAlarmSpecificTimeList.value = [(7,0), (12,0), (19,0), (22,0)] // input
+        viewModel.inputAlarmSpecificTimeList.value = [(7,0), (12,0), (19,0)] // input
         viewModel.outputVisibleSpecificTimeList.bind { [weak self] value in
             guard let self = self else { return }
-
+            
             updateSnapshot(value)
         }
     }
@@ -50,7 +50,7 @@ final class PillAlarmSpecificViewController: BaseViewController {
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationItem.rightBarButtonItem = nil
     }
-
+    
     private func configureDataSource() {
         
         let cellRegistration = mainView.pillAlarmSpecificCellRegistration()
@@ -80,6 +80,11 @@ final class PillAlarmSpecificViewController: BaseViewController {
 
 //MARK: - CollectionView Delegate
 extension PillAlarmSpecificViewController : UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(#function)
+        
+        print(dataSource.itemIdentifier(for: indexPath))
+    }
     
 }
 
@@ -114,11 +119,49 @@ extension PillAlarmSpecificViewController : SwipeCollectionViewCellDelegate {
 extension PillAlarmSpecificViewController : PillSpecificAction {
     func addButtonAction() {
         print(#function)
+        
+        // 이 코드를 어찌한담??? - PillAlarmRegisterViewController 중복되는 코드 나중에 Refactoring
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alert.view.tintColor = DesignSystem.colorSet.lightBlack
+        
+        let datePicker = UIDatePicker()
+        datePicker.datePickerMode = .time
+        datePicker.preferredDatePickerStyle = .wheels
+        datePicker.locale = Locale(identifier: "ko_KR")
+        datePicker.setValue(DesignSystem.colorSet.lightBlack, forKeyPath: "textColor")
+        
+        let select = UIAlertAction(title: "선택 완료", style: .cancel) { [weak self] action in
+            guard let self = self else { return }
+            guard let viewModel = viewModel else { return }
+            
+            let dateComponent = Calendar.current.dateComponents([.hour, .minute], from: datePicker.date)
+            if let hour = dateComponent.hour, let minute = dateComponent.minute {
+                // 기존에 있는 outputVisibleSpecificTimeList에서 hour, minute 추출하여 tupe형태로 바꾸고,
+                // datePicker의 값 append 후 inputAlarmSpecificTimeList에 추가
+                var inputAlarmSpecificTimeList = viewModel.outputVisibleSpecificTimeList.value.map {
+                    let temp = Calendar.current.dateComponents([.hour, .minute], from: $0)
+                    if let hour = temp.hour, let minute = temp.minute {
+                        return (hour, minute)
+                    } else {
+                        return (-99,99)
+                    }
+                }
+                inputAlarmSpecificTimeList.append((hour, minute))
+                viewModel.inputAlarmSpecificTimeList.value = inputAlarmSpecificTimeList
+            }
+        }
+        
+        alert.addAction(select)
+        let vc = UIViewController()
+        vc.view = datePicker
+        alert.setValue(vc, forKey: "contentViewController")
+        
+        present(alert, animated: true)
+        
+        
     }
     
     func completeButtonAction() {
         print(#function)
     }
-    
-    
 }

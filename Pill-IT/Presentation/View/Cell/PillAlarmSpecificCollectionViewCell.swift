@@ -23,7 +23,7 @@ final class PillAlarmSpecificCollectionViewCell : BaseCollectionViewCell {
     let timeLabel = UILabel().then {
         $0.textColor = DesignSystem.colorSet.lightBlack
         $0.textAlignment = .center
-        $0.font = .systemFont(ofSize: 17, weight: .heavy)
+        $0.font = .systemFont(ofSize: 22, weight: .heavy)
     }
     
     override func configureHierarchy() {
@@ -48,7 +48,7 @@ final class PillAlarmSpecificCollectionViewCell : BaseCollectionViewCell {
     
     func updateUI(_ itemIdentifier : Date) {
         print("🔆 PillAlarmSpecificCollectionViewCell updateUI")
-        timeLabel.text = itemIdentifier.toString(dateFormat: "a HH:mm")
+        timeLabel.text = itemIdentifier.toStringTime(dateFormat: "a HH:mm")
     }
     
 }

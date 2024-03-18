@@ -60,6 +60,19 @@ extension Date {
         return current.isDateInToday(self) ? dateFormatter.string(from: self)  + " (오늘)" : dateFormatter.string(from: self)
     }
     
+    func toStringTime( dateFormat format: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        dateFormatter.timeZone = TimeZone.autoupdatingCurrent
+        dateFormatter.locale = Locale.current
+        
+        let current = Calendar.current
+        
+        print(current)
+        
+        return dateFormatter.string(from: self)
+    }
+    
     func toStringKST( dateFormat format: String ) -> String {
         return self.toString(dateFormat: format)
     }

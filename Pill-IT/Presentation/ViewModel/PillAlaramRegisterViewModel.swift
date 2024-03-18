@@ -123,6 +123,7 @@ final class PillAlaramRegisterViewModel {
                 dataSrouceDateList.append(calendar.date(bySettingHour: item.hour, minute: item.minute, second: 0, of: currentDate)!)
             }
             
+            dataSrouceDateList.sort { (($0).compare($1)) == .orderedAscending } // sort
             outputVisibleSpecificTimeList.value = dataSrouceDateList
             outputAlarmSpecificTimeList.value = tableDateList.flatMap{ $0 }
         }

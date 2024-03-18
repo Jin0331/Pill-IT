@@ -10,7 +10,7 @@ import SnapKit
 import Then
 import Kingfisher
 
-class PillAlarmCollectionViewCell: BaseCollectionViewCell {
+final class PillAlarmCollectionViewCell: BaseCollectionViewCell {
     
     let bgView = UIView().then {
         $0.layer.cornerRadius = DesignSystem.viewLayout.cornerRadius
@@ -66,7 +66,7 @@ class PillAlarmCollectionViewCell: BaseCollectionViewCell {
     
     func updateUI(_ itemIdentifier : Pill) {
         
-        print("🔆 cell updateUI")
+        print("🔆 PillAlarmCollectionViewCell updateUI")
         
         let provider = LocalFileImageDataProvider(fileURL: itemIdentifier.urlPathToURL)
         

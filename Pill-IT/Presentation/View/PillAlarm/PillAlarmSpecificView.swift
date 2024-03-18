@@ -1,5 +1,5 @@
 //
-//  PillAlaamSpecificView.swift
+//  PillAlarmSpecificView.swift
 //  Pill-IT
 //
 //  Created by JinwooLee on 3/18/24.
@@ -9,23 +9,15 @@ import UIKit
 import SnapKit
 import Then
 
-class PillAlaamSpecificView: BaseView {
+final class PillAlarmSpecificView: BaseView {
+    
+    weak var actionDelegate : PillSpecificAction?
     
     let headerLabel = UILabel().then {
-        $0.text = "세부 알림 시간을 설정해주세요 🫡"
+        $0.text = "세부 알림 시간을 설정해주세요 🫡🫡"
         $0.textColor = DesignSystem.colorSet.black
         $0.font = .systemFont(ofSize: 22, weight: .heavy)
         $0.textAlignment = .center
-    }
-    
-    let scrollView = UIScrollView().then {
-        $0.backgroundColor = DesignSystem.colorSet.white
-        $0.isScrollEnabled = true
-        $0.showsVerticalScrollIndicator = true
-    }
-    
-    let contentsView = UIView().then {
-        $0.backgroundColor = DesignSystem.colorSet.white
     }
     
     lazy var mainCollectionView : UICollectionView = {
@@ -36,8 +28,8 @@ class PillAlaamSpecificView: BaseView {
     }()
     
     let addButton = UIButton().then {
-        $0.setTitle("알림 추가하기", for: .normal)
-        $0.setTitleColor(DesignSystem.colorSet.white, for: .normal)
+        $0.setImage(UIImage(systemName: "plus"), for: .normal)
+        $0.tintColor = DesignSystem.colorSet.white
         $0.titleLabel?.font = .systemFont(ofSize: 17, weight: .heavy)
         $0.backgroundColor = DesignSystem.colorSet.lightBlack
         $0.layer.cornerRadius = DesignSystem.viewLayout.cornerRadius
@@ -53,13 +45,9 @@ class PillAlaamSpecificView: BaseView {
     
     override func configureHierarchy() {
         
-        [headerLabel, scrollView, scrollView, completeButton].forEach {
+        [headerLabel, addButton, mainCollectionView, completeButton].forEach {
             addSubview($0)
         }
-        
-        scrollView.addSubview(contentsView)
-        
-        [mainCollectionView, addButton].forEach { contentsView.addSubview($0)}
     }
     
     override func configureLayout() {
@@ -70,59 +58,48 @@ class PillAlaamSpecificView: BaseView {
             make.height.equalTo(50)
         }
         
-        scrollView.snp.makeConstraints {
-            $0.top.equalTo(headerLabel.snp.bottom).offset(10)
-            $0.horizontalEdges.equalToSuperview()
-            $0.bottom.equalTo(completeButton.snp.top)
-        }
-        
-        contentsView.snp.makeConstraints {
-            $0.width.equalToSuperview()
-            $0.top.bottom.equalToSuperview()
+        addButton.snp.makeConstraints { make in
+            make.top.equalTo(headerLabel.snp.bottom).offset(10)
+            make.trailing.equalTo(mainCollectionView)
+            make.size.equalTo(50)
         }
         
         mainCollectionView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
+            make.top.equalTo(addButton.snp.bottom).offset(10)
             make.horizontalEdges.equalToSuperview().inset(20)
-            make.height.equalTo(180)
-        }
-        
-        addButton.snp.makeConstraints { make in
-            make.top.equalTo(mainCollectionView.snp.bottom).offset(20)
-            make.horizontalEdges.equalTo(mainCollectionView).inset(60)
-            make.height.equalTo(50)
-            make.bottom.equalToSuperview().inset(20)
         }
         
         completeButton.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(20)
             make.height.equalTo(70)
-            make.bottom.equalTo(safeAreaLayoutGuide)
-        }
-        
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    func collectionViewchangeLayout(itemCount: Int) {
-        
-        print("🥲 CollectionView Resize")
-        let oneItemSize = 60 * 3
-        let size = itemCount < 4 ? oneItemSize * itemCount : oneItemSize * 3
-    
-        mainCollectionView.snp.updateConstraints { make in
-            make.top.equalToSuperview()
-            make.horizontalEdges.equalToSuperview().inset(20)
-            make.height.equalTo(size)
+            make.top.equalTo(mainCollectionView.snp.bottom).offset(15)
+            make.horizontalEdges.bottom.equalTo(safeAreaLayoutGuide)
         }
     }
     
+    override func configureView() {
+        super.configureView()
+        
+        addButton.addTarget(self, action: #selector(addButtonClicked), for: .touchUpInside)
+        completeButton.addTarget(self, action: #selector(completeButtonClicked), for: .touchUpInside)
+    }
+    
+    @objc private func addButtonClicked() {
+        print(#function)
+        actionDelegate?.addButtonAction()
+    }
+    
+    @objc private func completeButtonClicked() {
+        print(#function)
+        actionDelegate?.completeButtonAction()
+    }
+
+    func pillAlarmSpecificCellRegistration() -> UICollectionView.CellRegistration<PillAlarmSpecificCollectionViewCell, Date>  {
+        
+        return UICollectionView.CellRegistration<PillAlarmSpecificCollectionViewCell, Date> { cell, indexPath, itemIdentifier in
+            cell.updateUI(itemIdentifier)
+        }
+    }
+
     private func createLayout() -> UICollectionViewLayout {
         
         // Cell
@@ -130,13 +107,13 @@ class PillAlaamSpecificView: BaseView {
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
         // Group
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(50))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(80))
         
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 
         // Section
         let section = NSCollectionLayoutSection(group: group)
-        section.interGroupSpacing = 3
+        section.interGroupSpacing = 10
         
         let layout = UICollectionViewCompositionalLayout(section: section)
         

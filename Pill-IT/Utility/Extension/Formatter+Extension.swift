@@ -1,5 +1,5 @@
 //
-//  Formatter + Extension.swift
+//  Formatter+Extension.swift
 //  CoinMarket
 //
 //  Created by JinwooLee on 3/17/24.

@@ -26,6 +26,10 @@ enum PeriodViewSection : CaseIterable {
     case main
 }
 
+enum PillAlarmSpecificViewSection : CaseIterable {
+    case main
+}
+
 enum PeriodCase : String, CaseIterable {
     case always = "매일"
     case specificDay = "특정 요일"

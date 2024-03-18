@@ -238,32 +238,32 @@ final class RegisterPillView: BaseView {
         webSearchButton.addTarget(self, action: #selector(webSearchButtonClicked), for: .touchUpInside)
     }
     
-    @objc func exitButtonClicked() {
+    @objc private func exitButtonClicked() {
         print(#function)
         actionDelegate?.disMissPresent()
     }
     
-    @objc func completeButtonClicked() {
+    @objc private func completeButtonClicked() {
         print(#function)
         actionDelegate?.completePillRegister()
     }
     
-    @objc func defaultImageButtonClicked() {
+    @objc private func defaultImageButtonClicked() {
         print(#function)
         actionDelegate?.defaultImageButtonClicked()
     }
     
-    @objc func defaultButtonClicked() {
+    @objc private func defaultButtonClicked() {
         print(#function)
         actionDelegate?.defaultButtonAction()
     }
     
-    @objc func cameraGalleryButtonClicked() {
+    @objc private func cameraGalleryButtonClicked() {
         print(#function)
         actionDelegate?.cameraGalleryButtonAction()
     }
     
-    @objc func webSearchButtonClicked() {
+    @objc private func webSearchButtonClicked() {
         print(#function)
         actionDelegate?.webSearchButtonAction()
     }

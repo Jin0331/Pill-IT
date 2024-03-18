@@ -78,7 +78,7 @@ final class PillAlarmRegisterViewController: BaseViewController {
     
     
     deinit {
-        print(#function, " - ✅ PillAlaramViewController")
+        print(#function, " - ✅ PillAlarmRegisterViewController")
     }
 }
 

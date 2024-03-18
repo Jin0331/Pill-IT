@@ -8,7 +8,7 @@
 import UIKit
 import Toast_Swift
 
-class MainTabBarController: WHTabbarController {
+final class MainTabBarController: WHTabbarController {
     
     private var firstVC : PillManagementViewController!
     private var secondVC : NotificationViewController!

@@ -10,7 +10,7 @@ import SnapKit
 import Then
 import Kingfisher
 
-class PillManagementCollectionViewCell: BaseCollectionViewCell {
+final class PillManagementCollectionViewCell: BaseCollectionViewCell {
     
     let bgView = UIView().then {
         $0.layer.cornerRadius = DesignSystem.viewLayout.cornerRadius

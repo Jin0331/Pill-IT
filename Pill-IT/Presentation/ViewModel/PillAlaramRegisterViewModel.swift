@@ -167,7 +167,17 @@ final class PillAlaramRegisterViewModel {
         return datesArray
     }
     
-    
+    func containsTuple(arr: [(Int, Int)], tup:(Int, Int)) -> Bool {
+         let (c1, c2) = tup
+
+         for (v1, v2) in arr {
+            if v1 == c1 && v2 == c2 {
+                return true
+            }
+         }
+
+        return false
+    }
     
     deinit {
         print(#function, " - ✅ PillAlaramRegisterViewModel")

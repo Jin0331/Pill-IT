@@ -13,7 +13,7 @@ import Toast_Swift
 // 삭제할 떄 최소 1개 이상 있도록 예외
 // 동일한 시간 판단해서 동일한 시간 있으면 추가 안 되도록, 수정도 마찬가지임
 
-final class PillAlarmSpecificViewController: BaseViewController {
+final class PillAlarmSpecificViewController: BaseViewController, UICollectionViewDelegate {
     
     let mainView = PillAlarmSpecificView()
     weak var viewModel : PillAlaramRegisterViewModel?
@@ -30,7 +30,6 @@ final class PillAlarmSpecificViewController: BaseViewController {
         
         configureDataSource()
         bindData()
-        
     }
     
     private func bindData() {
@@ -38,7 +37,6 @@ final class PillAlarmSpecificViewController: BaseViewController {
         viewModel.inputAlarmSpecificTimeList.value = [(7,0), (12,0), (19,0)] // input
         viewModel.outputVisibleSpecificTimeList.bind { [weak self] value in
             guard let self = self else { return }
-            
             updateSnapshot(value)
         }
     }
@@ -68,7 +66,6 @@ final class PillAlarmSpecificViewController: BaseViewController {
         snapshot.appendItems(data, toSection: .main)
         
         dataSource.apply(snapshot) // reloadData
-        
         print(#function, "PillManageMent UpdateSnapShot ❗️❗️❗️❗️❗️❗️❗️")
     }
     
@@ -78,16 +75,8 @@ final class PillAlarmSpecificViewController: BaseViewController {
     }
 }
 
-//MARK: - CollectionView Delegate
-extension PillAlarmSpecificViewController : UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(#function)
-        
-        print(dataSource.itemIdentifier(for: indexPath))
-    }
-    
-}
 
+//MARK: - CollectionView Swipe Cell Delegate
 extension PillAlarmSpecificViewController : SwipeCollectionViewCellDelegate {
     func collectionView(_ collectionView: UICollectionView, editActionsForItemAt indexPath: IndexPath, for orientation: SwipeCellKit.SwipeActionsOrientation) -> [SwipeCellKit.SwipeAction]? {
         
@@ -111,8 +100,6 @@ extension PillAlarmSpecificViewController : SwipeCollectionViewCellDelegate {
         
         return [deleteAction]
     }
-    
-    
 }
 
 //MARK: - Delegate Action
@@ -146,8 +133,14 @@ extension PillAlarmSpecificViewController : PillSpecificAction {
                         return (-99,99)
                     }
                 }
-                inputAlarmSpecificTimeList.append((hour, minute))
-                viewModel.inputAlarmSpecificTimeList.value = inputAlarmSpecificTimeList
+                
+                if !viewModel.containsTuple(arr: inputAlarmSpecificTimeList, tup: (hour, minute)) {
+                    inputAlarmSpecificTimeList.append((hour, minute))
+                    viewModel.inputAlarmSpecificTimeList.value = inputAlarmSpecificTimeList
+                } else {
+                    view.makeToast("중복된 알림이 있습니다. 확인해주세요 🥲", duration: 2, position: .center)
+                    return
+                }
             }
         }
         

@@ -68,8 +68,7 @@ final class PillAlarmSpecificViewController: BaseViewController {
         dataSource.apply(snapshot) // reloadData
         print(#function, "PillManageMent UpdateSnapShot ❗️❗️❗️❗️❗️❗️❗️")
     }
-    
-    
+
     deinit {
         print(#function, " - ✅ PillAlaamSpecificViewController")
     }
@@ -77,9 +76,7 @@ final class PillAlarmSpecificViewController: BaseViewController {
 
 extension PillAlarmSpecificViewController : UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
         selectDate(isAdd: false, indexPath: indexPath)
-        
     }
 }
 
@@ -113,13 +110,16 @@ extension PillAlarmSpecificViewController : SwipeCollectionViewCellDelegate {
 //MARK: - Delegate Action
 extension PillAlarmSpecificViewController : PillSpecificAction {
     func addButtonAction() {
-        print(#function)
-        
         selectDate()
     }
     
     func completeButtonAction() {
         print(#function)
+        
+        guard let viewModel = viewModel else { return }
+        viewModel.createTableTrigger.value = ()
+        
+        dismiss(animated: true)
     }
 }
 
@@ -150,8 +150,7 @@ extension PillAlarmSpecificViewController {
                         return (hour, minute)
                     } else {
                         return (-99,99)
-                    }
-                }
+                    }}
                 
                 if !viewModel.containsTuple(arr: inputAlarmSpecificTimeList, tup: (hour, minute)) {
                     if isAdd {
@@ -164,9 +163,7 @@ extension PillAlarmSpecificViewController {
                 } else {
                     view.makeToast("중복된 알림이 있습니다. 확인해주세요 🥲", duration: 2, position: .center)
                     return
-                }
-            }
-        }
+                }}}
         
         alert.addAction(select)
         let vc = UIViewController()

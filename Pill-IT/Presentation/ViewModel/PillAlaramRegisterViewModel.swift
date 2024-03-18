@@ -6,9 +6,9 @@
 //
 
 import Foundation
+import RealmSwift
 
 //TODO: - AlarmDateList는 6개월 주기로 생성한다.
-
 final class PillAlaramRegisterViewModel {
     
     private let repository = RealmRepository()
@@ -29,6 +29,7 @@ final class PillAlaramRegisterViewModel {
     var outputAlarmSpecificTimeList : Observable<[Date]> = Observable([]) // 실제 Output이 되는 값(날짜 + 시간)
     
     var reCalculateAlarmDateList : Observable<PeriodCase?> = Observable(nil)
+    var createTableTrigger : Observable<Void?> = Observable(nil)
     
     init() {
         transform()
@@ -88,13 +89,6 @@ final class PillAlaramRegisterViewModel {
             }
         }
         
-        reCalculateAlarmDateList.bind { [weak self] value in
-            guard let self = self else { return }
-            guard let value = value else { return }
-            
-            inputPeriodType.value = value
-        }
-        
         // (Int,Int) tupple array가 들어오고, output으로 기존의 Date에 조합되어서 나간다.
         // CollectionView에서 수정될 떄마다, 호출되는 bind
         inputAlarmSpecificTimeList.bind { [weak self] value in
@@ -127,8 +121,68 @@ final class PillAlaramRegisterViewModel {
             outputVisibleSpecificTimeList.value = dataSrouceDateList
             outputAlarmSpecificTimeList.value = tableDateList.flatMap{ $0 }
         }
+        
+        reCalculateAlarmDateList.bind { [weak self] value in
+            guard let self = self else { return }
+            guard let value = value else { return }
+            
+            inputPeriodType.value = value
+        }
+        
+        createTableTrigger.bind {[weak self] value in
+            guard let self = self else { return }
+            
+            pillAlaramRegister()
+
+        }
+        
     }
     
+    // 외부 사용
+    func containsTuple(arr: [(Int, Int)], tup:(Int, Int)) -> Bool {
+         let (c1, c2) = tup
+
+         for (v1, v2) in arr {
+            if v1 == c1 && v2 == c2 {
+                return true
+            }
+         }
+
+        return false
+    }
+    
+    func pillAlaramRegister() {
+        
+        guard let alarmName = inputGroupId.value else { return }
+        guard let inputPeriodType = inputPeriodType.value else { return }
+        guard let outputPeriodType = outputPeriodType.value else { return }
+        
+        // 기존에 등록된 Table 사용
+        let pillsList = List<Pill>()
+        outputSelectedPill.value.forEach { pill in
+            pillsList.append(pill)
+        }
+        
+        // AlarmDateList는 새로 Table 생성 후 조회로 등록 이때, alarm name으로 검색함
+        outputAlarmSpecificTimeList.value.forEach {
+            repository.createPill(PillAlarmDate(alarmName: alarmName, alarmDate: $0))
+        }
+        
+        let alarmDateFetch = repository.fetchPillAlarmDateItem(alarmName: alarmName)
+        guard let alarmDateFetch = alarmDateFetch else { return }
+        
+        let alarmDate = List<PillAlarmDate>()
+        alarmDateFetch.forEach { pillAlarmDate in
+            alarmDate.append(pillAlarmDate)
+        }
+        
+        let pillAlaram = PillAlarm(alarmName: alarmName, pillList: pillsList, type: inputPeriodType.rawValue, typeTitle: outputPeriodType, alarmStartDate: inputStartDate.value, alarmDate: alarmDate)
+        
+        repository.createPill(pillAlaram)
+    }
+    
+    
+    // 내부 사용
     private func dateCalculator(startDate : Date,
                                 byAdding : Calendar.Component,
                                 interval : Int) -> [Date] {
@@ -165,18 +219,6 @@ final class PillAlaramRegisterViewModel {
             }
         }
         return datesArray
-    }
-    
-    func containsTuple(arr: [(Int, Int)], tup:(Int, Int)) -> Bool {
-         let (c1, c2) = tup
-
-         for (v1, v2) in arr {
-            if v1 == c1 && v2 == c2 {
-                return true
-            }
-         }
-
-        return false
     }
     
     deinit {

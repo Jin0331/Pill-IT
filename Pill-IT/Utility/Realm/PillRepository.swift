@@ -54,6 +54,14 @@ final class RealmRepository {
         return Array(table)
     }
     
+    func fetchPillAlarmDateItem(alarmName : String) -> [PillAlarmDate]? {
+        let table = realm.objects(PillAlarmDate.self).where {
+            $0.alarmName == alarmName
+        }
+        return Array(table)
+    }
+    
+    
     //MARK: - UPDATE
     func updatePillIsDelete(itemSeq : Int) {
         

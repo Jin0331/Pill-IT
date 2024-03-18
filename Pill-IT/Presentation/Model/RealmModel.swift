@@ -10,6 +10,7 @@ import RealmSwift
 
 class PillAlarm : Object {
     @Persisted(primaryKey: true) var _id : ObjectId
+    @Persisted var alarmName : String
     @Persisted var pillList : List<Pill>
     @Persisted var type : String
     @Persisted var typeTitle : String
@@ -19,8 +20,9 @@ class PillAlarm : Object {
     @Persisted var upDate : Date
     @Persisted var isDeleted : Bool
     
-    convenience init(pillList: List<Pill>, type: String, typeTitle : String, alarmStartDate : Date, alarmDate: List<PillAlarmDate>) {
+    convenience init(alarmName : String, pillList: List<Pill>, type: String, typeTitle : String, alarmStartDate : Date, alarmDate: List<PillAlarmDate>) {
         self.init()
+        self.alarmName = alarmName
         self.pillList = pillList
         self.type = type
         self.typeTitle = typeTitle
@@ -34,6 +36,7 @@ class PillAlarm : Object {
 
 class PillAlarmDate : Object {
     @Persisted(primaryKey: true) var _id : ObjectId
+    @Persisted var alarmName : String
     @Persisted var alarmDate : Date
     @Persisted var regDate : Date
     @Persisted var upDate : Date
@@ -43,8 +46,9 @@ class PillAlarmDate : Object {
     
     @Persisted(originProperty: "alarmDate") var alarmGroup : LinkingObjects<PillAlarm>
     
-    convenience init(_id: ObjectId, alarmDate: Date, alarmGroup: LinkingObjects<PillAlarm>) {
+    convenience init(alarmName : String, alarmDate: Date) {
         self.init()
+        self.alarmName = alarmName
         self.alarmDate = alarmDate
         self.regDate = Date()
         self.upDate = Date()

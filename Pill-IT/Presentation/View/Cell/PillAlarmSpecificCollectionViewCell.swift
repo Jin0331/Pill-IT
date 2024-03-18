@@ -47,7 +47,6 @@ final class PillAlarmSpecificCollectionViewCell : BaseCollectionViewCell {
     }
     
     func updateUI(_ itemIdentifier : Date) {
-        
         print("🔆 PillAlarmSpecificCollectionViewCell updateUI")
         timeLabel.text = itemIdentifier.toString(dateFormat: "a HH:mm")
     }

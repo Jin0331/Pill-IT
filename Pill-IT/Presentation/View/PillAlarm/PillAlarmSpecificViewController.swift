@@ -13,7 +13,7 @@ import Toast_Swift
 // 삭제할 떄 최소 1개 이상 있도록 예외
 // 동일한 시간 판단해서 동일한 시간 있으면 추가 안 되도록, 수정도 마찬가지임
 
-final class PillAlarmSpecificViewController: BaseViewController, UICollectionViewDelegate {
+final class PillAlarmSpecificViewController: BaseViewController {
     
     let mainView = PillAlarmSpecificView()
     weak var viewModel : PillAlaramRegisterViewModel?
@@ -75,6 +75,14 @@ final class PillAlarmSpecificViewController: BaseViewController, UICollectionVie
     }
 }
 
+extension PillAlarmSpecificViewController : UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        selectDate(isAdd: false, indexPath: indexPath)
+        
+    }
+}
+
 
 //MARK: - CollectionView Swipe Cell Delegate
 extension PillAlarmSpecificViewController : SwipeCollectionViewCellDelegate {
@@ -107,7 +115,18 @@ extension PillAlarmSpecificViewController : PillSpecificAction {
     func addButtonAction() {
         print(#function)
         
-        // 이 코드를 어찌한담??? - PillAlarmRegisterViewController 중복되는 코드 나중에 Refactoring
+        selectDate()
+    }
+    
+    func completeButtonAction() {
+        print(#function)
+    }
+}
+
+extension PillAlarmSpecificViewController {
+    //MARK: - 이 코드를 어찌한담??? - PillAlarmRegisterViewController 중복되는 코드 나중에 Refactoring
+    func selectDate(isAdd : Bool = true, indexPath : IndexPath? = nil) {
+       
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alert.view.tintColor = DesignSystem.colorSet.lightBlack
         
@@ -135,7 +154,12 @@ extension PillAlarmSpecificViewController : PillSpecificAction {
                 }
                 
                 if !viewModel.containsTuple(arr: inputAlarmSpecificTimeList, tup: (hour, minute)) {
-                    inputAlarmSpecificTimeList.append((hour, minute))
+                    if isAdd {
+                        inputAlarmSpecificTimeList.append((hour, minute))
+                    } else {
+                        guard let indexPath = indexPath else { return }
+                        inputAlarmSpecificTimeList[indexPath.row] = (hour, minute)
+                    }
                     viewModel.inputAlarmSpecificTimeList.value = inputAlarmSpecificTimeList
                 } else {
                     view.makeToast("중복된 알림이 있습니다. 확인해주세요 🥲", duration: 2, position: .center)
@@ -150,11 +174,5 @@ extension PillAlarmSpecificViewController : PillSpecificAction {
         alert.setValue(vc, forKey: "contentViewController")
         
         present(alert, animated: true)
-        
-        
-    }
-    
-    func completeButtonAction() {
-        print(#function)
     }
 }

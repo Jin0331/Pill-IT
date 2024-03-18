@@ -7,14 +7,28 @@
 
 import UIKit
 
-
 final class PillAlarmSpecificViewController: BaseViewController {
 
+    let mainView = PillAlaamSpecificView()
     weak var viewModel : PillAlaramRegisterViewModel?
+    
+    override func loadView() {
+        view = mainView
+
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        guard let viewModel = viewModel else { return }
+        
+        print(viewModel.outputSelectedPill.value, "✅ SelectedPill")
+        print(viewModel.inputPeriodType.value, "✅ Type")
+        print(viewModel.outputPeriodType.value, "✅ TypeTitle")
+        print(viewModel.outputStartDate.value, "✅ StartDate")
+        print(viewModel.outputAlarmDateList.value, "✅ Date List")
+        
     }
     
     override func configureNavigation() {

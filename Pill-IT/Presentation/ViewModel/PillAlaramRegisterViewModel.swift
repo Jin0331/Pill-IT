@@ -18,6 +18,7 @@ final class PillAlaramRegisterViewModel {
     var inputPeriodType : Observable<PeriodCase?> = Observable(nil)
     var inputDayOfWeekInterval : Observable<[PeriodSpecificDay]?> = Observable(nil) // 특정 요일에서 사용하는 옵저버
     var inputDaysInterval : Observable<(enumCase:PeriodDays, days:Int)?> = Observable(nil) // 간격에서 사용하는 옵저버
+    var inputGroupId : Observable<String?> = Observable(nil)
     
     var outputAlarmDateList : Observable<[Date]?> = Observable(nil)
     var outputPeriodType : Observable<String?> = Observable(nil)

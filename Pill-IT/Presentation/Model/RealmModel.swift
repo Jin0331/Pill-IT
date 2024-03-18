@@ -9,35 +9,53 @@ import Foundation
 import RealmSwift
 
 class PillAlarm : Object {
-    
-    @Persisted(primaryKey: true) var groupID : ObjectId
+    @Persisted(primaryKey: true) var _id : ObjectId
     @Persisted var pillList : List<Pill>
-    @Persisted var type : Int
-    @Persisted var alarmDate : List<Date>
+    @Persisted var type : String
+    @Persisted var typeTitle : String
     @Persisted var alarmStartDate : Date
-    @Persisted var alarmEndtDate : Date
+    @Persisted var alarmDate : List<PillAlarmDate>
     @Persisted var regDate : Date
     @Persisted var upDate : Date
     @Persisted var isDeleted : Bool
     
-    convenience init(groupID: ObjectId, pillList: List<Pill>, type: Int, alarmDate: List<Date>, alarmStartDate: Date, alarmEndtDate: Date) {
+    convenience init(pillList: List<Pill>, type: String, typeTitle : String, alarmStartDate : Date, alarmDate: List<PillAlarmDate>) {
         self.init()
-        self.groupID = groupID
         self.pillList = pillList
         self.type = type
-        self.alarmDate = alarmDate
+        self.typeTitle = typeTitle
         self.alarmStartDate = alarmStartDate
-        self.alarmEndtDate = alarmEndtDate
+        self.alarmDate = alarmDate
         self.regDate = Date()
         self.upDate = Date()
         self.isDeleted = false
     }
-    
 }
- 
+
+class PillAlarmDate : Object {
+    @Persisted(primaryKey: true) var _id : ObjectId
+    @Persisted var alarmDate : Date
+    @Persisted var regDate : Date
+    @Persisted var upDate : Date
+    @Persisted var isPass : Bool
+    @Persisted var isDone : Bool
+    @Persisted var isDeleted : Bool
+    
+    @Persisted(originProperty: "alarmDate") var alarmGroup : LinkingObjects<PillAlarm>
+    
+    convenience init(_id: ObjectId, alarmDate: Date, alarmGroup: LinkingObjects<PillAlarm>) {
+        self.init()
+        self.alarmDate = alarmDate
+        self.regDate = Date()
+        self.upDate = Date()
+        self.isPass = false
+        self.isDone = false
+        self.isDeleted = false
+        self.alarmGroup = alarmGroup
+    }
+}
 
 class Pill : Object {
-    
     @Persisted(primaryKey: true) var _id : ObjectId
     @Persisted var itemSeq : Int
     @Persisted var itemName : String

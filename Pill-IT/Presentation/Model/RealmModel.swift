@@ -9,8 +9,7 @@ import Foundation
 import RealmSwift
 
 class PillAlarm : Object {
-    @Persisted(primaryKey: true) var _id : ObjectId
-    @Persisted var alarmName : String
+    @Persisted(primaryKey: true) var alarmName : String
     @Persisted var pillList : List<Pill>
     @Persisted var type : String
     @Persisted var typeTitle : String

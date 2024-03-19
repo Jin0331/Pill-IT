@@ -17,4 +17,5 @@ target 'Pill-IT' do
   pod 'NVActivityIndicatorView'
   pod 'YPImagePicker'
   pod 'SwipeCellKit'
+  pod 'Parchment', '~> 3.3'
 end

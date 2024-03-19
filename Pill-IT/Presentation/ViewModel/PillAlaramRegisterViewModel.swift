@@ -151,7 +151,9 @@ final class PillAlaramRegisterViewModel {
         return false
     }
     
-    func pillAlaramRegister() {
+    private func pillAlaramRegister() {
+        
+        //TODO: - a
         
         guard let alarmName = inputGroupId.value else { return }
         guard let inputPeriodType = inputPeriodType.value else { return }

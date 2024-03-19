@@ -189,6 +189,7 @@ extension PillManagementViewController : SwipeCollectionViewCellDelegate {
         let editImageAction = SwipeAction(style: .default, title: "이미지 수정") { [weak self] action, indexPath in
             guard let self = self else { return }
             let vc = RegisterPillViewController()
+            vc.editMode = true
             vc.modifyView(itemSeq: dataSource.itemIdentifier(for: indexPath)?.itemSeq.toString)
             vc.pillListDelegate = self
             vc.setupSheetPresentationLarge()
@@ -200,7 +201,8 @@ extension PillManagementViewController : SwipeCollectionViewCellDelegate {
 //                navigationItem.leftBarButtonItem?.customView?.isHidden = true
 //            }
             
-            present(vc, animated: true)
+            let nav = UINavigationController(rootViewController: vc)
+            present(nav, animated: true)
         }
         
         let moreInfoAction = SwipeAction(style: .default, title: "정보") { action, indexPath in

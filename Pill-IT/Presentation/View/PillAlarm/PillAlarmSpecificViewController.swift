@@ -127,7 +127,7 @@ extension PillAlarmSpecificViewController {
     //MARK: - 이 코드를 어찌한담??? - PillAlarmRegisterViewController 중복되는 코드 나중에 Refactoring
     func selectDate(isAdd : Bool = true, indexPath : IndexPath? = nil) {
        
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
         alert.view.tintColor = DesignSystem.colorSet.lightBlack
         
         let datePicker = UIDatePicker()
@@ -165,7 +165,10 @@ extension PillAlarmSpecificViewController {
                     return
                 }}}
         
+        let cancle = UIAlertAction(title: "취소", style: .destructive)
+        
         alert.addAction(select)
+        alert.addAction(cancle)
         let vc = UIViewController()
         vc.view = datePicker
         alert.setValue(vc, forKey: "contentViewController")

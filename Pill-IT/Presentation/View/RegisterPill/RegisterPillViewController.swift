@@ -19,11 +19,13 @@ final class RegisterPillViewController : BaseViewController {
     private let mainView = RegisterPillView()
     private var viewModel = RegisterPillViewModel()
     weak var pillListDelegate : PillListAction?
+    var editMode = false //TODO: - viewModel로 옮겨야 되는 것인가!?
     var sendData : (() -> Void)?
 
     override func loadView() {
         self.view = mainView
         mainView.actionDelegate = self
+        mainView.userInputTextfield.delegate = self
     }
     
     
@@ -37,8 +39,18 @@ final class RegisterPillViewController : BaseViewController {
         textFieldHandler()
     }
     
-    override func configureView() {
-        mainView.userInputTextfield.delegate = self
+    override func configureNavigation() {
+        super.configureNavigation()
+        
+        navigationItem.title = !editMode ? "🌟 복용약 등록하기" : "⚠️ 복용약 수정"
+        
+        let cancleBarButton = UIBarButtonItem(image: UIImage(systemName: "x.circle"), style: .plain, target: self, action: #selector(rightBarButtonClicked))
+        
+        navigationItem.rightBarButtonItem = cancleBarButton
+    }
+    
+    @objc private func rightBarButtonClicked() {
+        dismiss(animated: true)
     }
     
     private func textFieldHandler() {
@@ -306,8 +318,9 @@ extension RegisterPillViewController : PillRegisterAction {
         
         print(viewModel.modifyStatus.value )
         
+//        navigationItem.title =
+        
         mainView.itemHidden(false)
-        mainView.titleLabel.text = "⚠️ 복용약 수정"
         mainView.userInputTextfield.backgroundColor = DesignSystem.colorSet.lightGray
         mainView.userInputTextfield.textColor = DesignSystem.colorSet.gray
         mainView.userInputTextfield.text = viewModel.inputItemName.value

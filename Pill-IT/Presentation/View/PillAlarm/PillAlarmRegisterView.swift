@@ -14,25 +14,26 @@ final class PillAlarmRegisterView : BaseView {
     
     weak var actionDelegate : PillAlarmReigsterAction?
     
-    let exitButton = UIButton().then {
-        $0.setImage(DesignSystem.iconImage.clear, for: .normal)
-        $0.tintColor = DesignSystem.colorSet.black
-    }
-    
-    let titleLabel = UILabel().then {
-        $0.text = "🗓️ 복용 알림 등록하기"
-        $0.textColor = DesignSystem.colorSet.black
-        $0.font = .systemFont(ofSize: 28, weight: .heavy)
-        $0.layer.shadowOffset = CGSize(width: 10, height: 5)
-        $0.layer.shadowOpacity = 0.4
-        $0.layer.shadowRadius = 10
-        $0.layer.masksToBounds = false
-    }
-    
+//    let exitButton = UIButton().then {
+//        $0.setImage(DesignSystem.iconImage.clear, for: .normal)
+//        $0.tintColor = DesignSystem.colorSet.black
+//    }
+//    
+//    let titleLabel = UILabel().then {
+//        $0.text = "🗓️ 복용 알림 등록하기"
+//        $0.textColor = DesignSystem.colorSet.black
+//        $0.font = .systemFont(ofSize: 28, weight: .heavy)
+//        $0.layer.shadowOffset = CGSize(width: 10, height: 5)
+//        $0.layer.shadowOpacity = 0.4
+//        $0.layer.shadowRadius = 10
+//        $0.layer.masksToBounds = false
+//    }
+//    
     let scrollView = UIScrollView().then {
         $0.backgroundColor = DesignSystem.colorSet.white
         $0.isScrollEnabled = true
         $0.showsVerticalScrollIndicator = true
+        $0.bounces = false
     }
     
     let contentsView = UIView().then {
@@ -129,7 +130,7 @@ final class PillAlarmRegisterView : BaseView {
     
     override func configureHierarchy() {
         
-        [exitButton, titleLabel, scrollView].forEach {
+        [scrollView].forEach {
             addSubview($0)
         }
         
@@ -139,19 +140,9 @@ final class PillAlarmRegisterView : BaseView {
     }
     
     override func configureLayout() {
-        exitButton.snp.makeConstraints { make in
-            make.top.trailing.equalToSuperview().inset(20)
-            make.size.equalTo(30)
-        }
-        
-        titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(exitButton.snp.bottom).offset(10)
-            make.horizontalEdges.equalToSuperview().inset(20)
-            make.height.equalTo(50)
-        }
         
         scrollView.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(10)
+            $0.top.equalTo(safeAreaLayoutGuide).inset(10)
             $0.horizontalEdges.equalToSuperview()
             $0.bottom.equalToSuperview()
         }
@@ -164,7 +155,7 @@ final class PillAlarmRegisterView : BaseView {
         collectionViewtitle.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(15)
             make.width.equalTo(120)
-            make.leading.equalTo(titleLabel)
+            make.leading.equalToSuperview().inset(10)
         }
         
         userInputTextfieldtitle.snp.makeConstraints { make in
@@ -214,15 +205,9 @@ final class PillAlarmRegisterView : BaseView {
     override func configureView() {
         super.configureView()
         
-        exitButton.addTarget(self, action: #selector(exitButtonClicked), for: .touchUpInside)
         periodSelectButton.addTarget(self, action: #selector(periodSelectButtonClicked), for: .touchUpInside)
         startDateButton.addTarget(self, action: #selector(startDateButtonClicked), for: .touchUpInside)
         completeButton.addTarget(self, action: #selector(completeButtonClicked), for: .touchUpInside)
-    }
-    
-    @objc private func exitButtonClicked() {
-        print(#function)
-        actionDelegate?.dismissPresent()
     }
     
     @objc private func periodSelectButtonClicked() {
@@ -290,7 +275,7 @@ final class PillAlarmRegisterView : BaseView {
     
         mainCollectionView.snp.updateConstraints { make in
             make.top.equalTo(collectionViewtitle.snp.bottom).offset(10)
-            make.horizontalEdges.equalTo(titleLabel)
+            make.horizontalEdges.equalToSuperview().inset(10)
             make.height.equalTo(size)
         }
     }

@@ -43,7 +43,9 @@ final class MainTabBarController: WHTabbarController {
             vc.setupSheetPresentationLarge()
             vc.pillListDelegate = self
             
-            self.present(vc, animated: true)
+            let nav = UINavigationController(rootViewController: vc)
+            
+            present(nav, animated: true)
         }
     }
     

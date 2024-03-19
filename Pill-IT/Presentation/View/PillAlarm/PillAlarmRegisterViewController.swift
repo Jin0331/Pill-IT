@@ -48,11 +48,18 @@ final class PillAlarmRegisterViewController: BaseViewController {
             mainView.startDateButton.setTitle(value, for: .normal)
         }
     }
+    
     override func configureNavigation() {
         super.configureNavigation()
+        navigationItem.title = "🌟 복용약 등록하기"
         
+        let cancleBarButton = UIBarButtonItem(image: UIImage(systemName: "x.circle"), style: .plain, target: self, action: #selector(rightBarButtonClicked))
         
-        navigationItem.rightBarButtonItem = nil
+        navigationItem.rightBarButtonItem = cancleBarButton
+    }
+    
+    @objc private func rightBarButtonClicked() {
+        dismiss(animated: true)
     }
     
     private func configureDataSource() {

@@ -5,39 +5,9 @@
 //  Created by JinwooLee on 3/10/24.
 //
 
-import Parchment
 import UIKit
-
-
-//class PillNotificationViewController: BaseViewController {
-//    
-//    let mainView = PillNotificationView()
-//    
-//    override func loadView() {
-//        view = mainView
-//        mainView.calendar.delegate = self
-//    }
-//    
-//    override func viewDidLoad() {
-//        
-//        super.viewDidLoad()        
-//        
-//    }
-//    
-//    override func configureNavigation() {
-//        super.configureNavigation()
-//        
-//        navigationItem.rightBarButtonItem = nil
-//    }
-//}
-//
-// 
-//extension PillNotificationViewController : FSCalendarDelegate {
-//    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-//        calendar.setCurrentPage(date, animated: true)
-//    }
-//}
-
+import Parchment
+import SnapKit
 
 struct CalendarItem: PagingItem, Hashable, Comparable {
     let date: Date
@@ -55,50 +25,48 @@ struct CalendarItem: PagingItem, Hashable, Comparable {
     }
 }
 
-class PillNotificationViewController: UIViewController {
+final class PillNotificationViewController: BaseViewController {
     private let calendar: Calendar = .current
     private let pagingViewController = PagingViewController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        pagingViewController.register(CalendarPagingCell.self, for: CalendarItem.self)
+        pagingViewController.infiniteDataSource = self
+    }
+    
+    override func configureHierarchy() {
+        addChild(pagingViewController)
+        
+        view.addSubview(pagingViewController.view)
+    }
+    
+    override func configureLayout() {
+        pagingViewController.view.snp.makeConstraints { make in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+    }
+    
+    override func configureView() {
+        super.configureView()
+        pagingViewController.register(PillNotificationCell.self, for: CalendarItem.self)
         pagingViewController.menuItemSize = .fixed(width: 48, height: 58)
         pagingViewController.textColor = UIColor.gray
-
-        // Add the paging view controller as a child view
-        // controller and constrain it to all edges
-        addChild(pagingViewController)
-        view.addSubview(pagingViewController.view)
-        view.constrainToEdges(pagingViewController.view)
         pagingViewController.didMove(toParent: self)
-
-        // Set our custom data source
-        pagingViewController.infiniteDataSource = self
-
+        pagingViewController.indicatorColor = DesignSystem.colorSet.lightBlack
+        pagingViewController.contentInteraction = .none // !!! 메뉴에서만 스크롤 가능
+        
         // Set the current date as the selected paging item.
         let today = calendar.startOfDay(for: Date())
         pagingViewController.select(pagingItem: CalendarItem(date: today))
-
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            title: "Today",
-            style: .plain,
-            target: self,
-            action: #selector(selectToday))
     }
-
+    
     @objc private func selectToday() {
         let date = calendar.startOfDay(for: Date())
         pagingViewController.select(pagingItem: CalendarItem(date: date), animated: true)
     }
 }
 
-// We need to conform to PagingViewControllerDataSource in order to
-// implement our custom data source. We set the initial item to be the
-// current date, and every time pagingItemBeforePagingItem: or
-// pagingItemAfterPagingItem: is called, we either subtract or append
-// the time interval equal to one day. This means our paging view
-// controller will show one menu item for each day.
 extension PillNotificationViewController: PagingViewControllerInfiniteDataSource {
     func pagingViewController(_: PagingViewController, itemAfter pagingItem: PagingItem) -> PagingItem? {
         let calendarItem = pagingItem as! CalendarItem
@@ -116,9 +84,9 @@ extension PillNotificationViewController: PagingViewControllerInfiniteDataSource
         let calendarItem = pagingItem as! CalendarItem
         let formattedDate = DateFormatters.shortDateFormatter.string(from: calendarItem.date)
         
-        print(calendarItem.date)
+        print(calendarItem.date, "🥲🥲🥲🥲")
         
-        return ContentViewController(title: formattedDate)
+        return PillNotificationContentViewController(title: formattedDate)
     }
 }
 

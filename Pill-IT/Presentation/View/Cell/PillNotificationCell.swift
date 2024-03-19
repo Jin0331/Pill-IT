@@ -1,7 +1,7 @@
 import Parchment
 import UIKit
 
-class CalendarPagingCell: PagingCell {
+final class PillNotificationCell : PagingCell {
     private var options: PagingOptions?
 
     lazy var dateLabel: UILabel = {
@@ -58,8 +58,8 @@ class CalendarPagingCell: PagingCell {
     fileprivate func updateSelectedState(selected: Bool) {
         guard let options = options else { return }
         if selected {
-            dateLabel.textColor = options.selectedTextColor
-            weekdayLabel.textColor = options.selectedTextColor
+            dateLabel.textColor = DesignSystem.colorSet.black // Custom
+            weekdayLabel.textColor = DesignSystem.colorSet.black // Custom
         } else {
             dateLabel.textColor = options.textColor
             weekdayLabel.textColor = options.textColor
@@ -81,14 +81,14 @@ class CalendarPagingCell: PagingCell {
 
         if let attributes = layoutAttributes as? PagingCellLayoutAttributes {
             dateLabel.textColor = UIColor.interpolate(
-                from: options.textColor,
-                to: options.selectedTextColor,
+                from: DesignSystem.colorSet.lightBlack,
+                to: DesignSystem.colorSet.black,
                 with: attributes.progress
             )
 
             weekdayLabel.textColor = UIColor.interpolate(
-                from: options.textColor,
-                to: options.selectedTextColor,
+                from: DesignSystem.colorSet.lightBlack,
+                to: DesignSystem.colorSet.black,
                 with: attributes.progress
             )
         }

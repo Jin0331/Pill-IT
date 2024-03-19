@@ -1,12 +1,10 @@
 PODS:
   - Alamofire (5.9.0)
-  - DatePicker (1.3.1):
-    - Extended
-  - Extended (1.0.5)
   - Kingfisher (7.11.0)
   - NVActivityIndicatorView (5.1.1):
     - NVActivityIndicatorView/Base (= 5.1.1)
   - NVActivityIndicatorView/Base (5.1.1)
+  - Parchment (3.3.0)
   - PryntTrimmerView (4.0.2)
   - Realm (10.45.3):
     - Realm/Headers (= 10.45.3)
@@ -26,9 +24,9 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 5.8)
-  - DatePicker (~> 1.3.0)
   - Kingfisher (~> 7.0)
   - NVActivityIndicatorView
+  - Parchment (~> 3.3)
   - RealmSwift (~> 10.45.0)
   - SearchTextField
   - SnapKit (~> 5.7.0)
@@ -41,10 +39,9 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
-    - DatePicker
-    - Extended
     - Kingfisher
     - NVActivityIndicatorView
+    - Parchment
     - PryntTrimmerView
     - Realm
     - RealmSwift
@@ -59,10 +56,9 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: 02b772c9910e8eba1a079227c32fbd9e46c90a24
-  DatePicker: 05ddbd2b57d00ce6f44c1f0611ced32f948d33a6
-  Extended: c463225e0c29b2823847866c1b106827772ac678
   Kingfisher: b9c985d864d43515f404f1ef4a8ce7d802ace3ac
   NVActivityIndicatorView: 1f6c5687f1171810aa27a3296814dc2d7dec3667
+  Parchment: 7678853fa5d28d38d31baaa466fa5d6ebaa6843c
   PryntTrimmerView: 6a43cc90df5d99addeabd33d4ba09b1365322130
   Realm: b277b843c7505c1e30e3a70322a24a09283e62bb
   RealmSwift: f6690053e81733801e6619eb5b39993ab76f7050
@@ -75,6 +71,6 @@ SPEC CHECKSUMS:
   Toast-Swift: dd369e68ee529f542c65bd0d0c6c50cd743cf6f2
   YPImagePicker: afc81b3cffab05a6e7261c5daf80dc31b4e917b4
 
-PODFILE CHECKSUM: 2337357d2de9fcf5211c4304ec52978e4bcde298
+PODFILE CHECKSUM: e7addf50329a949c356a3adcb72553f334c50d47
 
 COCOAPODS: 1.15.2

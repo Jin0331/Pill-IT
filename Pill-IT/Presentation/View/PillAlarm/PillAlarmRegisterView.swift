@@ -207,7 +207,7 @@ final class PillAlarmRegisterView : BaseView {
             make.top.equalTo(startDateButton.snp.bottom).offset(20)
             make.horizontalEdges.equalTo(startDateButton)
             make.height.equalTo(userInputTextfield)
-            make.bottom.equalToSuperview()
+            make.bottom.equalToSuperview().inset(20)
         }
     }
     
@@ -220,22 +220,22 @@ final class PillAlarmRegisterView : BaseView {
         completeButton.addTarget(self, action: #selector(completeButtonClicked), for: .touchUpInside)
     }
     
-    @objc func exitButtonClicked() {
+    @objc private func exitButtonClicked() {
         print(#function)
         actionDelegate?.dismissPresent()
     }
     
-    @objc func periodSelectButtonClicked() {
+    @objc private func periodSelectButtonClicked() {
         print(#function)
         actionDelegate?.periodSelectPresent()
     }
     
-    @objc func startDateButtonClicked() {
+    @objc private func startDateButtonClicked() {
         print(#function)
         actionDelegate?.startDateSelectPresent()
     }
     
-    @objc func completeButtonClicked() {
+    @objc private func completeButtonClicked() {
         print(#function)
         actionDelegate?.completeButtonAction()
     }

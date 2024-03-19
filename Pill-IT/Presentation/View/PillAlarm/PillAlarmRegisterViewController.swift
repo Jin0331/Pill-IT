@@ -21,6 +21,7 @@ final class PillAlarmRegisterViewController: BaseViewController {
         view = mainView
         mainView.actionDelegate = self
         mainView.mainCollectionView.delegate = self
+        mainView.userInputTextfield.delegate = self
     }
     
     
@@ -77,7 +78,7 @@ final class PillAlarmRegisterViewController: BaseViewController {
     
     
     deinit {
-        print(#function, " - ✅ PillAlaramViewController")
+        print(#function, " - ✅ PillAlarmRegisterViewController")
     }
 }
 
@@ -186,7 +187,10 @@ extension PillAlarmRegisterViewController : PillAlarmReigsterAction {
             mainView.activityIndicator.stopAnimating()
             mainView.loadingBgView.removeFromSuperview()
             
-            if let pillTitle = mainView.userInputTextfield.text, let alarmDateList = viewModel.outputAlarmDateList.value, let periodType = viewModel.outputPeriodType.value, let startDate = viewModel.outputStartDate.value, !pillTitle.isEmpty, viewModel.selectedPill.value.count > 0 {
+            print(viewModel.inputGroupId.value)
+            
+            
+            if let pillTitle = viewModel.inputGroupId.value, let alarmDateList = viewModel.outputAlarmDateList.value, let periodType = viewModel.outputPeriodType.value, let startDate = viewModel.outputStartDate.value, !pillTitle.isEmpty, viewModel.selectedPill.value.count > 0 {
                 
                 let vc = PillAlarmSpecificViewController()
                 vc.viewModel = viewModel
@@ -197,6 +201,27 @@ extension PillAlarmRegisterViewController : PillAlarmReigsterAction {
                 view.makeToast("입력된 값을 다시 확인해주세요 🥲", duration: 2, position: .center)
             }
         }
+    }
+    
+}
+
+//MARK: - Textfield Delegate
+extension PillAlarmRegisterViewController : UITextFieldDelegate {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        print(#function)
+        textField.text = nil
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        viewModel.inputGroupId.value = textField.text
     }
     
 }

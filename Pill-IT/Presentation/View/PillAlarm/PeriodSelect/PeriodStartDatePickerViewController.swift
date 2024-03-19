@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class PeriodStartDatePickerViewController: BaseViewController {
+final class PeriodStartDatePickerViewController: BaseViewController {
 
     let datePicker = UIDatePicker().then {
         $0.locale = Locale(identifier: "ko_KR")

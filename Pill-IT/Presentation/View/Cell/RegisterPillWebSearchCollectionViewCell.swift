@@ -10,7 +10,7 @@ import SnapKit
 import Then
 import Kingfisher
 
-class RegisterPillWebSearchCollectionViewCell: BaseCollectionViewCell {
+final class RegisterPillWebSearchCollectionViewCell: BaseCollectionViewCell {
     
     let webImage = UIImageView().then { _ in
     }

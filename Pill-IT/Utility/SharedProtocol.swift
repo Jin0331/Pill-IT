@@ -32,3 +32,8 @@ protocol PillAlarmReigsterAction : AnyObject {
     func startDateSelectPresent()
     func completeButtonAction()
 }
+
+protocol PillSpecificAction : AnyObject {
+    func addButtonAction()
+    func completeButtonAction()
+}

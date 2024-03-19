@@ -23,11 +23,13 @@
 		DB5E59BB2BA5DAFE00C753BD /* PillAlarmCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5E59BA2BA5DAFE00C753BD /* PillAlarmCollectionViewCell.swift */; };
 		DB5E59BD2BA6D07900C753BD /* PeriodSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5E59BC2BA6D07900C753BD /* PeriodSelectViewController.swift */; };
 		DB5E59BF2BA6D40F00C753BD /* PeriodSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5E59BE2BA6D40F00C753BD /* PeriodSelectView.swift */; };
-		DB5E59C32BA6F3EF00C753BD /* Formatter + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5E59C22BA6F3EE00C753BD /* Formatter + Extension.swift */; };
+		DB5E59C32BA6F3EF00C753BD /* Formatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5E59C22BA6F3EE00C753BD /* Formatter+Extension.swift */; };
 		DB5E59C52BA7156400C753BD /* PeriodSelectDayOfTheWeekViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5E59C42BA7156400C753BD /* PeriodSelectDayOfTheWeekViewController.swift */; };
 		DB5E59C72BA73D9900C753BD /* PeriodSelectDaysViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5E59C62BA73D9900C753BD /* PeriodSelectDaysViewController.swift */; };
 		DB5E59C92BA768F600C753BD /* PeriodStartDatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5E59C82BA768F600C753BD /* PeriodStartDatePickerViewController.swift */; };
 		DB5E59CB2BA7784D00C753BD /* PillAlarmSpecificViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5E59CA2BA7784D00C753BD /* PillAlarmSpecificViewController.swift */; };
+		DB5E59D12BA81D2B00C753BD /* PillAlarmSpecificView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5E59D02BA81D2B00C753BD /* PillAlarmSpecificView.swift */; };
+		DB5E59D32BA8263200C753BD /* PillAlarmSpecificCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5E59D22BA8263200C753BD /* PillAlarmSpecificCollectionViewCell.swift */; };
 		DB8D12452BA2EC70002E34BC /* PillAlarmRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8D12442BA2EC70002E34BC /* PillAlarmRegisterViewController.swift */; };
 		DB8D12472BA3EC69002E34BC /* UICollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8D12462BA3EC69002E34BC /* UICollectionView+Extension.swift */; };
 		DB8D12492BA48B38002E34BC /* SharedEnumeration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8D12482BA48B38002E34BC /* SharedEnumeration.swift */; };
@@ -83,11 +85,13 @@
 		DB5E59BA2BA5DAFE00C753BD /* PillAlarmCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillAlarmCollectionViewCell.swift; sourceTree = "<group>"; };
 		DB5E59BC2BA6D07900C753BD /* PeriodSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodSelectViewController.swift; sourceTree = "<group>"; };
 		DB5E59BE2BA6D40F00C753BD /* PeriodSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodSelectView.swift; sourceTree = "<group>"; };
-		DB5E59C22BA6F3EE00C753BD /* Formatter + Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Formatter + Extension.swift"; sourceTree = "<group>"; };
+		DB5E59C22BA6F3EE00C753BD /* Formatter+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Formatter+Extension.swift"; sourceTree = "<group>"; };
 		DB5E59C42BA7156400C753BD /* PeriodSelectDayOfTheWeekViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodSelectDayOfTheWeekViewController.swift; sourceTree = "<group>"; };
 		DB5E59C62BA73D9900C753BD /* PeriodSelectDaysViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodSelectDaysViewController.swift; sourceTree = "<group>"; };
 		DB5E59C82BA768F600C753BD /* PeriodStartDatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodStartDatePickerViewController.swift; sourceTree = "<group>"; };
 		DB5E59CA2BA7784D00C753BD /* PillAlarmSpecificViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillAlarmSpecificViewController.swift; sourceTree = "<group>"; };
+		DB5E59D02BA81D2B00C753BD /* PillAlarmSpecificView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillAlarmSpecificView.swift; sourceTree = "<group>"; };
+		DB5E59D22BA8263200C753BD /* PillAlarmSpecificCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillAlarmSpecificCollectionViewCell.swift; sourceTree = "<group>"; };
 		DB8D12442BA2EC70002E34BC /* PillAlarmRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillAlarmRegisterViewController.swift; sourceTree = "<group>"; };
 		DB8D12462BA3EC69002E34BC /* UICollectionView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extension.swift"; sourceTree = "<group>"; };
 		DB8D12482BA48B38002E34BC /* SharedEnumeration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedEnumeration.swift; sourceTree = "<group>"; };
@@ -154,8 +158,52 @@
 				DB0F10DF2B9F885E000DC430 /* RegisterPillWebSearchCollectionViewCell.swift */,
 				DB0368262BA1E7E9006A62AD /* PillManagermentCollectionViewCell.swift */,
 				DB5E59BA2BA5DAFE00C753BD /* PillAlarmCollectionViewCell.swift */,
+				DB5E59D22BA8263200C753BD /* PillAlarmSpecificCollectionViewCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		DB5E59CC2BA7830E00C753BD /* RegisterPill */ = {
+			isa = PBXGroup;
+			children = (
+				DBF735212B9DD6F900326852 /* RegisterPillView.swift */,
+				DB0F10DC2B9F83CD000DC430 /* RegisterPillWebSearchViewController.swift */,
+				DBF446812B99AA4C0021BC0F /* RegisterPillViewController.swift */,
+			);
+			path = RegisterPill;
+			sourceTree = "<group>";
+		};
+		DB5E59CD2BA7833400C753BD /* PillManagement */ = {
+			isa = PBXGroup;
+			children = (
+				DB0368242BA1DBBB006A62AD /* PillManagementView.swift */,
+				DBF7350B2B9CBC4300326852 /* PillManagementViewController.swift */,
+			);
+			path = PillManagement;
+			sourceTree = "<group>";
+		};
+		DB5E59CE2BA7835300C753BD /* PillAlarm */ = {
+			isa = PBXGroup;
+			children = (
+				DB5E59B82BA5D45D00C753BD /* PillAlarmRegisterView.swift */,
+				DB8D12442BA2EC70002E34BC /* PillAlarmRegisterViewController.swift */,
+				DB5E59D02BA81D2B00C753BD /* PillAlarmSpecificView.swift */,
+				DB5E59CA2BA7784D00C753BD /* PillAlarmSpecificViewController.swift */,
+				DB5E59CF2BA783B700C753BD /* PeriodSelect */,
+			);
+			path = PillAlarm;
+			sourceTree = "<group>";
+		};
+		DB5E59CF2BA783B700C753BD /* PeriodSelect */ = {
+			isa = PBXGroup;
+			children = (
+				DB5E59BE2BA6D40F00C753BD /* PeriodSelectView.swift */,
+				DB5E59BC2BA6D07900C753BD /* PeriodSelectViewController.swift */,
+				DB5E59C42BA7156400C753BD /* PeriodSelectDayOfTheWeekViewController.swift */,
+				DB5E59C62BA73D9900C753BD /* PeriodSelectDaysViewController.swift */,
+				DB5E59C82BA768F600C753BD /* PeriodStartDatePickerViewController.swift */,
+			);
+			path = PeriodSelect;
 			sourceTree = "<group>";
 		};
 		DBF4464C2B9983930021BC0F = {
@@ -207,21 +255,11 @@
 		DBF446722B998E840021BC0F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				DB0F10DE2B9F8848000DC430 /* Cell */,
 				DBF735072B9CB58100326852 /* MainTabBarController.swift */,
-				DBF735212B9DD6F900326852 /* RegisterPillView.swift */,
-				DB0F10DC2B9F83CD000DC430 /* RegisterPillWebSearchViewController.swift */,
-				DBF446812B99AA4C0021BC0F /* RegisterPillViewController.swift */,
-				DB0368242BA1DBBB006A62AD /* PillManagementView.swift */,
-				DBF7350B2B9CBC4300326852 /* PillManagementViewController.swift */,
-				DB5E59B82BA5D45D00C753BD /* PillAlarmRegisterView.swift */,
-				DB8D12442BA2EC70002E34BC /* PillAlarmRegisterViewController.swift */,
-				DB5E59CA2BA7784D00C753BD /* PillAlarmSpecificViewController.swift */,
-				DB5E59BE2BA6D40F00C753BD /* PeriodSelectView.swift */,
-				DB5E59BC2BA6D07900C753BD /* PeriodSelectViewController.swift */,
-				DB5E59C42BA7156400C753BD /* PeriodSelectDayOfTheWeekViewController.swift */,
-				DB5E59C62BA73D9900C753BD /* PeriodSelectDaysViewController.swift */,
-				DB5E59C82BA768F600C753BD /* PeriodStartDatePickerViewController.swift */,
+				DB5E59CC2BA7830E00C753BD /* RegisterPill */,
+				DB5E59CD2BA7833400C753BD /* PillManagement */,
+				DB5E59CE2BA7835300C753BD /* PillAlarm */,
+				DB0F10DE2B9F8848000DC430 /* Cell */,
 				DBF735092B9CBC3000326852 /* NotificationViewController.swift */,
 			);
 			path = View;
@@ -269,7 +307,7 @@
 				DB8D12462BA3EC69002E34BC /* UICollectionView+Extension.swift */,
 				DB8D124A2BA48FD0002E34BC /* UIViewController+Extension.swift */,
 				DB21CDA82BA03CF00041C892 /* String+Extension.swift */,
-				DB5E59C22BA6F3EE00C753BD /* Formatter + Extension.swift */,
+				DB5E59C22BA6F3EE00C753BD /* Formatter+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -468,6 +506,7 @@
 				DBF446592B9983930021BC0F /* AppDelegate.swift in Sources */,
 				DBF7351B2B9DD3BE00326852 /* BaseViewController.swift in Sources */,
 				DB8D12452BA2EC70002E34BC /* PillAlarmRegisterViewController.swift in Sources */,
+				DB5E59D32BA8263200C753BD /* PillAlarmSpecificCollectionViewCell.swift in Sources */,
 				DBF048682B9AAA080020750F /* PillAPIManager.swift in Sources */,
 				DB8D12472BA3EC69002E34BC /* UICollectionView+Extension.swift in Sources */,
 				DB5600642B9A458900E6558E /* RealmModel.swift in Sources */,
@@ -483,9 +522,10 @@
 				DBF446822B99AA4C0021BC0F /* RegisterPillViewController.swift in Sources */,
 				DBF7350C2B9CBC4300326852 /* PillManagementViewController.swift in Sources */,
 				DBF735192B9DD3BE00326852 /* BaseCollectionViewCell.swift in Sources */,
+				DB5E59D12BA81D2B00C753BD /* PillAlarmSpecificView.swift in Sources */,
 				DB5E59BB2BA5DAFE00C753BD /* PillAlarmCollectionViewCell.swift in Sources */,
 				DBF735122B9CC71800326852 /* WHTabbarController.swift in Sources */,
-				DB5E59C32BA6F3EF00C753BD /* Formatter + Extension.swift in Sources */,
+				DB5E59C32BA6F3EF00C753BD /* Formatter+Extension.swift in Sources */,
 				DB5E59B92BA5D45D00C753BD /* PillAlarmRegisterView.swift in Sources */,
 				DB0F10E02B9F885E000DC430 /* RegisterPillWebSearchCollectionViewCell.swift in Sources */,
 				DB5E59CB2BA7784D00C753BD /* PillAlarmSpecificViewController.swift in Sources */,

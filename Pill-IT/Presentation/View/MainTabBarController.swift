@@ -8,7 +8,7 @@
 import UIKit
 import Toast_Swift
 
-class MainTabBarController: WHTabbarController {
+final class MainTabBarController: WHTabbarController {
     
     private var firstVC : PillManagementViewController!
     private var secondVC : NotificationViewController!
@@ -24,7 +24,6 @@ class MainTabBarController: WHTabbarController {
         let secondNav = UINavigationController(rootViewController: secondVC)
         
         setViewControllers([firstNav, secondNav], animated: true)
-        
     }
     
     override func viewDidLayoutSubviews() {

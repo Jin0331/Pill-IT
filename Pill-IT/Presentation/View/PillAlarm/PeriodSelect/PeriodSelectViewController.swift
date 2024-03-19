@@ -77,8 +77,6 @@ extension PeriodSelectViewController : UICollectionViewDelegate {
                 guard let value = value else { return }
                 sendPeriodSelectButtonTitle?(value)
             }
-            print(viewModel.outputAlarmDateList.value ?? "")
-            
             dismiss(animated: true)
         }
         

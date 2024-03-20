@@ -52,7 +52,7 @@ class BaseViewController : UIViewController {
         navigationItem.backBarButtonItem = backBarButtonItem
         
         // rightButton
-        let searchButtonItem = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"))
+        let searchButtonItem = UIBarButtonItem(image: DesignSystem.sfSymbol.search)
         searchButtonItem.tintColor = DesignSystem.colorSet.lightBlack
         navigationItem.rightBarButtonItem = searchButtonItem
     }

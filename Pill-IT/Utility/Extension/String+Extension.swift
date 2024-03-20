@@ -34,6 +34,13 @@ extension String {
             return -999
         }
     }
+    
+    static func randomEmoji() -> String? {
+        let range = [UInt32](0x1F601...0x1F64F)
+        let ascii = range[Int(drand48() * (Double(range.count)))]
+        let emoji = UnicodeScalar(ascii)?.description
+        return emoji!
+    }
 }
 
 extension Int {

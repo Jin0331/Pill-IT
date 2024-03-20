@@ -14,9 +14,9 @@ final class PillAlarmSpecificView: BaseView {
     weak var actionDelegate : PillSpecificAction?
     
     let headerLabel = UILabel().then {
-        $0.text = "세부 알림 시간을 설정해주세요 🫡"
+        $0.text = "세부 알림 시간을 설정해주세요 🥸"
         $0.textColor = DesignSystem.colorSet.black
-        $0.font = .systemFont(ofSize: 25, weight: .heavy)
+        $0.font = .systemFont(ofSize: 22, weight: .heavy)
         $0.textAlignment = .center
     }
     
@@ -28,9 +28,8 @@ final class PillAlarmSpecificView: BaseView {
     }()
     
     let addButton = UIButton().then {
-        $0.setImage(UIImage(systemName: "plus"), for: .normal)
+        $0.setImage(DesignSystem.sfSymbol.plus, for: .normal)
         $0.tintColor = DesignSystem.colorSet.white
-        $0.titleLabel?.font = .systemFont(ofSize: 17, weight: .heavy)
         $0.backgroundColor = DesignSystem.colorSet.lightBlack
         $0.layer.cornerRadius = DesignSystem.viewLayout.cornerRadius
     }

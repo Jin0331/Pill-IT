@@ -11,7 +11,7 @@ import Toast_Swift
 final class MainTabBarController: WHTabbarController {
     
     private var firstVC : PillManagementViewController!
-    private var secondVC : NotificationViewController!
+    private var secondVC : PillNotificationViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,10 +20,10 @@ final class MainTabBarController: WHTabbarController {
         firstVC = PillManagementViewController()
         let firstNav = UINavigationController(rootViewController: firstVC)
         
-        secondVC = NotificationViewController()
+        secondVC = PillNotificationViewController()
         let secondNav = UINavigationController(rootViewController: secondVC)
         
-        setViewControllers([firstNav, secondNav], animated: true)
+        setViewControllers([firstNav, secondVC], animated: true)
     }
     
     override func viewDidLayoutSubviews() {

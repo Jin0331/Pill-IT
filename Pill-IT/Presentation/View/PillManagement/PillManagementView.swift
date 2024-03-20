@@ -25,7 +25,7 @@ final class PillManagementView : BaseView {
         $0.setTitleColor(DesignSystem.colorSet.white, for: .normal)
         $0.tintColor = DesignSystem.colorSet.white
         $0.backgroundColor = DesignSystem.colorSet.lightBlack
-        $0.setImage(UIImage(systemName: "alarm"), for: .normal)
+        $0.setImage(DesignSystem.sfSymbol.alarm, for: .normal)
         $0.layer.borderColor = DesignSystem.colorSet.lightBlack.cgColor
         $0.layer.cornerRadius = 20
         $0.layer.shadowOffset = CGSize(width: 10, height: 5)

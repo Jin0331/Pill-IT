@@ -48,13 +48,13 @@ final class PillAlarmCollectionViewCell: BaseCollectionViewCell {
         }
         
         itemImage.snp.makeConstraints { make in
-            make.leading.centerY.equalTo(bgView).inset(5)
-            make.height.equalTo(40)
+            make.leading.top.bottom.equalTo(bgView).inset(5)
+//            make.height.equalTo(40)
             make.width.equalTo(50)
         }
         
         itemNameLabel.snp.makeConstraints { make in
-            make.leading.equalTo(itemImage.snp.trailing).offset(10)
+            make.leading.equalTo(itemImage.snp.trailing).offset(5)
             make.trailing.equalTo(bgView)
             make.centerY.equalTo(itemImage)
         }

@@ -101,7 +101,7 @@ final class PillManagementCollectionViewCell: BaseCollectionViewCell {
     
     func updateUI(_ itemIdentifier : Pill) {
         
-        print("🔆 cell updateUI")
+        print("🔆 PillManagementCollectionViewCell cell updateUI")
         
         let provider = LocalFileImageDataProvider(fileURL: itemIdentifier.urlPathToURL)
         

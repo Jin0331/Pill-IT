@@ -52,10 +52,6 @@ final class PillNotificationContentViewController: BaseViewController {
             
             let cell = collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
             
-            print(itemIdentifier.alarmGroup.first?.alarmName)
-            
-            cell.viewModel.inputCurrentDateAlarmPill.value = Array(pillList)
-            
             return cell
         })
     }

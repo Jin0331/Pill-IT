@@ -1,5 +1,5 @@
 //
-//  PillNotificationSubViewModel.swift
+//  PopUpPillAlarmGroupViewModel.swift
 //  Pill-IT
 //
 //  Created by JinwooLee on 3/20/24.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class PillNotificationSubViewModel {
+class PopUpPillAlarmGroupViewModel {
     
     var inputCurrentDateAlarmPill : Observable<[Pill]?> = Observable(nil)
     

@@ -72,7 +72,7 @@ final class PillNotificationViewController: BaseViewController {
     
     override func configureView() {
         super.configureView()
-        pagingViewController.register(PillNotificationItemMenuCell.self, for: CalendarItem.self)
+        pagingViewController.register(PillNotificationItemMenuCollectionViewCell.self, for: CalendarItem.self)
         pagingViewController.menuItemSize = .fixed(width: 48, height: 58)
         pagingViewController.textColor = UIColor.gray
         pagingViewController.didMove(toParent: self)

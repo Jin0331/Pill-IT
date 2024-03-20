@@ -30,7 +30,7 @@
 		DB5E59CB2BA7784D00C753BD /* PillAlarmSpecificViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5E59CA2BA7784D00C753BD /* PillAlarmSpecificViewController.swift */; };
 		DB5E59D12BA81D2B00C753BD /* PillAlarmSpecificView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5E59D02BA81D2B00C753BD /* PillAlarmSpecificView.swift */; };
 		DB5E59D32BA8263200C753BD /* PillAlarmSpecificCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5E59D22BA8263200C753BD /* PillAlarmSpecificCollectionViewCell.swift */; };
-		DB5E59E72BA9E2E600C753BD /* PillNotificationItemMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5E59E62BA9E2E600C753BD /* PillNotificationItemMenuCell.swift */; };
+		DB5E59E72BA9E2E600C753BD /* PillNotificationItemMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5E59E62BA9E2E600C753BD /* PillNotificationItemMenuCollectionViewCell.swift */; };
 		DB5E59E92BA9E36F00C753BD /* PillNotificationContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5E59E82BA9E36F00C753BD /* PillNotificationContentViewController.swift */; };
 		DB5E59ED2BA9F6A300C753BD /* PillAlarmDateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5E59EC2BA9F6A300C753BD /* PillAlarmDateModel.swift */; };
 		DB5E59F02BAAF40D00C753BD /* PillNotificationContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5E59EF2BAAF40D00C753BD /* PillNotificationContentView.swift */; };
@@ -39,6 +39,7 @@
 		DB8D12492BA48B38002E34BC /* SharedEnumeration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8D12482BA48B38002E34BC /* SharedEnumeration.swift */; };
 		DB8D124B2BA48FD0002E34BC /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8D124A2BA48FD0002E34BC /* UIViewController+Extension.swift */; };
 		DBEE627B2BAAFAC1003BD600 /* PillNotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEE627A2BAAFAC1003BD600 /* PillNotificationViewModel.swift */; };
+		DBEE627D2BAB085A003BD600 /* PillNotificationContentViewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEE627C2BAB085A003BD600 /* PillNotificationContentViewCollectionViewCell.swift */; };
 		DBF048682B9AAA080020750F /* PillAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF048672B9AAA080020750F /* PillAPIManager.swift */; };
 		DBF0486A2B9B0E9C0020750F /* PillPermitDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF048692B9B0E9C0020750F /* PillPermitDetailModel.swift */; };
 		DBF446592B9983930021BC0F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF446582B9983930021BC0F /* AppDelegate.swift */; };
@@ -60,7 +61,6 @@
 		DBF735102B9CC6FD00326852 /* extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF7350F2B9CC6FD00326852 /* extension.swift */; };
 		DBF735122B9CC71800326852 /* WHTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF735112B9CC71800326852 /* WHTabbarController.swift */; };
 		DBF735192B9DD3BE00326852 /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF735152B9DD3BE00326852 /* BaseCollectionViewCell.swift */; };
-		DBF7351A2B9DD3BE00326852 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF735162B9DD3BE00326852 /* BaseTableViewCell.swift */; };
 		DBF7351B2B9DD3BE00326852 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF735172B9DD3BE00326852 /* BaseViewController.swift */; };
 		DBF7351C2B9DD3BE00326852 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF735182B9DD3BE00326852 /* BaseView.swift */; };
 		DBF7351E2B9DD3E700326852 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF7351D2B9DD3E600326852 /* Observable.swift */; };
@@ -97,7 +97,7 @@
 		DB5E59CA2BA7784D00C753BD /* PillAlarmSpecificViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillAlarmSpecificViewController.swift; sourceTree = "<group>"; };
 		DB5E59D02BA81D2B00C753BD /* PillAlarmSpecificView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillAlarmSpecificView.swift; sourceTree = "<group>"; };
 		DB5E59D22BA8263200C753BD /* PillAlarmSpecificCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillAlarmSpecificCollectionViewCell.swift; sourceTree = "<group>"; };
-		DB5E59E62BA9E2E600C753BD /* PillNotificationItemMenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PillNotificationItemMenuCell.swift; sourceTree = "<group>"; };
+		DB5E59E62BA9E2E600C753BD /* PillNotificationItemMenuCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PillNotificationItemMenuCollectionViewCell.swift; sourceTree = "<group>"; };
 		DB5E59E82BA9E36F00C753BD /* PillNotificationContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PillNotificationContentViewController.swift; sourceTree = "<group>"; };
 		DB5E59EC2BA9F6A300C753BD /* PillAlarmDateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillAlarmDateModel.swift; sourceTree = "<group>"; };
 		DB5E59EF2BAAF40D00C753BD /* PillNotificationContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillNotificationContentView.swift; sourceTree = "<group>"; };
@@ -106,6 +106,7 @@
 		DB8D12482BA48B38002E34BC /* SharedEnumeration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedEnumeration.swift; sourceTree = "<group>"; };
 		DB8D124A2BA48FD0002E34BC /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		DBEE627A2BAAFAC1003BD600 /* PillNotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillNotificationViewModel.swift; sourceTree = "<group>"; };
+		DBEE627C2BAB085A003BD600 /* PillNotificationContentViewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillNotificationContentViewCollectionViewCell.swift; sourceTree = "<group>"; };
 		DBF048672B9AAA080020750F /* PillAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillAPIManager.swift; sourceTree = "<group>"; };
 		DBF048692B9B0E9C0020750F /* PillPermitDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillPermitDetailModel.swift; sourceTree = "<group>"; };
 		DBF0486D2B9CB2120020750F /* Pill-IT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pill-IT.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -129,7 +130,6 @@
 		DBF7350F2B9CC6FD00326852 /* extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extension.swift; sourceTree = "<group>"; };
 		DBF735112B9CC71800326852 /* WHTabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WHTabbarController.swift; sourceTree = "<group>"; };
 		DBF735152B9DD3BE00326852 /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
-		DBF735162B9DD3BE00326852 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		DBF735172B9DD3BE00326852 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		DBF735182B9DD3BE00326852 /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		DBF7351D2B9DD3E600326852 /* Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
@@ -169,7 +169,8 @@
 				DB0368262BA1E7E9006A62AD /* PillManagermentCollectionViewCell.swift */,
 				DB5E59BA2BA5DAFE00C753BD /* PillAlarmCollectionViewCell.swift */,
 				DB5E59D22BA8263200C753BD /* PillAlarmSpecificCollectionViewCell.swift */,
-				DB5E59E62BA9E2E600C753BD /* PillNotificationItemMenuCell.swift */,
+				DB5E59E62BA9E2E600C753BD /* PillNotificationItemMenuCollectionViewCell.swift */,
+				DBEE627C2BAB085A003BD600 /* PillNotificationContentViewCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -378,10 +379,9 @@
 		DBF735142B9DD38B00326852 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				DBF735182B9DD3BE00326852 /* BaseView.swift */,
 				DBF735172B9DD3BE00326852 /* BaseViewController.swift */,
 				DBF735152B9DD3BE00326852 /* BaseCollectionViewCell.swift */,
-				DBF735162B9DD3BE00326852 /* BaseTableViewCell.swift */,
-				DBF735182B9DD3BE00326852 /* BaseView.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -526,7 +526,6 @@
 				DBF446842B99ADC60021BC0F /* FileDownloadManager.swift in Sources */,
 				DBF0486A2B9B0E9C0020750F /* PillPermitDetailModel.swift in Sources */,
 				DB5E59B72BA5D29500C753BD /* PillAlaramRegisterViewModel.swift in Sources */,
-				DBF7351A2B9DD3BE00326852 /* BaseTableViewCell.swift in Sources */,
 				DBF446592B9983930021BC0F /* AppDelegate.swift in Sources */,
 				DBF7351B2B9DD3BE00326852 /* BaseViewController.swift in Sources */,
 				DB8D12452BA2EC70002E34BC /* PillAlarmRegisterViewController.swift in Sources */,
@@ -536,7 +535,7 @@
 				DB5600642B9A458900E6558E /* RealmModel.swift in Sources */,
 				DB8D124B2BA48FD0002E34BC /* UIViewController+Extension.swift in Sources */,
 				DBF7352C2B9E9F2700326852 /* PillGrainInfo.swift in Sources */,
-				DB5E59E72BA9E2E600C753BD /* PillNotificationItemMenuCell.swift in Sources */,
+				DB5E59E72BA9E2E600C753BD /* PillNotificationItemMenuCollectionViewCell.swift in Sources */,
 				DBF735202B9DD3FC00326852 /* DesignSystem.swift in Sources */,
 				DBF4468E2B9A350E0021BC0F /* PillRepository.swift in Sources */,
 				DB0368292BA1F889006A62AD /* PillManagementViewModel.swift in Sources */,
@@ -547,6 +546,7 @@
 				DBF735082B9CB58100326852 /* MainTabBarController.swift in Sources */,
 				DBF446822B99AA4C0021BC0F /* RegisterPillViewController.swift in Sources */,
 				DBF7350C2B9CBC4300326852 /* PillManagementViewController.swift in Sources */,
+				DBEE627D2BAB085A003BD600 /* PillNotificationContentViewCollectionViewCell.swift in Sources */,
 				DBF735192B9DD3BE00326852 /* BaseCollectionViewCell.swift in Sources */,
 				DB5E59D12BA81D2B00C753BD /* PillAlarmSpecificView.swift in Sources */,
 				DB5E59BB2BA5DAFE00C753BD /* PillAlarmCollectionViewCell.swift in Sources */,

@@ -8,44 +8,13 @@
 import UIKit
 
 final class PillNotificationContentViewController: BaseViewController {
-
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        
-//        print("계속호출되냐!!!", title,"🥲🥲🥲🥲🥲")
-//    }
-//
-//    init(title: String) {
-//        
-//        print("이게 제일 먼저 출력될걸?")
-//        
-//        super.init(nibName: nil, bundle: nil)
-//        self.title = title
-//
-//        let label = UILabel(frame: .zero)
-//        label.font = UIFont.systemFont(ofSize: 50, weight: UIFont.Weight.thin)
-//        label.textColor = UIColor(red: 95 / 255, green: 102 / 255, blue: 108 / 255, alpha: 1)
-//        label.textAlignment = .center
-//        label.backgroundColor = .red
-//        label.text = title
-//        label.sizeToFit()
-//
-//        view.addSubview(label)
-//        view.constrainToEdges(label)
-//        view.backgroundColor = .white
-//    }
-//
-//    required init?(coder _: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
     
-
     let mainView = PillNotificationContentView()
     let viewModel = PillNotificationViewModel()
+    private var dataSource : UICollectionViewDiffableDataSource<PillNotificationContent, PillAlarmDate>!
     
     init(currentDate : Date) {
         super.init(nibName: nil, bundle: nil)
-//        print(currentDate.toStringTime(dateFormat: "yy-MM-dd"))
         viewModel.inputCurrentDate.value = currentDate
     }
     
@@ -53,14 +22,53 @@ final class PillNotificationContentViewController: BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
+    override func loadView() {
+        view = mainView
+        mainView.mainCollectionView.delegate = self
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        configureDataSource()
+        bindData()
+    }
+    
+    private func bindData() {
+        viewModel.outputCurrentDateAlarm.bind { [weak self] value in
+            guard let self = self else { return }
+            guard let value = value else { return }
+            
+            updateSnapshot(value)
+        }
+    }
+    
+    private func configureDataSource() {
+        
+        let cellRegistration = mainView.pillNotificationContentCellRegistration()
+        dataSource = UICollectionViewDiffableDataSource(collectionView: mainView.mainCollectionView, cellProvider: { [weak self] collectionView, indexPath, itemIdentifier in
+            let cell = collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
+//            cell.delegate = self
+            
+            return cell
+        })
+    }
+    
+    private func updateSnapshot(_ data : [PillAlarmDate]) {
+        var snapshot = NSDiffableDataSourceSnapshot<PillNotificationContent, PillAlarmDate>()
+        snapshot.appendSections(PillNotificationContent.allCases)
+        snapshot.appendItems(data, toSection: .main)
+        
+        dataSource.apply(snapshot) // reloadData
+        print("PillNotificationContentViewController UpdateSnapShot ❗️❗️❗️❗️❗️❗️❗️")
+    }
     
     
     deinit {
-        print(#function, " -  ContentViewController ✅")
+        print(#function, " - PillNotificationContentViewController ✅")
     }
+}
+
+extension PillNotificationContentViewController : UICollectionViewDelegate {
+    
 }

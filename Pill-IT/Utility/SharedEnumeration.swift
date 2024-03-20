@@ -7,17 +7,14 @@
 
 import Foundation
 
-//MARK: - 복용약 등록 화면
+//MARK: - Diffable Datasource Section
 enum RegisterPillWebSearchViewSection : CaseIterable {
     case main
 }
-
-//MARK: - 복용약 관리 화면
 enum PillManagementViewSection : CaseIterable {
     case main
 }
 
-//MARK: - 복용약 알람 등록 화면
 enum PillAlarmViewSection : CaseIterable {
     case main
 }
@@ -30,6 +27,11 @@ enum PillAlarmSpecificViewSection : CaseIterable {
     case main
 }
 
+enum PillNotificationContent : CaseIterable {
+    case main
+}
+
+//MARK: - DataHandling
 enum PeriodCase : String, CaseIterable {
     case always = "매일"
     case specificDay = "특정 요일"

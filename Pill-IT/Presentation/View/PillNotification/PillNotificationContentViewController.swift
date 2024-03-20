@@ -54,6 +54,7 @@ final class PillNotificationContentViewController: BaseViewController {
             
             cell.actionDelegate = self
             cell.viewModel.inputCurrentDateAlarmPill.value = Array(pillList)
+            cell.viewModel.inputCurrentGroupID.value = itemIdentifier.alarmName
             
             return cell
         })
@@ -68,6 +69,9 @@ final class PillNotificationContentViewController: BaseViewController {
         print("PillNotificationContentViewController UpdateSnapShot ❗️❗️❗️❗️❗️❗️❗️")
     }
     
+    @objc private func dismissAlertController(){
+        self.dismiss(animated: true, completion: nil)
+    }
     
     deinit {
         print(#function, " - PillNotificationContentViewController ✅")
@@ -81,10 +85,29 @@ extension PillNotificationContentViewController : UICollectionViewDelegate {
 
 //MARK: - Delegate Action
 extension PillNotificationContentViewController : PillNotificationAction {
-    func containPillButton(_ data : [Pill]?) {
+    func containPillButton(_ groupID : String?, _ data : [Pill]?) {
         print(#function)
         
+        let vc = PopUpPillAlarmGroupViewController()
+        vc.viewModel.inputCurrentDateAlarmPill.value = data
         
+        let alert = UIAlertController(title: groupID, message: nil, preferredStyle: .alert)
+        alert.view.tintColor = DesignSystem.colorSet.lightBlack
         
+        // height constraint
+        let constraintHeight = NSLayoutConstraint(
+            item: alert.view!, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute:
+                NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: 300)
+        alert.view.addConstraint(constraintHeight)
+        
+//        let cancle = UIAlertAction(title: "확인", style: .default)
+//        alert.addAction(cancle)
+        alert.setValue(vc, forKey: "contentViewController")
+        
+        present(alert, animated: true) { [weak self] in
+            guard let self = self else { return }
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+            alert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+        }
     }
 }

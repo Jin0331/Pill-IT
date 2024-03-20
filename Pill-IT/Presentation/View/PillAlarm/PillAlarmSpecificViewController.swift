@@ -136,7 +136,7 @@ extension PillAlarmSpecificViewController {
         datePicker.locale = Locale(identifier: "ko_KR")
         datePicker.setValue(DesignSystem.colorSet.lightBlack, forKeyPath: "textColor")
         
-        let select = UIAlertAction(title: "선택 완료", style: .cancel) { [weak self] action in
+        let select = UIAlertAction(title: "선택 완료", style: .default) { [weak self] action in
             guard let self = self else { return }
             guard let viewModel = viewModel else { return }
             
@@ -165,10 +165,11 @@ extension PillAlarmSpecificViewController {
                     return
                 }}}
         
-        let cancle = UIAlertAction(title: "취소", style: .destructive)
+        let cancle = UIAlertAction(title: "취소", style: .cancel)
         
-        alert.addAction(select)
         alert.addAction(cancle)
+        alert.addAction(select)
+        
         let vc = UIViewController()
         vc.view = datePicker
         alert.setValue(vc, forKey: "contentViewController")

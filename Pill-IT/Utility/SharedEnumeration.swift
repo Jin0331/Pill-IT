@@ -60,7 +60,7 @@ enum PeriodSpecificDay : Int, CaseIterable {
         case .thu:
             return "😇 목요일"
         case .fri:
-            return "🫠 금요일"
+            return "🤩 금요일"
         case .sat:
             return "🤪 토요일"
         }

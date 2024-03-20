@@ -14,9 +14,9 @@ final class PillAlarmSpecificView: BaseView {
     weak var actionDelegate : PillSpecificAction?
     
     let headerLabel = UILabel().then {
-        $0.text = "세부 알림 시간을 설정해주세요 🫡"
+        $0.text = "세부 알림 시간을 설정해주세요 🥸"
         $0.textColor = DesignSystem.colorSet.black
-        $0.font = .systemFont(ofSize: 25, weight: .heavy)
+        $0.font = .systemFont(ofSize: 22, weight: .heavy)
         $0.textAlignment = .center
     }
     

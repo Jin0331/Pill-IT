@@ -207,7 +207,7 @@ final class RegisterPillView: BaseView {
             make.top.equalTo(pillImageView.snp.bottom).offset(20)
             make.horizontalEdges.equalTo(pillImageView)
             make.height.equalTo(userInputTextfield)
-            make.bottom.equalToSuperview()
+            make.bottom.equalToSuperview().inset(20)
         }
     }
     

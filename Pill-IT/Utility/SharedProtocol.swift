@@ -39,5 +39,5 @@ protocol PillSpecificAction : AnyObject {
 }
 
 protocol PillNotificationAction : AnyObject {
-    func  containPillButton(_ data : [Pill]?)
+    func  containPillButton(_ groupID : String?, _ data : [Pill]?)
 }

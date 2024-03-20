@@ -9,8 +9,8 @@ import UIKit
 import SnapKit
 import Then
 
-final class PopUpPillAlarmGroupViewController: BaseViewController {
-    
+final class _PopUpPillAlarmGroupViewController: BaseViewController {
+
     let viewModel = PopUpPillAlarmGroupViewModel()
     private var dataSource : UICollectionViewDiffableDataSource<PillAlarmViewSection, Pill>!
     
@@ -18,12 +18,12 @@ final class PopUpPillAlarmGroupViewController: BaseViewController {
         let view = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         view.backgroundColor = DesignSystem.colorSet.white
         
-        return view
+       return view
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         print(#function, "- ❗️PopUpPillAlarmGroupViewController")
         
         configureDataSource()
@@ -45,22 +45,21 @@ final class PopUpPillAlarmGroupViewController: BaseViewController {
     }
     
     override func configureLayout() {
-
-        mainCollectionView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
             
+        mainCollectionView.snp.makeConstraints { make in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
     
     deinit {
         print(#function, " - ✅ PopUpPillAlarmGroupViewController")
     }
-    
+
 }
 
 
 //MARK: - SubCollectionView in Cell
-extension PopUpPillAlarmGroupViewController {
+extension _PopUpPillAlarmGroupViewController {
     
     private func configureDataSource() {
         
@@ -95,7 +94,7 @@ extension PopUpPillAlarmGroupViewController {
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(50))
         
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        
+
         // Section
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 5

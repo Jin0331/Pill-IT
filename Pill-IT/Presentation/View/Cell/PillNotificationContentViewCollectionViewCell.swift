@@ -79,12 +79,12 @@ final class PillNotificationContentViewCollectionViewCell: BaseCollectionViewCel
     }
     
     @objc private func containPillButtonClicked() {
-        actionDelegate?.containPillButton(viewModel.outputCurrentDateAlarmPill.value)
+        actionDelegate?.containPillButton(viewModel.outputCurrentGroupID.value, viewModel.outputCurrentDateAlarmPill.value)
     }
     
     func updateUI(_ itemIdentifier : PillAlarmDate) {
         print("🔆 PillNotificationContentViewCollectionViewCell updateUI")
-        alarmTimeLabel.text = "🔔 " + itemIdentifier.alarmDate.toStringTime(dateFormat: "a h:mm")
+        alarmTimeLabel.text = "⏰ " + itemIdentifier.alarmDate.toStringTime(dateFormat: "a h:mm")
         alarmTitleLabel.text = itemIdentifier.alarmName
     }
     

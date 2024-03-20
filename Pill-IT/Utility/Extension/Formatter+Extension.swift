@@ -8,7 +8,7 @@
 import Foundation
 
 extension String {
-    func toDate(dateFormat format : String) -> Date? { //"yyyy-MM-dd HH:mm:ss"
+    func toDate(dateFormat format : String) -> Date? { //"yyyy-MM-dd HH:mm:ss Z"
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
         dateFormatter.timeZone = TimeZone.autoupdatingCurrent
@@ -55,8 +55,6 @@ extension Date {
         
         let current = Calendar.current
         
-        print(current)
-        
         return current.isDateInToday(self) ? dateFormatter.string(from: self)  + " (오늘)" : dateFormatter.string(from: self)
     }
     
@@ -65,10 +63,6 @@ extension Date {
         dateFormatter.dateFormat = format
         dateFormatter.timeZone = TimeZone.autoupdatingCurrent
         dateFormatter.locale = Locale.current
-        
-        let current = Calendar.current
-        
-        print(current)
         
         return dateFormatter.string(from: self)
     }
@@ -90,18 +84,37 @@ struct DateFormatters {
         let dateFormatter = DateFormatter()
         dateFormatter.timeStyle = .none
         dateFormatter.dateStyle = .short
+        dateFormatter.locale = Locale(identifier: "ko")
         return dateFormatter
     }()
 
     static var dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "d"
+        dateFormatter.locale = Locale(identifier: "ko")
+        
+        return dateFormatter
+    }()
+    
+    static var dateFullFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yy년 M월 d일"
+        dateFormatter.locale = Locale(identifier: "ko")
+        
         return dateFormatter
     }()
 
     static var weekdayFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEE"
+        dateFormatter.locale = Locale(identifier: "ko")
+        return dateFormatter
+    }()
+    
+    static var weekdayFullFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE"
+        dateFormatter.locale = Locale(identifier: "ko")
         return dateFormatter
     }()
 }

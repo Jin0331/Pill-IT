@@ -94,7 +94,7 @@ final class PillAlarmRegisterView : BaseView {
     let startDateButton = UIButton().then {
         $0.setTitle("시작일 설정하기", for: .normal)
         $0.setTitleColor(DesignSystem.colorSet.lightBlack, for: .normal)
-        $0.setImage(UIImage(systemName: "calendar.badge.plus"), for: .normal)
+        $0.setImage(DesignSystem.sfSymbol.startDate, for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 17, weight: .heavy)
         $0.tintColor = DesignSystem.colorSet.lightBlack
         $0.layer.borderWidth = DesignSystem.viewLayout.borderWidth

@@ -66,7 +66,7 @@ final class PillAlarmSpecificViewController: BaseViewController {
         snapshot.appendItems(data, toSection: .main)
         
         dataSource.apply(snapshot) // reloadData
-        print(#function, "PillManageMent UpdateSnapShot ❗️❗️❗️❗️❗️❗️❗️")
+        print("PillManageMent UpdateSnapShot ❗️❗️❗️❗️❗️❗️❗️")
     }
 
     deinit {

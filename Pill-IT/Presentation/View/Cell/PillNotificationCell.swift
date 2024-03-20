@@ -77,7 +77,6 @@ final class PillNotificationCell : PagingCell {
 
     override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
         super.apply(layoutAttributes)
-        guard let options = options else { return }
 
         if let attributes = layoutAttributes as? PagingCellLayoutAttributes {
             dateLabel.textColor = UIColor.interpolate(
@@ -92,5 +91,10 @@ final class PillNotificationCell : PagingCell {
                 with: attributes.progress
             )
         }
+    }
+    
+    override func prepareForReuse() {
+        dateLabel.text = nil
+        weekdayLabel.text = nil
     }
 }

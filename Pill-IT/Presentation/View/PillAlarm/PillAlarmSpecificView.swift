@@ -28,9 +28,8 @@ final class PillAlarmSpecificView: BaseView {
     }()
     
     let addButton = UIButton().then {
-        $0.setImage(UIImage(systemName: "plus"), for: .normal)
+        $0.setImage(DesignSystem.sfSymbol.plus, for: .normal)
         $0.tintColor = DesignSystem.colorSet.white
-        $0.titleLabel?.font = .systemFont(ofSize: 17, weight: .heavy)
         $0.backgroundColor = DesignSystem.colorSet.lightBlack
         $0.layer.cornerRadius = DesignSystem.viewLayout.cornerRadius
     }

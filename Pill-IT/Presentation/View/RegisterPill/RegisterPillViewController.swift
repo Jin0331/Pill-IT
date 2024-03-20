@@ -44,7 +44,7 @@ final class RegisterPillViewController : BaseViewController {
         
         navigationItem.title = !editMode ? "🌟 복용약 등록하기" : "⚠️ 복용약 수정"
         
-        let cancleBarButton = UIBarButtonItem(image: UIImage(systemName: "x.circle"), style: .plain, target: self, action: #selector(rightBarButtonClicked))
+        let cancleBarButton = UIBarButtonItem(image: DesignSystem.sfSymbol.cancel, style: .plain, target: self, action: #selector(rightBarButtonClicked))
         
         navigationItem.rightBarButtonItem = cancleBarButton
     }
@@ -317,9 +317,6 @@ extension RegisterPillViewController : PillRegisterAction {
         viewModel.pillDataBindForModify(itemSeq)
         
         print(viewModel.modifyStatus.value )
-        
-//        navigationItem.title =
-        
         mainView.itemHidden(false)
         mainView.userInputTextfield.backgroundColor = DesignSystem.colorSet.lightGray
         mainView.userInputTextfield.textColor = DesignSystem.colorSet.gray

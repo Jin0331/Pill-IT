@@ -84,7 +84,7 @@ final class PillManagementViewController : BaseViewController {
         
         dataSource.apply(snapshot) // reloadData
         
-        print(#function, "PillManageMent UpdateSnapShot ❗️❗️❗️❗️❗️❗️❗️")
+        print("PillManageMent UpdateSnapShot ❗️❗️❗️❗️❗️❗️❗️")
     }
     
 //    private func updateSnapshot() {
@@ -98,7 +98,7 @@ final class PillManagementViewController : BaseViewController {
 //
 //        dataSource.apply(snapshot) // reloadData
 //        
-//        print(#function, "PillManageMent UpdateSnapShot ❗️❗️❗️❗️❗️❗️❗️")
+//        print("PillManageMent UpdateSnapShot ❗️❗️❗️❗️❗️❗️❗️")
 //    }
     
     //MARK: - 복용약 알림 화면으로 이동하는 부분

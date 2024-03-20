@@ -53,7 +53,7 @@ final class PillAlarmRegisterViewController: BaseViewController {
         super.configureNavigation()
         navigationItem.title = "🌟 복용약 등록하기"
         
-        let cancleBarButton = UIBarButtonItem(image: UIImage(systemName: "x.circle"), style: .plain, target: self, action: #selector(rightBarButtonClicked))
+        let cancleBarButton = UIBarButtonItem(image: DesignSystem.sfSymbol.cancel, style: .plain, target: self, action: #selector(rightBarButtonClicked))
         
         navigationItem.rightBarButtonItem = cancleBarButton
     }
@@ -146,7 +146,7 @@ extension PillAlarmRegisterViewController : PillAlarmReigsterAction {
         vc.sendPeriodSelectButtonTitle = { [weak self] value in
             guard let self = self else { return }
             mainView.periodSelectButton.setTitle(value, for: .normal)
-            mainView.periodSelectButton.setImage(UIImage(systemName: "calendar.badge.plus"), for: .normal)
+            mainView.periodSelectButton.setImage(DesignSystem.sfSymbol.startDate, for: .normal)
             mainView.periodSelectButton.tintColor = DesignSystem.colorSet.lightBlack
         }
         

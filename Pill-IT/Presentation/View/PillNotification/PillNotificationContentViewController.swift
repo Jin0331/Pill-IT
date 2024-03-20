@@ -52,6 +52,9 @@ final class PillNotificationContentViewController: BaseViewController {
             
             let cell = collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
             
+            cell.actionDelegate = self
+            cell.viewModel.inputCurrentDateAlarmPill.value = Array(pillList)
+            
             return cell
         })
     }
@@ -71,6 +74,17 @@ final class PillNotificationContentViewController: BaseViewController {
     }
 }
 
+//MARK: - CollectionView Deleagte
 extension PillNotificationContentViewController : UICollectionViewDelegate {
     
+}
+
+//MARK: - Delegate Action
+extension PillNotificationContentViewController : PillNotificationAction {
+    func containPillButton(_ data : [Pill]?) {
+        print(#function)
+        
+        
+        
+    }
 }

@@ -37,3 +37,7 @@ protocol PillSpecificAction : AnyObject {
     func addButtonAction()
     func completeButtonAction()
 }
+
+protocol PillNotificationAction : AnyObject {
+    func  containPillButton(_ data : [Pill]?)
+}

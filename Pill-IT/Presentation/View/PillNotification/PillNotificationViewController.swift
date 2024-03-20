@@ -49,18 +49,19 @@ final class PillNotificationViewController: BaseViewController {
         dayOfWeek.snp.makeConstraints { make in
             make.top.leading.equalTo(view.safeAreaLayoutGuide).inset(20)
             make.height.equalTo(50)
-            make.width.equalTo(200)
+            make.width.lessThanOrEqualTo(120)
         }
         
         day.snp.makeConstraints { make in
             make.top.equalTo(dayOfWeek.snp.bottom).offset(5)
             make.leading.equalTo(dayOfWeek)
-            make.size.equalTo(dayOfWeek)
+            make.size.greaterThanOrEqualTo(dayOfWeek)
         }
         
         todayButton.snp.makeConstraints { make in
-            make.top.equalTo(day)
-            make.trailing.equalToSuperview().inset(20)
+            make.top.equalTo(dayOfWeek)
+            make.leading.equalTo(dayOfWeek.snp.trailing).offset(15)
+            make.centerY.equalTo(dayOfWeek)
             make.size.equalTo(40)
         }
         
@@ -131,4 +132,3 @@ extension PillNotificationViewController: PagingViewControllerInfiniteDataSource
         day.text = dayDate
     }
 }
-

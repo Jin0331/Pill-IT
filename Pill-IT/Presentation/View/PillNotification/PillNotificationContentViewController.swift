@@ -47,8 +47,14 @@ final class PillNotificationContentViewController: BaseViewController {
         
         let cellRegistration = mainView.pillNotificationContentCellRegistration()
         dataSource = UICollectionViewDiffableDataSource(collectionView: mainView.mainCollectionView, cellProvider: { [weak self] collectionView, indexPath, itemIdentifier in
+            guard let self = self else { return UICollectionViewCell()}
+            guard let pillList = itemIdentifier.alarmGroup.first?.pillList else { return UICollectionViewCell()}
+            
             let cell = collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
-//            cell.delegate = self
+            
+            print(itemIdentifier.alarmGroup.first?.alarmName)
+            
+            cell.viewModel.inputCurrentDateAlarmPill.value = Array(pillList)
             
             return cell
         })

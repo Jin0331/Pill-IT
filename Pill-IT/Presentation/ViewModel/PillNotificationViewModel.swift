@@ -13,7 +13,9 @@ class PillNotificationViewModel {
     private let repository = RealmRepository()
     
     var inputCurrentDate : Observable<Date?> = Observable(nil)
+    
     var outputCurrentDateAlarm : Observable<[PillAlarmDate]?> = Observable(nil)
+
     
     init() {
         transform()
@@ -26,7 +28,6 @@ class PillNotificationViewModel {
             
             print(value, "⭕️ ViewModel")
             outputCurrentDateAlarm.value = repository.fetchPillAlarmDateItem(alaramDate: value)
-            
         }
     }
     

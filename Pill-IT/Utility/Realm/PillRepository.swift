@@ -67,9 +67,9 @@ final class RealmRepository {
         let table = realm.objects(PillAlarmDate.self).filter("alarmDate >= %@ AND alarmDate < %@", targetDate, Calendar.current.date(byAdding: .day, value: 1, to: targetDate)!)
             .where {
                 $0.alarmGroup.isDeleted == false && $0.isDeleted == false
-            } //
+            } 
         
-        return Array(table)
+        return Array(table.sorted(byKeyPath: "alarmDate", ascending: true))
     }
     
     

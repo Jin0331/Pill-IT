@@ -98,7 +98,7 @@ extension PillNotificationContentViewController : PillNotificationAction {
 
         let constraintHeight = NSLayoutConstraint(
             item: alert.view!, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute:
-                NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: 200)
+                NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: 220)
         alert.view.addConstraint(constraintHeight)
         alert.setValue(vc, forKey: "contentViewController")
         

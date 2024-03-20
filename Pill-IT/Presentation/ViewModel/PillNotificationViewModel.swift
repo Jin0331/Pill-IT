@@ -26,7 +26,6 @@ class PillNotificationViewModel {
             guard let self = self else { return }
             guard let value = value else { return }
             
-            print(value, "⭕️ ViewModel")
             outputCurrentDateAlarm.value = repository.fetchPillAlarmDateItem(alaramDate: value)
         }
     }

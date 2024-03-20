@@ -2,7 +2,7 @@
 //  PillNotificationViewController.swift
 //  Pill-IT
 //
-//  Created by JinwooLee on 3/10/24.
+//  Created by JinwooLee on 3/20/24.
 //
 
 import UIKit
@@ -31,8 +31,7 @@ final class PillNotificationViewController: BaseViewController {
         $0.backgroundColor = DesignSystem.colorSet.lightBlack
         $0.layer.cornerRadius = DesignSystem.viewLayout.cornerRadius
     }
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         pagingViewController.delegate = self
@@ -41,7 +40,6 @@ final class PillNotificationViewController: BaseViewController {
     
     override func configureHierarchy() {
         addChild(pagingViewController)
-        
         [dayOfWeek, day, todayButton, pagingViewController.view].forEach { view.addSubview($0)}
         
     }
@@ -74,7 +72,7 @@ final class PillNotificationViewController: BaseViewController {
     
     override func configureView() {
         super.configureView()
-        pagingViewController.register(PillNotificationCell.self, for: CalendarItem.self)
+        pagingViewController.register(PillNotificationItemMenuCell.self, for: CalendarItem.self)
         pagingViewController.menuItemSize = .fixed(width: 48, height: 58)
         pagingViewController.textColor = UIColor.gray
         pagingViewController.didMove(toParent: self)
@@ -86,7 +84,6 @@ final class PillNotificationViewController: BaseViewController {
         let today = calendar.startOfDay(for: Date())
         pagingViewController.select(pagingItem: CalendarItem(date: today))
         updateDateUI(CalendarItem(date: today))
-        
         todayButton.addTarget(self, action: #selector(selectToday), for: .touchUpInside)
     }
     
@@ -96,6 +93,7 @@ final class PillNotificationViewController: BaseViewController {
     }
 }
 
+//MARK: - Parchment Delegate, DataSoruce
 extension PillNotificationViewController: PagingViewControllerInfiniteDataSource, PagingViewControllerDelegate {
 
     
@@ -112,37 +110,25 @@ extension PillNotificationViewController: PagingViewControllerInfiniteDataSource
         
         return CalendarItem(date: previousDate)
     }
-    
-    //TODO: - 클로저로 값전달 해야될 듯?
-    
-    func pagingViewController(_: PagingViewController, viewControllerFor pagingItem: PagingItem) -> UIViewController {
-        let calendarItem = pagingItem as! CalendarItem
-        let formattedDate = DateFormatters.shortDateFormatter.string(from: calendarItem.date)
-
         
-        let vc = PillNotificationContentViewController(title: formattedDate)
-        return vc
-    }
-    
-    func pagingViewController(_ pagingViewController: PagingViewController,  didSelectItem pagingItem: PagingItem) {
-
-    }
-    
     func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: any PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) {
         let calendarItem = pagingItem as! CalendarItem
         updateDateUI(calendarItem)
-
+    }
+    
+    func pagingViewController(_: PagingViewController, viewControllerFor pagingItem: PagingItem) -> UIViewController {
+        let calendarItem = pagingItem as! CalendarItem
+        let vc = PillNotificationContentViewController(currentDate: calendarItem.date)
+        
+        return vc
     }
     
     private func updateDateUI(_ calendarItem : CalendarItem) {
         let dayOfWeekDate = DateFormatters.weekdayFullFormatter.string(from: calendarItem.date)
         let dayDate = DateFormatters.dateFullFormatter.string(from: calendarItem.date)
         
-        print(calendarItem)
-        
         dayOfWeek.text = dayOfWeekDate
         day.text = dayDate
     }
-    
 }
 

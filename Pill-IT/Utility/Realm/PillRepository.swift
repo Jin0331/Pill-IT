@@ -61,6 +61,14 @@ final class RealmRepository {
         return Array(table)
     }
     
+    func fetchPillAlarmDateItem(alaramDate : Date) -> [PillAlarmDate]? {
+        
+        let targetDate = Calendar.current.startOfDay(for: alaramDate)
+        let table = realm.objects(PillAlarmDate.self).filter("alarmDate >= %@ AND alarmDate < %@", targetDate, Calendar.current.date(byAdding: .day, value: 1, to: targetDate)!)
+        
+        return Array(table)
+    }
+    
     
     //MARK: - UPDATE
     func updatePillIsDelete(itemSeq : Int) {

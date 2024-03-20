@@ -1,7 +1,7 @@
 import Parchment
 import UIKit
 
-final class PillNotificationCell : PagingCell {
+final class PillNotificationItemMenuCell : PagingCell {
     private var options: PagingOptions?
 
     lazy var dateLabel: UILabel = {

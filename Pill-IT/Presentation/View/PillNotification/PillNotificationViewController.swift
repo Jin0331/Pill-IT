@@ -48,7 +48,6 @@ final class PillNotificationViewController: BaseViewController {
         
         dayOfWeek.snp.makeConstraints { make in
             make.top.leading.equalTo(view.safeAreaLayoutGuide).inset(20)
-            make.height.equalTo(50)
             make.width.lessThanOrEqualTo(120)
         }
         

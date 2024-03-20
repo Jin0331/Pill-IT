@@ -86,22 +86,20 @@ extension PillNotificationContentViewController : UICollectionViewDelegate {
 //MARK: - Delegate Action
 extension PillNotificationContentViewController : PillNotificationAction {
     func containPillButton(_ groupID : String?, _ data : [Pill]?) {
-        print(#function)
+        
+        guard let groupID = groupID else { return }
+        guard let data = data else { return }
         
         let vc = PopUpPillAlarmGroupViewController()
         vc.viewModel.inputCurrentDateAlarmPill.value = data
         
-        let alert = UIAlertController(title: groupID, message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: "🌟" + groupID, message: nil, preferredStyle: .actionSheet)
         alert.view.tintColor = DesignSystem.colorSet.lightBlack
-        
-        // height constraint
+
         let constraintHeight = NSLayoutConstraint(
             item: alert.view!, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute:
-                NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: 300)
+                NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: 200)
         alert.view.addConstraint(constraintHeight)
-        
-//        let cancle = UIAlertAction(title: "확인", style: .default)
-//        alert.addAction(cancle)
         alert.setValue(vc, forKey: "contentViewController")
         
         present(alert, animated: true) { [weak self] in

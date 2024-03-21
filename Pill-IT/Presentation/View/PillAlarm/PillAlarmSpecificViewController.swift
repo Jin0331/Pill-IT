@@ -122,14 +122,13 @@ extension PillAlarmSpecificViewController : PillSpecificAction {
             
             mainView.setActivityIndicator()
             viewModel.createTableTrigger.value = ()
+            NotificationCenter.default.post(name: Notification.Name("fetchPillAlarmTable"), object: nil)
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
             guard let self = self else { return }
             mainView.activityIndicator.stopAnimating()
             mainView.loadingBgView.removeFromSuperview()
-            
-            NotificationCenter.default.post(name: Notification.Name("fetchPillAlarmTable"), object: nil)
             
             dismiss(animated: true)
         }

@@ -163,7 +163,7 @@ final class PillManagementViewController : BaseViewController {
     // pillAlarm의 조회를 위한 Trigger
     @objc private func triggerFetchPillAlarmTable(_ noti: Notification) {
         print("PillManagementViewController triggerFetchPillAlarmTable ❗️❗️❗️❗️❗️❗️❗️")
-        
+        selectedCellRelease() 
         viewModel.fetchPillAlarmItemTrigger.value = ()
     }
     

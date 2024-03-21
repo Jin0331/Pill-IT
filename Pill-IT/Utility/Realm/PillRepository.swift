@@ -95,8 +95,9 @@ final class RealmRepository {
         table.alarmGroup.forEach {
             print($0.alarmName, "⭕️⭕️⭕️⭕️⭕️⭕️⭕️⭕️") // Alarm Group Primary Key
             guard let table = fetchPillAlarm(alarmName: $0.alarmName) else { return }
-            print(table.count, "⭕️⭕️⭕️⭕️⭕️⭕️⭕️⭕️")
-            if table.count < 2 {
+            guard let pillListCount = table.first?.pillList.count else { return }
+            print(pillListCount, "⭕️⭕️⭕️⭕️⭕️⭕️⭕️⭕️")
+            if pillListCount < 2 {
                 updatePillAlarmDelete($0.alarmName)
                 print($0.alarmName, "에 포함된 Pill 없으므로 삭제됩니다. ⭕️⭕️⭕️⭕️⭕️⭕️⭕️⭕️")
             }

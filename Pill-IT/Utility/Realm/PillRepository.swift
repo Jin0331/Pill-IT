@@ -102,6 +102,19 @@ final class RealmRepository {
         }
     }
     
+    func updatePillAlarmDateDelete(_ _id : ObjectId) {
+        guard let table = realm.object(ofType:PillAlarmDate.self, forPrimaryKey: _id) else { return }
+        
+        do {
+            try realm.write {
+                table.isDeleted = true
+                table.upDate = Date()
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
     //MARK: - REMOVE
     func removePillItem(row : Pill) {
         do {

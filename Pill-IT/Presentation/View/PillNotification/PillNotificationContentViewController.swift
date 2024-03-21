@@ -6,11 +6,12 @@
 //
 
 import UIKit
+import SwipeCellKit
 
 final class PillNotificationContentViewController: BaseViewController {
     
     let mainView = PillNotificationContentView()
-    let viewModel = PillNotificationViewModel()
+    var viewModel = PillNotificationViewModel()
     private var dataSource : UICollectionViewDiffableDataSource<PillNotificationContent, PillAlarmDate>!
     
     init(currentDate : Date) {
@@ -53,6 +54,7 @@ final class PillNotificationContentViewController: BaseViewController {
             let cell = collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
             
             cell.actionDelegate = self
+            cell.delegate = self
             cell.viewModel.inputCurrentDateAlarmPill.value = Array(pillList)
             cell.viewModel.inputCurrentGroupID.value = itemIdentifier.alarmName
             
@@ -80,6 +82,39 @@ final class PillNotificationContentViewController: BaseViewController {
 
 //MARK: - CollectionView Deleagte
 extension PillNotificationContentViewController : UICollectionViewDelegate {
+    
+}
+
+//MARK: - swipe
+extension PillNotificationContentViewController : SwipeCollectionViewCellDelegate {
+    func collectionView(_ collectionView: UICollectionView, editActionsForItemAt indexPath: IndexPath, for orientation: SwipeCellKit.SwipeActionsOrientation) -> [SwipeCellKit.SwipeAction]? {
+        guard orientation == .right else { return nil }
+        
+        let deleteAction = SwipeAction(style: .destructive, title: nil) { [weak self] action, indexPath in
+            guard let self = self else { return }
+            
+            let confirmAction = UIAlertAction(title: "지워주세요", style: .default) { (action) in
+                
+//                print(self.dataSource.itemIdentifier(for: indexPath))
+                
+                self.viewModel.updatePillItemisDeleteTrigger.value = self.dataSource.itemIdentifier(for: indexPath)
+                
+            }
+            
+            let cancelAction = UIAlertAction(title: "취소할래요", style: .cancel)
+            cancelAction.setValue(UIColor.red, forKey: "titleTextColor")
+            
+            self.showAlert(title: "등록된 알림 삭제", message: "복용약의 알림을 삭제하시겠습니까? 🥲", actions: [confirmAction, cancelAction])
+        }
+        
+        // customize the action appearance
+        deleteAction.image = DesignSystem.pillAlarmSwipeImage.trash
+        deleteAction.font = .systemFont(ofSize: 17, weight: .heavy)
+        deleteAction.hidesWhenSelected = true
+        
+        return [deleteAction]
+    }
+    
     
 }
 

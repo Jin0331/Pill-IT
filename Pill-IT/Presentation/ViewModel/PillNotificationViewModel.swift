@@ -16,6 +16,7 @@ class PillNotificationViewModel {
     
     var outputCurrentDateAlarm : Observable<[PillAlarmDate]?> = Observable(nil)
 
+    var updatePillItemisDeleteTrigger : Observable<PillAlarmDate?> = Observable(nil)
     
     init() {
         transform()
@@ -27,6 +28,18 @@ class PillNotificationViewModel {
             guard let value = value else { return }
             
             outputCurrentDateAlarm.value = repository.fetchPillAlarmDateItem(alaramDate: value)
+        }
+            
+        // Date로 넘어옴
+        updatePillItemisDeleteTrigger.bind { [weak self] value in
+            guard let self = self else { return }
+            guard let value = value else { return }
+            guard let currentDate = inputCurrentDate.value else { return }
+            
+            print(value, "❗️ ViewModel")
+            
+            repository.updatePillAlarmDateDelete(value._id)
+            outputCurrentDateAlarm.value = repository.fetchPillAlarmDateItem(alaramDate: currentDate)
         }
     }
     

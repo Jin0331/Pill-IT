@@ -38,6 +38,13 @@ final class PillNotificationViewController: BaseViewController {
         pagingViewController.infiniteDataSource = self
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+//        self.pagingViewController.reloadData()
+//        pagingViewController.reloadData(around: pagingItem)
+    }
+    
     override func configureHierarchy() {
         addChild(pagingViewController)
         [dayOfWeek, day, todayButton, pagingViewController.view].forEach { view.addSubview($0)}
@@ -114,12 +121,13 @@ extension PillNotificationViewController: PagingViewControllerInfiniteDataSource
     func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: any PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) {
         let calendarItem = pagingItem as! CalendarItem
         updateDateUI(calendarItem)
+        
     }
     
     func pagingViewController(_: PagingViewController, viewControllerFor pagingItem: PagingItem) -> UIViewController {
         let calendarItem = pagingItem as! CalendarItem
         let vc = PillNotificationContentViewController(currentDate: calendarItem.date)
-        
+
         return vc
     }
     

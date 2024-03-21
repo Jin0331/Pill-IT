@@ -10,15 +10,15 @@ import SnapKit
 import Then
 
 final class PillManagementView : BaseView {
-
+    
     lazy var mainCollectionView : UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         view.backgroundColor = DesignSystem.colorSet.white
         view.allowsMultipleSelection = true
         
-       return view
+        return view
     }()
-
+    
     let customButton = UIButton(frame: CGRect(x: 0, y: 0, width: 130, height: 40)).then {
         $0.setTitle(" 알림 등록하기", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .heavy)
@@ -46,27 +46,62 @@ final class PillManagementView : BaseView {
     
     private func createLayout() -> UICollectionViewLayout {
         
-        // Cell
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        
-        // Group
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(160))
-        
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        let sectionProvider = { [weak self] (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
+            
+            guard self != nil else { return nil }
+            guard let sectionKind = PillManagementViewSection(rawValue: sectionIndex) else { return nil }
+            
+            let section: NSCollectionLayoutSection
+            
+            // main section
+            if sectionKind == .header {
+                // Cell
+                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1))
+                let item = NSCollectionLayoutItem(layoutSize: itemSize)
+                
+                // Group
+                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(160))
+                
+                let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+                
+                // Section
+                section = NSCollectionLayoutSection(group: group)
+                section.interGroupSpacing = 3
+                section.orthogonalScrollingBehavior = sectionKind.orthogonalScrollingBehavior()
 
-        // Section
-        let section = NSCollectionLayoutSection(group: group)
-        section.interGroupSpacing = 15
+                // main section
+            } else {
+                // Cell
+                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1))
+                let item = NSCollectionLayoutItem(layoutSize: itemSize)
+                
+                // Group
+                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(160))
+                
+                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+                
+                // Section
+                section = NSCollectionLayoutSection(group: group)
+                section.interGroupSpacing = 15
+                section.orthogonalScrollingBehavior = sectionKind.orthogonalScrollingBehavior()
+            }
+            
+            return section
+        }
         
-        let layout = UICollectionViewCompositionalLayout(section: section)
-        
-        return layout
+        return UICollectionViewCompositionalLayout(sectionProvider: sectionProvider)
     }
     
-    func pillManagementCellRegistration() -> UICollectionView.CellRegistration<PillManagementCollectionViewCell, Pill>  {
+    func pillManagementHeaderCellRegistration() -> UICollectionView.CellRegistration<PillManagementCollectionViewHeaderCell, PillAlarm>  {
         
-        return UICollectionView.CellRegistration<PillManagementCollectionViewCell, Pill> { cell, indexPath, itemIdentifier in
+        return UICollectionView.CellRegistration<PillManagementCollectionViewHeaderCell, PillAlarm> { cell, indexPath, itemIdentifier in
+            cell.updateUI(itemIdentifier)
+        }
+    }
+    
+    func pillManagementMainCellRegistration() -> UICollectionView.CellRegistration<PillManagementCollectionViewMainCell, Pill>  {
+        
+        return UICollectionView.CellRegistration<PillManagementCollectionViewMainCell, Pill> { cell, indexPath, itemIdentifier in
             cell.updateUI(itemIdentifier)
         }
     }

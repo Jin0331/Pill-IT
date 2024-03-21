@@ -46,31 +46,33 @@ final class PillManagementViewController : BaseViewController {
             }
         }
         mainView.mainCollectionView.deselectAllItems(animated: true)
+        
+        // notificaionCenter remove
+        NotificationCenter.default.removeObserver(self,
+                                                  name: Notification.Name("fetchPillAlarmTable"), object: nil)
     }
-    
     private func bindData() {
+        // 복용약 리스트
         viewModel.outputRegisteredPill.bind { [weak self] value in
             guard let self = self else { return }
             guard let value = value else { return }
             
             configureMainDataSource()
             updateMainSnapshot(value)
+            
         }
         
+        // 복용약 그룹 리스트
         viewModel.outputRegisteredPillAlarm.bind { [weak self] value in
             guard let self = self else { return }
             guard let value = value else { return }
             
-            print(value, "outputRegisteredPillAlarm 🔆🔆🔆🔆🔆🔆🔆🔆🔆🔆🔆🔆🔆🔆🔆🔆🔆🔆🔆🔆🔆")
+            configureHeaderDataSource()
+            updateHeaderSnapshot(value)
         }
         
+        // PillAlarmSpecificView로부터 전달되어지는 노티 -> 이걸 활용해서 realm Table fetch 및 Obervable 생성
         NotificationCenter.default.addObserver(self, selector: #selector(triggerFetchPillAlarmTable), name: Notification.Name("fetchPillAlarmTable"), object: nil)
-    }
-    
-    @objc private func triggerFetchPillAlarmTable(_ noti: Notification) {
-        print("PillManagementViewController triggerFetchPillAlarmTable ❗️❗️❗️❗️❗️❗️❗️")
-        
-        viewModel.fetchPillAlarmItemTrigger.value = ()
     }
     
     override func configureNavigation() {
@@ -86,13 +88,14 @@ final class PillManagementViewController : BaseViewController {
             navigationItem.leftBarButtonItem?.customView?.isHidden = true
         }
     }
+    
     //MARK: - Header Datasource & SnakeShot
     private func configureHeaderDataSource() {
         
-        let mainCellRegistration = mainView.pillManagementHeaderCellRegistration()
+        let headerCellRegistration = mainView.pillManagementHeaderCellRegistration()
         
-        headerDataSource = UICollectionViewDiffableDataSource(collectionView: mainView.mainCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
-            let cell = collectionView.dequeueConfiguredReusableCell(using: mainCellRegistration, for: indexPath, item: itemIdentifier)
+        headerDataSource = UICollectionViewDiffableDataSource(collectionView: mainView.headerCollecionView, cellProvider: { collectionView, indexPath, itemIdentifier in
+            let cell = collectionView.dequeueConfiguredReusableCell(using: headerCellRegistration, for: indexPath, item: itemIdentifier)
             
             return cell
         })
@@ -101,7 +104,7 @@ final class PillManagementViewController : BaseViewController {
     private func updateHeaderSnapshot(_ data : [PillAlarm]) {
         var snapshot = NSDiffableDataSourceSnapshot<PillManagementViewSection, PillAlarm>()
         snapshot.appendSections(PillManagementViewSection.allCases)
-        snapshot.appendItems(data, toSection: .header)
+        snapshot.appendItems(data, toSection: .main)
         
         headerDataSource.apply(snapshot) // reloadData
         
@@ -152,6 +155,14 @@ final class PillManagementViewController : BaseViewController {
             cellCasting.hiddneSelectedImage()
         }
         hiddenLeftBarButton(mainView.mainCollectionView)
+    }
+    
+    
+    // pillAlarm의 조회를 위한 Trigger
+    @objc private func triggerFetchPillAlarmTable(_ noti: Notification) {
+        print("PillManagementViewController triggerFetchPillAlarmTable ❗️❗️❗️❗️❗️❗️❗️")
+        
+        viewModel.fetchPillAlarmItemTrigger.value = ()
     }
     
     deinit {
@@ -206,7 +217,7 @@ extension PillManagementViewController : SwipeCollectionViewCellDelegate {
             guard let self = self else { return }
             
             let confirmAction = UIAlertAction(title: "지워주세요", style: .default) { (action) in
-
+                
                 self.viewModel.updatePillItemisDeleteTrigger.value = self.mainDataSource.itemIdentifier(for: indexPath)
                 
                 self.hiddenLeftBarButton(collectionView)
@@ -226,7 +237,7 @@ extension PillManagementViewController : SwipeCollectionViewCellDelegate {
             vc.modifyView(itemSeq: mainDataSource.itemIdentifier(for: indexPath)?.itemSeq.toString)
             vc.pillListDelegate = self
             vc.setupSheetPresentationLarge()
-
+            
             let nav = UINavigationController(rootViewController: vc)
             
             present(nav, animated: true)
@@ -277,3 +288,64 @@ extension PillManagementViewController : PillListAction {
         view.makeToast("복용약이 수정되었습니다 ✅", duration: 2, position: .center)
     }
 }
+
+
+
+
+/*
+ //    //MARK: - Header Datasource & SnakeShot
+ //    private func configureHeaderDataSource() {
+ //
+ //        let headerCellRegistration = mainView.pillManagementHeaderCellRegistration()
+ //
+ //        headerDataSource = UICollectionViewDiffableDataSource(collectionView: mainView.mainCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
+ //            let cell = collectionView.dequeueConfiguredReusableCell(using: headerCellRegistration, for: indexPath, item: itemIdentifier)
+ //
+ //            return cell
+ //        })
+ //    }
+ //
+ //    private func updateHeaderSnapshot(_ data : [PillAlarm]) {
+ //        var snapshot = NSDiffableDataSourceSnapshot<PillManagementViewSection, PillAlarm>()
+ //        snapshot.appendSections(PillManagementViewSection.allCases)
+ //        snapshot.appendItems(data, toSection: .header)
+ //
+ //        headerDataSource.apply(snapshot) // reloadData
+ //
+ //        print("PillManageMent UpdateSnapShot - Header ❗️❗️❗️❗️❗️❗️❗️")
+ //    }
+ //
+ //    //MARK: - Main Datasource & SnapShot
+ //    private func configureMainDataSource() {
+ //
+ //        let mainCellRegistration = mainView.pillManagementMainCellRegistration()
+ //
+ //        mainDataSource = UICollectionViewDiffableDataSource(collectionView: mainView.mainCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
+ //            let cell = collectionView.dequeueConfiguredReusableCell(using: mainCellRegistration, for: indexPath, item: itemIdentifier)
+ //            cell.delegate = self
+ //
+ //            return cell
+ //        })
+ //    }
+ //
+ //    private func updateMainSnapshot(_ data : [Pill]) {
+ //        var snapshot = NSDiffableDataSourceSnapshot<PillManagementViewSection, Pill>()
+ //        snapshot.appendSections(PillManagementViewSection.allCases)
+ //        snapshot.appendItems(data, toSection: .main)
+ //
+ //        mainDataSource.apply(snapshot) // reloadData
+ //
+ //        print("PillManageMent UpdateSnapShot - Main ❗️❗️❗️❗️❗️❗️❗️")
+ //    }
+ 
+ //    private func sectionSnapShot(_ header : [PillAlarm], _ main : [Pill]) {
+ //        var headerSnapshot = NSDiffableDataSourceSectionSnapshot<PillAlarm>()
+ //        headerSnapshot.append(header)
+ //        dataSource.apply(headerSnapshot, to: .main)
+ //
+ //        var mainSnapshot = NSDiffableDataSourceSectionSnapshot<Pill>()
+ //        mainSnapshot.append(main)
+ //        dataSource.apply(mainSnapshot, to: .sub)
+ //    }
+ //
+ */

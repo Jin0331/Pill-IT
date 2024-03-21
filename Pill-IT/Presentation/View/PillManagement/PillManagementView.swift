@@ -11,8 +11,15 @@ import Then
 
 final class PillManagementView : BaseView {
     
+    lazy var headerCollecionView  : UICollectionView = {
+        let view = UICollectionView(frame: .zero, collectionViewLayout: headerCreateLayout())
+        view.backgroundColor = DesignSystem.colorSet.white
+        
+        return view
+    }()
+    
     lazy var mainCollectionView : UICollectionView = {
-        let view = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
+        let view = UICollectionView(frame: .zero, collectionViewLayout: mainCreateLayout())
         view.backgroundColor = DesignSystem.colorSet.white
         view.allowsMultipleSelection = true
         
@@ -35,61 +42,62 @@ final class PillManagementView : BaseView {
     }
     
     override func configureHierarchy() {
+        addSubview(headerCollecionView)
         addSubview(mainCollectionView)
     }
     
     override func configureLayout() {
+        
+        headerCollecionView.snp.makeConstraints { make in
+            make.top.horizontalEdges.equalTo(safeAreaLayoutGuide)
+            make.height.equalTo(80)
+        }
+        
         mainCollectionView.snp.makeConstraints { make in
-            make.edges.equalTo(safeAreaLayoutGuide)
+            make.top.equalTo(headerCollecionView.snp.bottom).offset(10)
+            make.bottom.horizontalEdges.equalTo(safeAreaLayoutGuide)
         }
     }
     
-    private func createLayout() -> UICollectionViewLayout {
+    private func headerCreateLayout() -> UICollectionViewLayout {
         
-        let sectionProvider = { [weak self] (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
-            
-            guard self != nil else { return nil }
-            guard let sectionKind = PillManagementViewSection(rawValue: sectionIndex) else { return nil }
-            
-            let section: NSCollectionLayoutSection
-            
-            // main section
-            if sectionKind == .header {
-                // Cell
-                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1))
-                let item = NSCollectionLayoutItem(layoutSize: itemSize)
-                
-                // Group
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(160))
-                
-                let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-                
-                // Section
-                section = NSCollectionLayoutSection(group: group)
-                section.interGroupSpacing = 3
-                section.orthogonalScrollingBehavior = sectionKind.orthogonalScrollingBehavior()
+        // Cell
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        // Group
+        let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(90), heightDimension: .absolute(70))
+        
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
 
-                // main section
-            } else {
-                // Cell
-                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1))
-                let item = NSCollectionLayoutItem(layoutSize: itemSize)
-                
-                // Group
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(160))
-                
-                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-                
-                // Section
-                section = NSCollectionLayoutSection(group: group)
-                section.interGroupSpacing = 15
-                section.orthogonalScrollingBehavior = sectionKind.orthogonalScrollingBehavior()
-            }
-            
-            return section
-        }
+        // Section
+        let section = NSCollectionLayoutSection(group: group)
+        section.interGroupSpacing = 0
+        section.orthogonalScrollingBehavior = .groupPaging
         
-        return UICollectionViewCompositionalLayout(sectionProvider: sectionProvider)
+        let layout = UICollectionViewCompositionalLayout(section: section)
+        
+        return layout
+    }
+    
+    private func mainCreateLayout() -> UICollectionViewLayout {
+        
+        // Cell
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        // Group
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(160))
+        
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+
+        // Section
+        let section = NSCollectionLayoutSection(group: group)
+        section.interGroupSpacing = 15
+        
+        let layout = UICollectionViewCompositionalLayout(section: section)
+        
+        return layout
     }
     
     func pillManagementHeaderCellRegistration() -> UICollectionView.CellRegistration<PillManagementCollectionViewHeaderCell, PillAlarm>  {

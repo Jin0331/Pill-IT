@@ -83,7 +83,6 @@ final class PillNotificationContentViewCollectionViewCell: BaseCollectionViewCel
     }
     
     func updateUI(_ itemIdentifier : PillAlarmDate) {
-        print("🔆 PillNotificationContentViewCollectionViewCell updateUI")
         alarmTimeLabel.text = "⏰ " + itemIdentifier.alarmDate.toStringTime(dateFormat: "a h:mm")
         alarmTitleLabel.text = itemIdentifier.alarmName
     }

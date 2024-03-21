@@ -35,7 +35,6 @@ final class PopUpPillAlarmGroupViewController: BaseViewController {
             guard let self = self else { return }
             guard let value = value else { return }
             
-            print(value, "❗️PopUpPillAlarmGroupViewController")
             updateSnapshot(value)
         }
     }

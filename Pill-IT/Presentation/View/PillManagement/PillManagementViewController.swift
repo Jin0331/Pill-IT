@@ -172,6 +172,7 @@ extension PillManagementViewController : SwipeCollectionViewCellDelegate {
             guard let self = self else { return }
             
             let confirmAction = UIAlertAction(title: "지워주세요", style: .default) { (action) in
+                
                 self.viewModel.updatePillItemisDeleteTrigger.value = self.dataSource.itemIdentifier(for: indexPath)
                 
                 self.hiddenLeftBarButton(collectionView)

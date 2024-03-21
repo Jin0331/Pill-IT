@@ -129,7 +129,7 @@ extension PillAlarmSpecificViewController : PillSpecificAction {
             mainView.activityIndicator.stopAnimating()
             mainView.loadingBgView.removeFromSuperview()
             
-            NotificationCenter.default.post(name: Notification.Name("pillAlarm"), object: nil)
+            NotificationCenter.default.post(name: Notification.Name("fetchPillAlarmTable"), object: nil)
             
             dismiss(animated: true)
         }

@@ -12,6 +12,7 @@ final class PillManagementViewModel {
     private let repository = RealmRepository()
     
     var outputRegisteredPill : Observable<[Pill]?> = Observable(nil)
+    var outputRegisteredPillAlarm : Observable<[PillAlarm]?> = Observable(nil)
     
     var fetchPillItemTrigger : Observable<Void?> = Observable(nil)
     var fetchPillAlarmItemTrigger : Observable<Void?> = Observable(nil)
@@ -27,6 +28,11 @@ final class PillManagementViewModel {
         fetchPillItemTrigger.bind { [weak self] _ in
             guard let self = self else { return }
             outputRegisteredPill.value = repository.fetchPillItem()
+        }
+        
+        fetchPillAlarmItemTrigger.bind { [weak self] _ in
+            guard let self = self else { return }
+            outputRegisteredPillAlarm.value = repository.fetchPillAlarm()
         }
         
         updatePillItemisDeleteTrigger.bind { [weak self] value in

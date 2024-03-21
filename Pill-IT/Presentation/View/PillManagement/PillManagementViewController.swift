@@ -57,13 +57,20 @@ final class PillManagementViewController : BaseViewController {
             updateMainSnapshot(value)
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(handleBackgroundColor), name: Notification.Name("pillAlarm"), object: nil)
-      
+        viewModel.outputRegisteredPillAlarm.bind { [weak self] value in
+            guard let self = self else { return }
+            guard let value = value else { return }
+            
+            print(value, "outputRegisteredPillAlarm 🔆🔆🔆🔆🔆🔆🔆🔆🔆🔆🔆🔆🔆🔆🔆🔆🔆🔆🔆🔆🔆")
+        }
         
+        NotificationCenter.default.addObserver(self, selector: #selector(triggerFetchPillAlarmTable), name: Notification.Name("fetchPillAlarmTable"), object: nil)
     }
     
-    @objc private func handleBackgroundColor(_ noti: Notification) {
-        print("값 받아오는겨?????? 🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲")
+    @objc private func triggerFetchPillAlarmTable(_ noti: Notification) {
+        print("PillManagementViewController triggerFetchPillAlarmTable ❗️❗️❗️❗️❗️❗️❗️")
+        
+        viewModel.fetchPillAlarmItemTrigger.value = ()
     }
     
     override func configureNavigation() {

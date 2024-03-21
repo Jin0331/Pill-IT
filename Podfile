@@ -18,6 +18,7 @@ target 'Pill-IT' do
   pod 'YPImagePicker'
   pod 'SwipeCellKit'
   pod 'Parchment', '~> 3.3'
+  pod 'MarqueeLabel'
 end
 
 post_install do |installer|

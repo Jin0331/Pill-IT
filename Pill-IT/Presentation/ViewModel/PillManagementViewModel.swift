@@ -41,6 +41,7 @@ final class PillManagementViewModel {
         
             repository.updatePillIsDelete(itemSeq : value.itemSeq)
             outputRegisteredPill.value = repository.fetchPillItem()
+            outputRegisteredPillAlarm.value = repository.fetchPillAlarm()
         }
     }
 

@@ -18,6 +18,12 @@ final class PillManagementView : BaseView {
         return view
     }()
     
+    let mainCollectionViewtitle = UILabel().then {
+        $0.text = "복용약 목록"
+        $0.textColor = DesignSystem.colorSet.gray
+        $0.font = .systemFont(ofSize: 15, weight: .heavy)
+    }
+    
     lazy var mainCollectionView : UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: mainCreateLayout())
         view.backgroundColor = DesignSystem.colorSet.white
@@ -42,8 +48,10 @@ final class PillManagementView : BaseView {
     }
     
     override func configureHierarchy() {
-        addSubview(headerCollecionView)
-        addSubview(mainCollectionView)
+        
+        [headerCollecionView, mainCollectionViewtitle, mainCollectionView].forEach {
+            addSubview($0)
+        }
     }
     
     override func configureLayout() {
@@ -53,8 +61,13 @@ final class PillManagementView : BaseView {
             make.height.equalTo(80)
         }
         
-        mainCollectionView.snp.makeConstraints { make in
+        mainCollectionViewtitle.snp.makeConstraints { make in
             make.top.equalTo(headerCollecionView.snp.bottom).offset(10)
+            make.leading.equalTo(safeAreaLayoutGuide).inset(20)
+        }
+        
+        mainCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(mainCollectionViewtitle.snp.bottom).offset(5)
             make.bottom.horizontalEdges.equalTo(safeAreaLayoutGuide)
         }
     }
@@ -66,7 +79,7 @@ final class PillManagementView : BaseView {
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
         // Group
-        let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(90), heightDimension: .absolute(70))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(120), heightDimension: .absolute(70))
         
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
 
@@ -112,6 +125,45 @@ final class PillManagementView : BaseView {
         return UICollectionView.CellRegistration<PillManagementCollectionViewMainCell, Pill> { cell, indexPath, itemIdentifier in
             cell.updateUI(itemIdentifier)
         }
+    }
+    
+    func collectionViewchangeLayout(itemCount: Int) {
+        
+        if itemCount < 1 {
+            headerCollecionView.snp.updateConstraints { make in
+                make.top.horizontalEdges.equalTo(safeAreaLayoutGuide)
+                make.height.equalTo(1)
+            }
+            
+            mainCollectionViewtitle.snp.updateConstraints { make in
+                make.top.equalTo(headerCollecionView.snp.bottom).offset(10)
+                make.leading.equalTo(safeAreaLayoutGuide).inset(20)
+            }
+            
+            mainCollectionView.snp.updateConstraints { make in
+                make.top.equalTo(mainCollectionViewtitle.snp.bottom).offset(5)
+                make.bottom.horizontalEdges.equalTo(safeAreaLayoutGuide)
+            }
+        } else {
+            headerCollecionView.snp.updateConstraints { make in
+                make.top.horizontalEdges.equalTo(safeAreaLayoutGuide)
+                make.height.equalTo(80)
+            }
+            
+            mainCollectionViewtitle.snp.updateConstraints { make in
+                make.top.equalTo(headerCollecionView.snp.bottom).offset(10)
+                make.leading.equalTo(safeAreaLayoutGuide).inset(20)
+            }
+            
+            mainCollectionView.snp.updateConstraints { make in
+                make.top.equalTo(mainCollectionViewtitle.snp.bottom).offset(5)
+                make.bottom.horizontalEdges.equalTo(safeAreaLayoutGuide)
+            }
+        }
+        
+        print("🥲 CollectionView Resize")
+        
+
     }
     
     

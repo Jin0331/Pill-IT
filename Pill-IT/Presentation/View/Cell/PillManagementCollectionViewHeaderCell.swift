@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import Then
+import MarqueeLabel
 
 final class PillManagementCollectionViewHeaderCell : UICollectionViewCell {
     
@@ -17,12 +18,13 @@ final class PillManagementCollectionViewHeaderCell : UICollectionViewCell {
         $0.layer.shadowOpacity = 0.2
         $0.layer.shadowRadius = 10
         $0.layer.masksToBounds = false
-        $0.backgroundColor = .white
+        $0.backgroundColor = DesignSystem.colorSet.lightBlack
     }
     
-    let groupTitleLabel = UILabel().then {
-        $0.textColor = DesignSystem.colorSet.lightBlack
-        $0.font = .systemFont(ofSize: 17, weight: .heavy)
+    let groupTitleLabel = MarqueeLabel().then {
+        $0.textColor = DesignSystem.colorSet.white
+        $0.textAlignment = .center
+        $0.font = .systemFont(ofSize: 19, weight: .heavy)
         $0.numberOfLines = 0
     }
     
@@ -37,7 +39,7 @@ final class PillManagementCollectionViewHeaderCell : UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     private func configureHierarchy() {
         contentView.addSubview(bgView)
         

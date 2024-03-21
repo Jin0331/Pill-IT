@@ -67,6 +67,8 @@ final class PillManagementViewController : BaseViewController {
             guard let self = self else { return }
             guard let value = value else { return }
             
+            mainView.collectionViewchangeLayout(itemCount: value.count)
+            
             configureHeaderDataSource()
             updateHeaderSnapshot(value)
         }
@@ -180,7 +182,6 @@ extension PillManagementViewController : UICollectionViewDelegate {
         }
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) as? PillManagementCollectionViewMainCell {
             cell.hiddneSelectedImage()
@@ -288,64 +289,3 @@ extension PillManagementViewController : PillListAction {
         view.makeToast("복용약이 수정되었습니다 ✅", duration: 2, position: .center)
     }
 }
-
-
-
-
-/*
- //    //MARK: - Header Datasource & SnakeShot
- //    private func configureHeaderDataSource() {
- //
- //        let headerCellRegistration = mainView.pillManagementHeaderCellRegistration()
- //
- //        headerDataSource = UICollectionViewDiffableDataSource(collectionView: mainView.mainCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
- //            let cell = collectionView.dequeueConfiguredReusableCell(using: headerCellRegistration, for: indexPath, item: itemIdentifier)
- //
- //            return cell
- //        })
- //    }
- //
- //    private func updateHeaderSnapshot(_ data : [PillAlarm]) {
- //        var snapshot = NSDiffableDataSourceSnapshot<PillManagementViewSection, PillAlarm>()
- //        snapshot.appendSections(PillManagementViewSection.allCases)
- //        snapshot.appendItems(data, toSection: .header)
- //
- //        headerDataSource.apply(snapshot) // reloadData
- //
- //        print("PillManageMent UpdateSnapShot - Header ❗️❗️❗️❗️❗️❗️❗️")
- //    }
- //
- //    //MARK: - Main Datasource & SnapShot
- //    private func configureMainDataSource() {
- //
- //        let mainCellRegistration = mainView.pillManagementMainCellRegistration()
- //
- //        mainDataSource = UICollectionViewDiffableDataSource(collectionView: mainView.mainCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
- //            let cell = collectionView.dequeueConfiguredReusableCell(using: mainCellRegistration, for: indexPath, item: itemIdentifier)
- //            cell.delegate = self
- //
- //            return cell
- //        })
- //    }
- //
- //    private func updateMainSnapshot(_ data : [Pill]) {
- //        var snapshot = NSDiffableDataSourceSnapshot<PillManagementViewSection, Pill>()
- //        snapshot.appendSections(PillManagementViewSection.allCases)
- //        snapshot.appendItems(data, toSection: .main)
- //
- //        mainDataSource.apply(snapshot) // reloadData
- //
- //        print("PillManageMent UpdateSnapShot - Main ❗️❗️❗️❗️❗️❗️❗️")
- //    }
- 
- //    private func sectionSnapShot(_ header : [PillAlarm], _ main : [Pill]) {
- //        var headerSnapshot = NSDiffableDataSourceSectionSnapshot<PillAlarm>()
- //        headerSnapshot.append(header)
- //        dataSource.apply(headerSnapshot, to: .main)
- //
- //        var mainSnapshot = NSDiffableDataSourceSectionSnapshot<Pill>()
- //        mainSnapshot.append(main)
- //        dataSource.apply(mainSnapshot, to: .sub)
- //    }
- //
- */

@@ -1,6 +1,7 @@
 PODS:
   - Alamofire (5.9.0)
   - Kingfisher (7.11.0)
+  - MarqueeLabel (4.5.0)
   - NVActivityIndicatorView (5.1.1):
     - NVActivityIndicatorView/Base (= 5.1.1)
   - NVActivityIndicatorView/Base (5.1.1)
@@ -25,6 +26,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 5.8)
   - Kingfisher (~> 7.0)
+  - MarqueeLabel
   - NVActivityIndicatorView
   - Parchment (~> 3.3)
   - RealmSwift (~> 10.45.0)
@@ -40,6 +42,7 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - Kingfisher
+    - MarqueeLabel
     - NVActivityIndicatorView
     - Parchment
     - PryntTrimmerView
@@ -57,6 +60,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: 02b772c9910e8eba1a079227c32fbd9e46c90a24
   Kingfisher: b9c985d864d43515f404f1ef4a8ce7d802ace3ac
+  MarqueeLabel: 4b46d196abd253448e830cbd976f9eacc3af0849
   NVActivityIndicatorView: 1f6c5687f1171810aa27a3296814dc2d7dec3667
   Parchment: 7678853fa5d28d38d31baaa466fa5d6ebaa6843c
   PryntTrimmerView: 6a43cc90df5d99addeabd33d4ba09b1365322130
@@ -71,6 +75,6 @@ SPEC CHECKSUMS:
   Toast-Swift: dd369e68ee529f542c65bd0d0c6c50cd743cf6f2
   YPImagePicker: afc81b3cffab05a6e7261c5daf80dc31b4e917b4
 
-PODFILE CHECKSUM: 9b1d0793d8438ba36f0b3874a757e2d01759a5dc
+PODFILE CHECKSUM: 000bdd415184dda4fd5482bdf42295bd90926b2a
 
 COCOAPODS: 1.15.2

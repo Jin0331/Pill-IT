@@ -86,6 +86,32 @@ final class RealmRepository {
     
     
     //MARK: - UPDATE
+    func updatePillIsSelect(itemSeq : Int) {
+        let table = fetchPillSpecific(itemSeq: itemSeq)!
+        
+        do {
+            try realm.write {
+                table.isSelected.toggle()
+                table.upDate = Date()
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
+    func updatePillIsSelectRelease(itemSeq : Int) {
+        let table = fetchPillSpecific(itemSeq: itemSeq)!
+        
+        do {
+            try realm.write {
+                table.isSelected = false
+                table.upDate = Date()
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
     func updatePillIsDelete(itemSeq : Int) {
         
         let table = fetchPillSpecific(itemSeq: itemSeq)!

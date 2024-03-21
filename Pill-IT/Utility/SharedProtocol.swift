@@ -27,7 +27,7 @@ protocol PillManagementAction : AnyObject {
 }
 
 protocol PillAlarmReigsterAction : AnyObject {
-    func dismissPresent()
+//    func dismissPresent()
     func periodSelectPresent()
     func startDateSelectPresent()
     func completeButtonAction()

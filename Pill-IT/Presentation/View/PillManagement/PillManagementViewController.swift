@@ -28,6 +28,20 @@ final class PillManagementViewController : BaseViewController {
         bindData()
     }
     
+    override func viewWillLayoutSubviews() {
+        
+        print(#function, "❗️PillManagementViewController")
+        selectedCellRelease()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        print(#function, "❗️PillManagementViewController")
+        selectedCellRelease()
+        
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         print(#function, "⭕️ Tabbar 전환")
@@ -36,7 +50,6 @@ final class PillManagementViewController : BaseViewController {
                 cell.hideSwipe(animated: true)
             }
         }
-        
         mainView.mainCollectionView.deselectAllItems(animated: true)
     }
     
@@ -47,7 +60,6 @@ final class PillManagementViewController : BaseViewController {
             
             configureDataSource()
             updateSnapshot(value)
-//            updateSnapshot()
         }
     }
     
@@ -87,22 +99,8 @@ final class PillManagementViewController : BaseViewController {
         print("PillManageMent UpdateSnapShot ❗️❗️❗️❗️❗️❗️❗️")
     }
     
-//    private func updateSnapshot() {
-//        
-//        guard let data = viewModel.outputRegisteredPill.value else { return }
-//        var snapshot = NSDiffableDataSourceSnapshot<PillManagementViewSection, Pill>()
-//        snapshot.appendSections(PillManagementViewSection.allCases)
-//        snapshot.appendItems(data, toSection: .main)
-//        
-//
-//
-//        dataSource.apply(snapshot) // reloadData
-//        
-//        print("PillManageMent UpdateSnapShot ❗️❗️❗️❗️❗️❗️❗️")
-//    }
-    
     //MARK: - 복용약 알림 화면으로 이동하는 부분
-    @objc func leftBarButtonClicked(_ sender : UIBarButtonItem){
+    @objc private func leftBarButtonClicked(_ sender : UIBarButtonItem){
         let vc =  PillAlarmRegisterViewController()
         vc.setupSheetPresentationLarge()
         
@@ -110,14 +108,20 @@ final class PillManagementViewController : BaseViewController {
         let selectedPill = selectedIndexPaths.map{ return dataSource.itemIdentifier(for: $0)}
         
         vc.viewModel.selectedPill.value = selectedPill
-//        vc.collectionViewDeselectAllItems = { [weak self] in
-//            guard let self = self else { return }
-//            mainView.mainCollectionView.deselectAllItems(animated: true)
-//        }
         
         let nav = UINavigationController(rootViewController: vc)
         present(nav, animated: true)
         
+    }
+    
+    //MARK: - 모달 이후에 선택 및 선택 이미지 해제
+    private func selectedCellRelease() {
+        // 선택된 모든 Cell Image Hidden (데이터상으로는 이미 모두 선택이 해제되어 있음)
+        mainView.mainCollectionView.visibleCells.forEach { cell in
+            guard let cellCasting = cell as? PillManagementCollectionViewCell else { return }
+            cellCasting.hiddneSelectedImage()
+        }
+        hiddenLeftBarButton(mainView.mainCollectionView)
     }
     
     deinit {
@@ -174,7 +178,6 @@ extension PillManagementViewController : SwipeCollectionViewCellDelegate {
             let confirmAction = UIAlertAction(title: "지워주세요", style: .default) { (action) in
                 
                 self.viewModel.updatePillItemisDeleteTrigger.value = self.dataSource.itemIdentifier(for: indexPath)
-                
                 self.hiddenLeftBarButton(collectionView)
                 
             }
@@ -183,8 +186,6 @@ extension PillManagementViewController : SwipeCollectionViewCellDelegate {
             cancelAction.setValue(UIColor.red, forKey: "titleTextColor")
             
             self.showAlert(title: "등록된 복용약 삭제", message: "등록된 복용약 삭제하시겠습니까? 🥲", actions: [confirmAction, cancelAction])
-            
-            
         }
         
         let editImageAction = SwipeAction(style: .default, title: "이미지 수정") { [weak self] action, indexPath in

@@ -14,6 +14,8 @@ final class PillManagementViewModel {
     var outputRegisteredPill : Observable<[Pill]?> = Observable(nil)
     
     var fetchPillItemTrigger : Observable<Void?> = Observable(nil)
+    var updatePillItemisSelectTrigger : Observable<Pill?> = Observable(nil)
+    var updatePillItemisSelectReleaseTrigger : Observable<Pill?> = Observable(nil)
     var updatePillItemisDeleteTrigger : Observable<Pill?> = Observable(nil)
     var removePillItemRemoveTrigger : Observable<Pill?> = Observable(nil)
     

@@ -15,8 +15,6 @@ final class PillAlarmRegisterViewController: BaseViewController {
     let viewModel = PillAlaramRegisterViewModel()
     private var dataSource : UICollectionViewDiffableDataSource<PillAlarmViewSection, Pill>!
     
-    var collectionViewDeselectAllItems :(() -> Void)?
-    
     override func loadView() {
         view = mainView
         mainView.actionDelegate = self
@@ -59,6 +57,7 @@ final class PillAlarmRegisterViewController: BaseViewController {
     }
     
     @objc private func rightBarButtonClicked() {
+        print("ASDasdzxcad  🥲")
         dismiss(animated: true)
     }
     
@@ -134,11 +133,6 @@ extension PillAlarmRegisterViewController : SwipeCollectionViewCellDelegate {
 
 //MARK: - Delegate Action
 extension PillAlarmRegisterViewController : PillAlarmReigsterAction {
-    
-    func dismissPresent() {
-        collectionViewDeselectAllItems?()
-        dismiss(animated: true)
-    }
     
     func periodSelectPresent() {
         let vc = PeriodSelectViewController()

@@ -14,21 +14,6 @@ final class PillAlarmRegisterView : BaseView {
     
     weak var actionDelegate : PillAlarmReigsterAction?
     
-//    let exitButton = UIButton().then {
-//        $0.setImage(DesignSystem.iconImage.clear, for: .normal)
-//        $0.tintColor = DesignSystem.colorSet.black
-//    }
-//    
-//    let titleLabel = UILabel().then {
-//        $0.text = "🗓️ 복용 알림 등록하기"
-//        $0.textColor = DesignSystem.colorSet.black
-//        $0.font = .systemFont(ofSize: 28, weight: .heavy)
-//        $0.layer.shadowOffset = CGSize(width: 10, height: 5)
-//        $0.layer.shadowOpacity = 0.4
-//        $0.layer.shadowRadius = 10
-//        $0.layer.masksToBounds = false
-//    }
-//    
     let scrollView = UIScrollView().then {
         $0.backgroundColor = DesignSystem.colorSet.white
         $0.isScrollEnabled = true

@@ -29,12 +29,6 @@ final class PillManagementViewController : BaseViewController {
         bindData()
     }
     
-    override func viewWillLayoutSubviews() {
-        
-        print(#function, "❗️PillManagementViewController")
-        selectedCellRelease()
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -62,6 +56,14 @@ final class PillManagementViewController : BaseViewController {
             configureMainDataSource()
             updateMainSnapshot(value)
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleBackgroundColor), name: Notification.Name("pillAlarm"), object: nil)
+      
+        
+    }
+    
+    @objc private func handleBackgroundColor(_ noti: Notification) {
+        print("값 받아오는겨?????? 🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲")
     }
     
     override func configureNavigation() {
@@ -122,7 +124,7 @@ final class PillManagementViewController : BaseViewController {
         print("PillManageMent UpdateSnapShot - Main ❗️❗️❗️❗️❗️❗️❗️")
     }
     
-    //MARK: - 복용약 알림 화면으로 이동하는 부분
+    //MARK: - 복용약 알림 화면으로 이동하는 부분 ❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️
     @objc private func leftBarButtonClicked(_ sender : UIBarButtonItem){
         let vc =  PillAlarmRegisterViewController()
         vc.setupSheetPresentationLarge()
@@ -130,7 +132,6 @@ final class PillManagementViewController : BaseViewController {
         guard let selectedIndexPaths = mainView.mainCollectionView.indexPathsForSelectedItems else { return }
         let selectedPill = selectedIndexPaths.map{ return mainDataSource.itemIdentifier(for: $0)}
         vc.viewModel.selectedPill.value = selectedPill
-
         let nav = UINavigationController(rootViewController: vc)
         
         present(nav, animated: true)

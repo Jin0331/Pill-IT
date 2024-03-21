@@ -60,7 +60,7 @@ final class RealmRepository {
     //MARK: - PillAralm Group Fetch
     func fetchPillAlarm(alarmName : String) -> [PillAlarm]? {
         let table = realm.objects(PillAlarm.self).where {
-            $0.alarmName == alarmName
+            $0.alarmName == alarmName && $0.isDeleted == false
         }
         return Array(table)
     }
@@ -68,7 +68,7 @@ final class RealmRepository {
     //MARK: - PillAralm Group의 Date Fetch
     func fetchPillAlarmDateItem(alarmName : String) -> [PillAlarmDate]? {
         let table = realm.objects(PillAlarmDate.self).where {
-            $0.alarmName == alarmName
+            $0.alarmName == alarmName && $0.isDeleted == false
         }
         return Array(table)
     }
@@ -93,15 +93,12 @@ final class RealmRepository {
         // 상위 그룹에 Table count 조회 후 삭제 전 Count가 1이면 (지워지는 대상 밖에 없는 상황)
         // isDelete = true
         table.alarmGroup.forEach {
-            print($0.alarmName, "⭕️⭕️⭕️⭕️⭕️⭕️⭕️⭕️") // Alarm Group Primary Key
             guard let table = fetchPillAlarm(alarmName: $0.alarmName) else { return }
             guard let pillListCount = table.first?.pillList.count else { return }
-            print(pillListCount, "⭕️⭕️⭕️⭕️⭕️⭕️⭕️⭕️")
             if pillListCount < 2 {
                 updatePillAlarmDelete($0.alarmName)
                 print($0.alarmName, "에 포함된 Pill 없으므로 삭제됩니다. ⭕️⭕️⭕️⭕️⭕️⭕️⭕️⭕️")
             }
-            
         }
         
         do {

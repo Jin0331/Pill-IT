@@ -32,7 +32,8 @@ class PopUpPillAlarmGroupViewModel {
             guard let self = self else { return }
             guard let value = value else { return }
             
-            outputCurrentDateAlarmPill.value = value
+            // isDelete가 false 것만
+            outputCurrentDateAlarmPill.value = value.filter { $0.isDeleted == false }
         }
     }
     

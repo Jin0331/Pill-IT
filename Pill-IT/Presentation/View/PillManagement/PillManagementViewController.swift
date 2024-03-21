@@ -59,13 +59,8 @@ final class PillManagementViewController : BaseViewController {
             guard let self = self else { return }
             guard let value = value else { return }
             
-<<<<<<< HEAD
-            configureDataSource()
-            updateSnapshot(value)
-=======
             configureMainDataSource()
             updateMainSnapshot(value)
->>>>>>> develop-etc
         }
     }
     
@@ -135,10 +130,7 @@ final class PillManagementViewController : BaseViewController {
         guard let selectedIndexPaths = mainView.mainCollectionView.indexPathsForSelectedItems else { return }
         let selectedPill = selectedIndexPaths.map{ return mainDataSource.itemIdentifier(for: $0)}
         vc.viewModel.selectedPill.value = selectedPill
-<<<<<<< HEAD
-        
-=======
->>>>>>> develop-etc
+
         let nav = UINavigationController(rootViewController: vc)
         
         present(nav, animated: true)
@@ -148,7 +140,7 @@ final class PillManagementViewController : BaseViewController {
     private func selectedCellRelease() {
         // 선택된 모든 Cell Image Hidden (데이터상으로는 이미 모두 선택이 해제되어 있음)
         mainView.mainCollectionView.visibleCells.forEach { cell in
-            guard let cellCasting = cell as? PillManagementCollectionViewCell else { return }
+            guard let cellCasting = cell as? PillManagementCollectionViewMainCell else { return }
             cellCasting.hiddneSelectedImage()
         }
         hiddenLeftBarButton(mainView.mainCollectionView)
@@ -206,13 +198,9 @@ extension PillManagementViewController : SwipeCollectionViewCellDelegate {
             guard let self = self else { return }
             
             let confirmAction = UIAlertAction(title: "지워주세요", style: .default) { (action) in
-                
-<<<<<<< HEAD
-                self.viewModel.updatePillItemisDeleteTrigger.value = self.dataSource.itemIdentifier(for: indexPath)
-=======
+
                 self.viewModel.updatePillItemisDeleteTrigger.value = self.mainDataSource.itemIdentifier(for: indexPath)
                 
->>>>>>> develop-etc
                 self.hiddenLeftBarButton(collectionView)
                 
             }
@@ -230,13 +218,7 @@ extension PillManagementViewController : SwipeCollectionViewCellDelegate {
             vc.modifyView(itemSeq: mainDataSource.itemIdentifier(for: indexPath)?.itemSeq.toString)
             vc.pillListDelegate = self
             vc.setupSheetPresentationLarge()
-<<<<<<< HEAD
-            
-            //TODO: - 복용약 화면이 Dismiss되었을 때, handler로 바 아이템 수정해야됨
 
-=======
-            //TODO: - 복용약 화면이 Dismiss되었을 때, handler로 바 아이템 수정해야
->>>>>>> develop-etc
             let nav = UINavigationController(rootViewController: vc)
             
             present(nav, animated: true)

@@ -197,12 +197,7 @@ extension PillManagementViewController : SwipeCollectionViewCellDelegate {
             vc.setupSheetPresentationLarge()
             
             //TODO: - 복용약 화면이 Dismiss되었을 때, handler로 바 아이템 수정해야됨
-//            if #available(iOS 16.0, *) {
-//                navigationItem.leftBarButtonItem?.isHidden = true
-//            } else {
-//                navigationItem.leftBarButtonItem?.customView?.isHidden = true
-//            }
-            
+
             let nav = UINavigationController(rootViewController: vc)
             present(nav, animated: true)
         }

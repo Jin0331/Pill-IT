@@ -31,6 +31,8 @@ final class PillNotificationContentViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print(#function, "❗️PillNotificationContentViewController")
+        
         configureDataSource()
         bindData()
     }

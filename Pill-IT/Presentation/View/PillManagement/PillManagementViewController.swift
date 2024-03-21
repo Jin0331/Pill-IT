@@ -15,7 +15,8 @@ final class PillManagementViewController : BaseViewController {
     
     let mainView = PillManagementView()
     let viewModel = PillManagementViewModel()
-    private var dataSource : UICollectionViewDiffableDataSource<PillManagementViewSection, Pill>!
+    private var headerDataSource : UICollectionViewDiffableDataSource<PillManagementViewSection, PillAlarm>!
+    private var mainDataSource : UICollectionViewDiffableDataSource<PillManagementViewSection, Pill>!
     
     override func loadView() {
         view = mainView
@@ -58,11 +59,15 @@ final class PillManagementViewController : BaseViewController {
             guard let self = self else { return }
             guard let value = value else { return }
             
+<<<<<<< HEAD
             configureDataSource()
             updateSnapshot(value)
+=======
+            configureMainDataSource()
+            updateMainSnapshot(value)
+>>>>>>> develop-etc
         }
     }
-    
     
     override func configureNavigation() {
         super.configureNavigation()
@@ -77,26 +82,49 @@ final class PillManagementViewController : BaseViewController {
             navigationItem.leftBarButtonItem?.customView?.isHidden = true
         }
     }
-    
-    private func configureDataSource() {
+    //MARK: - Header Datasource & SnakeShot
+    private func configureHeaderDataSource() {
         
-        let cellRegistration = mainView.pillManagementCellRegistration()
-        dataSource = UICollectionViewDiffableDataSource(collectionView: mainView.mainCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
-            let cell = collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
+        let mainCellRegistration = mainView.pillManagementHeaderCellRegistration()
+        
+        headerDataSource = UICollectionViewDiffableDataSource(collectionView: mainView.mainCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
+            let cell = collectionView.dequeueConfiguredReusableCell(using: mainCellRegistration, for: indexPath, item: itemIdentifier)
+            
+            return cell
+        })
+    }
+    
+    private func updateHeaderSnapshot(_ data : [PillAlarm]) {
+        var snapshot = NSDiffableDataSourceSnapshot<PillManagementViewSection, PillAlarm>()
+        snapshot.appendSections(PillManagementViewSection.allCases)
+        snapshot.appendItems(data, toSection: .header)
+        
+        headerDataSource.apply(snapshot) // reloadData
+        
+        print("PillManageMent UpdateSnapShot - Header ❗️❗️❗️❗️❗️❗️❗️")
+    }
+    
+    //MARK: - Main Datasource & SnapShot
+    private func configureMainDataSource() {
+        
+        let mainCellRegistration = mainView.pillManagementMainCellRegistration()
+        
+        mainDataSource = UICollectionViewDiffableDataSource(collectionView: mainView.mainCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
+            let cell = collectionView.dequeueConfiguredReusableCell(using: mainCellRegistration, for: indexPath, item: itemIdentifier)
             cell.delegate = self
             
             return cell
         })
     }
     
-    private func updateSnapshot(_ data : [Pill]) {
+    private func updateMainSnapshot(_ data : [Pill]) {
         var snapshot = NSDiffableDataSourceSnapshot<PillManagementViewSection, Pill>()
         snapshot.appendSections(PillManagementViewSection.allCases)
         snapshot.appendItems(data, toSection: .main)
         
-        dataSource.apply(snapshot) // reloadData
+        mainDataSource.apply(snapshot) // reloadData
         
-        print("PillManageMent UpdateSnapShot ❗️❗️❗️❗️❗️❗️❗️")
+        print("PillManageMent UpdateSnapShot - Main ❗️❗️❗️❗️❗️❗️❗️")
     }
     
     //MARK: - 복용약 알림 화면으로 이동하는 부분
@@ -105,13 +133,15 @@ final class PillManagementViewController : BaseViewController {
         vc.setupSheetPresentationLarge()
         
         guard let selectedIndexPaths = mainView.mainCollectionView.indexPathsForSelectedItems else { return }
-        let selectedPill = selectedIndexPaths.map{ return dataSource.itemIdentifier(for: $0)}
-        
+        let selectedPill = selectedIndexPaths.map{ return mainDataSource.itemIdentifier(for: $0)}
         vc.viewModel.selectedPill.value = selectedPill
+<<<<<<< HEAD
         
+=======
+>>>>>>> develop-etc
         let nav = UINavigationController(rootViewController: vc)
-        present(nav, animated: true)
         
+        present(nav, animated: true)
     }
     
     //MARK: - 모달 이후에 선택 및 선택 이미지 해제
@@ -133,7 +163,7 @@ final class PillManagementViewController : BaseViewController {
 extension PillManagementViewController : UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let cell = collectionView.cellForItem(at: indexPath) as? PillManagementCollectionViewCell {
+        if let cell = collectionView.cellForItem(at: indexPath) as? PillManagementCollectionViewMainCell {
             cell.showSelectedImage()
             hiddenLeftBarButton(collectionView)
         }
@@ -141,7 +171,7 @@ extension PillManagementViewController : UICollectionViewDelegate {
     
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        if let cell = collectionView.cellForItem(at: indexPath) as? PillManagementCollectionViewCell {
+        if let cell = collectionView.cellForItem(at: indexPath) as? PillManagementCollectionViewMainCell {
             cell.hiddneSelectedImage()
             hiddenLeftBarButton(collectionView)
         }
@@ -177,7 +207,12 @@ extension PillManagementViewController : SwipeCollectionViewCellDelegate {
             
             let confirmAction = UIAlertAction(title: "지워주세요", style: .default) { (action) in
                 
+<<<<<<< HEAD
                 self.viewModel.updatePillItemisDeleteTrigger.value = self.dataSource.itemIdentifier(for: indexPath)
+=======
+                self.viewModel.updatePillItemisDeleteTrigger.value = self.mainDataSource.itemIdentifier(for: indexPath)
+                
+>>>>>>> develop-etc
                 self.hiddenLeftBarButton(collectionView)
                 
             }
@@ -192,13 +227,18 @@ extension PillManagementViewController : SwipeCollectionViewCellDelegate {
             guard let self = self else { return }
             let vc = RegisterPillViewController()
             vc.editMode = true
-            vc.modifyView(itemSeq: dataSource.itemIdentifier(for: indexPath)?.itemSeq.toString)
+            vc.modifyView(itemSeq: mainDataSource.itemIdentifier(for: indexPath)?.itemSeq.toString)
             vc.pillListDelegate = self
             vc.setupSheetPresentationLarge()
+<<<<<<< HEAD
             
             //TODO: - 복용약 화면이 Dismiss되었을 때, handler로 바 아이템 수정해야됨
 
+=======
+            //TODO: - 복용약 화면이 Dismiss되었을 때, handler로 바 아이템 수정해야
+>>>>>>> develop-etc
             let nav = UINavigationController(rootViewController: vc)
+            
             present(nav, animated: true)
         }
         

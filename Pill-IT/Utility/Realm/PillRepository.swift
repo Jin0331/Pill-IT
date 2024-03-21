@@ -46,6 +46,9 @@ final class RealmRepository {
         }
     }
     
+//    func 
+    
+    //MARK: - Pill Search
     func fetchPillItem() -> [Pill]? {
         let table = realm.objects(Pill.self).where {
             $0.isDeleted == false
@@ -54,6 +57,15 @@ final class RealmRepository {
         return Array(table)
     }
     
+    //MARK: - PillAralm Group Fetch
+    func fetchPillAlarm(alarmName : String) -> [PillAlarm]? {
+        let table = realm.objects(PillAlarm.self).where {
+            $0.alarmName == alarmName
+        }
+        return Array(table)
+    }
+    
+    //MARK: - PillAralm Group의 Date Fetch
     func fetchPillAlarmDateItem(alarmName : String) -> [PillAlarmDate]? {
         let table = realm.objects(PillAlarmDate.self).where {
             $0.alarmName == alarmName
@@ -78,6 +90,19 @@ final class RealmRepository {
         
         let table = fetchPillSpecific(itemSeq: itemSeq)!
     
+        // 상위 그룹에 Table count 조회 후 삭제 전 Count가 1이면 (지워지는 대상 밖에 없는 상황)
+        // isDelete = true
+        table.alarmGroup.forEach {
+            print($0.alarmName, "⭕️⭕️⭕️⭕️⭕️⭕️⭕️⭕️") // Alarm Group Primary Key
+            guard let table = fetchPillAlarm(alarmName: $0.alarmName) else { return }
+            print(table.count, "⭕️⭕️⭕️⭕️⭕️⭕️⭕️⭕️")
+            if table.count < 2 {
+                updatePillAlarmDelete($0.alarmName)
+                print($0.alarmName, "에 포함된 Pill 없으므로 삭제됩니다. ⭕️⭕️⭕️⭕️⭕️⭕️⭕️⭕️")
+            }
+            
+        }
+        
         do {
             try realm.write {
                 table.isDeleted = true
@@ -95,6 +120,19 @@ final class RealmRepository {
         do {
             try realm.write {
                 table.urlPath = imagePath
+                table.upDate = Date()
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
+    func updatePillAlarmDelete(_ alarmName : String) {
+        guard let table = realm.object(ofType:PillAlarm.self, forPrimaryKey: alarmName) else { return }
+        
+        do {
+            try realm.write {
+                table.isDeleted = true
                 table.upDate = Date()
             }
         } catch {

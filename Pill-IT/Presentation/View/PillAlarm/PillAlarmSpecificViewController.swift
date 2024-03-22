@@ -125,7 +125,7 @@ extension PillAlarmSpecificViewController : PillSpecificAction {
             NotificationCenter.default.post(name: Notification.Name("fetchPillAlarmTable"), object: nil)
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) { [weak self] in
             guard let self = self else { return }
             mainView.activityIndicator.stopAnimating()
             mainView.loadingBgView.removeFromSuperview()

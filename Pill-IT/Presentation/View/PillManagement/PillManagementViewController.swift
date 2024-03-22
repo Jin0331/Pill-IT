@@ -48,8 +48,8 @@ final class PillManagementViewController : BaseViewController {
         mainView.mainCollectionView.deselectAllItems(animated: true)
         
         // notificaionCenter remove
-        NotificationCenter.default.removeObserver(self,
-                                                  name: Notification.Name("fetchPillAlarmTable"), object: nil)
+//        NotificationCenter.default.removeObserver(self,
+//                                                  name: Notification.Name("fetchPillAlarmTable"), object: nil)
     }
     private func bindData() {
         // 복용약 리스트
@@ -156,6 +156,7 @@ final class PillManagementViewController : BaseViewController {
             guard let cellCasting = cell as? PillManagementCollectionViewMainCell else { return }
             cellCasting.hiddneSelectedImage()
         }
+        mainView.mainCollectionView.deselectAllItems(animated: true)
         hiddenLeftBarButton(mainView.mainCollectionView)
     }
     
@@ -163,8 +164,10 @@ final class PillManagementViewController : BaseViewController {
     // pillAlarm의 조회를 위한 Trigger
     @objc private func triggerFetchPillAlarmTable(_ noti: Notification) {
         print("PillManagementViewController triggerFetchPillAlarmTable ❗️❗️❗️❗️❗️❗️❗️")
-        selectedCellRelease() 
+        selectedCellRelease()
         viewModel.fetchPillAlarmItemTrigger.value = ()
+        
+        view.makeToast("복용약 알림이 설정되었습니다 ✅", duration: 2, position: .center)
     }
     
     deinit {
@@ -220,7 +223,6 @@ extension PillManagementViewController : SwipeCollectionViewCellDelegate {
             let confirmAction = UIAlertAction(title: "지워주세요", style: .default) { (action) in
                 
                 self.viewModel.updatePillItemisDeleteTrigger.value = self.mainDataSource.itemIdentifier(for: indexPath)
-                
                 self.hiddenLeftBarButton(collectionView)
                 
             }

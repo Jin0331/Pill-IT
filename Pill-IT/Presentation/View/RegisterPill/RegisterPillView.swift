@@ -17,17 +17,6 @@ import NVActivityIndicatorView
 final class RegisterPillView: BaseView {
     
     weak var actionDelegate : PillRegisterAction?
-     
-//    
-//    let titleLabel = UILabel().then {
-//        $0.text = "🌟 복용약 등록하기"
-//        $0.textColor = DesignSystem.colorSet.black
-//        $0.font = .systemFont(ofSize: 28, weight: .heavy)
-//        $0.layer.shadowOffset = CGSize(width: 10, height: 5)
-//        $0.layer.shadowOpacity = 0.4
-//        $0.layer.shadowRadius = 10
-//        $0.layer.masksToBounds = false
-//    }
     
     let userInputTextfield = SearchTextField().then {
         $0.attributedPlaceholder = NSAttributedString(string: "복용중인 약을 입력해주세요", attributes: [NSAttributedString.Key.foregroundColor : DesignSystem.colorSet.gray])

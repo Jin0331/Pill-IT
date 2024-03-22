@@ -31,8 +31,10 @@ final class PillAlaramRegisterViewModel {
     var outputVisibleSpecificTimeList : Observable<[Date]> = Observable([]) // Diffable Datasource 용
     var outputAlarmSpecificTimeList : Observable<[Date]> = Observable([]) // 실제 Output이 되는 값(날짜 + 시간)
     
+    var reCalculateAAlarmSpecificTimeListTrigger : Observable<[(hour:Int, minute:Int)]?> = Observable(nil)
     var reCalculateAlarmDateList : Observable<PeriodCase?> = Observable(nil)
     var createTableTrigger : Observable<Void?> = Observable(nil)
+    var revisePeriodTableTrigger : Observable<Void?> = Observable(nil)
     
     init() {
         transform()
@@ -58,9 +60,8 @@ final class PillAlaramRegisterViewModel {
             let tempDateList = alarmDateFetch!.map { $0.alarmDate }
             outputAlarmDateList.value = tempDateList.map { return Calendar.current.hourMinuteInitializer($0)}
                 
-            
             // 등록된 날로부터 inputAlarmSpecificTimeList 도 같이 추출
-            outputAlarmDateList.value!.forEach({ value in
+            tempDateList.forEach({ value in
                 let dateComponent = calendar.dateComponents([.hour, .minute], from: value)
                 let tempInterval = (hour:dateComponent.hour!, minute:dateComponent.minute!)
                 
@@ -136,6 +137,13 @@ final class PillAlaramRegisterViewModel {
             outputAlarmSpecificTimeList.value = tableDateList.flatMap{ $0 }
         }
         
+        reCalculateAAlarmSpecificTimeListTrigger.bind { [weak self] value in
+            guard let self = self else { return }
+            guard let value = value else { return }
+            
+            inputAlarmSpecificTimeList.value = value
+        }
+        
         reCalculateAlarmDateList.bind { [weak self] value in
             guard let self = self else { return }
             guard let value = value else { return }
@@ -143,12 +151,19 @@ final class PillAlaramRegisterViewModel {
             inputPeriodType.value = value
         }
         
-        createTableTrigger.bind {[weak self] value in
+        createTableTrigger.bind { [weak self] value in
             guard let self = self else { return }
             
             pillAlaramRegister()
-
         }
+        
+        revisePeriodTableTrigger.bind { [weak self] value in
+            guard let self = self else { return }
+            
+            pillAlarmPeriodReviseUpsert()
+        }
+        
+        
         
     }
     
@@ -167,9 +182,7 @@ final class PillAlaramRegisterViewModel {
     
     //MARK: - 내부 사용 함수
     private func pillAlaramRegister() {
-        
-        //TODO: - a
-        
+                
         guard let alarmName = inputGroupId.value else { return }
         guard let inputPeriodType = inputPeriodType.value else { return }
         guard let outputPeriodType = outputPeriodType.value else { return }
@@ -197,6 +210,45 @@ final class PillAlaramRegisterViewModel {
         
         repository.createPill(pillAlaram)
     }
+    
+    //TODO: - Pill, Alarm Date 관계 다 끊고 새로 관계 맺기. 기존 AlarmDate는 모두 isDelete처리
+    private func pillAlarmPeriodReviseUpsert() {
+        guard let alarmName = inputGroupId.value else { return }
+        guard let outputPeriodType = outputPeriodType.value else { return }
+        
+        // 기존 관계 끊기 및 isDelete
+        repository.updatePillAlarmRealtionIsDelete(alarmName: alarmName)
+        
+        let pillsList = List<Pill>()
+        outputSelectedPill.value.forEach { pill in
+            pillsList.append(pill)
+        }
+        
+        print(outputAlarmSpecificTimeList.value)
+        
+        // AlarmDateList는 새로 Table 생성 후 조회로 등록 이때, alarm name으로 검색함
+        outputAlarmSpecificTimeList.value.forEach {
+            repository.createPill(PillAlarmDate(alarmName: alarmName, alarmDate: $0))
+        }
+        
+        let alarmDateFetch = repository.fetchPillAlarmDateItem(alarmName: alarmName)
+        guard let alarmDateFetch = alarmDateFetch else { return }
+        
+        let alarmDate = List<PillAlarmDate>()
+        alarmDateFetch.forEach { pillAlarmDate in
+            alarmDate.append(pillAlarmDate)
+        }
+        
+        // Upsert
+        if let inputPeriodType = inputPeriodType.value {
+            let newPeriodType = inputPeriodType.rawValue
+            repository.upsertPillAlarm(alarmName: alarmName, pillList: pillsList, type: newPeriodType, typeTitle: outputPeriodType, alarmStartDate: inputStartDate.value, alarmDate: alarmDate)
+        } else {
+            let newPeriodType = inputRegistedPillAlarm.value!.type
+            repository.upsertPillAlarm(alarmName: alarmName, pillList: pillsList, type: newPeriodType, typeTitle: outputPeriodType, alarmStartDate: inputStartDate.value, alarmDate: alarmDate)
+        }
+    }
+    
     
     
     // 내부 사용
@@ -264,6 +316,8 @@ final class PillAlaramRegisterViewModel {
                                                        interval: interval.days)
             outputPeriodType.value = interval.enumCase.byAdding == Calendar.Component.day && interval.days == 1 ? "매일" : "\(interval.days)\(interval.enumCase.title)"
         }
+        
+        print(outputAlarmDateList.value, "asdasdlkjljl✅✅✅✅✅✅✅✅✅✅")
     }
     
     deinit {

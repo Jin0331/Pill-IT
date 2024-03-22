@@ -148,9 +148,13 @@ extension PillAlarmReviseItemViewController : PillAlarmReigsterAction {
         
         vc.sendPeriodSelectButtonTitle = { [weak self] value in
             guard let self = self else { return }
+            guard let viewModel = viewModel else { return }
             mainView.periodSelectButton.setTitle(value, for: .normal)
             mainView.periodSelectButton.setImage(DesignSystem.sfSymbol.startDate, for: .normal)
             mainView.periodSelectButton.tintColor = DesignSystem.colorSet.lightBlack
+            
+            // 업데이트 해줘야 됨 ㅎ;
+            viewModel.reCalculateAAlarmSpecificTimeListTrigger.value = viewModel.inputAlarmSpecificTimeList.value
         }
         
         vc.viewModel = viewModel
@@ -191,11 +195,7 @@ extension PillAlarmReviseItemViewController : PillAlarmReigsterAction {
                 })
                 
                 viewModel.inputStartDate.value = Calendar.current.hourMinuteInitializer(datePicker.date)
-                
-                // 기존에 등록된 시간 inputAlarmSpecificTimeList을 다시 붙여야 됨
-                print(viewModel.inputAlarmSpecificTimeList.value)
-//                viewModel.inputAlarmSpecificTimeList.value = viewModel.inputAlarmSpecificTimeList.value
-
+                viewModel.reCalculateAAlarmSpecificTimeListTrigger.value = viewModel.inputAlarmSpecificTimeList.value
             }
         }
         
@@ -225,10 +225,13 @@ extension PillAlarmReviseItemViewController : PillAlarmReigsterAction {
                 
                 
                 print(pillTitle, alarmDateList, periodType, startDate)
+                viewModel.revisePeriodTableTrigger.value = ()
+                
+                dismiss(animated: true)
                 
                 
             } else {
-                view.makeToast("입력된 값을 다시 확인해주세요 🥲", duration: 2, position: .center)
+//                view.makeToast("입력된 값을 다시 확인해주세요 🥲", duration: 2, position: .center)
             }
         }
     }

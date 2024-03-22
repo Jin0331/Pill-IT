@@ -19,6 +19,7 @@ target 'Pill-IT' do
   pod 'SwipeCellKit'
   pod 'Parchment', '~> 3.3'
   pod 'MarqueeLabel'
+  pod 'Tabman', '~> 3.0'
 end
 
 post_install do |installer|

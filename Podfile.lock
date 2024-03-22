@@ -5,6 +5,7 @@ PODS:
   - NVActivityIndicatorView (5.1.1):
     - NVActivityIndicatorView/Base (= 5.1.1)
   - NVActivityIndicatorView/Base (5.1.1)
+  - Pageboy (4.0.2)
   - Parchment (3.3.0)
   - PryntTrimmerView (4.0.2)
   - Realm (10.45.3):
@@ -17,6 +18,8 @@ PODS:
   - SteviaLayout (5.1.2)
   - SwipeableTabBarController (3.4.2)
   - SwipeCellKit (2.7.1)
+  - Tabman (3.0.2):
+    - Pageboy (~> 4.0.2)
   - Then (3.0.0)
   - Toast-Swift (5.1.0)
   - YPImagePicker (5.2.2):
@@ -34,6 +37,7 @@ DEPENDENCIES:
   - SnapKit (~> 5.7.0)
   - SwipeableTabBarController
   - SwipeCellKit
+  - Tabman (~> 3.0)
   - Then
   - Toast-Swift (~> 5.1.0)
   - YPImagePicker
@@ -44,6 +48,7 @@ SPEC REPOS:
     - Kingfisher
     - MarqueeLabel
     - NVActivityIndicatorView
+    - Pageboy
     - Parchment
     - PryntTrimmerView
     - Realm
@@ -53,6 +58,7 @@ SPEC REPOS:
     - SteviaLayout
     - SwipeableTabBarController
     - SwipeCellKit
+    - Tabman
     - Then
     - Toast-Swift
     - YPImagePicker
@@ -62,6 +68,7 @@ SPEC CHECKSUMS:
   Kingfisher: b9c985d864d43515f404f1ef4a8ce7d802ace3ac
   MarqueeLabel: 4b46d196abd253448e830cbd976f9eacc3af0849
   NVActivityIndicatorView: 1f6c5687f1171810aa27a3296814dc2d7dec3667
+  Pageboy: 34ff11e8d1041b81769d5bcde9b19a0cb7218bd9
   Parchment: 7678853fa5d28d38d31baaa466fa5d6ebaa6843c
   PryntTrimmerView: 6a43cc90df5d99addeabd33d4ba09b1365322130
   Realm: b277b843c7505c1e30e3a70322a24a09283e62bb
@@ -71,10 +78,11 @@ SPEC CHECKSUMS:
   SteviaLayout: 05424e528d643657d39ce72c786e4adf13cfc5f2
   SwipeableTabBarController: 9a218bdee9426d1bfe36d7962f852024bb08d61b
   SwipeCellKit: 3972254a826da74609926daf59b08d6c72e619ea
+  Tabman: 6326ec3a792da1c2a6e79c7eddb56af7b591c9d6
   Then: 844265ae87834bbe1147d91d5d41a404da2ec27d
   Toast-Swift: dd369e68ee529f542c65bd0d0c6c50cd743cf6f2
   YPImagePicker: afc81b3cffab05a6e7261c5daf80dc31b4e917b4
 
-PODFILE CHECKSUM: 000bdd415184dda4fd5482bdf42295bd90926b2a
+PODFILE CHECKSUM: 7e34b6675527fdb40a0b2b6612e2355044c58062
 
 COCOAPODS: 1.15.2

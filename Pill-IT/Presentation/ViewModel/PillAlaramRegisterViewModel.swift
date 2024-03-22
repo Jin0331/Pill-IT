@@ -14,6 +14,7 @@ final class PillAlaramRegisterViewModel {
     private let repository = RealmRepository()
     
     var selectedPill : Observable<[Pill?]> = Observable([])
+    var inputRegistedPillAlarm : Observable<PillAlarm?> = Observable(nil) //  등록된 알림 수정용
     var inputStartDate : Observable<Date> = Observable(Date()) // default로 오늘 날짜 설정
     var inputPeriodType : Observable<PeriodCase?> = Observable(nil)
     var inputDayOfWeekInterval : Observable<[PeriodSpecificDay]?> = Observable(nil) // 특정 요일에서 사용하는 옵저버

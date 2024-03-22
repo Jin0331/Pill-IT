@@ -10,6 +10,7 @@ import SearchTextField
 import SnapKit
 import Then
 import SwipeCellKit
+import MarqueeLabel
 
 final class PillManagementViewController : BaseViewController {
     
@@ -21,6 +22,7 @@ final class PillManagementViewController : BaseViewController {
     override func loadView() {
         view = mainView
         mainView.mainCollectionView.delegate = self
+        mainView.headerCollecionView.delegate = self
     }
     
     override func viewDidLoad() {
@@ -34,7 +36,7 @@ final class PillManagementViewController : BaseViewController {
         
         print(#function, "❗️PillManagementViewController")
         selectedCellRelease()
-        
+        MarqueeLabel.controllerViewDidAppear(self)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -79,6 +81,7 @@ final class PillManagementViewController : BaseViewController {
     
     override func configureNavigation() {
         super.configureNavigation()
+        navigationController?.navigationBar.layer.borderWidth = 0
         navigationItem.title = "🥲 나의 복용약"
         
         mainView.customButton.addTarget(self, action: #selector(leftBarButtonClicked), for: .touchUpInside)
@@ -109,7 +112,6 @@ final class PillManagementViewController : BaseViewController {
         snapshot.appendItems(data, toSection: .main)
         
         headerDataSource.apply(snapshot) // reloadData
-        
         print("PillManageMent UpdateSnapShot - Header ❗️❗️❗️❗️❗️❗️❗️")
     }
     
@@ -179,6 +181,22 @@ final class PillManagementViewController : BaseViewController {
 extension PillManagementViewController : UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
+        // 복용약 알림 수정으로 넘어가면 화면
+        if let cell = collectionView.cellForItem(at: indexPath) as? PillManagementCollectionViewHeaderCell {
+            guard let data = headerDataSource.itemIdentifier(for: indexPath) else { return }
+
+            let vc =  PillAlarmReviseViewController()
+            vc.setupSheetPresentationLarge()
+            vc.viewModel.inputRegistedPillAlarm.value = data
+            
+            
+            let nav = UINavigationController(rootViewController: vc)
+            
+            present(nav, animated: true)
+            
+        }
+        
         if let cell = collectionView.cellForItem(at: indexPath) as? PillManagementCollectionViewMainCell {
             cell.showSelectedImage()
             hiddenLeftBarButton(collectionView)

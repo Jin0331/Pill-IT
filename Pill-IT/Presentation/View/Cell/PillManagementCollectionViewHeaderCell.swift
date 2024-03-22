@@ -67,5 +67,6 @@ final class PillManagementCollectionViewHeaderCell : UICollectionViewCell {
         print("🔆 PillManagementCollectionViewHedaerCell")
         
         groupTitleLabel.text = itemIdentifier.alarmName
+        groupTitleLabel.restartLabel()
     }
 }

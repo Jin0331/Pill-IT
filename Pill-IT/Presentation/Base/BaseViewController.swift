@@ -34,7 +34,9 @@ class BaseViewController : UIViewController {
     func configureNavigation() {
         
         // bottom border
-        navigationController?.navigationBar.shadowImage = nil
+//        navigationController?.navigationBar.shadowImage = nil
+        navigationController?.navigationBar.layer.borderWidth = 0.5
+        navigationController?.navigationBar.layer.borderColor = DesignSystem.colorSet.gray.cgColor
         
         // 배경색
         navigationController?.navigationBar.scrollEdgeAppearance?.backgroundColor = DesignSystem.colorSet.white
@@ -52,9 +54,9 @@ class BaseViewController : UIViewController {
         navigationItem.backBarButtonItem = backBarButtonItem
         
         // rightButton
-        let searchButtonItem = UIBarButtonItem(image: DesignSystem.sfSymbol.search)
-        searchButtonItem.tintColor = DesignSystem.colorSet.lightBlack
-        navigationItem.rightBarButtonItem = searchButtonItem
+//        let searchButtonItem = UIBarButtonItem(image: DesignSystem.sfSymbol.search)
+//        searchButtonItem.tintColor = DesignSystem.colorSet.lightBlack
+//        navigationItem.rightBarButtonItem = searchButtonItem
     }
     
 }

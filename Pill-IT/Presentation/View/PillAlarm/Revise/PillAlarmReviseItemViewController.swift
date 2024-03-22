@@ -1,19 +1,18 @@
 //
-//  PillAlarmRegisterViewController.swift
+//  PillAlarmReviseDateViewController.swift
 //  Pill-IT
 //
-//  Created by JinwooLee on 3/14/24.
+//  Created by JinwooLee on 3/22/24.
 //
 
 import UIKit
 import SwipeCellKit
 import Toast_Swift
 import MarqueeLabel
-
-final class PillAlarmRegisterViewController: BaseViewController {
+class PillAlarmReviseItemViewController: BaseViewController {
     
-    let mainView = PillAlarmRegisterView()
-    let viewModel = PillAlaramRegisterViewModel()
+    let mainView = PillAlarmReviseItemView()
+    var viewModel = PillAlaramRegisterViewModel()
     private var dataSource : UICollectionViewDiffableDataSource<PillAlarmViewSection, Pill>!
     
     override func loadView() {
@@ -22,7 +21,6 @@ final class PillAlarmRegisterViewController: BaseViewController {
         mainView.mainCollectionView.delegate = self
         mainView.userInputTextfield.delegate = self
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,20 +49,6 @@ final class PillAlarmRegisterViewController: BaseViewController {
         }
     }
     
-    override func configureNavigation() {
-        super.configureNavigation()
-        navigationItem.title = "🌟 복용약 알림 등록하기"
-        
-        let cancleBarButton = UIBarButtonItem(image: DesignSystem.sfSymbol.cancel, style: .plain, target: self, action: #selector(rightBarButtonClicked))
-        
-        navigationItem.rightBarButtonItem = cancleBarButton
-    }
-    
-    @objc private func rightBarButtonClicked() {
-        print("ASDasdzxcad  🥲")
-        dismiss(animated: true)
-    }
-    
     private func configureDataSource() {
         
         let cellRegistration = mainView.pillAlarmCellRegistration()
@@ -86,19 +70,14 @@ final class PillAlarmRegisterViewController: BaseViewController {
         print(#function, "PillAlarm UpdateSnapShot ❗️❗️❗️❗️❗️❗️❗️")
     }
     
-    
-    deinit {
-        print(#function, " - ✅ PillAlarmRegisterViewController")
-    }
 }
 
-
-extension PillAlarmRegisterViewController : UICollectionViewDelegate {
+extension PillAlarmReviseItemViewController : UICollectionViewDelegate {
     
 }
 
 //MARK: - CollectionView swipe delegate
-extension PillAlarmRegisterViewController : SwipeCollectionViewCellDelegate {
+extension PillAlarmReviseItemViewController : SwipeCollectionViewCellDelegate {
     func collectionView(_ collectionView: UICollectionView, editActionsForItemAt indexPath: IndexPath, for orientation: SwipeCellKit.SwipeActionsOrientation) -> [SwipeCellKit.SwipeAction]? {
         guard orientation == .right else { return nil }
         
@@ -136,7 +115,7 @@ extension PillAlarmRegisterViewController : SwipeCollectionViewCellDelegate {
 }
 
 //MARK: - Delegate Action
-extension PillAlarmRegisterViewController : PillAlarmReigsterAction {
+extension PillAlarmReviseItemViewController : PillAlarmReigsterAction {
     
     func periodSelectPresent() {
         let vc = PeriodSelectViewController()
@@ -192,8 +171,6 @@ extension PillAlarmRegisterViewController : PillAlarmReigsterAction {
             mainView.activityIndicator.stopAnimating()
             mainView.loadingBgView.removeFromSuperview()
             
-            print(viewModel.inputGroupId.value)
-            
             
             if let pillTitle = viewModel.inputGroupId.value, let alarmDateList = viewModel.outputAlarmDateList.value, let periodType = viewModel.outputPeriodType.value, let startDate = viewModel.outputStartDate.value, !pillTitle.isEmpty, viewModel.selectedPill.value.count > 0 {
                 
@@ -211,7 +188,7 @@ extension PillAlarmRegisterViewController : PillAlarmReigsterAction {
 }
 
 //MARK: - Textfield Delegate
-extension PillAlarmRegisterViewController : UITextFieldDelegate {
+extension PillAlarmReviseItemViewController : UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         print(#function)

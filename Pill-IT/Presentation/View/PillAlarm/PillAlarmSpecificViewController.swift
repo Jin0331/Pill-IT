@@ -94,8 +94,18 @@ extension PillAlarmSpecificViewController : SwipeCollectionViewCellDelegate {
             if  viewModel.outputVisibleSpecificTimeList.value.count < 2 {
                 view.makeToast("최소 1개의 알림이 있어야 합니다 🥲", duration: 2, position: .center)
                 return
+            } else  {
+                viewModel.outputVisibleSpecificTimeList.value.remove(at: indexPath.row)
+                var inputAlarmSpecificTimeList = viewModel.outputVisibleSpecificTimeList.value.map {
+                    let temp = Calendar.current.dateComponents([.hour, .minute], from: $0)
+                    if let hour = temp.hour, let minute = temp.minute {
+                        return (hour, minute)
+                    } else {
+                        return (-99,99)
+                    }}
+                viewModel.inputAlarmSpecificTimeList.value = inputAlarmSpecificTimeList
             }
-            viewModel.outputVisibleSpecificTimeList.value.remove(at: indexPath.row)
+            
         }
         
         // customize the action appearance

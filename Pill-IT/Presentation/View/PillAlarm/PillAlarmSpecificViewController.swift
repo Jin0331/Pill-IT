@@ -68,7 +68,7 @@ final class PillAlarmSpecificViewController: BaseViewController {
         dataSource.apply(snapshot) // reloadData
         print("PillManageMent UpdateSnapShot ❗️❗️❗️❗️❗️❗️❗️")
     }
-
+    
     deinit {
         print(#function, " - ✅ PillAlaamSpecificViewController")
     }
@@ -116,17 +116,29 @@ extension PillAlarmSpecificViewController : PillSpecificAction {
     func completeButtonAction() {
         print(#function)
         
-        guard let viewModel = viewModel else { return }
-        viewModel.createTableTrigger.value = ()
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            guard let viewModel = viewModel else { return }
+            
+            mainView.setActivityIndicator()
+            viewModel.createTableTrigger.value = ()
+            NotificationCenter.default.post(name: Notification.Name("fetchPillAlarmTable"), object: nil)
+        }
         
-        dismiss(animated: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+            guard let self = self else { return }
+            mainView.activityIndicator.stopAnimating()
+            mainView.loadingBgView.removeFromSuperview()
+            
+            dismiss(animated: true)
+        }
     }
 }
 
 extension PillAlarmSpecificViewController {
     //MARK: - 이 코드를 어찌한담??? - PillAlarmRegisterViewController 중복되는 코드 나중에 Refactoring
     func selectDate(isAdd : Bool = true, indexPath : IndexPath? = nil) {
-       
+        
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
         alert.view.tintColor = DesignSystem.colorSet.lightBlack
         

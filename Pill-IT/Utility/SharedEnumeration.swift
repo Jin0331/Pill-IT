@@ -12,17 +12,7 @@ enum RegisterPillWebSearchViewSection : CaseIterable {
     case main
 }
 enum PillManagementViewSection : Int, CaseIterable {
-    case header
     case main
-    
-    func orthogonalScrollingBehavior() -> UICollectionLayoutSectionOrthogonalScrollingBehavior {
-        switch self {
-        case .header:
-            return UICollectionLayoutSectionOrthogonalScrollingBehavior.groupPagingCentered
-        case .main:
-            return UICollectionLayoutSectionOrthogonalScrollingBehavior.none
-        }
-    }
 }
 
 enum PillAlarmViewSection : CaseIterable {

@@ -86,11 +86,11 @@ extension PopUpPillAlarmGroupViewController {
     private func createLayout() -> UICollectionViewLayout {
         
         // Cell
-        let itemSize = NSCollectionLayoutSize(widthDimension: .estimated(100), heightDimension: .absolute(50))
+        let itemSize = NSCollectionLayoutSize(widthDimension: .estimated(50), heightDimension: .absolute(50))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
         // Group
-        let groupSize = NSCollectionLayoutSize(widthDimension: .estimated(100), heightDimension: .absolute(50))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .estimated(50), heightDimension: .absolute(50))
         
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         

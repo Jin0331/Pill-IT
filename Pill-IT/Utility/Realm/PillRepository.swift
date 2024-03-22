@@ -58,6 +58,13 @@ final class RealmRepository {
     }
     
     //MARK: - PillAralm Group Fetch
+    func fetchPillAlarm() -> [PillAlarm]? {
+        let table = realm.objects(PillAlarm.self).where {
+            $0.isDeleted == false
+        }
+        return Array(table)
+    }
+    
     func fetchPillAlarm(alarmName : String) -> [PillAlarm]? {
         let table = realm.objects(PillAlarm.self).where {
             $0.alarmName == alarmName && $0.isDeleted == false

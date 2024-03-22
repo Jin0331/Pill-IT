@@ -44,6 +44,7 @@
 		DBEE62822BAB3558003BD600 /* _PopUpPillAlarmGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEE62812BAB3558003BD600 /* _PopUpPillAlarmGroupViewController.swift */; };
 		DBEE62842BAB4887003BD600 /* PopUpPillAlarmGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEE62832BAB4887003BD600 /* PopUpPillAlarmGroupViewController.swift */; };
 		DBEE62862BAC7D20003BD600 /* PillManagementCollectionViewHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEE62852BAC7D20003BD600 /* PillManagementCollectionViewHeaderCell.swift */; };
+		DBEE62882BACB582003BD600 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEE62872BACB582003BD600 /* UIColor+Extension.swift */; };
 		DBF048682B9AAA080020750F /* PillAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF048672B9AAA080020750F /* PillAPIManager.swift */; };
 		DBF0486A2B9B0E9C0020750F /* PillPermitDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF048692B9B0E9C0020750F /* PillPermitDetailModel.swift */; };
 		DBF446592B9983930021BC0F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF446582B9983930021BC0F /* AppDelegate.swift */; };
@@ -115,6 +116,7 @@
 		DBEE62812BAB3558003BD600 /* _PopUpPillAlarmGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _PopUpPillAlarmGroupViewController.swift; sourceTree = "<group>"; };
 		DBEE62832BAB4887003BD600 /* PopUpPillAlarmGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpPillAlarmGroupViewController.swift; sourceTree = "<group>"; };
 		DBEE62852BAC7D20003BD600 /* PillManagementCollectionViewHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillManagementCollectionViewHeaderCell.swift; sourceTree = "<group>"; };
+		DBEE62872BACB582003BD600 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		DBF048672B9AAA080020750F /* PillAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillAPIManager.swift; sourceTree = "<group>"; };
 		DBF048692B9B0E9C0020750F /* PillPermitDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillPermitDetailModel.swift; sourceTree = "<group>"; };
 		DBF0486D2B9CB2120020750F /* Pill-IT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pill-IT.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -352,6 +354,7 @@
 				DB8D124A2BA48FD0002E34BC /* UIViewController+Extension.swift */,
 				DB21CDA82BA03CF00041C892 /* String+Extension.swift */,
 				DB5E59C22BA6F3EE00C753BD /* Formatter+Extension.swift */,
+				DBEE62872BACB582003BD600 /* UIColor+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -552,6 +555,7 @@
 				DBF7351B2B9DD3BE00326852 /* BaseViewController.swift in Sources */,
 				DB8D12452BA2EC70002E34BC /* PillAlarmRegisterViewController.swift in Sources */,
 				DB5E59D32BA8263200C753BD /* PillAlarmSpecificCollectionViewCell.swift in Sources */,
+				DBEE62882BACB582003BD600 /* UIColor+Extension.swift in Sources */,
 				DBF048682B9AAA080020750F /* PillAPIManager.swift in Sources */,
 				DB8D12472BA3EC69002E34BC /* UICollectionView+Extension.swift in Sources */,
 				DB5600642B9A458900E6558E /* RealmModel.swift in Sources */,

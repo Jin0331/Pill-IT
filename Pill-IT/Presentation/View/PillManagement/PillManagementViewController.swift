@@ -29,12 +29,6 @@ final class PillManagementViewController : BaseViewController {
         bindData()
     }
     
-    override func viewWillLayoutSubviews() {
-        
-        print(#function, "❗️PillManagementViewController")
-        selectedCellRelease()
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -52,16 +46,35 @@ final class PillManagementViewController : BaseViewController {
             }
         }
         mainView.mainCollectionView.deselectAllItems(animated: true)
+        
+        // notificaionCenter remove
+        NotificationCenter.default.removeObserver(self,
+                                                  name: Notification.Name("fetchPillAlarmTable"), object: nil)
     }
-    
     private func bindData() {
+        // 복용약 리스트
         viewModel.outputRegisteredPill.bind { [weak self] value in
             guard let self = self else { return }
             guard let value = value else { return }
             
             configureMainDataSource()
             updateMainSnapshot(value)
+            
         }
+        
+        // 복용약 그룹 리스트
+        viewModel.outputRegisteredPillAlarm.bind { [weak self] value in
+            guard let self = self else { return }
+            guard let value = value else { return }
+            
+            mainView.collectionViewchangeLayout(itemCount: value.count)
+            
+            configureHeaderDataSource()
+            updateHeaderSnapshot(value)
+        }
+        
+        // PillAlarmSpecificView로부터 전달되어지는 노티 -> 이걸 활용해서 realm Table fetch 및 Obervable 생성
+        NotificationCenter.default.addObserver(self, selector: #selector(triggerFetchPillAlarmTable), name: Notification.Name("fetchPillAlarmTable"), object: nil)
     }
     
     override func configureNavigation() {
@@ -77,13 +90,14 @@ final class PillManagementViewController : BaseViewController {
             navigationItem.leftBarButtonItem?.customView?.isHidden = true
         }
     }
+    
     //MARK: - Header Datasource & SnakeShot
     private func configureHeaderDataSource() {
         
-        let mainCellRegistration = mainView.pillManagementHeaderCellRegistration()
+        let headerCellRegistration = mainView.pillManagementHeaderCellRegistration()
         
-        headerDataSource = UICollectionViewDiffableDataSource(collectionView: mainView.mainCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
-            let cell = collectionView.dequeueConfiguredReusableCell(using: mainCellRegistration, for: indexPath, item: itemIdentifier)
+        headerDataSource = UICollectionViewDiffableDataSource(collectionView: mainView.headerCollecionView, cellProvider: { collectionView, indexPath, itemIdentifier in
+            let cell = collectionView.dequeueConfiguredReusableCell(using: headerCellRegistration, for: indexPath, item: itemIdentifier)
             
             return cell
         })
@@ -92,7 +106,7 @@ final class PillManagementViewController : BaseViewController {
     private func updateHeaderSnapshot(_ data : [PillAlarm]) {
         var snapshot = NSDiffableDataSourceSnapshot<PillManagementViewSection, PillAlarm>()
         snapshot.appendSections(PillManagementViewSection.allCases)
-        snapshot.appendItems(data, toSection: .header)
+        snapshot.appendItems(data, toSection: .main)
         
         headerDataSource.apply(snapshot) // reloadData
         
@@ -122,7 +136,7 @@ final class PillManagementViewController : BaseViewController {
         print("PillManageMent UpdateSnapShot - Main ❗️❗️❗️❗️❗️❗️❗️")
     }
     
-    //MARK: - 복용약 알림 화면으로 이동하는 부분
+    //MARK: - 복용약 알림 화면으로 이동하는 부분 ❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️
     @objc private func leftBarButtonClicked(_ sender : UIBarButtonItem){
         let vc =  PillAlarmRegisterViewController()
         vc.setupSheetPresentationLarge()
@@ -130,7 +144,6 @@ final class PillManagementViewController : BaseViewController {
         guard let selectedIndexPaths = mainView.mainCollectionView.indexPathsForSelectedItems else { return }
         let selectedPill = selectedIndexPaths.map{ return mainDataSource.itemIdentifier(for: $0)}
         vc.viewModel.selectedPill.value = selectedPill
-
         let nav = UINavigationController(rootViewController: vc)
         
         present(nav, animated: true)
@@ -144,6 +157,14 @@ final class PillManagementViewController : BaseViewController {
             cellCasting.hiddneSelectedImage()
         }
         hiddenLeftBarButton(mainView.mainCollectionView)
+    }
+    
+    
+    // pillAlarm의 조회를 위한 Trigger
+    @objc private func triggerFetchPillAlarmTable(_ noti: Notification) {
+        print("PillManagementViewController triggerFetchPillAlarmTable ❗️❗️❗️❗️❗️❗️❗️")
+        selectedCellRelease() 
+        viewModel.fetchPillAlarmItemTrigger.value = ()
     }
     
     deinit {
@@ -160,7 +181,6 @@ extension PillManagementViewController : UICollectionViewDelegate {
             hiddenLeftBarButton(collectionView)
         }
     }
-    
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) as? PillManagementCollectionViewMainCell {
@@ -198,7 +218,7 @@ extension PillManagementViewController : SwipeCollectionViewCellDelegate {
             guard let self = self else { return }
             
             let confirmAction = UIAlertAction(title: "지워주세요", style: .default) { (action) in
-
+                
                 self.viewModel.updatePillItemisDeleteTrigger.value = self.mainDataSource.itemIdentifier(for: indexPath)
                 
                 self.hiddenLeftBarButton(collectionView)
@@ -218,7 +238,7 @@ extension PillManagementViewController : SwipeCollectionViewCellDelegate {
             vc.modifyView(itemSeq: mainDataSource.itemIdentifier(for: indexPath)?.itemSeq.toString)
             vc.pillListDelegate = self
             vc.setupSheetPresentationLarge()
-
+            
             let nav = UINavigationController(rootViewController: vc)
             
             present(nav, animated: true)

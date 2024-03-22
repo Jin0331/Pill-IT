@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 import Then
 import Kingfisher
+import MarqueeLabel
 
 final class PillAlarmCollectionViewCell: BaseCollectionViewCell {
     
@@ -27,7 +28,7 @@ final class PillAlarmCollectionViewCell: BaseCollectionViewCell {
         $0.clipsToBounds = true
     }
     
-    let itemNameLabel = UILabel().then {
+    let itemNameLabel = MarqueeLabel().then {
         $0.textColor = DesignSystem.colorSet.lightBlack
         $0.font = .systemFont(ofSize: 17, weight: .heavy)
         $0.numberOfLines = 0

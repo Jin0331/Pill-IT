@@ -169,7 +169,7 @@ extension PillAlarmRegisterViewController : PillAlarmReigsterAction {
         
         let select = UIAlertAction(title: "선택 완료", style: .cancel) { [weak self] action in
             guard let self = self else { return }
-            viewModel.inputStartDate.value = datePicker.date
+            viewModel.inputStartDate.value = Calendar.current.hourMinuteInitializer(datePicker.date)
         }
         
         alert.addAction(select)
@@ -192,10 +192,7 @@ extension PillAlarmRegisterViewController : PillAlarmReigsterAction {
             mainView.activityIndicator.stopAnimating()
             mainView.loadingBgView.removeFromSuperview()
             
-            print(viewModel.inputGroupId.value)
-            
-            
-            if let pillTitle = viewModel.inputGroupId.value, let alarmDateList = viewModel.outputAlarmDateList.value, let periodType = viewModel.outputPeriodType.value, let startDate = viewModel.outputStartDate.value, !pillTitle.isEmpty, viewModel.selectedPill.value.count > 0 {
+            if let pillTitle = viewModel.outputGroupId.value, let alarmDateList = viewModel.outputAlarmDateList.value, let periodType = viewModel.outputPeriodType.value, let startDate = viewModel.outputStartDate.value, !pillTitle.isEmpty, viewModel.inputSelectedPill.value.count > 0 {
                 
                 let vc = PillAlarmSpecificViewController()
                 vc.viewModel = viewModel

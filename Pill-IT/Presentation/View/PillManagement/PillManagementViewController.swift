@@ -145,7 +145,7 @@ final class PillManagementViewController : BaseViewController {
         
         guard let selectedIndexPaths = mainView.mainCollectionView.indexPathsForSelectedItems else { return }
         let selectedPill = selectedIndexPaths.map{ return mainDataSource.itemIdentifier(for: $0)}
-        vc.viewModel.selectedPill.value = selectedPill
+        vc.viewModel.inputSelectedPill.value = selectedPill
         let nav = UINavigationController(rootViewController: vc)
         
         present(nav, animated: true)

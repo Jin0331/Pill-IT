@@ -82,7 +82,7 @@ final class PillManagementViewController : BaseViewController {
     override func configureNavigation() {
         super.configureNavigation()
         navigationController?.navigationBar.layer.borderWidth = 0
-        navigationItem.title = "🥲 나의 복용약"
+        navigationItem.title = "🤔 나의 복용약"
         
         mainView.customButton.addTarget(self, action: #selector(leftBarButtonClicked), for: .touchUpInside)
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: mainView.customButton)

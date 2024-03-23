@@ -124,12 +124,10 @@ extension PillNotificationContentViewController : PillNotificationAction {
     func containPillButton(_ groupID : String?, _ data : [Pill]?) {
         
         guard let groupID = groupID else { return }
-        guard let data = data else { return }
         
+        //MARK: - 그룹에 속한
         let vc = PopUpPillAlarmGroupViewController()
-//        vc.viewModel.inputCurrentDateAlarmPill.value = data
-        vc.viewModel.reviseAlarmPopUpTrigger.value = groupID
-        
+        vc.viewModel.reviseAlarmPopUpTrigger.value = groupID // 여기는 model을 사용하여 Pill 목록을 띄우는 것
         
         let alert = UIAlertController(title: "🌟" + groupID, message: nil, preferredStyle: .actionSheet)
         alert.view.tintColor = DesignSystem.colorSet.lightBlack
@@ -140,7 +138,19 @@ extension PillNotificationContentViewController : PillNotificationAction {
         alert.view.addConstraint(constraintHeight)
         alert.setValue(vc, forKey: "contentViewController")
         
-        let confirmAction = UIAlertAction(title: "⚠️ 수정할래요", style: .destructive)
+        //MARK: - 복용약 그룹 수정화면으로 넘어감
+        let confirmAction = UIAlertAction(title: "⚠️ 수정할래요", style: .destructive) { [weak self] (action) in
+            guard let self = self else { return }
+            
+            let vc =  PillAlarmReviseViewController()
+            vc.setupSheetPresentationLarge()
+            vc.viewModel.reviseAlarmPopUpTrigger.value = groupID // 여기는 model을 사용하여 정보를 불러와 수정하는 것
+
+            let nav = UINavigationController(rootViewController: vc)
+            
+            present(nav, animated: true)
+            
+        }
         alert.addAction(confirmAction)
         
         present(alert, animated: true) { [weak self] in

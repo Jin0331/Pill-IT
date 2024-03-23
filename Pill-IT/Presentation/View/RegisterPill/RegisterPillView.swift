@@ -87,11 +87,8 @@ final class RegisterPillView: BaseView {
     }
     
     let webSearchButton = UIButton(type: .system).then{
-        $0.setTitle("WEB", for: .normal)
-        $0.setTitleColor(DesignSystem.colorSet.lightBlack, for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 20, weight: .heavy)
-        $0.layer.borderWidth = DesignSystem.viewLayout.borderWidth
-        $0.layer.borderColor = DesignSystem.colorSet.lightBlack.cgColor
+        $0.setImage(UIImage(named: "web"), for: .normal)
+        $0.imageView?.contentMode = .scaleAspectFit
         $0.layer.cornerRadius = DesignSystem.viewLayout.cornerRadius
     }
 
@@ -176,7 +173,7 @@ final class RegisterPillView: BaseView {
         buttonStackView.snp.makeConstraints { make in
             make.top.equalTo(addImageTitleLabel.snp.bottom).offset(10)
             make.horizontalEdges.equalTo(userInputTextfield)
-            make.height.equalTo(80)
+            make.height.equalTo(90)
         }
         
         pillImageView.snp.makeConstraints { make in

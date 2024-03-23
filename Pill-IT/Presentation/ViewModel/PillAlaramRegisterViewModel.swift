@@ -36,6 +36,7 @@ final class PillAlaramRegisterViewModel {
     var createTableTrigger : Observable<Void?> = Observable(nil)
     var revisePeriodTableTrigger : Observable<Void?> = Observable(nil)
     var reviseAlarmRemoveTrigger : Observable<String?> = Observable(nil) // 알람 수정화면에서 전체 삭제를 위한 트리거
+    var reviseAlarmPopUpTrigger : Observable<String?> = Observable(nil)
     
     init() {
         transform()
@@ -172,7 +173,13 @@ final class PillAlaramRegisterViewModel {
             repository.updatePillAlarmDelete(value) // 테이블 delete
         }
         
-        
+        reviseAlarmPopUpTrigger.bind { [weak self ] value in
+            guard let self = self else { return }
+            guard let value = value else { return }
+            guard let newAlarmModel = repository.fetchPillAlarmSpecific(alarmName: value) else { return }
+
+            inputRegistedPillAlarm.value = newAlarmModel
+        }
         
     }
     

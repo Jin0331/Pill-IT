@@ -41,8 +41,6 @@ final class PillNotificationViewController: BaseViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        print(#function, "⭕️⭕️⭕️⭕️⭕️⭕️⭕️⭕️⭕️⭕️⭕️⭕️")
-        
         pagingViewController.reloadMenu()
         pagingViewController.loadViewIfNeeded()
         

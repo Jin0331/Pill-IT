@@ -88,6 +88,12 @@ final class RealmRepository {
         return Array(table)
     }
     
+    func fetchPillAlarmSpecific(alarmName : String) -> PillAlarm?{
+        guard let table = realm.object(ofType:PillAlarm.self, forPrimaryKey: alarmName) else { return nil }
+        
+        return table
+    }
+    
     //MARK: - PillAralm Group의 Date Fetch
     func fetchPillAlarmDateItem(alarmName : String) -> [PillAlarmDate]? {
         let table = realm.objects(PillAlarmDate.self).where {

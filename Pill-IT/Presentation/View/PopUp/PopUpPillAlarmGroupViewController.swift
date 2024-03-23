@@ -11,7 +11,8 @@ import Then
 
 final class PopUpPillAlarmGroupViewController: BaseViewController {
     
-    let viewModel = PopUpPillAlarmGroupViewModel()
+//    let viewModel = PopUpPillAlarmGroupViewModel()
+    let viewModel = PillAlaramRegisterViewModel()
     private var dataSource : UICollectionViewDiffableDataSource<PillAlarmViewSection, Pill>!
     
     lazy var mainCollectionView : UICollectionView = {
@@ -31,9 +32,8 @@ final class PopUpPillAlarmGroupViewController: BaseViewController {
     }
     
     private func bindData() {
-        viewModel.outputCurrentDateAlarmPill.bind { [weak self] value in
+        viewModel.outputSelectedPill.bind { [weak self] value in
             guard let self = self else { return }
-            guard let value = value else { return }
             
             updateSnapshot(value)
         }

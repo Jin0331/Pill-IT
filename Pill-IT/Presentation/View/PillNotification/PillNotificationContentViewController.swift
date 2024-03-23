@@ -98,8 +98,6 @@ extension PillNotificationContentViewController : SwipeCollectionViewCellDelegat
             
             let confirmAction = UIAlertAction(title: "지워주세요", style: .default) { (action) in
                 
-//                print(self.dataSource.itemIdentifier(for: indexPath))
-                
                 self.viewModel.updatePillItemisDeleteTrigger.value = self.dataSource.itemIdentifier(for: indexPath)
                 
             }
@@ -129,16 +127,21 @@ extension PillNotificationContentViewController : PillNotificationAction {
         guard let data = data else { return }
         
         let vc = PopUpPillAlarmGroupViewController()
-        vc.viewModel.inputCurrentDateAlarmPill.value = data
+//        vc.viewModel.inputCurrentDateAlarmPill.value = data
+        vc.viewModel.reviseAlarmPopUpTrigger.value = groupID
+        
         
         let alert = UIAlertController(title: "🌟" + groupID, message: nil, preferredStyle: .actionSheet)
         alert.view.tintColor = DesignSystem.colorSet.lightBlack
 
         let constraintHeight = NSLayoutConstraint(
             item: alert.view!, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute:
-                NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: 220)
+                NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: UIScreen.main.bounds.height / 3)
         alert.view.addConstraint(constraintHeight)
         alert.setValue(vc, forKey: "contentViewController")
+        
+        let confirmAction = UIAlertAction(title: "⚠️ 수정할래요", style: .destructive)
+        alert.addAction(confirmAction)
         
         present(alert, animated: true) { [weak self] in
             guard let self = self else { return }

@@ -137,8 +137,7 @@ final class PillAlaramRegisterViewModel {
             dataSrouceDateList.sort { (($0).compare($1)) == .orderedAscending } // sort
             outputVisibleSpecificTimeList.value = dataSrouceDateList
             outputAlarmSpecificTimeList.value = Array(Set(tableDateList.flatMap{ $0 }))
-            
-            print(outputAlarmSpecificTimeList.value , "🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲여긴가?")
+//            print(outputAlarmSpecificTimeList.value , "🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲여긴가?")
         }
         
         reCalculateAAlarmSpecificTimeListTrigger.bind { [weak self] value in

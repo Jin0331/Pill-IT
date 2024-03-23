@@ -104,7 +104,12 @@ extension PillAlarmReviseItemViewController : SwipeCollectionViewCellDelegate {
             guard let viewModel = viewModel else { print("PillAlarmReviseItemViewController - viewModel not init 🥲");return }
             
             let confirmAction = UIAlertAction(title: "지워주세요", style: .default) { (action) in
-                viewModel.outputSelectedPill.value.remove(at: indexPath.row)
+                if viewModel.outputSelectedPill.value.count < 2 {
+                    self.view.makeToast("1개 이상의 복용약이 있어야 합니다 🥲", duration: 2, position: .center)
+                } else {
+                    // 이미 outdate를 기존의 selectedPill로 생성을 해두었는데, outputselectPill만 수정하니, ouitputdate의 값은 지워지지 않기 떄문에, 중복되어 나타난다
+                    viewModel.outputSelectedPill.value.remove(at: indexPath.row)
+                }
             }
             
             let cancelAction = UIAlertAction(title: "취소할래요", style: .cancel)
@@ -128,9 +133,6 @@ extension PillAlarmReviseItemViewController : SwipeCollectionViewCellDelegate {
         
         return options
     }
-    
-    
-    
 }
 
 //MARK: - Delegate Action
@@ -146,7 +148,6 @@ extension PillAlarmReviseItemViewController : PillAlarmReigsterAction {
             mainView.periodSelectButton.setImage(DesignSystem.sfSymbol.startDate, for: .normal)
             mainView.periodSelectButton.tintColor = DesignSystem.colorSet.lightBlack
             
-            // 업데이트 해줘야 됨 ㅎ;
             viewModel.reCalculateAAlarmSpecificTimeListTrigger.value = viewModel.inputAlarmSpecificTimeList.value
         }
         
@@ -216,14 +217,11 @@ extension PillAlarmReviseItemViewController : PillAlarmReigsterAction {
             
             
             if let pillTitle = viewModel.outputGroupId.value, let alarmDateList = viewModel.outputAlarmDateList.value, let periodType = viewModel.outputPeriodType.value, let startDate = viewModel.outputStartDate.value, !pillTitle.isEmpty, viewModel.inputSelectedPill.value.count > 0 {
-                
-                
+
                 print(pillTitle, alarmDateList, periodType, startDate)
                 viewModel.revisePeriodTableTrigger.value = ()
                 
                 dismiss(animated: true)
-                
-                
             } else {
 //                view.makeToast("입력된 값을 다시 확인해주세요 🥲", duration: 2, position: .center)
             }

@@ -61,7 +61,7 @@ final class PillAlaramRegisterViewModel {
             let alarmDateFetch = repository.fetchPillAlarmDateItem(alarmName: value.alarmName)
             let tempDateList = alarmDateFetch!.map { $0.alarmDate }
             outputAlarmDateList.value = tempDateList.map { return Calendar.current.hourMinuteInitializer($0)}
-                
+            
             // 등록된 날로부터 inputAlarmSpecificTimeList 도 같이 추출
             tempDateList.forEach({ value in
                 let dateComponent = calendar.dateComponents([.hour, .minute], from: value)
@@ -136,7 +136,9 @@ final class PillAlaramRegisterViewModel {
             
             dataSrouceDateList.sort { (($0).compare($1)) == .orderedAscending } // sort
             outputVisibleSpecificTimeList.value = dataSrouceDateList
-            outputAlarmSpecificTimeList.value = tableDateList.flatMap{ $0 }
+            outputAlarmSpecificTimeList.value = Array(Set(tableDateList.flatMap{ $0 }))
+            
+            print(outputAlarmSpecificTimeList.value , "🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲여긴가?")
         }
         
         reCalculateAAlarmSpecificTimeListTrigger.bind { [weak self] value in

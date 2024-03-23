@@ -45,8 +45,7 @@ final class PillNotificationContentViewController: BaseViewController {
             updateSnapshot(value)
         }
     }
-    
-    //TODO: - alarm list isDelete 처리 해야 됨
+
     private func configureDataSource() {
         
         let cellRegistration = mainView.pillNotificationContentCellRegistration()

@@ -61,7 +61,6 @@ final class PillAlarmRegisterViewController: BaseViewController {
     }
     
     @objc private func rightBarButtonClicked() {
-        print("ASDasdzxcad  🥲")
         dismiss(animated: true)
     }
     
@@ -106,7 +105,12 @@ extension PillAlarmRegisterViewController : SwipeCollectionViewCellDelegate {
             guard let self = self else { return }
             
             let confirmAction = UIAlertAction(title: "지워주세요", style: .default) { (action) in
-                self.viewModel.outputSelectedPill.value.remove(at: indexPath.row)
+                
+                if self.viewModel.outputSelectedPill.value.count < 2 {
+                    self.view.makeToast("1개 이상의 복용약이 있어야 합니다 🥲", duration: 2, position: .center)
+                } else {
+                    self.viewModel.outputSelectedPill.value.remove(at: indexPath.row)
+                }
             }
             
             let cancelAction = UIAlertAction(title: "취소할래요", style: .cancel)
@@ -130,9 +134,6 @@ extension PillAlarmRegisterViewController : SwipeCollectionViewCellDelegate {
         
         return options
     }
-    
-    
-    
 }
 
 //MARK: - Delegate Action

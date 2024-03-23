@@ -41,12 +41,11 @@ final class PillAlarmReviseViewController: TabmanViewController, TMBarDataSource
 
 }
 
+//MARK: - Tabman 관련 사항
 extension PillAlarmReviseViewController : PageboyViewControllerDataSource {
     func barItem(for bar: TMBar, at index: Int) -> TMBarItemable {
         let item = TMBarItem(title: "")
         item.title = index == 0 ? "알림 수정" : "알림 시간 수정"
-//        item.image = UIImage(named: "image.png")
-        // ↑↑ 이미지는 이따가 탭바 형식으로 보여줄 때 사용할 것이니 "이미지가 왜 있지?" 하지말고 넘어가주세요.
         
         return item
     }
@@ -99,8 +98,6 @@ extension PillAlarmReviseViewController {
         
         navigationController?.navigationBar.titleTextAttributes =  [NSAttributedString.Key.foregroundColor: DesignSystem.colorSet.lightBlack]
         
-        // left button
-//        let deleteButton = UIBu
         let deleteButton = UIButton(frame: CGRect(x: 0, y: 20, width: 130, height: 40)).then {
             $0.setTitle(" 알림 삭제하기", for: .normal)
             $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .heavy)

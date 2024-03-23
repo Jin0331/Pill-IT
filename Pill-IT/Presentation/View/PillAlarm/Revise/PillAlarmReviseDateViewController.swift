@@ -79,7 +79,7 @@ extension PillAlarmReviseDateViewController : SwipeCollectionViewCellDelegate {
             guard let viewModel = viewModel else { return }
             
             if  viewModel.outputVisibleSpecificTimeList.value.count < 2 {
-                view.makeToast("최소 1개의 알림이 있어야 합니다 🥲", duration: 2, position: .center)
+                view.makeToast("1개 이상의 알림이 있어야 합니다 🥲", duration: 2, position: .center)
                 return
             } else  {
                 viewModel.outputVisibleSpecificTimeList.value.remove(at: indexPath.row)

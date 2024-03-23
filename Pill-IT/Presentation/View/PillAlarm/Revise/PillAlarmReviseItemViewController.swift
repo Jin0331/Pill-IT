@@ -190,10 +190,11 @@ extension PillAlarmReviseItemViewController : PillAlarmReigsterAction {
                 guard  let outputAlarmDateList = viewModel.outputAlarmDateList.value else { return }
                 let gap = Calendar.current.getDateGap(from: viewModel.inputStartDate.value, to: Calendar.current.hourMinuteInitializer(datePicker.date))
                 
-                viewModel.outputAlarmDateList.value = outputAlarmDateList.map({
+                var newOutputAlarmDateList = outputAlarmDateList.map({
                     return Calendar.current.date(byAdding: .day, value: gap, to: $0)!
                 })
                 
+                viewModel.outputAlarmDateList.value = Array(Set(newOutputAlarmDateList)) // 중복 제거
                 viewModel.inputStartDate.value = Calendar.current.hourMinuteInitializer(datePicker.date)
                 viewModel.reCalculateAAlarmSpecificTimeListTrigger.value = viewModel.inputAlarmSpecificTimeList.value
             }

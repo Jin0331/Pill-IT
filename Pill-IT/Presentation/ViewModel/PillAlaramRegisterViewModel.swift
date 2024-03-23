@@ -16,7 +16,7 @@ final class PillAlaramRegisterViewModel {
     var inputRegistedPillAlarm : Observable<PillAlarm?> = Observable(nil) //  등록된 알림 수정용
     
     var inputSelectedPill : Observable<[Pill?]> = Observable([])
-    var inputStartDate : Observable<Date> = Observable(Date()) // default로 오늘 날짜 설정
+    var inputStartDate : Observable<Date> = Observable(Calendar.current.hourMinuteInitializer(Date())) // default로 오늘 날짜 설정
     var inputPeriodType : Observable<PeriodCase?> = Observable(nil)
     var inputDayOfWeekInterval : Observable<[PeriodSpecificDay]?> = Observable(nil) // 특정 요일에서 사용하는 옵저버
     var inputDaysInterval : Observable<(enumCase:PeriodDays, days:Int)?> = Observable(nil) // 간격에서 사용하는 옵저버

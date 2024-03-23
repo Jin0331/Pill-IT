@@ -91,6 +91,7 @@ extension PillAlarmReviseDateViewController : SwipeCollectionViewCellDelegate {
                         return (-99,99)
                     }}
                 viewModel.inputAlarmSpecificTimeList.value = inputAlarmSpecificTimeList
+                viewModel.outputAlarmSpecificTimeList.value = Array(Set(viewModel.outputAlarmSpecificTimeList.value)).sorted() // 중복제거..
             }
         }
         

@@ -36,13 +36,6 @@ class PillAlarmReviseItemViewController: BaseViewController {
         
         guard let viewModel = viewModel else { print("PillAlarmReviseItemViewController - viewModel not init 🥲");return }
         
-        viewModel.outputGroupId.bind { [weak self] value in
-            guard let self = self else { return }
-            guard let value = value else { return }
-            
-            mainView.alarmNameLabel.text = value
-        }
-        
         viewModel.outputSelectedPill.bind { [weak self] value in
             guard let self = self else { return }
             mainView.collectionViewchangeLayout(itemCount: value.count)
@@ -89,6 +82,10 @@ class PillAlarmReviseItemViewController: BaseViewController {
         dataSource.apply(snapshot) // reloadData
         
         print(#function, "PillAlarm UpdateSnapShot ❗️❗️❗️❗️❗️❗️❗️")
+    }
+    
+    deinit {
+        print(#function, " - ✅ PillAlarmReviseItemViewController")
     }
     
 }

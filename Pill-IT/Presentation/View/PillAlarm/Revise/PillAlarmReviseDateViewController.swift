@@ -57,7 +57,7 @@ class PillAlarmReviseDateViewController: BaseViewController {
     }
     
     deinit {
-        print(#function, " - ✅ PillAlaamSpecificViewController")
+        print(#function, " - ✅ PillAlarmReviseDateViewController")
     }
 }
 

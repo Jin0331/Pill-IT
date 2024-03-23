@@ -25,26 +25,6 @@ final class PillAlarmReviseItemView : BaseView {
         $0.backgroundColor = DesignSystem.colorSet.white
     }
     
-    let alarmNameLabelTitle = UILabel().then {
-        $0.text = "알림 이름"
-        $0.textColor = DesignSystem.colorSet.gray
-        $0.font = .systemFont(ofSize: 15, weight: .heavy)
-        
-    }
-    
-    let alarmNameLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 22, weight: .heavy)
-        $0.textAlignment = .center
-        $0.backgroundColor = DesignSystem.colorSet.lightGray
-        $0.textColor = DesignSystem.colorSet.gray
-        $0.layer.borderWidth = DesignSystem.viewLayout.borderWidth
-        $0.layer.borderColor = DesignSystem.colorSet.lightBlack.cgColor
-        $0.layer.cornerRadius = DesignSystem.viewLayout.cornerRadius
-        
-        $0.text = "감기약감기약"
-    }
-    
-    
     let collectionViewtitle = UILabel().then {
         $0.text = "선택한 복용약 수정"
         $0.textColor = DesignSystem.colorSet.gray
@@ -124,7 +104,7 @@ final class PillAlarmReviseItemView : BaseView {
         
         scrollView.addSubview(contentsView)
         
-        [alarmNameLabelTitle, alarmNameLabel, collectionViewtitle, mainCollectionView, periodSelectButtontitle, periodSelectButton, startDateButtontitle, startDateButton, completeButton].forEach { contentsView.addSubview($0)}
+        [collectionViewtitle, mainCollectionView, periodSelectButtontitle, periodSelectButton, startDateButtontitle, startDateButton, completeButton].forEach { contentsView.addSubview($0)}
     }
     
     override func configureLayout() {
@@ -140,21 +120,9 @@ final class PillAlarmReviseItemView : BaseView {
             $0.top.bottom.equalToSuperview()
         }
         
-        alarmNameLabelTitle.snp.makeConstraints { make in
+        collectionViewtitle.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(25)
             make.horizontalEdges.equalToSuperview().inset(10)
-        }
-        
-        alarmNameLabel.snp.makeConstraints { make in
-            make.top.equalTo(alarmNameLabelTitle.snp.bottom).offset(10)
-            make.horizontalEdges.equalTo(alarmNameLabelTitle)
-            make.height.equalTo(70)
-        }
-        
-        collectionViewtitle.snp.makeConstraints { make in
-            make.top.equalTo(alarmNameLabel.snp.bottom).offset(10)
-            make.width.equalTo(alarmNameLabelTitle)
-            make.leading.equalToSuperview().inset(10)
         }
 
         periodSelectButtontitle.snp.makeConstraints { make in
@@ -166,25 +134,25 @@ final class PillAlarmReviseItemView : BaseView {
         periodSelectButton.snp.makeConstraints { make in
             make.top.equalTo(periodSelectButtontitle.snp.bottom).offset(10)
             make.horizontalEdges.equalTo(mainCollectionView)
-            make.height.equalTo(alarmNameLabel)
+            make.height.equalTo(70)
         }
         
         startDateButtontitle.snp.makeConstraints { make in
             make.top.equalTo(periodSelectButton.snp.bottom).offset(15)
-            make.width.equalTo(alarmNameLabel)
+            make.width.equalTo(collectionViewtitle)
             make.leading.equalTo(mainCollectionView)
         }
         
         startDateButton.snp.makeConstraints { make in
             make.top.equalTo(startDateButtontitle.snp.bottom).offset(10)
             make.horizontalEdges.equalTo(mainCollectionView)
-            make.height.equalTo(alarmNameLabel)
+            make.height.equalTo(periodSelectButton)
         }
         
         completeButton.snp.makeConstraints { make in
             make.top.equalTo(startDateButton.snp.bottom).offset(20)
             make.horizontalEdges.equalTo(startDateButton)
-            make.height.equalTo(alarmNameLabel)
+            make.height.equalTo(periodSelectButton)
             make.bottom.equalToSuperview().inset(20)
         }
     }

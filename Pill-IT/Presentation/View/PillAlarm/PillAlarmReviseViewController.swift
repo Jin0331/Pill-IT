@@ -30,6 +30,10 @@ final class PillAlarmReviseViewController: TabmanViewController, TMBarDataSource
         configureNavigation()
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        configureNavigation()
+    }
     
     deinit {
         print(#function, "- ✅ PillAlarmReviseViewController")
@@ -40,8 +44,8 @@ final class PillAlarmReviseViewController: TabmanViewController, TMBarDataSource
 extension PillAlarmReviseViewController : PageboyViewControllerDataSource {
     func barItem(for bar: TMBar, at index: Int) -> TMBarItemable {
         let item = TMBarItem(title: "")
-        item.title = "Page \(index)"
-        item.image = UIImage(named: "image.png")
+        item.title = index == 0 ? "알림 수정" : "알림 시간 수정"
+//        item.image = UIImage(named: "image.png")
         // ↑↑ 이미지는 이따가 탭바 형식으로 보여줄 때 사용할 것이니 "이미지가 왜 있지?" 하지말고 넘어가주세요.
         
         return item
@@ -68,8 +72,16 @@ extension PillAlarmReviseViewController {
         view.backgroundColor = DesignSystem.colorSet.white
         
         dataSource = self
-        let bar = TMBar.TabBar()
+        let bar = TMBar.ButtonBar()
+        bar.buttons.customize { (button) in
+            button.tintColor = DesignSystem.colorSet.gray
+            button.selectedTintColor = DesignSystem.colorSet.lightBlack
+        }
+    
+        
         bar.layout.transitionStyle = .snap // Customize
+        bar.layout.contentMode = .fit
+        bar.layout.interButtonSpacing = 20 // 버튼 사이의 간격 조절
         addBar(bar, dataSource: self, at: .top)
     }
     
@@ -80,9 +92,10 @@ extension PillAlarmReviseViewController {
         navigationController?.navigationBar.barTintColor = DesignSystem.colorSet.white
         
         // title 크게
-        navigationItem.title = "⚠️ 복용약 알림 수정하기"
+        navigationItem.title = "⚠️" + viewModel.inputGroupId.value! + " 수정하기"
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationBar.largeTitleTextAttributes =  [NSAttributedString.Key.foregroundColor: DesignSystem.colorSet.lightBlack,                                                                         NSAttributedString.Key.font: UIFont.systemFont(ofSize: 30, weight: .heavy)]
+        navigationController?.navigationBar.largeTitleTextAttributes =  [NSAttributedString.Key.foregroundColor: DesignSystem.colorSet.lightBlack,
+                                                                         NSAttributedString.Key.font: UIFont.systemFont(ofSize: 22, weight: .heavy)]
         
         navigationController?.navigationBar.titleTextAttributes =  [NSAttributedString.Key.foregroundColor: DesignSystem.colorSet.lightBlack]
         

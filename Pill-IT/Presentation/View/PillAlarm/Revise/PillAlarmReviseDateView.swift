@@ -90,7 +90,7 @@ final class PillAlarmReviseDateView: BaseView {
         completeButton.snp.makeConstraints { make in
             make.height.equalTo(70)
             make.top.equalTo(mainCollectionView.snp.bottom).offset(15)
-            make.horizontalEdges.bottom.equalTo(safeAreaLayoutGuide)
+            make.horizontalEdges.bottom.equalTo(safeAreaLayoutGuide).inset(10)
         }
     }
     

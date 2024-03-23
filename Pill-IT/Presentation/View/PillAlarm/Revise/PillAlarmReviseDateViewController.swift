@@ -29,7 +29,7 @@ class PillAlarmReviseDateViewController: BaseViewController {
     
     private func bindData() {
         guard let viewModel = viewModel else { return }
-        viewModel.inputAlarmSpecificTimeList.value = [(7,0), (12,0), (19,0)] // input
+        
         viewModel.outputVisibleSpecificTimeList.bind { [weak self] value in
             guard let self = self else { return }
             updateSnapshot(value)
@@ -63,7 +63,9 @@ class PillAlarmReviseDateViewController: BaseViewController {
 
 //MARK: - CollectionView delegate
 extension PillAlarmReviseDateViewController : UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectDate(isAdd: false, indexPath: indexPath)
+    }
 }
 
 //MARK: - CollectionView Swipe Cell Delegate
@@ -81,7 +83,7 @@ extension PillAlarmReviseDateViewController : SwipeCollectionViewCellDelegate {
                 return
             } else  {
                 viewModel.outputVisibleSpecificTimeList.value.remove(at: indexPath.row)
-                var inputAlarmSpecificTimeList = viewModel.outputVisibleSpecificTimeList.value.map {
+                let inputAlarmSpecificTimeList = viewModel.outputVisibleSpecificTimeList.value.map {
                     let temp = Calendar.current.dateComponents([.hour, .minute], from: $0)
                     if let hour = temp.hour, let minute = temp.minute {
                         return (hour, minute)
@@ -90,7 +92,6 @@ extension PillAlarmReviseDateViewController : SwipeCollectionViewCellDelegate {
                     }}
                 viewModel.inputAlarmSpecificTimeList.value = inputAlarmSpecificTimeList
             }
-            
         }
         
         // customize the action appearance
@@ -116,7 +117,9 @@ extension PillAlarmReviseDateViewController : PillSpecificAction {
             guard let viewModel = viewModel else { return }
             
             mainView.setActivityIndicator()
-            viewModel.createTableTrigger.value = ()
+            viewModel.revisePeriodTableTrigger.value = ()
+            
+            
             NotificationCenter.default.post(name: Notification.Name("fetchPillAlarmTable"), object: nil)
         }
         

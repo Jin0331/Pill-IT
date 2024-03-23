@@ -21,7 +21,6 @@ final class MainTabBarController: WHTabbarController {
         let firstNav = UINavigationController(rootViewController: firstVC)
         
         secondVC = PillNotificationViewController()
-        let secondNav = UINavigationController(rootViewController: secondVC)
         
         setViewControllers([firstNav, secondVC], animated: true)
     }

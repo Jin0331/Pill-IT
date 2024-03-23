@@ -96,7 +96,7 @@ extension PillAlarmSpecificViewController : SwipeCollectionViewCellDelegate {
                 return
             } else  {
                 viewModel.outputVisibleSpecificTimeList.value.remove(at: indexPath.row)
-                var inputAlarmSpecificTimeList = viewModel.outputVisibleSpecificTimeList.value.map {
+                let inputAlarmSpecificTimeList = viewModel.outputVisibleSpecificTimeList.value.map {
                     let temp = Calendar.current.dateComponents([.hour, .minute], from: $0)
                     if let hour = temp.hour, let minute = temp.minute {
                         return (hour, minute)

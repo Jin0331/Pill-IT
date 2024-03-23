@@ -34,7 +34,7 @@ final class RegisterPillViewController : BaseViewController {
         
         bindData()
         
-        // PillAlarmSpecificView, PillAlarmReviseView로부터 전달되어지는 노티 --> 관리화면 reload
+        // RegisterPillViewModel로 부터 오는 Noti, 검색어 잘못되었을 때
         NotificationCenter.default.addObserver(self, selector: #selector(searchError), name: Notification.Name("searchError"), object: nil)
     }
     

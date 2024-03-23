@@ -109,7 +109,7 @@ final class PillAlaramRegisterViewModel {
         // CollectionView에서 수정될 떄마다, 호출되는 bind
         inputAlarmSpecificTimeList.bind { [weak self] value in
             guard let self = self else { return }
-            guard let outputAlarmDateList = outputAlarmDateList.value else { print("❌실행안됨?");return }
+            guard let outputAlarmDateList = outputAlarmDateList.value else { return }
             
             var tableDateList : [[Date]] = [[]]
             var dataSrouceDateList : [Date] = []

@@ -59,7 +59,7 @@ final class RegisterPillViewModel {
             guard let self = self else { return }
             
             if let error {
-                print("callRequestForItemList - No Search List")
+                print("callRequestForItemList - No Search List", error)
                 NotificationCenter.default.post(name: Notification.Name("searchError"), object: nil)
                 outputItemEntpNameSeqList.value = nil
             } else {
@@ -79,7 +79,7 @@ final class RegisterPillViewModel {
             guard let self = self else { return }
             
             if let error {
-                print("callRequestForImage - No Search List - 데이터 없음")
+                print("callRequestForImage - No Search List - 데이터 없음", error)
                 localImageURL.value = nil
             } else {
                 guard let response = response else { return }

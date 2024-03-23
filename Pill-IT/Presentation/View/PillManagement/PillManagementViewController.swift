@@ -183,7 +183,7 @@ extension PillManagementViewController : UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
         //MARK: - 복용약 알림 수정으로 넘어가면 화면
-        if let cell = collectionView.cellForItem(at: indexPath) as? PillManagementCollectionViewHeaderCell {
+        if collectionView.cellForItem(at: indexPath) is PillManagementCollectionViewHeaderCell {
             guard let data = headerDataSource.itemIdentifier(for: indexPath) else { return }
 
             let vc =  PillAlarmReviseViewController()

@@ -183,7 +183,7 @@ extension PillAlarmReviseItemViewController : PillAlarmReigsterAction {
                 guard  let outputAlarmDateList = viewModel.outputAlarmDateList.value else { return }
                 let gap = Calendar.current.getDateGap(from: viewModel.inputStartDate.value, to: Calendar.current.hourMinuteInitializer(datePicker.date))
                 
-                var newOutputAlarmDateList = outputAlarmDateList.map({
+                let newOutputAlarmDateList = outputAlarmDateList.map({
                     return Calendar.current.date(byAdding: .day, value: gap, to: $0)!
                 })
                 

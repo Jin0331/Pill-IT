@@ -21,6 +21,7 @@ final class PillAlarmReviseViewController: TabmanViewController, TMBarDataSource
         let dataEditVC = PillAlarmReviseDateViewController()
         
         itemEditVC.viewModel = viewModel
+        dataEditVC.viewModel = viewModel
         
         viewControllers.append(itemEditVC)
         viewControllers.append(dataEditVC)

@@ -253,13 +253,13 @@
 			path = PillNotification;
 			sourceTree = "<group>";
 		};
-		DBEE62802BAB3379003BD600 /* Common */ = {
+		DBEE62802BAB3379003BD600 /* PopUp */ = {
 			isa = PBXGroup;
 			children = (
 				DBEE62812BAB3558003BD600 /* _PopUpPillAlarmGroupViewController.swift */,
 				DBEE62832BAB4887003BD600 /* PopUpPillAlarmGroupViewController.swift */,
 			);
-			path = Common;
+			path = PopUp;
 			sourceTree = "<group>";
 		};
 		DBEE628C2BADB5CE003BD600 /* Revise */ = {
@@ -327,7 +327,7 @@
 				DB5E59CD2BA7833400C753BD /* PillManagement */,
 				DB5E59CE2BA7835300C753BD /* PillAlarm */,
 				DB5E59DB2BA94A8700C753BD /* PillNotification */,
-				DBEE62802BAB3379003BD600 /* Common */,
+				DBEE62802BAB3379003BD600 /* PopUp */,
 				DB0F10DE2B9F8848000DC430 /* Cell */,
 			);
 			path = View;

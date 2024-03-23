@@ -60,6 +60,7 @@ final class RegisterPillViewModel {
             
             if let error {
                 print("callRequestForItemList - No Search List")
+                NotificationCenter.default.post(name: Notification.Name("searchError"), object: nil)
                 outputItemEntpNameSeqList.value = nil
             } else {
                 guard let response = response else { return }

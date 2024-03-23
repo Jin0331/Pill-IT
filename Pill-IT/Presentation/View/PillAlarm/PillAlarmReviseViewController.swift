@@ -101,7 +101,7 @@ extension PillAlarmReviseViewController {
         
         // left button
 //        let deleteButton = UIBu
-        let deleteButton = UIButton(frame: CGRect(x: 0, y: 0, width: 130, height: 40)).then {
+        let deleteButton = UIButton(frame: CGRect(x: 0, y: 20, width: 130, height: 40)).then {
             $0.setTitle(" 알림 삭제하기", for: .normal)
             $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .heavy)
             $0.setTitleColor(DesignSystem.colorSet.white, for: .normal)

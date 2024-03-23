@@ -255,6 +255,20 @@ final class RealmRepository {
         }
     }
     
+    func removeAllPillAlarmDateIsDeleted() {
+        
+        let itemsToDelete = realm.objects(PillAlarmDate.self)
+            .where { $0.isDeleted == true }
+        
+        do {
+            try realm.write {
+                realm.delete(itemsToDelete)
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
     
     
 }

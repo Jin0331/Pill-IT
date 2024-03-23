@@ -150,7 +150,7 @@ final class RealmRepository {
         
         do {
             try realm.write {
-                table.pillList.removeAll()
+//                table.pillList.removeAll() <- 이것은 기록으로 남겨두는 것이 좋을 것 같다.
                 table.alarmDate.removeAll()
                 table.upDate = Date()
             }

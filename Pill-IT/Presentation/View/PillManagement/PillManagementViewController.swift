@@ -10,6 +10,7 @@ import SearchTextField
 import SnapKit
 import Then
 import SwipeCellKit
+import MarqueeLabel
 
 final class PillManagementViewController : BaseViewController {
     
@@ -21,6 +22,7 @@ final class PillManagementViewController : BaseViewController {
     override func loadView() {
         view = mainView
         mainView.mainCollectionView.delegate = self
+        mainView.headerCollecionView.delegate = self
     }
     
     override func viewDidLoad() {
@@ -34,7 +36,7 @@ final class PillManagementViewController : BaseViewController {
         
         print(#function, "❗️PillManagementViewController")
         selectedCellRelease()
-        
+        MarqueeLabel.controllerViewDidAppear(self)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -48,8 +50,8 @@ final class PillManagementViewController : BaseViewController {
         mainView.mainCollectionView.deselectAllItems(animated: true)
         
         // notificaionCenter remove
-        NotificationCenter.default.removeObserver(self,
-                                                  name: Notification.Name("fetchPillAlarmTable"), object: nil)
+//        NotificationCenter.default.removeObserver(self,
+//                                                  name: Notification.Name("fetchPillAlarmTable"), object: nil)
     }
     private func bindData() {
         // 복용약 리스트
@@ -73,13 +75,14 @@ final class PillManagementViewController : BaseViewController {
             updateHeaderSnapshot(value)
         }
         
-        // PillAlarmSpecificView로부터 전달되어지는 노티 -> 이걸 활용해서 realm Table fetch 및 Obervable 생성
+        // PillAlarmSpecificView, PillAlarmReviseView로부터 전달되어지는 노티 --> 관리화면 reload
         NotificationCenter.default.addObserver(self, selector: #selector(triggerFetchPillAlarmTable), name: Notification.Name("fetchPillAlarmTable"), object: nil)
     }
     
     override func configureNavigation() {
         super.configureNavigation()
-        navigationItem.title = "🥲 나의 복용약"
+        navigationController?.navigationBar.layer.borderWidth = 0
+        navigationItem.title = "🤔 나의 복용약"
         
         mainView.customButton.addTarget(self, action: #selector(leftBarButtonClicked), for: .touchUpInside)
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: mainView.customButton)
@@ -109,7 +112,6 @@ final class PillManagementViewController : BaseViewController {
         snapshot.appendItems(data, toSection: .main)
         
         headerDataSource.apply(snapshot) // reloadData
-        
         print("PillManageMent UpdateSnapShot - Header ❗️❗️❗️❗️❗️❗️❗️")
     }
     
@@ -143,7 +145,7 @@ final class PillManagementViewController : BaseViewController {
         
         guard let selectedIndexPaths = mainView.mainCollectionView.indexPathsForSelectedItems else { return }
         let selectedPill = selectedIndexPaths.map{ return mainDataSource.itemIdentifier(for: $0)}
-        vc.viewModel.selectedPill.value = selectedPill
+        vc.viewModel.inputSelectedPill.value = selectedPill
         let nav = UINavigationController(rootViewController: vc)
         
         present(nav, animated: true)
@@ -156,6 +158,7 @@ final class PillManagementViewController : BaseViewController {
             guard let cellCasting = cell as? PillManagementCollectionViewMainCell else { return }
             cellCasting.hiddneSelectedImage()
         }
+        mainView.mainCollectionView.deselectAllItems(animated: true)
         hiddenLeftBarButton(mainView.mainCollectionView)
     }
     
@@ -163,8 +166,10 @@ final class PillManagementViewController : BaseViewController {
     // pillAlarm의 조회를 위한 Trigger
     @objc private func triggerFetchPillAlarmTable(_ noti: Notification) {
         print("PillManagementViewController triggerFetchPillAlarmTable ❗️❗️❗️❗️❗️❗️❗️")
-        selectedCellRelease() 
+        selectedCellRelease()
         viewModel.fetchPillAlarmItemTrigger.value = ()
+        
+        view.makeToast("복용약 알림이 설정되었습니다 ✅", duration: 2, position: .center)
     }
     
     deinit {
@@ -176,6 +181,47 @@ final class PillManagementViewController : BaseViewController {
 extension PillManagementViewController : UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
+        //MARK: - 복용약 알림 수정으로 넘어가면 화면
+        if collectionView.cellForItem(at: indexPath) is PillManagementCollectionViewHeaderCell {
+            guard let data = headerDataSource.itemIdentifier(for: indexPath) else { return }
+
+            //MARK: - 그룹에 속한 Pill 목록 띄우는 팝업뷰 나타남
+            let vc = PopUpPillAlarmGroupViewController()
+            vc.viewModel.reviseAlarmPopUpTrigger.value = data.alarmName // 여기는 model을 사용하여 Pill 목록을 띄우는 것
+            
+            let alert = UIAlertController(title: "🌟" + data.alarmName, message: nil, preferredStyle: .actionSheet)
+            alert.view.tintColor = DesignSystem.colorSet.lightBlack
+
+            let constraintHeight = NSLayoutConstraint(
+                item: alert.view!, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute:
+                    NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: UIScreen.main.bounds.height / 3)
+            alert.view.addConstraint(constraintHeight)
+            alert.setValue(vc, forKey: "contentViewController")
+            
+            //MARK: - 복용약 그룹 수정화면으로 넘어감
+            let confirmAction = UIAlertAction(title: "⚠️ 수정할래요", style: .destructive) { [weak self] (action) in
+                guard let self = self else { return }
+                
+                let vc =  PillAlarmReviseViewController()
+                vc.setupSheetPresentationLarge()
+                vc.viewModel.reviseAlarmPopUpTrigger.value = data.alarmName // 여기는 model을 사용하여 정보를 불러와 수정하는 것
+
+                let nav = UINavigationController(rootViewController: vc)
+                
+                present(nav, animated: true)
+                
+            }
+            alert.addAction(confirmAction)
+            
+            present(alert, animated: true) { [weak self] in
+                guard let self = self else { return }
+                let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+                alert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+            }
+            
+        }
+        
         if let cell = collectionView.cellForItem(at: indexPath) as? PillManagementCollectionViewMainCell {
             cell.showSelectedImage()
             hiddenLeftBarButton(collectionView)
@@ -207,6 +253,10 @@ extension PillManagementViewController : UICollectionViewDelegate {
             }
         }
     }
+    
+    @objc private func dismissAlertController(){
+        self.dismiss(animated: true, completion: nil)
+    }
 }
 
 //MARK: - CollectionView swipe delegate
@@ -220,7 +270,6 @@ extension PillManagementViewController : SwipeCollectionViewCellDelegate {
             let confirmAction = UIAlertAction(title: "지워주세요", style: .default) { (action) in
                 
                 self.viewModel.updatePillItemisDeleteTrigger.value = self.mainDataSource.itemIdentifier(for: indexPath)
-                
                 self.hiddenLeftBarButton(collectionView)
                 
             }

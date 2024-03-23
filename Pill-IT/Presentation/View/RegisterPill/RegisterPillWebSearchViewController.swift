@@ -89,7 +89,7 @@ final class RegisterPillWebSearchViewController: BaseViewController {
 
     private func updateSnapshot() {
         guard let viewModel = viewModel else { return }
-        guard let outputItemImageWebLink = viewModel.outputItemImageWebLink.value else { print("안찍히냐");return }
+        guard let outputItemImageWebLink = viewModel.outputItemImageWebLink.value else { return }
         
         if outputItemImageWebLink.count < 1 {
             self.view.makeToast("이미지 검색 결과가 없어요 🥲", duration: 3.0, position: .center)
@@ -125,7 +125,7 @@ extension RegisterPillWebSearchViewController : UICollectionViewDelegate {
             switch response {
                 
             case .success(let success):
-                print(success, " - Collection View")
+                print(success)
                 self.sendData?(success)
             case .failure(let error):
                 print(error)

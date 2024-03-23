@@ -40,6 +40,7 @@ final class PillManagementViewModel {
             guard let value = value else { return }
         
             repository.updatePillIsDelete(itemSeq : value.itemSeq)
+            
             outputRegisteredPill.value = repository.fetchPillItem()
             outputRegisteredPillAlarm.value = repository.fetchPillAlarm()
         }

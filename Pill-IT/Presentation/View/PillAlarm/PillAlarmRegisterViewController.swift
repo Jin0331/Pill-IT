@@ -8,6 +8,7 @@
 import UIKit
 import SwipeCellKit
 import Toast_Swift
+import MarqueeLabel
 
 final class PillAlarmRegisterViewController: BaseViewController {
     
@@ -28,7 +29,10 @@ final class PillAlarmRegisterViewController: BaseViewController {
         
         configureDataSource()
         bindData()
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        MarqueeLabel.controllerViewDidAppear(self)
     }
     
     private func bindData() {
@@ -49,7 +53,7 @@ final class PillAlarmRegisterViewController: BaseViewController {
     
     override func configureNavigation() {
         super.configureNavigation()
-        navigationItem.title = "🌟 복용약 등록하기"
+        navigationItem.title = "🌟 복용약 알림 등록하기"
         
         let cancleBarButton = UIBarButtonItem(image: DesignSystem.sfSymbol.cancel, style: .plain, target: self, action: #selector(rightBarButtonClicked))
         
@@ -57,7 +61,6 @@ final class PillAlarmRegisterViewController: BaseViewController {
     }
     
     @objc private func rightBarButtonClicked() {
-        print("ASDasdzxcad  🥲")
         dismiss(animated: true)
     }
     
@@ -102,7 +105,12 @@ extension PillAlarmRegisterViewController : SwipeCollectionViewCellDelegate {
             guard let self = self else { return }
             
             let confirmAction = UIAlertAction(title: "지워주세요", style: .default) { (action) in
-                self.viewModel.outputSelectedPill.value.remove(at: indexPath.row)
+                
+                if self.viewModel.outputSelectedPill.value.count < 2 {
+                    self.view.makeToast("1개 이상의 복용약이 있어야 합니다 🥲", duration: 2, position: .center)
+                } else {
+                    self.viewModel.outputSelectedPill.value.remove(at: indexPath.row)
+                }
             }
             
             let cancelAction = UIAlertAction(title: "취소할래요", style: .cancel)
@@ -126,9 +134,6 @@ extension PillAlarmRegisterViewController : SwipeCollectionViewCellDelegate {
         
         return options
     }
-    
-    
-    
 }
 
 //MARK: - Delegate Action
@@ -165,7 +170,7 @@ extension PillAlarmRegisterViewController : PillAlarmReigsterAction {
         
         let select = UIAlertAction(title: "선택 완료", style: .cancel) { [weak self] action in
             guard let self = self else { return }
-            viewModel.inputStartDate.value = datePicker.date
+            viewModel.inputStartDate.value = Calendar.current.hourMinuteInitializer(datePicker.date)
         }
         
         alert.addAction(select)
@@ -188,10 +193,7 @@ extension PillAlarmRegisterViewController : PillAlarmReigsterAction {
             mainView.activityIndicator.stopAnimating()
             mainView.loadingBgView.removeFromSuperview()
             
-            print(viewModel.inputGroupId.value)
-            
-            
-            if let pillTitle = viewModel.inputGroupId.value, let alarmDateList = viewModel.outputAlarmDateList.value, let periodType = viewModel.outputPeriodType.value, let startDate = viewModel.outputStartDate.value, !pillTitle.isEmpty, viewModel.selectedPill.value.count > 0 {
+            if let pillTitle = viewModel.outputGroupId.value, let alarmDateList = viewModel.outputAlarmDateList.value, let periodType = viewModel.outputPeriodType.value, let startDate = viewModel.outputStartDate.value, !pillTitle.isEmpty, viewModel.inputSelectedPill.value.count > 0 {
                 
                 let vc = PillAlarmSpecificViewController()
                 vc.viewModel = viewModel

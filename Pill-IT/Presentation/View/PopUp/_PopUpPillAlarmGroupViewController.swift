@@ -65,7 +65,7 @@ extension _PopUpPillAlarmGroupViewController {
         let cellRegistration = PopUpPillAlarmGroupViewControllerCellRegistration()
         dataSource = UICollectionViewDiffableDataSource(collectionView: mainCollectionView, cellProvider: { [weak self] collectionView, indexPath, itemIdentifier in
             
-            guard let self = self else { return UICollectionViewCell()}
+            guard let _ = self else { return UICollectionViewCell()}
             
             let cell = collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
             

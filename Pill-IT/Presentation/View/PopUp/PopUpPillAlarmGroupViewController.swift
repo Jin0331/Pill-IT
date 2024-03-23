@@ -11,7 +11,8 @@ import Then
 
 final class PopUpPillAlarmGroupViewController: BaseViewController {
     
-    let viewModel = PopUpPillAlarmGroupViewModel()
+//    let viewModel = PopUpPillAlarmGroupViewModel()
+    let viewModel = PillAlaramRegisterViewModel()
     private var dataSource : UICollectionViewDiffableDataSource<PillAlarmViewSection, Pill>!
     
     lazy var mainCollectionView : UICollectionView = {
@@ -31,9 +32,8 @@ final class PopUpPillAlarmGroupViewController: BaseViewController {
     }
     
     private func bindData() {
-        viewModel.outputCurrentDateAlarmPill.bind { [weak self] value in
+        viewModel.outputSelectedPill.bind { [weak self] value in
             guard let self = self else { return }
-            guard let value = value else { return }
             
             updateSnapshot(value)
         }
@@ -65,7 +65,7 @@ extension PopUpPillAlarmGroupViewController {
         let cellRegistration = PopUpPillAlarmGroupViewControllerCellRegistration()
         dataSource = UICollectionViewDiffableDataSource(collectionView: mainCollectionView, cellProvider: { [weak self] collectionView, indexPath, itemIdentifier in
             
-            guard let self = self else { return UICollectionViewCell()}
+            guard let _ = self else { return UICollectionViewCell()}
             
             let cell = collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
             
@@ -86,11 +86,11 @@ extension PopUpPillAlarmGroupViewController {
     private func createLayout() -> UICollectionViewLayout {
         
         // Cell
-        let itemSize = NSCollectionLayoutSize(widthDimension: .estimated(50), heightDimension: .absolute(50))
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
         // Group
-        let groupSize = NSCollectionLayoutSize(widthDimension: .estimated(50), heightDimension: .absolute(50))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(UIScreen.main.bounds.width), heightDimension: .absolute(50))
         
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         

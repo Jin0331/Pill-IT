@@ -51,30 +51,3 @@ class PillAPIManager {
         }
     }
 }
-
-
-/*
- //    Using CoreXLSX
- //    func getXLSX2Josn(filepath : String) -> Meta {
- //
- //        guard let file = XLSXFile(filepath: filepath) else {
- //            fatalError("XLSX file at \(filepath) is corrupted or does not exist")
- //        }
- //
- //        do {
- //            let wbk = try file.parseWorkbooks().first!
- //            let path = try file.parseWorksheetPathsAndNames(workbook: wbk).first!.path
- //            let worksheet = try file.parseWorksheet(at: path)
- //
- //            if let sharedStrings = try file.parseSharedStrings() {
- //                let columnCStrings = worksheet.cells(atColumns: [ColumnReference(colRef.itemSeq.rawValue)!])
- //                .compactMap { $0.stringValue(sharedStrings) }
- //            }
- //
- //        } catch {
- //            print(error)
- //        }
- //
- //        return resultMetaData
- //    }
- */

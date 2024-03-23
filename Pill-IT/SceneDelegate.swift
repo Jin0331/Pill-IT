@@ -10,6 +10,7 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    var repository = RealmRepository()
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -19,10 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         
         window = UIWindow(windowScene: scene)
-        
-        
         let tabbarController = MainTabBarController()
-//        tabbarController.configureItemDesing(tabBar: tabbarController.tabBar)
         
         window?.overrideUserInterfaceStyle = .light // 라이트모드 강제
         window?.rootViewController = tabbarController
@@ -34,6 +32,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This occurs shortly after the scene enters the background, or when its session is discarded.
         // Release any resources associated with this scene that can be re-created the next time the scene connects.
         // The scene may re-connect later, as its session was not necessarily discarded (see `application:didDiscardSceneSessions` instead).
+        
+        
+        print("App terminated ✅ - isDeleted == true remove of PillAlarmTable!")
+        repository.removeAllPillAlarmDateIsDeleted()
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {

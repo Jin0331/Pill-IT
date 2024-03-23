@@ -33,6 +33,9 @@ final class RegisterPillViewController : BaseViewController {
         super.viewDidLoad()
         
         bindData()
+        
+        // RegisterPillViewModel로 부터 오는 Noti, 검색어 잘못되었을 때
+        NotificationCenter.default.addObserver(self, selector: #selector(searchError), name: Notification.Name("searchError"), object: nil)
     }
     
     private func bindData() {
@@ -51,6 +54,10 @@ final class RegisterPillViewController : BaseViewController {
     
     @objc private func rightBarButtonClicked() {
         dismiss(animated: true)
+    }
+    
+    @objc private func searchError() {
+        view.makeToast("검색어를 확인해주세요 ❗️", duration: 2.0, position: .center)
     }
     
     private func textFieldHandler() {

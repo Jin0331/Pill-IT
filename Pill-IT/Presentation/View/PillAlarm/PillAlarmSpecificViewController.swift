@@ -92,10 +92,20 @@ extension PillAlarmSpecificViewController : SwipeCollectionViewCellDelegate {
             guard let viewModel = viewModel else { return }
             
             if  viewModel.outputVisibleSpecificTimeList.value.count < 2 {
-                view.makeToast("최소 1개의 알림이 있어야 합니다 🥲", duration: 2, position: .center)
+                view.makeToast("1개 이상의 알림이 있어야 합니다 🥲", duration: 2, position: .center)
                 return
+            } else  {
+                viewModel.outputVisibleSpecificTimeList.value.remove(at: indexPath.row)
+                let inputAlarmSpecificTimeList = viewModel.outputVisibleSpecificTimeList.value.map {
+                    let temp = Calendar.current.dateComponents([.hour, .minute], from: $0)
+                    if let hour = temp.hour, let minute = temp.minute {
+                        return (hour, minute)
+                    } else {
+                        return (-99,99)
+                    }}
+                viewModel.inputAlarmSpecificTimeList.value = inputAlarmSpecificTimeList
             }
-            viewModel.outputVisibleSpecificTimeList.value.remove(at: indexPath.row)
+            
         }
         
         // customize the action appearance
@@ -125,7 +135,7 @@ extension PillAlarmSpecificViewController : PillSpecificAction {
             NotificationCenter.default.post(name: Notification.Name("fetchPillAlarmTable"), object: nil)
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) { [weak self] in
             guard let self = self else { return }
             mainView.activityIndicator.stopAnimating()
             mainView.loadingBgView.removeFromSuperview()

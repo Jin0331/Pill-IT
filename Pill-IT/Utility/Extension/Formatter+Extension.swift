@@ -40,6 +40,13 @@ extension Double {
 }
 
 extension Date {
+    
+    
+    var onlyDate: Date {
+        let component = Calendar.current.dateComponents([.year, .month, .day], from: self)
+        return Calendar.current.date(from: component) ?? Date()
+    }
+    
     func setKoLocale() -> Date? {
         let dateFormatter = DateFormatter()
         let convertDate = toStringKST(dateFormat: "yyyy년 MM월 dd일")
@@ -87,7 +94,7 @@ struct DateFormatters {
         dateFormatter.locale = Locale(identifier: "ko")
         return dateFormatter
     }()
-
+    
     static var dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "d"
@@ -103,7 +110,7 @@ struct DateFormatters {
         
         return dateFormatter
     }()
-
+    
     static var weekdayFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEE"
@@ -117,4 +124,21 @@ struct DateFormatters {
         dateFormatter.locale = Locale(identifier: "ko")
         return dateFormatter
     }()
+}
+
+extension Calendar {
+    func getDateGap(from: Date, to: Date) -> Int {
+        let fromDateOnly = from.onlyDate
+        let toDateOnly = to.onlyDate
+        return self.dateComponents([.day], from: fromDateOnly, to: toDateOnly).day ?? 0
+    }
+    
+    func hourMinuteInitializer(_ currentDate : Date) -> Date {
+        let calendar = Calendar.current
+        var dateComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: currentDate)
+        dateComponents.hour = 0
+        dateComponents.minute = 0
+        
+        return calendar.date(from: dateComponents)!
+    }
 }

@@ -17,17 +17,6 @@ import NVActivityIndicatorView
 final class RegisterPillView: BaseView {
     
     weak var actionDelegate : PillRegisterAction?
-     
-//    
-//    let titleLabel = UILabel().then {
-//        $0.text = "🌟 복용약 등록하기"
-//        $0.textColor = DesignSystem.colorSet.black
-//        $0.font = .systemFont(ofSize: 28, weight: .heavy)
-//        $0.layer.shadowOffset = CGSize(width: 10, height: 5)
-//        $0.layer.shadowOpacity = 0.4
-//        $0.layer.shadowRadius = 10
-//        $0.layer.masksToBounds = false
-//    }
     
     let userInputTextfield = SearchTextField().then {
         $0.attributedPlaceholder = NSAttributedString(string: "복용중인 약을 입력해주세요", attributes: [NSAttributedString.Key.foregroundColor : DesignSystem.colorSet.gray])
@@ -86,29 +75,20 @@ final class RegisterPillView: BaseView {
     }
     
     let defaultButton = UIButton(type: .system).then{
-        $0.setTitle("식약처", for: .normal)
-        $0.setTitleColor(DesignSystem.colorSet.lightBlack, for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 20, weight: .heavy)
-        $0.layer.borderWidth = DesignSystem.viewLayout.borderWidth
-        $0.layer.borderColor = DesignSystem.colorSet.lightBlack.cgColor
+        $0.setImage(UIImage(named: "kfda"), for: .normal)
+        $0.imageView?.contentMode = .scaleAspectFit
         $0.layer.cornerRadius = DesignSystem.viewLayout.cornerRadius
     }
     
     let cameraGalleryButton = UIButton(type: .system).then{
-        $0.setTitle("카메라", for: .normal)
-        $0.setTitleColor(DesignSystem.colorSet.lightBlack, for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 20, weight: .heavy)
-        $0.layer.borderWidth = DesignSystem.viewLayout.borderWidth
-        $0.layer.borderColor = DesignSystem.colorSet.lightBlack.cgColor
+        $0.setImage(UIImage(named: "camera"), for: .normal)
+        $0.imageView?.contentMode = .scaleAspectFit
         $0.layer.cornerRadius = DesignSystem.viewLayout.cornerRadius
     }
     
     let webSearchButton = UIButton(type: .system).then{
-        $0.setTitle("WEB", for: .normal)
-        $0.setTitleColor(DesignSystem.colorSet.lightBlack, for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 20, weight: .heavy)
-        $0.layer.borderWidth = DesignSystem.viewLayout.borderWidth
-        $0.layer.borderColor = DesignSystem.colorSet.lightBlack.cgColor
+        $0.setImage(UIImage(named: "web"), for: .normal)
+        $0.imageView?.contentMode = .scaleAspectFit
         $0.layer.cornerRadius = DesignSystem.viewLayout.cornerRadius
     }
 
@@ -193,7 +173,7 @@ final class RegisterPillView: BaseView {
         buttonStackView.snp.makeConstraints { make in
             make.top.equalTo(addImageTitleLabel.snp.bottom).offset(10)
             make.horizontalEdges.equalTo(userInputTextfield)
-            make.height.equalTo(50)
+            make.height.equalTo(90)
         }
         
         pillImageView.snp.makeConstraints { make in

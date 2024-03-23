@@ -48,7 +48,7 @@ final class PillAlarmRegisterView : BaseView {
         $0.attributedPlaceholder = NSAttributedString(string: "복용 알림의 이름을 입력해주세요", attributes: [NSAttributedString.Key.foregroundColor : DesignSystem.colorSet.gray])
         $0.addLeftPadding()
         $0.clearButtonMode = .whileEditing
-        $0.font = .systemFont(ofSize: 17, weight: .heavy)
+        $0.font = .systemFont(ofSize: 22, weight: .heavy)
         $0.textColor = DesignSystem.colorSet.black
         $0.layer.borderWidth = DesignSystem.viewLayout.borderWidth
         $0.layer.borderColor = DesignSystem.colorSet.lightBlack.cgColor

@@ -27,6 +27,23 @@ final class RealmRepository {
         }
     }
     
+    func upsertPillAlarm(alarmName : String, pillList : List<Pill>, type : String, typeTitle : String,
+                         alarmStartDate : Date, alarmDate : List<PillAlarmDate>) {
+        
+        do {
+            try realm.write {
+                realm.create(PillAlarm.self, value: ["alarmName": alarmName, "pillList": pillList,
+                                                     "type": type, "typeTitle" : typeTitle,
+                                                     "alarmStartDate": alarmStartDate,
+                                                     "alarmDate":alarmDate,
+                                                     "upDate":Date()
+                                                 ], update: .modified) }
+        } catch {
+            print(error)
+        }
+    }
+    
+    
     //MARK: - READ
     func fetchPillSpecific(itemSeq : Int) -> Pill? {
         let table : Pill? = realm.objects(Pill.self).where {
@@ -46,8 +63,7 @@ final class RealmRepository {
         }
     }
     
-//    func 
-    
+
     //MARK: - Pill Search
     func fetchPillItem() -> [Pill]? {
         let table = realm.objects(Pill.self).where {
@@ -70,6 +86,12 @@ final class RealmRepository {
             $0.alarmName == alarmName && $0.isDeleted == false
         }
         return Array(table)
+    }
+    
+    func fetchPillAlarmSpecific(alarmName : String) -> PillAlarm?{
+        guard let table = realm.object(ofType:PillAlarm.self, forPrimaryKey: alarmName) else { return nil }
+        
+        return table
     }
     
     //MARK: - PillAralm Group의 Date Fetch
@@ -119,18 +141,54 @@ final class RealmRepository {
         }
     }
     
+    //MARK: - 삭제 로직
+    func updatePillAlarmRealtionIsDelete(_ alarmName : String) {
+        guard let table = realm.object(ofType:PillAlarm.self, forPrimaryKey: alarmName) else { return }
+        
+        // 기존 존재하던 PillAlarm Table is delete True
+        updatePillAlarmDateAllIsDelete(alarmName: alarmName)
+        
+        do {
+            try realm.write {
+//                table.pillList.removeAll() <- 이것은 기록으로 남겨두는 것이 좋을 것 같다.
+                table.alarmDate.removeAll()
+                table.upDate = Date()
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
+    // PillAlarmDate Table에서 alarmName에 따라 isDelete 모두 true
+    //MARK: - updatePillAlarmRealtionIsDelete의 하위 항목임!!!
+    func updatePillAlarmDateAllIsDelete(alarmName : String) {
+        guard let table = fetchPillAlarmDateItem(alarmName: alarmName) else { return }
+
+        // 트랜잭션 시작
+        try! realm.write {
+            // 모든 레코드의 isDelete 값을 true로 변경
+            for item in table {
+                item.isDeleted = true
+                item.upDate = Date()
+            }
+        }
+        
+    }
+    
     func updatePillIsDelete(itemSeq : Int) {
         
         let table = fetchPillSpecific(itemSeq: itemSeq)!
-    
-        // 상위 그룹에 Table count 조회 후 삭제 전 Count가 1이면 (지워지는 대상 밖에 없는 상황)
-        // isDelete = true
-        table.alarmGroup.forEach {
-            guard let table = fetchPillAlarm(alarmName: $0.alarmName) else { return }
-            guard let pillListCount = table.first?.pillList.count else { return }
-            if pillListCount < 2 {
-                updatePillAlarmDelete($0.alarmName)
-                print($0.alarmName, "에 포함된 Pill 없으므로 삭제됩니다. ⭕️⭕️⭕️⭕️⭕️⭕️⭕️⭕️")
+        
+        // 해당 Pill이 포함된 AlarmTable을 모두 가져와야 됨
+        let alarmTable = Array(table.alarmGroup).filter { return $0.isDeleted == false && $0.pillList.contains(table)}
+        // 만약 빈 배열 일 경우, 아직 group이 설정되지 않은 것
+        if !alarmTable.isEmpty {
+            // alarm Talbe을 순회하며, Pill이 isDelete가 false count 조회 후 1 이하이면 AlarmTable isDelete true
+            alarmTable.forEach {
+                if $0.pillList.filter({ $0.isDeleted == false }).count == 1 {
+                    updatePillAlarmDelete($0.alarmName)
+                    print($0.alarmName, "에 포함된 Pill 없으므로 삭제됩니다. ⭕️⭕️⭕️⭕️⭕️⭕️⭕️⭕️")
+                }
             }
         }
         
@@ -184,6 +242,8 @@ final class RealmRepository {
         }
     }
     
+    
+    
     //MARK: - REMOVE
     func removePillItem(row : Pill) {
         do {
@@ -192,6 +252,20 @@ final class RealmRepository {
             }
         } catch {
             print(error, "- removePillItem Error")
+        }
+    }
+    
+    func removeAllPillAlarmDateIsDeleted() {
+        
+        let itemsToDelete = realm.objects(PillAlarmDate.self)
+            .where { $0.isDeleted == true }
+        
+        do {
+            try realm.write {
+                realm.delete(itemsToDelete)
+            }
+        } catch {
+            print(error)
         }
     }
     

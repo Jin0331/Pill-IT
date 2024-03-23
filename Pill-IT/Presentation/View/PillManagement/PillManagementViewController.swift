@@ -186,13 +186,39 @@ extension PillManagementViewController : UICollectionViewDelegate {
         if collectionView.cellForItem(at: indexPath) is PillManagementCollectionViewHeaderCell {
             guard let data = headerDataSource.itemIdentifier(for: indexPath) else { return }
 
-            let vc =  PillAlarmReviseViewController()
-            vc.setupSheetPresentationLarge()
-            vc.viewModel.inputRegistedPillAlarm.value = data
-
-            let nav = UINavigationController(rootViewController: vc)
+            //MARK: - 그룹에 속한 Pill 목록 띄우는 팝업뷰 나타남
+            let vc = PopUpPillAlarmGroupViewController()
+            vc.viewModel.reviseAlarmPopUpTrigger.value = data.alarmName // 여기는 model을 사용하여 Pill 목록을 띄우는 것
             
-            present(nav, animated: true)
+            let alert = UIAlertController(title: "🌟" + data.alarmName, message: nil, preferredStyle: .actionSheet)
+            alert.view.tintColor = DesignSystem.colorSet.lightBlack
+
+            let constraintHeight = NSLayoutConstraint(
+                item: alert.view!, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute:
+                    NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: UIScreen.main.bounds.height / 3)
+            alert.view.addConstraint(constraintHeight)
+            alert.setValue(vc, forKey: "contentViewController")
+            
+            //MARK: - 복용약 그룹 수정화면으로 넘어감
+            let confirmAction = UIAlertAction(title: "⚠️ 수정할래요", style: .destructive) { [weak self] (action) in
+                guard let self = self else { return }
+                
+                let vc =  PillAlarmReviseViewController()
+                vc.setupSheetPresentationLarge()
+                vc.viewModel.reviseAlarmPopUpTrigger.value = data.alarmName // 여기는 model을 사용하여 정보를 불러와 수정하는 것
+
+                let nav = UINavigationController(rootViewController: vc)
+                
+                present(nav, animated: true)
+                
+            }
+            alert.addAction(confirmAction)
+            
+            present(alert, animated: true) { [weak self] in
+                guard let self = self else { return }
+                let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+                alert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+            }
             
         }
         
@@ -226,6 +252,10 @@ extension PillManagementViewController : UICollectionViewDelegate {
                 navigationItem.leftBarButtonItem?.customView?.isHidden = false
             }
         }
+    }
+    
+    @objc private func dismissAlertController(){
+        self.dismiss(animated: true, completion: nil)
     }
 }
 

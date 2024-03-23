@@ -73,11 +73,7 @@ final class PillNotificationContentViewController: BaseViewController {
         dataSource.apply(snapshot) // reloadData
         print("PillNotificationContentViewController UpdateSnapShot ❗️❗️❗️❗️❗️❗️❗️")
     }
-    
-    @objc private func dismissAlertController(){
-        self.dismiss(animated: true, completion: nil)
-    }
-    
+
     deinit {
         print(#function, " - PillNotificationContentViewController ✅")
     }
@@ -125,7 +121,7 @@ extension PillNotificationContentViewController : PillNotificationAction {
         
         guard let groupID = groupID else { return }
         
-        //MARK: - 그룹에 속한
+        //MARK: - 그룹에 속한 Pill 목록 띄우는 팝업뷰 나타남
         let vc = PopUpPillAlarmGroupViewController()
         vc.viewModel.reviseAlarmPopUpTrigger.value = groupID // 여기는 model을 사용하여 Pill 목록을 띄우는 것
         
@@ -158,5 +154,9 @@ extension PillNotificationContentViewController : PillNotificationAction {
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
             alert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
         }
+    }
+    
+    @objc private func dismissAlertController(){
+        self.dismiss(animated: true, completion: nil)
     }
 }

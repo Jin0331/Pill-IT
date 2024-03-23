@@ -75,20 +75,14 @@ final class RegisterPillView: BaseView {
     }
     
     let defaultButton = UIButton(type: .system).then{
-        $0.setTitle("식약처", for: .normal)
-        $0.setTitleColor(DesignSystem.colorSet.lightBlack, for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 20, weight: .heavy)
-        $0.layer.borderWidth = DesignSystem.viewLayout.borderWidth
-        $0.layer.borderColor = DesignSystem.colorSet.lightBlack.cgColor
+        $0.setImage(UIImage(named: "kfda"), for: .normal)
+        $0.imageView?.contentMode = .scaleAspectFit
         $0.layer.cornerRadius = DesignSystem.viewLayout.cornerRadius
     }
     
     let cameraGalleryButton = UIButton(type: .system).then{
-        $0.setTitle("카메라", for: .normal)
-        $0.setTitleColor(DesignSystem.colorSet.lightBlack, for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 20, weight: .heavy)
-        $0.layer.borderWidth = DesignSystem.viewLayout.borderWidth
-        $0.layer.borderColor = DesignSystem.colorSet.lightBlack.cgColor
+        $0.setImage(UIImage(named: "camera"), for: .normal)
+        $0.imageView?.contentMode = .scaleAspectFit
         $0.layer.cornerRadius = DesignSystem.viewLayout.cornerRadius
     }
     
@@ -182,7 +176,7 @@ final class RegisterPillView: BaseView {
         buttonStackView.snp.makeConstraints { make in
             make.top.equalTo(addImageTitleLabel.snp.bottom).offset(10)
             make.horizontalEdges.equalTo(userInputTextfield)
-            make.height.equalTo(50)
+            make.height.equalTo(80)
         }
         
         pillImageView.snp.makeConstraints { make in

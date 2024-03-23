@@ -99,13 +99,47 @@ extension PillAlarmReviseViewController {
         
         navigationController?.navigationBar.titleTextAttributes =  [NSAttributedString.Key.foregroundColor: DesignSystem.colorSet.lightBlack]
         
-        let cancleBarButton = UIBarButtonItem(image: DesignSystem.sfSymbol.cancel, style: .plain, target: self, action: #selector(rightBarButtonClicked))
+        // left button
+//        let deleteButton = UIBu
+        let deleteButton = UIButton(frame: CGRect(x: 0, y: 0, width: 130, height: 40)).then {
+            $0.setTitle(" 알림 삭제하기", for: .normal)
+            $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .heavy)
+            $0.setTitleColor(DesignSystem.colorSet.white, for: .normal)
+            $0.tintColor = DesignSystem.colorSet.white
+            $0.backgroundColor = DesignSystem.colorSet.red
+            $0.setImage(DesignSystem.sfSymbol.trash, for: .normal)
+            $0.layer.cornerRadius = DesignSystem.viewLayout.cornerRadius
+            $0.layer.shadowOffset = CGSize(width: 10, height: 5)
+            $0.layer.shadowOpacity = 0.1
+            $0.layer.shadowRadius = 10
+            $0.layer.masksToBounds = false
+        }
         
+        deleteButton.addTarget(self, action: #selector(leftBarButtonClicked), for: .touchUpInside)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: deleteButton)
+        
+        // right button
+        let cancleBarButton = UIBarButtonItem(image: DesignSystem.sfSymbol.cancel, style: .plain, target: self, action: #selector(rightBarButtonClicked))
         navigationItem.rightBarButtonItem = cancleBarButton
     }
     
+    @objc private func leftBarButtonClicked() {
+        let confirmAction = UIAlertAction(title: "지워주세요", style: .default) {[weak self] (action) in
+            guard let self = self else { return }
+            
+            viewModel.reviseAlarmRemoveTrigger.value = viewModel.outputGroupId.value
+            NotificationCenter.default.post(name: Notification.Name("fetchPillAlarmTable"), object: nil)
+            
+            dismiss(animated: true)
+        }
+        
+        let cancelAction = UIAlertAction(title: "취소할래요", style: .cancel)
+        cancelAction.setValue(UIColor.red, forKey: "titleTextColor")
+        
+        self.showAlert(title: "등록된 복용약 알림 삭제", message: "등록된 복용약 알림을 삭제하시겠습니까? 🥲", actions: [confirmAction, cancelAction])
+    }
+    
     @objc private func rightBarButtonClicked() {
-        print("ASDasdzxcad  🥲")
         dismiss(animated: true)
     }
 }

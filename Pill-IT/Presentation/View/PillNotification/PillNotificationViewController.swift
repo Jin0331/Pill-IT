@@ -102,7 +102,6 @@ final class PillNotificationViewController: BaseViewController {
     }
     
     @objc private func selectToday() {
-        print("🥲 selectToday")
         let date = calendar.startOfDay(for: Date())
         pagingViewController.select(pagingItem: CalendarItem(date: date), animated: true)
     }

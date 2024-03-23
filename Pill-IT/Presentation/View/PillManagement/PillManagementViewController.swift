@@ -75,7 +75,7 @@ final class PillManagementViewController : BaseViewController {
             updateHeaderSnapshot(value)
         }
         
-        // PillAlarmSpecificView로부터 전달되어지는 노티 -> 이걸 활용해서 realm Table fetch 및 Obervable 생성
+        // PillAlarmSpecificView, PillAlarmReviseView로부터 전달되어지는 노티 --> 관리화면 reload
         NotificationCenter.default.addObserver(self, selector: #selector(triggerFetchPillAlarmTable), name: Notification.Name("fetchPillAlarmTable"), object: nil)
     }
     

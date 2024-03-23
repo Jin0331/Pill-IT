@@ -104,10 +104,6 @@ extension PillAlarmReviseItemViewController : SwipeCollectionViewCellDelegate {
             guard let viewModel = viewModel else { print("PillAlarmReviseItemViewController - viewModel not init 🥲");return }
             
             let confirmAction = UIAlertAction(title: "지워주세요", style: .default) { (action) in
-                
-                
-                // outputSelectedPill
-                
                 viewModel.outputSelectedPill.value.remove(at: indexPath.row)
             }
             

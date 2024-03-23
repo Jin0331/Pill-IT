@@ -12,7 +12,6 @@ extension UICollectionView {
     func deselectAllItems(animated: Bool) {
         guard let selectedItems = indexPathsForSelectedItems else { return }
         
-        print("??? ⚠️", selectedItems)
         for indexPath in selectedItems {
             print(indexPath)
             deselectItem(at: indexPath, animated: animated)

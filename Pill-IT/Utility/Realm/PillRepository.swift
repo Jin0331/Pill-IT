@@ -136,7 +136,7 @@ final class RealmRepository {
     }
     
     //MARK: - 삭제 로직
-    func updatePillAlarmRealtionIsDelete(alarmName : String) {
+    func updatePillAlarmRealtionIsDelete(_ alarmName : String) {
         guard let table = realm.object(ofType:PillAlarm.self, forPrimaryKey: alarmName) else { return }
         
         // 기존 존재하던 PillAlarm Table is delete True
@@ -154,6 +154,7 @@ final class RealmRepository {
     }
     
     // PillAlarmDate Table에서 alarmName에 따라 isDelete 모두 true
+    //MARK: - updatePillAlarmRealtionIsDelete의 하위 항목임!!!
     func updatePillAlarmDateAllIsDelete(alarmName : String) {
         guard let table = fetchPillAlarmDateItem(alarmName: alarmName) else { return }
 

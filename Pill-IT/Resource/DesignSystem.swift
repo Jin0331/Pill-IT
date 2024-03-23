@@ -28,6 +28,7 @@ enum DesignSystem {
         static let search = UIImage(systemName: "magnifyingglass")
         static let cancel = UIImage(systemName: "x.circle", withConfiguration:sfSymbolLargeConfig)
         static let alarm = UIImage(systemName: "alarm", withConfiguration: sfSymbolLargeConfig)
+        static let trash = UIImage(systemName: "trash", withConfiguration: sfSymbolLargeConfig)
         static let startDate = UIImage(systemName: "calendar.badge.plus",withConfiguration:sfSymbolLargeConfig)
         
         static let plus = UIImage(systemName: "plus", withConfiguration:sfSymbolLargeConfig)

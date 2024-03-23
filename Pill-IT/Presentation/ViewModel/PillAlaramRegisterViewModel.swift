@@ -35,6 +35,7 @@ final class PillAlaramRegisterViewModel {
     var reCalculateAlarmDateList : Observable<PeriodCase?> = Observable(nil)
     var createTableTrigger : Observable<Void?> = Observable(nil)
     var revisePeriodTableTrigger : Observable<Void?> = Observable(nil)
+    var reviseAlarmRemoveTrigger : Observable<String?> = Observable(nil) // 알람 수정화면에서 전체 삭제를 위한 트리거
     
     init() {
         transform()
@@ -163,6 +164,14 @@ final class PillAlaramRegisterViewModel {
             pillAlarmPeriodReviseUpsert()
         }
         
+        reviseAlarmRemoveTrigger.bind { [weak self ] value in
+            guard let self = self else { return }
+            guard let value = value else { return }
+            
+            repository.updatePillAlarmRealtionIsDelete(value) // 관계 끊기
+            repository.updatePillAlarmDelete(value) // 테이블 delete
+        }
+        
         
         
     }
@@ -217,7 +226,7 @@ final class PillAlaramRegisterViewModel {
         guard let outputPeriodType = outputPeriodType.value else { return }
         
         // 기존 관계 끊기 및 isDelete
-        repository.updatePillAlarmRealtionIsDelete(alarmName: alarmName)
+        repository.updatePillAlarmRealtionIsDelete(alarmName)
         
         let pillsList = List<Pill>()
         outputSelectedPill.value.forEach { pill in
@@ -316,8 +325,6 @@ final class PillAlaramRegisterViewModel {
                                                        interval: interval.days)
             outputPeriodType.value = interval.enumCase.byAdding == Calendar.Component.day && interval.days == 1 ? "매일" : "\(interval.days)\(interval.enumCase.title)"
         }
-        
-        print(outputAlarmDateList.value, "asdasdlkjljl✅✅✅✅✅✅✅✅✅✅")
     }
     
     deinit {

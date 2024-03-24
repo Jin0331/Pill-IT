@@ -285,6 +285,13 @@ final class PillAlaramRegisterViewModel {
             let newPeriodType = inputRegistedPillAlarm.value!.type
             repository.upsertPillAlarm(alarmName: alarmName, pillList: pillsList, type: newPeriodType, typeTitle: outputPeriodType, alarmStartDate: inputStartDate.value, alarmDate: alarmDate)
         }
+        
+        // Local Notification
+        // 아래의 코드와 합칠지 말지는 고민해야 할 듯. 이해의 측면에서 분리하는 게 나을 듯. 어차피 O(n)이니
+        alarmDateFetch.forEach { pillAlarmDate in
+            print(pillAlarmDate, "등록 되는거냐???? 🥲🥲🥲🥲🥲🥲🥲🥲")
+            userNotificationCenter.addNotificationRequest(by: pillAlarmDate)
+        }
     }
     
     

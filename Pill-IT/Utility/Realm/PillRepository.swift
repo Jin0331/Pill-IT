@@ -7,11 +7,13 @@
 
 import Foundation
 import RealmSwift
+import UserNotifications
 
 final class RealmRepository {
     
     private let realm = try! Realm()
-    
+    private let userNotificationCenter = UNUserNotificationCenter.current()
+
     func realmLocation() { print(realm.configuration.fileURL!) }
     
     //MARK: - CREATE
@@ -174,6 +176,9 @@ final class RealmRepository {
     func updatePillAlarmDateAllIsDelete(alarmName : String) {
         guard let table = fetchPillAlarmDateItem(alarmName: alarmName) else { return }
 
+        // 기존 등록된 Noti 제거
+        userNotificationCenter.removePendingNotificationRequests(withIdentifiers: table.map { return $0.idToString })
+        
         // 트랜잭션 시작
         try! realm.write {
             // 모든 레코드의 isDelete 값을 true로 변경

@@ -59,6 +59,9 @@ final class PillManagementViewController : BaseViewController {
             guard let self = self else { return }
             guard let value = value else { return }
             
+            // emptyView
+            mainView.emptyViewisHidden(itemCount: value.count)
+            
             configureMainDataSource()
             updateMainSnapshot(value)
             
@@ -69,7 +72,7 @@ final class PillManagementViewController : BaseViewController {
             guard let self = self else { return }
             guard let value = value else { return }
             
-            mainView.collectionViewchangeLayout(itemCount: value.count)
+            mainView.headercollectionViewChangeLayout(itemCount: value.count)
             
             configureHeaderDataSource()
             updateHeaderSnapshot(value)

@@ -18,6 +18,12 @@ final class PillManagementView : BaseView {
         return view
     }()
     
+    //    let headerCollectionViewtitle = UILabel().then {
+    //        $0.text = "복용약 알림 목록"
+    //        $0.textColor = DesignSystem.colorSet.gray
+    //        $0.font = .systemFont(ofSize: 15, weight: .heavy)
+    //    }
+    
     let mainCollectionViewtitle = UILabel().then {
         $0.text = "복용약 목록"
         $0.textColor = DesignSystem.colorSet.gray
@@ -31,6 +37,11 @@ final class PillManagementView : BaseView {
         
         return view
     }()
+    
+    let emptyImage = UIImageView().then {
+        $0.image = UIImage(named: "Empty")
+        $0.contentMode = .scaleAspectFit
+    }
     
     let customButton = UIButton(frame: CGRect(x: 0, y: 0, width: 130, height: 40)).then {
         $0.setTitle(" 알림 등록하기", for: .normal)
@@ -49,7 +60,7 @@ final class PillManagementView : BaseView {
     
     override func configureHierarchy() {
         
-        [headerCollecionView, mainCollectionViewtitle, mainCollectionView].forEach {
+        [headerCollecionView, mainCollectionViewtitle, mainCollectionView, emptyImage].forEach {
             addSubview($0)
         }
     }
@@ -70,6 +81,10 @@ final class PillManagementView : BaseView {
             make.top.equalTo(mainCollectionViewtitle.snp.bottom).offset(5)
             make.bottom.horizontalEdges.equalTo(safeAreaLayoutGuide)
         }
+        
+        emptyImage.snp.makeConstraints { make in
+            make.center.equalTo(safeAreaLayoutGuide)
+        }
     }
     
     private func headerCreateLayout() -> UICollectionViewLayout {
@@ -82,7 +97,7 @@ final class PillManagementView : BaseView {
         let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(120), heightDimension: .absolute(70))
         
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-
+        
         // Section
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 0
@@ -103,7 +118,7 @@ final class PillManagementView : BaseView {
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(160))
         
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-
+        
         // Section
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 15
@@ -127,12 +142,21 @@ final class PillManagementView : BaseView {
         }
     }
     
-    func collectionViewchangeLayout(itemCount: Int) {
+    // emptyImage 관련
+    // registedPill Count에 따라 hidden
+    // 초기값은 false (count가 nil이니까), 이후 등록되면 count < 1 일때 나타나고, > 1이면 사라짐
+    func emptyViewisHidden(itemCount : Int) {
+        mainCollectionViewtitle.textColor = itemCount < 1 ? UIColor.clear : DesignSystem.colorSet.gray
+        emptyImage.isHidden = itemCount < 1 ? false : true
+    }
+    
+    // header collectionView 관련
+    func headercollectionViewChangeLayout(itemCount: Int) {
         
         if itemCount < 1 {
             headerCollecionView.snp.updateConstraints { make in
                 make.top.horizontalEdges.equalTo(safeAreaLayoutGuide)
-                make.height.equalTo(1)
+                make.height.equalTo(0)
             }
             
             mainCollectionViewtitle.snp.updateConstraints { make in
@@ -162,8 +186,6 @@ final class PillManagementView : BaseView {
         }
         
         print("🥲 CollectionView Resize")
-        
-
     }
     
     

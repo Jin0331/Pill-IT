@@ -22,6 +22,7 @@ final class PillAlaramRegisterViewModel {
     var inputDaysInterval : Observable<(enumCase:PeriodDays, days:Int)?> = Observable(nil) // 간격에서 사용하는 옵저버
     var inputGroupId : Observable<String?> = Observable(nil)
     var inputAlarmSpecificTimeList : Observable<[(hour:Int, minute:Int)]> = Observable([])
+    var inputPillAlarmNameExist : Observable<String?> = Observable(nil)
     
     var outputGroupId : Observable<String?> = Observable(nil)
     var outputAlarmDateList : Observable<[Date]?> = Observable(nil) // 시간이 지정되지 않은 값(날짜만 있음)
@@ -30,6 +31,8 @@ final class PillAlaramRegisterViewModel {
     var outputStartDate : Observable<String?> = Observable(nil)
     var outputVisibleSpecificTimeList : Observable<[Date]> = Observable([]) // Diffable Datasource 용
     var outputAlarmSpecificTimeList : Observable<[Date]> = Observable([]) // 실제 Output이 되는 값(날짜 + 시간)
+    var outputPillAlarmNameExist : Observable<Bool?> = Observable(nil)
+    
     
     var reCalculateAAlarmSpecificTimeListTrigger : Observable<[(hour:Int, minute:Int)]?> = Observable(nil)
     var reCalculateAlarmDateList : Observable<PeriodCase?> = Observable(nil)
@@ -137,9 +140,17 @@ final class PillAlaramRegisterViewModel {
             dataSrouceDateList.sort { (($0).compare($1)) == .orderedAscending } // sort
             outputVisibleSpecificTimeList.value = dataSrouceDateList
             outputAlarmSpecificTimeList.value = Array(Set(tableDateList.flatMap{ $0 }))
-//            print(outputAlarmSpecificTimeList.value , "🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲🥲여긴가?")
         }
         
+        inputPillAlarmNameExist.bind { [weak self] value in
+            guard let self = self else { return }
+            guard let value = value else { return }
+            
+            outputPillAlarmNameExist.value = repository.fetchPillExist(alarmName: value)
+            
+        }
+        
+        //MARK: - Trigger 부분
         reCalculateAAlarmSpecificTimeListTrigger.bind { [weak self] value in
             guard let self = self else { return }
             guard let value = value else { return }

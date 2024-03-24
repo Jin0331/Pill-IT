@@ -9,6 +9,7 @@ import UIKit
 import Parchment
 import SnapKit
 import Then
+import Toast_Swift
 
 final class PillNotificationViewController: BaseViewController {
     private let calendar: Calendar = .current
@@ -36,6 +37,8 @@ final class PillNotificationViewController: BaseViewController {
         super.viewDidLoad()
         pagingViewController.delegate = self
         pagingViewController.infiniteDataSource = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(triggerFetchPillAlarmTable), name: Notification.Name("fetchPillAlarmTable"), object: nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -49,7 +52,7 @@ final class PillNotificationViewController: BaseViewController {
         
         selectToday()
     }
-    
+  
     override func configureHierarchy() {
         addChild(pagingViewController)
         [dayOfWeek, day, todayButton, pagingViewController.view].forEach { view.addSubview($0)}
@@ -102,6 +105,25 @@ final class PillNotificationViewController: BaseViewController {
     @objc private func selectToday() {
         let date = calendar.startOfDay(for: Date())
         pagingViewController.select(pagingItem: CalendarItem(date: date), animated: true)
+    }
+    
+    // pillAlarm의 조회를 위한 Trigger
+    @objc private func triggerFetchPillAlarmTable(_ noti: Notification) {
+        print("PillNotificationViewController triggerFetchPillAlarmTable ❗️❗️❗️❗️❗️❗️❗️")
+        
+        pagingViewController.reloadMenu()
+        pagingViewController.loadViewIfNeeded()
+        
+        let today = calendar.startOfDay(for: Date())
+        updateDateUI(CalendarItem(date: today))
+        
+        selectToday()
+        
+        view.makeToast("복용약 알림이 수정되었습니다 ✅", duration: 2, position: .center)
+    }
+    
+    deinit {
+        print(#function, " - ✅ PillManagementViewController")
     }
 }
 

@@ -18,6 +18,7 @@ enum DesignSystem {
         static let camera = UIImage(named: "camera")
         static let web = UIImage(named: "web")
         static let check = UIImage(named: "check")
+        static let checkFalse = UIImage(named: "check_remove")
         
     }
     

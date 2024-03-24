@@ -40,12 +40,15 @@ final class PillNotificationContentViewCollectionViewCell: BaseCollectionViewCel
         $0.backgroundColor = .clear
         $0.layer.cornerRadius = DesignSystem.viewLayout.cornerRadius
     }
+    
+    let notiDoneButton = UIButton().then { _ in
+    }
 
     override func configureHierarchy() {
         
         contentView.addSubview(bgView)
         
-        [alarmTimeLabel, alarmTitleLabel,containPillButton].forEach { bgView.addSubview($0) }
+        [alarmTimeLabel, alarmTitleLabel,containPillButton, notiDoneButton].forEach { bgView.addSubview($0) }
     }
     
     override func configureLayout() {
@@ -63,7 +66,6 @@ final class PillNotificationContentViewCollectionViewCell: BaseCollectionViewCel
         alarmTitleLabel.snp.makeConstraints { make in
             make.top.equalTo(alarmTimeLabel.snp.bottom).offset(3)
             make.leading.equalTo(alarmTimeLabel)
-//            make.height.equalTo(30)
             make.bottom.equalToSuperview().inset(20)
         }
         
@@ -72,19 +74,40 @@ final class PillNotificationContentViewCollectionViewCell: BaseCollectionViewCel
             make.centerY.equalTo(alarmTimeLabel)
             make.size.equalTo(alarmTimeLabel.snp.height).multipliedBy(0.8)
         }
+        
+        notiDoneButton.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().inset(25)
+            make.centerY.equalToSuperview()
+            make.size.equalTo(50)
+        }
+        
+        
     }
     
     override func configureView() {
         containPillButton.addTarget(self, action: #selector(containPillButtonClicked), for: .touchUpInside)
+        notiDoneButton.addTarget(self, action: #selector(notiDoneButtonClicked), for: .touchUpInside)
     }
     
     @objc private func containPillButtonClicked() {
         actionDelegate?.containPillButton(viewModel.outputCurrentGroupID.value, viewModel.outputCurrentDateAlarmPill.value)
     }
     
+    @objc private func notiDoneButtonClicked() {
+        actionDelegate?.notiDoneButton(viewModel.outputCurrentGroupPK.value)
+    }
+    
     func updateUI(_ itemIdentifier : PillAlarmDate) {
         alarmTimeLabel.text = "⏰ " + itemIdentifier.alarmDate.toStringTime(dateFormat: "a h:mm")
         alarmTitleLabel.text = itemIdentifier.alarmName
+        
+        if itemIdentifier.isDone {
+            notiDoneButton.setImage(DesignSystem.imageByGY.check, for: .normal)
+            notiDoneButton.alpha = 1
+        } else {
+            notiDoneButton.setImage(DesignSystem.imageByGY.checkFalse, for: .normal)
+            notiDoneButton.alpha = 0.2
+        }
     }
     
     deinit {

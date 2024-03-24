@@ -8,6 +8,7 @@
 import UIKit
 import SwipeCellKit
 import UserNotifications
+import RealmSwift
 
 final class PillNotificationContentViewController: BaseViewController {
     
@@ -65,6 +66,7 @@ final class PillNotificationContentViewController: BaseViewController {
             
             cell.actionDelegate = self
             cell.delegate = self
+            cell.viewModel.inputCurrentGroupPK.value = itemIdentifier._id
             cell.viewModel.inputCurrentDateAlarmPill.value = Array(pillList)
             cell.viewModel.inputCurrentGroupID.value = itemIdentifier.alarmName
             
@@ -127,6 +129,30 @@ extension PillNotificationContentViewController : SwipeCollectionViewCellDelegat
 
 //MARK: - Delegate Action
 extension PillNotificationContentViewController : PillNotificationAction {
+    
+    func notiDoneButton(_ pk: ObjectId?) {
+        guard let groupPK = pk else { return }
+        
+        let confirmAction = UIAlertAction(title: "먹었습니다 💊", style: .default) { [weak self] (action) in
+            guard let self = self else { return }
+            
+            viewModel.updatePillItemisDoneTrueTrigger.value = groupPK
+            NotificationCenter.default.post(name: Notification.Name("fetchPillAlarmTable"), object: nil)
+            
+        }
+        
+        let cancelAction = UIAlertAction(title: "아니요 😅", style: .cancel) { [weak self] (action) in
+            guard let self = self else { return }
+            
+            viewModel.updatePillItemisDoneFalseTrigger.value = groupPK
+            NotificationCenter.default.post(name: Notification.Name("fetchPillAlarmTable"), object: nil)
+        }
+        
+        cancelAction.setValue(UIColor.red, forKey: "titleTextColor")
+        
+        self.showAlert(title: "복용 완료", message: "복용하셨나요? 🔆", actions: [confirmAction, cancelAction])
+    }
+    
     func containPillButton(_ groupID : String?, _ data : [Pill]?) {
         
         guard let groupID = groupID else { return }

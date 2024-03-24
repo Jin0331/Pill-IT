@@ -6,12 +6,15 @@
 //
 
 import Foundation
+import RealmSwift
 
 class PopUpPillAlarmGroupViewModel {
     
+    var inputCurrentGroupPK : Observable<ObjectId?> = Observable(nil)
     var inputCurrentGroupID : Observable<String?> = Observable(nil)
     var inputCurrentDateAlarmPill : Observable<[Pill]?> = Observable(nil)
     
+    var outputCurrentGroupPK : Observable<ObjectId?> = Observable(nil)
     var outputCurrentGroupID : Observable<String?> = Observable(nil)
     var outputCurrentDateAlarmPill : Observable<[Pill]?> = Observable(nil)
     
@@ -20,6 +23,14 @@ class PopUpPillAlarmGroupViewModel {
     }
     
     private func transform() {
+        
+        inputCurrentGroupPK.bind {[weak self] value in
+            guard let self = self else { return }
+            guard let value = value else { return }
+            
+            outputCurrentGroupPK.value = value
+
+        }
         
         inputCurrentGroupID.bind {[weak self] value in
             guard let self = self else { return }

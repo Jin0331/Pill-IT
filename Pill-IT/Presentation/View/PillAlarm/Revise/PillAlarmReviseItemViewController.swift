@@ -9,7 +9,8 @@ import UIKit
 import SwipeCellKit
 import Toast_Swift
 import MarqueeLabel
-class PillAlarmReviseItemViewController: BaseViewController {
+
+final class PillAlarmReviseItemViewController: BaseViewController {
     
     let mainView = PillAlarmReviseItemView()
     var viewModel : PillAlaramRegisterViewModel?
@@ -217,14 +218,12 @@ extension PillAlarmReviseItemViewController : PillAlarmReigsterAction {
             
             
             if let pillTitle = viewModel.outputGroupId.value, let alarmDateList = viewModel.outputAlarmDateList.value, let periodType = viewModel.outputPeriodType.value, let startDate = viewModel.outputStartDate.value, !pillTitle.isEmpty, viewModel.inputSelectedPill.value.count > 0 {
-
-                print(pillTitle, alarmDateList, periodType, startDate)
                 viewModel.revisePeriodTableTrigger.value = ()
                 NotificationCenter.default.post(name: Notification.Name("fetchPillAlarmTable"), object: nil)
                 
                 dismiss(animated: true)
             } else {
-//                view.makeToast("입력된 값을 다시 확인해주세요 🥲", duration: 2, position: .center)
+                //                view.makeToast("입력된 값을 다시 확인해주세요 🥲", duration: 2, position: .center)
             }
         }
     }

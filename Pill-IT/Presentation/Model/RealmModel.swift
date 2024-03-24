@@ -31,6 +31,10 @@ class PillAlarm : Object {
         self.upDate = Date()
         self.isDeleted = false
     }
+    
+    var typeTitleWithStartDate : String {
+        return alarmName + " - " + typeTitle + " (" + alarmStartDate.toStringTime(dateFormat: "yyyy년 MM월 dd일") + " 시작)"
+    }
 }
 
 class PillAlarmDate : Object {

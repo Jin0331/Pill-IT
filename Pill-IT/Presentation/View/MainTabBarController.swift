@@ -17,21 +17,6 @@ final class MainTabBarController: WHTabbarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // 등록된 Noti 확인하기
-        UNUserNotificationCenter.current().getPendingNotificationRequests { (requests) in
-            for request in requests {
-                print("Notification Identifier: \(request.identifier)")
-                if let trigger = request.trigger as? UNCalendarNotificationTrigger {
-                    let triggerDate = trigger.nextTriggerDate()
-                    print("Notification Scheduled Date: \(triggerDate)")
-                } else {
-                    print("Notification 없음 🥲")
-                }
-                // 필요한 다른 정보도 여기에서 확인할 수 있습니다
-            }
-        }
-        
-        
         // 추후 접근을 이용해서 수정일 일이 생길 수 있으므로, 변수에 할당해서 관리
         firstVC = PillManagementViewController()
         let firstNav = UINavigationController(rootViewController: firstVC)

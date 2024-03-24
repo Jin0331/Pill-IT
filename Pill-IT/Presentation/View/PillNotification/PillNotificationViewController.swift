@@ -145,7 +145,7 @@ final class PillNotificationViewController: BaseViewController {
     }
     
     deinit {
-        print(#function, " - ✅ PillManagementViewController")
+        print(#function, " - ✅ PillNotificationViewController")
     }
 }
 

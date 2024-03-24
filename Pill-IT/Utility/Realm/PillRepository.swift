@@ -14,7 +14,7 @@ final class RealmRepository {
     private let realm = try! Realm()
     private let userNotificationCenter = UNUserNotificationCenter.current()
 
-    func realmLocation() { print(realm.configuration.fileURL!) }
+    func realmLocation() { print("현재 Realm 위치 🌼 - ",realm.configuration.fileURL!) }
     
     //MARK: - CREATE
     // CREATE
@@ -22,7 +22,6 @@ final class RealmRepository {
         do {
             try realm.write {
                 realm.add(item)
-                realmLocation()
             }
         } catch {
             print(error, "- pillCreate Error")

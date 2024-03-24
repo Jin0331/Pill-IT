@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-class PopUpPillAlarmGroupViewModel {
+final class PopUpPillAlarmGroupViewModel {
     
     var inputCurrentGroupPK : Observable<ObjectId?> = Observable(nil)
     var inputCurrentDate : Observable<Date?> = Observable(nil)

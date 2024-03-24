@@ -31,4 +31,20 @@ extension UNUserNotificationCenter {
         //add
         self.add(request, withCompletionHandler: nil)
     }
+    
+    func registedNotification() {
+        // 등록된 Noti 확인하기
+        UNUserNotificationCenter.current().getPendingNotificationRequests { (requests) in
+            for request in requests {
+                print("Notification Identifier: \(request.identifier)")
+                if let trigger = request.trigger as? UNCalendarNotificationTrigger {
+                    let triggerDate = trigger.nextTriggerDate()
+                    print("Notification Scheduled Date: ", triggerDate ?? Date())
+                } else {
+                    print("Notification 없음 🥲")
+                }
+                // 필요한 다른 정보도 여기에서 확인할 수 있습니다
+            }
+        }
+    }
 }

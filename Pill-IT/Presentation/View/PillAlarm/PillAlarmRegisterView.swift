@@ -266,6 +266,6 @@ final class PillAlarmRegisterView : BaseView {
     }
 
     deinit {
-        print(#function, " - ✅ PillAlaramView in-Side")
+        print(#function, " - ✅ PillAlaramView")
     }
 }

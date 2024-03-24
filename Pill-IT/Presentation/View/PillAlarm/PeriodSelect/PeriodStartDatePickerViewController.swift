@@ -31,5 +31,8 @@ final class PeriodStartDatePickerViewController: BaseViewController {
             make.edges.equalToSuperview()
         }
     }
-
+    
+    deinit {
+        print("✅ PeriodStartDatePickerViewController")
+    }
 }

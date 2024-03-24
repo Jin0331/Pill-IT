@@ -164,7 +164,9 @@ extension PillNotificationContentViewController : PillNotificationAction {
         let vc = PopUpPillAlarmGroupViewController()
         vc.viewModel.reviseAlarmPopUpTrigger.value = groupID // 여기는 model을 사용하여 Pill 목록을 띄우는 것
         
-        let alert = UIAlertController(title: "🌟" + groupID, message: nil, preferredStyle: .actionSheet)
+        viewModel.fetchPillPeriodTitleStartDate.value = groupID // String 변환
+        guard let title = viewModel.outputTypeTitleWithStartDate.value else { return }
+        let alert = UIAlertController(title: "🌟" + title , message: nil, preferredStyle: .actionSheet)
         alert.view.tintColor = DesignSystem.colorSet.lightBlack
 
         let constraintHeight = NSLayoutConstraint(

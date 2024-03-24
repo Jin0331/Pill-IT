@@ -8,17 +8,19 @@
 import Foundation
 import RealmSwift
 
-class PillNotificationViewModel {
+final class PillNotificationViewModel {
     
     private let repository = RealmRepository()
     
     var inputCurrentDate : Observable<Date?> = Observable(nil)
 
     var outputCurrentDateAlarm : Observable<[PillAlarmDate]?> = Observable(nil)
+    var outputTypeTitleWithStartDate : Observable<String?> = Observable(nil)
 
     var updatePillItemisDeleteTrigger : Observable<PillAlarmDate?> = Observable(nil)
     var updatePillItemisDoneTrueTrigger : Observable<ObjectId?> = Observable(nil)
     var updatePillItemisDoneFalseTrigger : Observable<ObjectId?> = Observable(nil)
+    var fetchPillPeriodTitleStartDate : Observable<String?> = Observable(nil)
     
     init() {
         transform()
@@ -57,6 +59,14 @@ class PillNotificationViewModel {
             guard let value = value else { return }
             
             repository.updatePillAlarmisDoneFalse(value)
+        }
+        
+        fetchPillPeriodTitleStartDate.bind { [weak self] value in
+            guard let self = self else { return }
+            guard let value = value else { return }
+            
+            guard let table = repository.fetchPillAlarmSpecific(alarmName: value) else { return }
+            outputTypeTitleWithStartDate.value = table.typeTitleWithStartDate
         }
     }
     

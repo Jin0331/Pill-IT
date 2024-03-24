@@ -41,7 +41,6 @@ final class PillManagementViewController : BaseViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        print(#function, "⭕️ Tabbar 전환")
         for cell in mainView.mainCollectionView.visibleCells {
             if let cell = cell as? SwipeCollectionViewCell {
                 cell.hideSwipe(animated: true)
@@ -193,8 +192,11 @@ extension PillManagementViewController : UICollectionViewDelegate {
             let vc = PopUpPillAlarmGroupViewController()
             vc.viewModel.reviseAlarmPopUpTrigger.value = data.alarmName // 여기는 model을 사용하여 Pill 목록을 띄우는 것
             
-            let alert = UIAlertController(title: "🌟" + data.alarmName, message: nil, preferredStyle: .actionSheet)
+            viewModel.fetchPillPeriodTitleStartDate.value = data.alarmName // String 변환
+            guard let title = viewModel.outputTypeTitleWithStartDate.value else { return }
+            let alert = UIAlertController(title: "🌟" + title , message: nil, preferredStyle: .actionSheet)
             alert.view.tintColor = DesignSystem.colorSet.lightBlack
+
 
             let constraintHeight = NSLayoutConstraint(
                 item: alert.view!, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute:

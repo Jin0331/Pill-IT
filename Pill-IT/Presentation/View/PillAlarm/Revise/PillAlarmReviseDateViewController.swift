@@ -8,7 +8,7 @@
 import UIKit
 import SwipeCellKit
 
-class PillAlarmReviseDateViewController: BaseViewController {
+final class PillAlarmReviseDateViewController: BaseViewController {
 
     let mainView = PillAlarmReviseDateView()
     weak var viewModel : PillAlaramRegisterViewModel?

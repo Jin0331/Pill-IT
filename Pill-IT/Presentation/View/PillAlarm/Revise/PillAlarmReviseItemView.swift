@@ -236,6 +236,6 @@ final class PillAlarmReviseItemView : BaseView {
     }
 
     deinit {
-        print(#function, " - ✅ PillAlaramView in-Side")
+        print(#function, " - ✅ PillAlarmReviseItemView")
     }
 }

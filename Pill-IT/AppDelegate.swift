@@ -27,6 +27,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("ERROR: notification authrization request \(error.localizedDescription)")
             }
         }
+        
+        Thread.sleep(forTimeInterval: 1)
+        
         return true
     }
 

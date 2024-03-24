@@ -152,6 +152,9 @@ final class PillAlarmReviseDateView: BaseView {
         // 애니메이션 시작
         activityIndicator.startAnimating()
     }
-
+    
+    deinit {
+        print(#function, " - ✅ PillAlarmReviseDateView")
+    }
 }
 

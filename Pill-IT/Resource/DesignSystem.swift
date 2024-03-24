@@ -19,7 +19,6 @@ enum DesignSystem {
         static let web = UIImage(named: "web")
         static let check = UIImage(named: "check")
         static let checkFalse = UIImage(named: "check_remove")
-        
     }
     
     enum colorSet  {
@@ -51,7 +50,6 @@ enum DesignSystem {
         static let defaultPill = URL(string:"https://cdn-icons-png.flaticon.com/512/8889/8889618.png")
     }
     
-    
     enum viewLayout {
         static let borderWidth = 1.5
         static let cornerRadius = 6.0
@@ -59,8 +57,9 @@ enum DesignSystem {
     }
     
     enum tabbarImage {
-        static let pillList = UIImage(named: "tab_list_inactive")
-        static let calendar = UIImage(named: "tab_notification_inactive")
+        static let sfSymbolConfig = UIImage.SymbolConfiguration(pointSize: 18, weight: .heavy, scale: .large)
+        static let pillList = UIImage(systemName: "pills.fill", withConfiguration: sfSymbolConfig)
+        static let calendar = UIImage(systemName: "calendar", withConfiguration: sfSymbolConfig)
     }
     
     enum swipeColor {

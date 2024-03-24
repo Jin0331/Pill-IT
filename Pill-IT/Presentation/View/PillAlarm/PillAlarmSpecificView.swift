@@ -153,4 +153,7 @@ final class PillAlarmSpecificView: BaseView {
         activityIndicator.startAnimating()
     }
 
+    deinit {
+        print(#function, " - ✅ PillAlarmSpecificView")
+    }
 }

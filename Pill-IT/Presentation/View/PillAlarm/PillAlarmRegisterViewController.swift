@@ -225,8 +225,9 @@ extension PillAlarmRegisterViewController : UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
     
         guard let text = textField.text else { return }
+        let textTrimmed = text.components(separatedBy: CharacterSet.alphanumerics.inverted).joined().trimmingCharacters(in: .whitespacesAndNewlines)
         
-        viewModel.inputPillAlarmNameExist.value = text.components(separatedBy: CharacterSet.alphanumerics.inverted).joined()
+        viewModel.inputPillAlarmNameExist.value = textTrimmed
         viewModel.outputPillAlarmNameExist.bind { [weak self] value in
             guard let self = self else { return }
             guard let value = value else { return }
@@ -235,7 +236,7 @@ extension PillAlarmRegisterViewController : UITextFieldDelegate {
                 view.makeToast("이미 등록된 복용약 알림 이릅입니다. \n다른 이름을 사용해주세요 🥲", duration: 2.5, position: .center)
                 textField.text = nil
             } else {
-                viewModel.inputGroupId.value = textField.text
+                viewModel.inputGroupId.value = textTrimmed
             }
         }
     }

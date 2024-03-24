@@ -52,5 +52,7 @@ final class PeriodSelectView: BaseView {
         return cellRegistration
     }
     
-
+    deinit {
+        print(#function, " - ✅ PeriodSelectView")
+    }
 }

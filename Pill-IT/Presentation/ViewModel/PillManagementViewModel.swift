@@ -13,14 +13,17 @@ final class PillManagementViewModel {
     
     var outputRegisteredPill : Observable<[Pill]?> = Observable(nil)
     var outputRegisteredPillAlarm : Observable<[PillAlarm]?> = Observable(nil)
+    var outputTypeTitleWithStartDate : Observable<String?> = Observable(nil)
     
     var fetchPillItemTrigger : Observable<Void?> = Observable(nil)
     var fetchPillAlarmItemTrigger : Observable<Void?> = Observable(nil)
     var updatePillItemisDeleteTrigger : Observable<Pill?> = Observable(nil)
     var removePillItemRemoveTrigger : Observable<Pill?> = Observable(nil)
+    var fetchPillPeriodTitleStartDate : Observable<String?> = Observable(nil)
     
     init() {
         transform()
+        repository.realmLocation() // Realm 위치
     }
     
     private func transform() {
@@ -43,6 +46,14 @@ final class PillManagementViewModel {
             
             outputRegisteredPill.value = repository.fetchPillItem()
             outputRegisteredPillAlarm.value = repository.fetchPillAlarm()
+        }
+        
+        fetchPillPeriodTitleStartDate.bind { [weak self] value in
+            guard let self = self else { return }
+            guard let value = value else { return }
+            
+            guard let table = repository.fetchPillAlarmSpecific(alarmName: value) else { return }
+            outputTypeTitleWithStartDate.value = table.typeTitleWithStartDate
         }
     }
 

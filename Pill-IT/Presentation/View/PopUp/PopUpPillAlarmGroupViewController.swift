@@ -11,7 +11,6 @@ import Then
 
 final class PopUpPillAlarmGroupViewController: BaseViewController {
     
-//    let viewModel = PopUpPillAlarmGroupViewModel()
     let viewModel = PillAlaramRegisterViewModel()
     private var dataSource : UICollectionViewDiffableDataSource<PillAlarmViewSection, Pill>!
     

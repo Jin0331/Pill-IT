@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 import Then
 import Toast_Swift
+import MarqueeLabel
 
 final class RegisterPillWebSearchViewController: BaseViewController {
         
@@ -17,7 +18,7 @@ final class RegisterPillWebSearchViewController: BaseViewController {
     var sendData : ((URL) -> Void)?
     
     // UI
-    let titleLabel = UILabel().then {
+    let titleLabel = MarqueeLabel().then {
         $0.textColor = DesignSystem.colorSet.black
         $0.font = .systemFont(ofSize: 22, weight: .heavy)
         $0.textAlignment = .center
@@ -73,7 +74,7 @@ final class RegisterPillWebSearchViewController: BaseViewController {
         guard let viewModel = viewModel else { return }
         guard let title = viewModel.inputItemName.value else { return }
         
-        titleLabel.text = "\(title) 검색 결과"
+        titleLabel.text = "🔆 \(title) 검색 결과"
     }
     
     private func configureDataSource() {

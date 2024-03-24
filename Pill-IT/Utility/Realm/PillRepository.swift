@@ -196,7 +196,7 @@ final class RealmRepository {
             // alarm Talbe을 순회하며, Pill이 isDelete가 false count 조회 후 1 이하이면 AlarmTable isDelete true
             alarmTable.forEach {
                 if $0.pillList.filter({ $0.isDeleted == false }).count == 1 {
-                    updatePillAlarmDelete($0.alarmName)
+                    updatePillAlarmRealtionIsDelete($0.alarmName) // 해당 그룹에 연관된 Date 모두 삭제
                     print($0.alarmName, "에 포함된 Pill 없으므로 삭제됩니다. ⭕️⭕️⭕️⭕️⭕️⭕️⭕️⭕️")
                 }
             }

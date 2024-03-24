@@ -18,12 +18,6 @@ final class PillManagementView : BaseView {
         return view
     }()
     
-    //    let headerCollectionViewtitle = UILabel().then {
-    //        $0.text = "복용약 알림 목록"
-    //        $0.textColor = DesignSystem.colorSet.gray
-    //        $0.font = .systemFont(ofSize: 15, weight: .heavy)
-    //    }
-    
     let mainCollectionViewtitle = UILabel().then {
         $0.text = "복용약 목록"
         $0.textColor = DesignSystem.colorSet.gray
@@ -39,7 +33,7 @@ final class PillManagementView : BaseView {
     }()
     
     let emptyImage = UIImageView().then {
-        $0.image = UIImage(named: "Empty")
+        $0.image = DesignSystem.imageByGY.empty
         $0.contentMode = .scaleAspectFit
     }
     

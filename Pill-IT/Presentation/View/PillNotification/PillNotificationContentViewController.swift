@@ -42,7 +42,13 @@ final class PillNotificationContentViewController: BaseViewController {
             guard let self = self else { return }
             guard let value = value else { return }
             
+            print(value.count)
+            
+            mainView.emptyViewisHidden(itemCount: value.count)
+            
             updateSnapshot(value)
+            
+
         }
     }
 

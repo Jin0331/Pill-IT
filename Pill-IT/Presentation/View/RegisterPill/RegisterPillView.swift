@@ -75,19 +75,19 @@ final class RegisterPillView: BaseView {
     }
     
     let defaultButton = UIButton(type: .system).then{
-        $0.setImage(UIImage(named: "kfda"), for: .normal)
+        $0.setImage(DesignSystem.imageByGY.kfda, for: .normal)
         $0.imageView?.contentMode = .scaleAspectFit
         $0.layer.cornerRadius = DesignSystem.viewLayout.cornerRadius
     }
     
     let cameraGalleryButton = UIButton(type: .system).then{
-        $0.setImage(UIImage(named: "camera"), for: .normal)
+        $0.setImage(DesignSystem.imageByGY.camera, for: .normal)
         $0.imageView?.contentMode = .scaleAspectFit
         $0.layer.cornerRadius = DesignSystem.viewLayout.cornerRadius
     }
     
     let webSearchButton = UIButton(type: .system).then{
-        $0.setImage(UIImage(named: "web"), for: .normal)
+        $0.setImage(DesignSystem.imageByGY.web, for: .normal)
         $0.imageView?.contentMode = .scaleAspectFit
         $0.layer.cornerRadius = DesignSystem.viewLayout.cornerRadius
     }

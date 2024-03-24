@@ -224,7 +224,9 @@ extension PillAlarmRegisterViewController : UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
     
-        viewModel.inputPillAlarmNameExist.value = textField.text
+        guard let text = textField.text else { return }
+        
+        viewModel.inputPillAlarmNameExist.value = text.components(separatedBy: CharacterSet.alphanumerics.inverted).joined()
         viewModel.outputPillAlarmNameExist.bind { [weak self] value in
             guard let self = self else { return }
             guard let value = value else { return }

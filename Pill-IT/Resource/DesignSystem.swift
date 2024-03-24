@@ -9,6 +9,16 @@ import UIKit
 
 enum DesignSystem {
     
+    enum imageByGY {
+        static let empty = UIImage(named: "Empty")
+        static let pillIcon = UIImage(named: "pillIcon")
+        static let kfda = UIImage(named: "kfda")
+        static let camera = UIImage(named: "camera")
+        static let web = UIImage(named: "web")
+        static let check = UIImage(named: "check")
+        
+    }
+    
     enum colorSet  {
         static let black = UIColor.pillBlack
         static let lightBlack = UIColor.pillLightBlack

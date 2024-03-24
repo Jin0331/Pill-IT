@@ -119,8 +119,7 @@ extension PillAlarmReviseDateViewController : PillSpecificAction {
             
             mainView.setActivityIndicator()
             viewModel.revisePeriodTableTrigger.value = ()
-            
-            
+
             NotificationCenter.default.post(name: Notification.Name("fetchPillAlarmTable"), object: nil)
         }
         

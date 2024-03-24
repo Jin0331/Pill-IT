@@ -35,7 +35,7 @@ final class MainTabBarController: WHTabbarController {
         centerButtonBorderColor  =  #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
         centerButtonBorderWidth = 0
         centerButtonImageSize = 52
-        centerButtonImage = UIImage(named: "pillIcon")
+        centerButtonImage = DesignSystem.imageByGY.pillIcon
         setupCenetrButton(vPosition: 0) { [weak self] in
             guard let self = self else { return }
             let vc = RegisterPillViewController()

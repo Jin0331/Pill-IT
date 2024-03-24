@@ -220,6 +220,7 @@ extension PillAlarmReviseItemViewController : PillAlarmReigsterAction {
 
                 print(pillTitle, alarmDateList, periodType, startDate)
                 viewModel.revisePeriodTableTrigger.value = ()
+                NotificationCenter.default.post(name: Notification.Name("fetchPillAlarmTable"), object: nil)
                 
                 dismiss(animated: true)
             } else {

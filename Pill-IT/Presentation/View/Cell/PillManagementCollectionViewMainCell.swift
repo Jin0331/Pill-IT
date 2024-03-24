@@ -46,7 +46,7 @@ final class PillManagementCollectionViewMainCell: BaseCollectionViewCell {
     }
     
     let selectedImage = UIImageView().then {
-        $0.image = UIImage(named: "check")
+        $0.image = DesignSystem.imageByGY.check
         $0.alpha = 0.75
         $0.isHidden = true
     }

@@ -6,8 +6,15 @@
 //
 
 import UIKit
+import SnapKit
+import Then
 
 final class PillNotificationContentView : BaseView {
+    
+    let emptyImage = UIImageView().then {
+        $0.image = DesignSystem.imageByGY.empty
+        $0.contentMode = .scaleAspectFit
+    }
     
     lazy var mainCollectionView : UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
@@ -18,10 +25,14 @@ final class PillNotificationContentView : BaseView {
     }()
     
     override func configureHierarchy() {
+        addSubview(emptyImage)
         addSubview(mainCollectionView)
     }
     
     override func configureLayout() {
+        emptyImage.snp.makeConstraints { make in
+            make.center.equalTo(safeAreaLayoutGuide)
+        }
         mainCollectionView.snp.makeConstraints { make in
             make.edges.equalTo(safeAreaLayoutGuide)
         }
@@ -52,6 +63,11 @@ final class PillNotificationContentView : BaseView {
         return UICollectionView.CellRegistration<PillNotificationContentViewCollectionViewCell, PillAlarmDate> { cell, indexPath, itemIdentifier in
             cell.updateUI(itemIdentifier)
         }
+    }
+    
+    func emptyViewisHidden(itemCount : Int) {
+        mainCollectionView.isHidden = itemCount < 1 ? true : false
+        emptyImage.isHidden = itemCount < 1 ? false : true
     }
     
     

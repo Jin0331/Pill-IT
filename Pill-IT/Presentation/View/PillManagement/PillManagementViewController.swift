@@ -59,6 +59,9 @@ final class PillManagementViewController : BaseViewController {
             guard let self = self else { return }
             guard let value = value else { return }
             
+            // emptyView
+            mainView.emptyViewisHidden(itemCount: value.count)
+            
             configureMainDataSource()
             updateMainSnapshot(value)
             
@@ -69,7 +72,7 @@ final class PillManagementViewController : BaseViewController {
             guard let self = self else { return }
             guard let value = value else { return }
             
-            mainView.collectionViewchangeLayout(itemCount: value.count)
+            mainView.headercollectionViewChangeLayout(itemCount: value.count)
             
             configureHeaderDataSource()
             updateHeaderSnapshot(value)
@@ -200,7 +203,7 @@ extension PillManagementViewController : UICollectionViewDelegate {
             alert.setValue(vc, forKey: "contentViewController")
             
             //MARK: - 복용약 그룹 수정화면으로 넘어감
-            let confirmAction = UIAlertAction(title: "⚠️ 수정할래요", style: .destructive) { [weak self] (action) in
+            let confirmAction = UIAlertAction(title: "⚠️ 수정할래요", style: .cancel) { [weak self] (action) in
                 guard let self = self else { return }
                 
                 let vc =  PillAlarmReviseViewController()

@@ -63,6 +63,16 @@ final class RealmRepository {
         }
     }
     
+    func fetchPillExist(alarmName : String) -> Bool {
+        
+        let table = fetchPillAlarmSpecific(alarmName: alarmName)
+        
+        if table != nil {
+            return true
+        } else {
+            return false
+        }
+    }
 
     //MARK: - Pill Search
     func fetchPillItem() -> [Pill]? {

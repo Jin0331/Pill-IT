@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class PeriodSelectDayOfTheWeekViewController: BaseViewController, UICollectionViewDelegate {
+final class PeriodSelectDayOfTheWeekViewController: BaseViewController {
 
     var viewModel : PillAlaramRegisterViewModel?
     var sendPeriodSelectedItem : (() -> Void)? //  PeriodSelectViewController 으로 보냄. popup 할때
@@ -38,6 +38,11 @@ final class PeriodSelectDayOfTheWeekViewController: BaseViewController, UICollec
         let rightCompleteBarButton = UIBarButtonItem(title: "완료", style: .done, target: self, action: #selector(rightBarButtonClicked))
         rightCompleteBarButton.tintColor = DesignSystem.colorSet.lightBlack
         navigationItem.rightBarButtonItem = rightCompleteBarButton
+        if #available(iOS 16.0, *) {
+            navigationItem.rightBarButtonItem?.isHidden = true
+        } else {
+            navigationItem.rightBarButtonItem?.customView?.isHidden = true
+        }
     }
     
     
@@ -65,6 +70,36 @@ final class PeriodSelectDayOfTheWeekViewController: BaseViewController, UICollec
     
     deinit {
         print("✅ PeriodSelectDayOfTheWeekViewController")
+    }
+}
+
+//MARK: - CollectionView Delegate
+extension PeriodSelectDayOfTheWeekViewController : UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        hiddenRightBarButton(collectionView)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        hiddenRightBarButton(collectionView)
+    }
+    
+    // version 대응
+    // IOS 15에서는 navigationItem.leftBarButtonItem?.isHidden 없음
+    private func hiddenRightBarButton(_ collectionView : UICollectionView) {
+        if let isAllHideen = collectionView.indexPathsForSelectedItems, isAllHideen.isEmpty {
+            if #available(iOS 16.0, *) {
+                navigationItem.rightBarButtonItem?.isHidden = true
+            } else {
+                navigationItem.rightBarButtonItem?.customView?.isHidden = true
+            }
+        } else {
+            if #available(iOS 16.0, *) {
+                navigationItem.rightBarButtonItem?.isHidden = false
+            } else {
+                // Fallback on earlier versions
+                navigationItem.rightBarButtonItem?.customView?.isHidden = false
+            }
+        }
     }
 }
 

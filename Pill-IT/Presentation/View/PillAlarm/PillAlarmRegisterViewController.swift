@@ -142,6 +142,12 @@ extension PillAlarmRegisterViewController : PillAlarmReigsterAction {
     func periodSelectPresent() {
         let vc = PeriodSelectViewController()
         
+        if let textField = mainView.userInputTextfield.text, textField.isEmpty {
+            
+            self.view.makeToast("알림 이름 설정을 완료해주세요(⏎) 🥲", duration: 1.5, position: .center)
+            return
+        }
+        
         vc.sendPeriodSelectButtonTitle = { [weak self] value in
             guard let self = self else { return }
             mainView.periodSelectButton.setTitle(value, for: .normal)
@@ -221,7 +227,11 @@ extension PillAlarmRegisterViewController : UITextFieldDelegate {
         
         return true
     }
-    
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true) // 다른 곳을 터치하면 키보드 내리기
+    }
+
     func textFieldDidEndEditing(_ textField: UITextField) {
     
         guard let text = textField.text else { return }

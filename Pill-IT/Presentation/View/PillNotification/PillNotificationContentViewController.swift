@@ -7,12 +7,14 @@
 
 import UIKit
 import SwipeCellKit
+import UserNotifications
 
 final class PillNotificationContentViewController: BaseViewController {
     
     let mainView = PillNotificationContentView()
     var viewModel = PillNotificationViewModel()
     private var dataSource : UICollectionViewDiffableDataSource<PillNotificationContent, PillAlarmDate>!
+    private let userNotificationCenter = UNUserNotificationCenter.current()
     
     init(currentDate : Date) {
         super.init(nibName: nil, bundle: nil)
@@ -101,6 +103,9 @@ extension PillNotificationContentViewController : SwipeCollectionViewCellDelegat
                 
                 self.viewModel.updatePillItemisDeleteTrigger.value = self.dataSource.itemIdentifier(for: indexPath)
                 
+                // notification 제거
+                guard let notiRemoveId = self.dataSource.itemIdentifier(for: indexPath)?.idToString else { return }
+                self.userNotificationCenter.removePendingNotificationRequests(withIdentifiers: [notiRemoveId])
             }
             
             let cancelAction = UIAlertAction(title: "취소할래요", style: .cancel)

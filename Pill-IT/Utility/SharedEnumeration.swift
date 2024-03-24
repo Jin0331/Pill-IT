@@ -118,7 +118,7 @@ enum PeriodDays : Int, CaseIterable {
         case .day:
             return .day
         case .week:
-            return .weekday
+            return .weekOfMonth
         case .month:
             return .month
         }

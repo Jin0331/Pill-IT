@@ -111,7 +111,7 @@ extension PillNotificationContentViewController : SwipeCollectionViewCellDelegat
             }
             
             let cancelAction = UIAlertAction(title: "취소할래요", style: .cancel)
-            cancelAction.setValue(UIColor.red, forKey: "titleTextColor")
+            confirmAction.setValue(UIColor.red, forKey: "titleTextColor")
             
             self.showAlert(title: "등록된 알림 삭제", message: "복용약의 알림을 삭제하시겠습니까? 🥲", actions: [confirmAction, cancelAction])
         }
@@ -148,7 +148,7 @@ extension PillNotificationContentViewController : PillNotificationAction {
             NotificationCenter.default.post(name: Notification.Name("fetchPillAlarmTable"), object: nil)
         }
         
-        cancelAction.setValue(UIColor.red, forKey: "titleTextColor")
+        confirmAction.setValue(UIColor.red, forKey: "titleTextColor")
         
         self.showAlert(title: "복용 완료", message: "복용하셨나요? 🔆", actions: [confirmAction, cancelAction])
     }

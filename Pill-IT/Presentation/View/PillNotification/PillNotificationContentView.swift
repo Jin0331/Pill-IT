@@ -12,7 +12,7 @@ import Then
 final class PillNotificationContentView : BaseView {
     
     let emptyImage = UIImageView().then {
-        $0.image = DesignSystem.imageByGY.empty
+        $0.image = DesignSystem.imageByGY.empty2
         $0.contentMode = .scaleAspectFit
     }
     

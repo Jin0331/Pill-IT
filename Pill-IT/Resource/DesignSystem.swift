@@ -11,6 +11,8 @@ enum DesignSystem {
     
     enum imageByGY {
         static let empty = UIImage(named: "Empty")
+        static let empty1 = UIImage(named: "Empty1")
+        static let empty2 = UIImage(named: "Empty2")
         static let pillIcon = UIImage(named: "pillIcon")
         static let kfda = UIImage(named: "kfda")
         static let camera = UIImage(named: "camera")

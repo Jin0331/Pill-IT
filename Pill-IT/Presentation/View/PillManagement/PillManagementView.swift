@@ -33,7 +33,7 @@ final class PillManagementView : BaseView {
     }()
     
     let emptyImage = UIImageView().then {
-        $0.image = DesignSystem.imageByGY.empty
+        $0.image = DesignSystem.imageByGY.empty1
         $0.contentMode = .scaleAspectFit
     }
     

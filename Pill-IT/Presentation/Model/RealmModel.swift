@@ -56,6 +56,10 @@ class PillAlarmDate : Object {
         self.isDeleted = false
         self.alarmGroup = alarmGroup
     }
+    
+    var idToString : String {
+        return _id.stringValue
+    }
 }
 
 class Pill : Object {

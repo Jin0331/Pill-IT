@@ -7,11 +7,13 @@
 
 import Foundation
 import RealmSwift
+import UserNotifications
 
 //TODO: - AlarmDateList는 6개월 주기로 생성한다.
 final class PillAlaramRegisterViewModel {
     
     private let repository = RealmRepository()
+    private let userNotificationCenter = UNUserNotificationCenter.current()
     
     var inputRegistedPillAlarm : Observable<PillAlarm?> = Observable(nil) //  등록된 알림 수정용
     
@@ -229,6 +231,13 @@ final class PillAlaramRegisterViewModel {
         let alarmDateFetch = repository.fetchPillAlarmDateItem(alarmName: alarmName)
         guard let alarmDateFetch = alarmDateFetch else { return }
         
+        // Local Notification
+        // 아래의 코드와 합칠지 말지는 고민해야 할 듯. 이해의 측면에서 분리하는 게 나을 듯. 어차피 O(n)이니
+        alarmDateFetch.forEach { pillAlarmDate in
+            userNotificationCenter.addNotificationRequest(by: pillAlarmDate)
+        }
+        
+        // table의 Attribute를 생성하기 위함
         let alarmDate = List<PillAlarmDate>()
         alarmDateFetch.forEach { pillAlarmDate in
             alarmDate.append(pillAlarmDate)
@@ -236,6 +245,7 @@ final class PillAlaramRegisterViewModel {
         
         let pillAlaram = PillAlarm(alarmName: alarmName, pillList: pillsList, type: inputPeriodType.rawValue, typeTitle: outputPeriodType, alarmStartDate: inputStartDate.value, alarmDate: alarmDate)
         
+        // realm Table 생성
         repository.createPill(pillAlaram)
     }
     

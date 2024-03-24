@@ -6,20 +6,27 @@
 //
 
 import UIKit
-//import IQKeyboardManagerSwift
+import NotificationCenter
+import UserNotifications
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
-
+    let userNotificationCenter = UNUserNotificationCenter.current()
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
         
-//        IQKeyboardManager.shared.enable = true
-//        IQKeyboardManager.shared.enableAutoToolbar = false
-//        IQKeyboardManager.shared.resignOnTouchOutside = true
+        UNUserNotificationCenter.current().delegate = self
+        let authrizationOptions = UNAuthorizationOptions(arrayLiteral: [.alert, .badge, .sound])
         
+        // 사용자에게 권한을(알림에대한) 요청한다.
+        // completionHandler를 통해서 에러처리를 할 수 있다. 결과값은 무시하고 에러 처리정도만 해줌.
+        // 이를 통해 사용자에게 권한을 요청한다.
+        userNotificationCenter.requestAuthorization(options: authrizationOptions){ _, error in
+            if let error = error{
+                print("ERROR: notification authrization request \(error.localizedDescription)")
+            }
+        }
         return true
     }
 
@@ -40,3 +47,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+
+// UNUserNotificationCenterDelegate 설정
+extension AppDelegate: UNUserNotificationCenterDelegate{
+    
+    // Noti를 보내기 전에 어떤 핸들링을 해줄 것인지.
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        
+        // 알림을 배너. 리스트. 뱃지. 사운드까지 표시하도록 설정.
+        completionHandler([.banner, .list, .badge, .sound])
+    }
+    
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        completionHandler()
+    }
+}

@@ -16,6 +16,7 @@ final class PillNotificationContentViewController: BaseViewController {
     var viewModel = PillNotificationViewModel()
     private var dataSource : UICollectionViewDiffableDataSource<PillNotificationContent, PillAlarmDate>!
     private let userNotificationCenter = UNUserNotificationCenter.current()
+    var moveTopView : (() -> Void)?
     
     init(currentDate : Date) {
         super.init(nibName: nil, bundle: nil)
@@ -50,10 +51,19 @@ final class PillNotificationContentViewController: BaseViewController {
             mainView.emptyViewisHidden(itemCount: value.count)
             
             updateSnapshot(value)
-            
-
         }
     }
+    
+    override func configureView() {
+        super.configureView()
+        
+        mainView.emptyButton.addTarget(self, action: #selector(toFirstTabbar), for: .touchUpInside)
+    }
+    
+    @objc private func toFirstTabbar() {
+        moveTopView?()
+    }
+    
 
     private func configureDataSource() {
         

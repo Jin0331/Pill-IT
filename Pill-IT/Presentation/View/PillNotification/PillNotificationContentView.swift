@@ -24,9 +24,14 @@ final class PillNotificationContentView : BaseView {
        return view
     }()
     
+    let emptyButton = UIButton().then {
+        $0.backgroundColor = .clear
+    }
+    
     override func configureHierarchy() {
         addSubview(emptyImage)
         addSubview(mainCollectionView)
+        addSubview(emptyButton)
     }
     
     override func configureLayout() {
@@ -35,6 +40,9 @@ final class PillNotificationContentView : BaseView {
         }
         mainCollectionView.snp.makeConstraints { make in
             make.edges.equalTo(safeAreaLayoutGuide)
+        }
+        emptyButton.snp.makeConstraints { make in
+            make.edges.equalTo(emptyImage)
         }
     }
     
@@ -68,6 +76,7 @@ final class PillNotificationContentView : BaseView {
     func emptyViewisHidden(itemCount : Int) {
         mainCollectionView.isHidden = itemCount < 1 ? true : false
         emptyImage.isHidden = itemCount < 1 ? false : true
+        emptyButton.isHidden = itemCount < 1 ? false : true
     }
     
     

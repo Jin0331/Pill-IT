@@ -22,8 +22,15 @@ final class MainTabBarController: WHTabbarController {
         let firstNav = UINavigationController(rootViewController: firstVC)
         
         secondVC = PillNotificationViewController()
+    
         
         setViewControllers([firstNav, secondVC], animated: true)
+        
+        // PillNotificationContentViewController > PillNotificationViewController > MainTabbarController까지 보내져온 값
+        secondVC.moveTopView = { [weak self] in
+            guard let self = self else { return }
+            selectedIndex = 0
+        }
     }
     
     override func viewDidLayoutSubviews() {

@@ -14,6 +14,8 @@ import Toast_Swift
 final class PillNotificationViewController: BaseViewController {
     private let calendar: Calendar = .current
     private let pagingViewController = PagingViewController()
+    var moveTopView : (() -> Void)?
+
     private let dayOfWeek = UILabel().then {
         $0.text = "수요일"
         $0.textColor = DesignSystem.colorSet.black
@@ -49,14 +51,13 @@ final class PillNotificationViewController: BaseViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        pagingViewController.reloadMenu()
-        pagingViewController.loadViewIfNeeded()
-        
-        let today = calendar.startOfDay(for: Date())
-        updateDateUI(CalendarItem(date: today))
-        
-        selectToday()
+        moveToToday()
     }
+    
+//    override func viewDidDisappear(_ animated: Bool) {
+//        super.viewDidDisappear(animated)
+//        moveToToday()
+//    }
   
     override func configureHierarchy() {
         addChild(pagingViewController)
@@ -144,6 +145,16 @@ final class PillNotificationViewController: BaseViewController {
         selectSpecificDay(value)
     }
     
+    private func moveToToday () {
+        pagingViewController.reloadMenu()
+        pagingViewController.loadViewIfNeeded()
+        
+        let today = calendar.startOfDay(for: Date())
+        updateDateUI(CalendarItem(date: today))
+        
+        selectToday()
+    }
+    
     deinit {
         print(#function, " - ✅ PillNotificationViewController")
     }
@@ -176,6 +187,11 @@ extension PillNotificationViewController: PagingViewControllerInfiniteDataSource
     func pagingViewController(_: PagingViewController, viewControllerFor pagingItem: PagingItem) -> UIViewController {
         let calendarItem = pagingItem as! CalendarItem
         let vc = PillNotificationContentViewController(currentDate: calendarItem.date)
+        
+        vc.moveTopView = { [weak self] in
+            guard let self = self else { return }
+            moveTopView?()
+        }
 
         vc.loadViewIfNeeded()
         

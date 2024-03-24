@@ -41,7 +41,6 @@ final class PillManagementViewController : BaseViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        print(#function, "⭕️ Tabbar 전환")
         for cell in mainView.mainCollectionView.visibleCells {
             if let cell = cell as? SwipeCollectionViewCell {
                 cell.hideSwipe(animated: true)

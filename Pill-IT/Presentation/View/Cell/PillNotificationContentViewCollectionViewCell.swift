@@ -94,7 +94,7 @@ final class PillNotificationContentViewCollectionViewCell: BaseCollectionViewCel
     }
     
     @objc private func notiDoneButtonClicked() {
-        actionDelegate?.notiDoneButton(viewModel.outputCurrentGroupPK.value)
+        actionDelegate?.notiDoneButton(viewModel.outputCurrentGroupPK.value, viewModel.outputCurrentDate.value)
     }
     
     func updateUI(_ itemIdentifier : PillAlarmDate) {

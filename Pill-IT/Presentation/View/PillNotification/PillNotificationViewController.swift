@@ -38,7 +38,12 @@ final class PillNotificationViewController: BaseViewController {
         pagingViewController.delegate = self
         pagingViewController.infiniteDataSource = self
         
+        // 2개의 observer
+        // 삭제, 수정, 추가에서 사용되는 옵저버
         NotificationCenter.default.addObserver(self, selector: #selector(triggerFetchPillAlarmTable), name: Notification.Name("fetchPillAlarmTable"), object: nil)
+        
+        // PillNotificationContentViewController 에서 button click시
+        NotificationCenter.default.addObserver(self, selector: #selector(triggerFetchPillAlarmTableSpecificDay), name: Notification.Name("fetchPillAlarmTableForNotification"), object: nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -107,6 +112,11 @@ final class PillNotificationViewController: BaseViewController {
         pagingViewController.select(pagingItem: CalendarItem(date: date), animated: true)
     }
     
+    @objc private func selectSpecificDay(_ specificDat : Date) {
+        let date = calendar.startOfDay(for: specificDat)
+        pagingViewController.select(pagingItem: CalendarItem(date: date), animated: true)
+    }
+    
     // pillAlarm의 조회를 위한 Trigger
     @objc private func triggerFetchPillAlarmTable(_ noti: Notification) {
         print("PillNotificationViewController triggerFetchPillAlarmTable ❗️❗️❗️❗️❗️❗️❗️")
@@ -120,6 +130,18 @@ final class PillNotificationViewController: BaseViewController {
         selectToday()
         
         view.makeToast("복용약 알림이 수정되었습니다 ✅", duration: 2, position: .center)
+    }
+    
+    @objc private func triggerFetchPillAlarmTableSpecificDay(_ noti: Notification) {
+        print("PillNotificationViewController triggerFetchPillAlarmTable ❗️❗️❗️❗️❗️❗️❗️")
+        
+        guard let value = noti.userInfo?["date"] as? Date else { return }
+        
+        pagingViewController.reloadMenu()
+        pagingViewController.loadViewIfNeeded()
+        updateDateUI(CalendarItem(date: value))
+        
+        selectSpecificDay(value)
     }
     
     deinit {

@@ -67,6 +67,7 @@ final class PillNotificationContentViewController: BaseViewController {
             cell.actionDelegate = self
             cell.delegate = self
             cell.viewModel.inputCurrentGroupPK.value = itemIdentifier._id
+            cell.viewModel.inputCurrentDate.value = itemIdentifier.alarmDate
             cell.viewModel.inputCurrentDateAlarmPill.value = Array(pillList)
             cell.viewModel.inputCurrentGroupID.value = itemIdentifier.alarmName
             
@@ -130,22 +131,24 @@ extension PillNotificationContentViewController : SwipeCollectionViewCellDelegat
 //MARK: - Delegate Action
 extension PillNotificationContentViewController : PillNotificationAction {
     
-    func notiDoneButton(_ pk: ObjectId?) {
+    func notiDoneButton(_ pk: ObjectId?, _ today :Date?) {
         guard let groupPK = pk else { return }
         
         let confirmAction = UIAlertAction(title: "먹었습니다 💊", style: .default) { [weak self] (action) in
             guard let self = self else { return }
+            guard let today = today else { return }
             
             viewModel.updatePillItemisDoneTrueTrigger.value = groupPK
-            NotificationCenter.default.post(name: Notification.Name("fetchPillAlarmTable"), object: nil)
+            NotificationCenter.default.post(name: Notification.Name("fetchPillAlarmTableForNotification"), object: nil, userInfo: ["date": today])
             
         }
         
         let cancelAction = UIAlertAction(title: "아니요 😅", style: .cancel) { [weak self] (action) in
             guard let self = self else { return }
+            guard let today = today else { return }
             
             viewModel.updatePillItemisDoneFalseTrigger.value = groupPK
-            NotificationCenter.default.post(name: Notification.Name("fetchPillAlarmTable"), object: nil)
+            NotificationCenter.default.post(name: Notification.Name("fetchPillAlarmTableForNotification"), object: nil, userInfo: ["date": today])
         }
         
         confirmAction.setValue(UIColor.red, forKey: "titleTextColor")

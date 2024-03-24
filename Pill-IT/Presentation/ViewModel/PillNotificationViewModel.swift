@@ -13,16 +13,19 @@ class PillNotificationViewModel {
     private let repository = RealmRepository()
     
     var inputCurrentDate : Observable<Date?> = Observable(nil)
-    
+
     var outputCurrentDateAlarm : Observable<[PillAlarmDate]?> = Observable(nil)
 
     var updatePillItemisDeleteTrigger : Observable<PillAlarmDate?> = Observable(nil)
+    var updatePillItemisDoneTrueTrigger : Observable<ObjectId?> = Observable(nil)
+    var updatePillItemisDoneFalseTrigger : Observable<ObjectId?> = Observable(nil)
     
     init() {
         transform()
     }
     
     private func transform() {
+        
         inputCurrentDate.bind { [weak self] value in
             guard let self = self else { return }
             guard let value = value else { return }
@@ -40,6 +43,20 @@ class PillNotificationViewModel {
             
             repository.updatePillAlarmDateDelete(value._id)
             outputCurrentDateAlarm.value = repository.fetchPillAlarmDateItem(alaramDate: currentDate)
+        }
+        
+        updatePillItemisDoneTrueTrigger.bind { [weak self] value in
+            guard let self = self else { return }
+            guard let value = value else { return }
+            
+            repository.updatePillAlarmisDoneTrue(value)
+        }
+        
+        updatePillItemisDoneFalseTrigger.bind { [weak self] value in
+            guard let self = self else { return }
+            guard let value = value else { return }
+            
+            repository.updatePillAlarmisDoneFalse(value)
         }
     }
     

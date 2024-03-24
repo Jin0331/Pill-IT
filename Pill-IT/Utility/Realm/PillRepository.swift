@@ -7,11 +7,13 @@
 
 import Foundation
 import RealmSwift
+import UserNotifications
 
 final class RealmRepository {
     
     private let realm = try! Realm()
-    
+    private let userNotificationCenter = UNUserNotificationCenter.current()
+
     func realmLocation() { print(realm.configuration.fileURL!) }
     
     //MARK: - CREATE
@@ -174,6 +176,9 @@ final class RealmRepository {
     func updatePillAlarmDateAllIsDelete(alarmName : String) {
         guard let table = fetchPillAlarmDateItem(alarmName: alarmName) else { return }
 
+        // 기존 등록된 Noti 제거
+        userNotificationCenter.removePendingNotificationRequests(withIdentifiers: table.map { return $0.idToString })
+        
         // 트랜잭션 시작
         try! realm.write {
             // 모든 레코드의 isDelete 값을 true로 변경
@@ -196,6 +201,7 @@ final class RealmRepository {
             // alarm Talbe을 순회하며, Pill이 isDelete가 false count 조회 후 1 이하이면 AlarmTable isDelete true
             alarmTable.forEach {
                 if $0.pillList.filter({ $0.isDeleted == false }).count == 1 {
+                    updatePillAlarmRealtionIsDelete($0.alarmName) // 해당 그룹에 연관된 Date 모두 삭제
                     updatePillAlarmDelete($0.alarmName)
                     print($0.alarmName, "에 포함된 Pill 없으므로 삭제됩니다. ⭕️⭕️⭕️⭕️⭕️⭕️⭕️⭕️")
                 }
@@ -252,6 +258,37 @@ final class RealmRepository {
         }
     }
     
+    func updatePillAlarmisDoneTrue(_ _id : ObjectId) {
+        guard let table = realm.object(ofType:PillAlarmDate.self, forPrimaryKey: _id) else { return }
+        
+        // 노티 삭제
+        userNotificationCenter.removePendingNotificationRequests(withIdentifiers: [table.idToString])
+        
+        do {
+            try realm.write {
+                table.isDone = true
+                table.upDate = Date()
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
+    func updatePillAlarmisDoneFalse(_ _id : ObjectId) {
+        guard let table = realm.object(ofType:PillAlarmDate.self, forPrimaryKey: _id) else { return }
+        
+        // 노티 추가
+        userNotificationCenter.addNotificationRequest(by: table)
+        
+        do {
+            try realm.write {
+                table.isDone = false
+                table.upDate = Date()
+            }
+        } catch {
+            print(error)
+        }
+    }
     
     
     //MARK: - REMOVE

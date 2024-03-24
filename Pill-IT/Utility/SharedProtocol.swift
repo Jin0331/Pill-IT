@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import RealmSwift
 
 protocol PillRegisterAction : AnyObject {
     func disMissPresent()
@@ -27,7 +28,6 @@ protocol PillManagementAction : AnyObject {
 }
 
 protocol PillAlarmReigsterAction : AnyObject {
-//    func dismissPresent()
     func periodSelectPresent()
     func startDateSelectPresent()
     func completeButtonAction()
@@ -39,5 +39,6 @@ protocol PillSpecificAction : AnyObject {
 }
 
 protocol PillNotificationAction : AnyObject {
-    func  containPillButton(_ groupID : String?, _ data : [Pill]?)
+    func containPillButton(_ groupID : String?, _ data : [Pill]?)
+    func notiDoneButton(_ pk : ObjectId?, _ today : Date?)
 }

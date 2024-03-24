@@ -113,7 +113,7 @@ extension PillAlarmReviseItemViewController : SwipeCollectionViewCellDelegate {
             }
             
             let cancelAction = UIAlertAction(title: "취소할래요", style: .cancel)
-            cancelAction.setValue(UIColor.red, forKey: "titleTextColor")
+            confirmAction.setValue(UIColor.red, forKey: "titleTextColor")
             
             self.showAlert(title: "등록된 복용약 삭제", message: "등록된 복용약 삭제하시겠습니까? 🥲", actions: [confirmAction, cancelAction])
         }

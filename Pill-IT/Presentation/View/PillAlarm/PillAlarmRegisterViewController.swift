@@ -114,7 +114,7 @@ extension PillAlarmRegisterViewController : SwipeCollectionViewCellDelegate {
             }
             
             let cancelAction = UIAlertAction(title: "취소할래요", style: .cancel)
-            cancelAction.setValue(UIColor.red, forKey: "titleTextColor")
+            confirmAction.setValue(UIColor.red, forKey: "titleTextColor")
             
             self.showAlert(title: "등록된 복용약 삭제", message: "등록된 복용약 삭제하시겠습니까? 🥲", actions: [confirmAction, cancelAction])
         }
@@ -224,7 +224,9 @@ extension PillAlarmRegisterViewController : UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
     
-        viewModel.inputPillAlarmNameExist.value = textField.text
+        guard let text = textField.text else { return }
+        
+        viewModel.inputPillAlarmNameExist.value = text.components(separatedBy: CharacterSet.alphanumerics.inverted).joined()
         viewModel.outputPillAlarmNameExist.bind { [weak self] value in
             guard let self = self else { return }
             guard let value = value else { return }

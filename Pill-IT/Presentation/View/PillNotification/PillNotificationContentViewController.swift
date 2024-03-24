@@ -7,12 +7,15 @@
 
 import UIKit
 import SwipeCellKit
+import UserNotifications
+import RealmSwift
 
 final class PillNotificationContentViewController: BaseViewController {
     
     let mainView = PillNotificationContentView()
     var viewModel = PillNotificationViewModel()
     private var dataSource : UICollectionViewDiffableDataSource<PillNotificationContent, PillAlarmDate>!
+    private let userNotificationCenter = UNUserNotificationCenter.current()
     
     init(currentDate : Date) {
         super.init(nibName: nil, bundle: nil)
@@ -63,6 +66,8 @@ final class PillNotificationContentViewController: BaseViewController {
             
             cell.actionDelegate = self
             cell.delegate = self
+            cell.viewModel.inputCurrentGroupPK.value = itemIdentifier._id
+            cell.viewModel.inputCurrentDate.value = itemIdentifier.alarmDate
             cell.viewModel.inputCurrentDateAlarmPill.value = Array(pillList)
             cell.viewModel.inputCurrentGroupID.value = itemIdentifier.alarmName
             
@@ -101,10 +106,13 @@ extension PillNotificationContentViewController : SwipeCollectionViewCellDelegat
                 
                 self.viewModel.updatePillItemisDeleteTrigger.value = self.dataSource.itemIdentifier(for: indexPath)
                 
+                // notification 제거
+                guard let notiRemoveId = self.dataSource.itemIdentifier(for: indexPath)?.idToString else { return }
+                self.userNotificationCenter.removePendingNotificationRequests(withIdentifiers: [notiRemoveId])
             }
             
             let cancelAction = UIAlertAction(title: "취소할래요", style: .cancel)
-            cancelAction.setValue(UIColor.red, forKey: "titleTextColor")
+            confirmAction.setValue(UIColor.red, forKey: "titleTextColor")
             
             self.showAlert(title: "등록된 알림 삭제", message: "복용약의 알림을 삭제하시겠습니까? 🥲", actions: [confirmAction, cancelAction])
         }
@@ -122,6 +130,32 @@ extension PillNotificationContentViewController : SwipeCollectionViewCellDelegat
 
 //MARK: - Delegate Action
 extension PillNotificationContentViewController : PillNotificationAction {
+    
+    func notiDoneButton(_ pk: ObjectId?, _ today :Date?) {
+        guard let groupPK = pk else { return }
+        
+        let confirmAction = UIAlertAction(title: "먹었습니다 💊", style: .default) { [weak self] (action) in
+            guard let self = self else { return }
+            guard let today = today else { return }
+            
+            viewModel.updatePillItemisDoneTrueTrigger.value = groupPK
+            NotificationCenter.default.post(name: Notification.Name("fetchPillAlarmTableForNotification"), object: nil, userInfo: ["date": today])
+            
+        }
+        
+        let cancelAction = UIAlertAction(title: "아니요 😅", style: .cancel) { [weak self] (action) in
+            guard let self = self else { return }
+            guard let today = today else { return }
+            
+            viewModel.updatePillItemisDoneFalseTrigger.value = groupPK
+            NotificationCenter.default.post(name: Notification.Name("fetchPillAlarmTableForNotification"), object: nil, userInfo: ["date": today])
+        }
+        
+        confirmAction.setValue(UIColor.red, forKey: "titleTextColor")
+        
+        self.showAlert(title: "복용 완료", message: "복용하셨나요? 🔆", actions: [confirmAction, cancelAction])
+    }
+    
     func containPillButton(_ groupID : String?, _ data : [Pill]?) {
         
         guard let groupID = groupID else { return }

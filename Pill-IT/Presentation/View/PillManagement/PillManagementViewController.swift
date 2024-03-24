@@ -278,7 +278,7 @@ extension PillManagementViewController : SwipeCollectionViewCellDelegate {
             }
             
             let cancelAction = UIAlertAction(title: "취소할래요", style: .cancel)
-            cancelAction.setValue(UIColor.red, forKey: "titleTextColor")
+            confirmAction.setValue(UIColor.red, forKey: "titleTextColor")
             
             self.showAlert(title: "등록된 복용약 삭제", message: "등록된 복용약 삭제하시겠습니까? 🥲", actions: [confirmAction, cancelAction])
         }
@@ -296,6 +296,7 @@ extension PillManagementViewController : SwipeCollectionViewCellDelegate {
             present(nav, animated: true)
         }
         
+        //TODO: - 심사이후 진행해야됨 ❌❌❌❌❌
         let moreInfoAction = SwipeAction(style: .default, title: "정보") { action, indexPath in
             print("더보기")
             //TODO: - local Notification 완료 후 진행
@@ -316,8 +317,9 @@ extension PillManagementViewController : SwipeCollectionViewCellDelegate {
         deleteAction.hidesWhenSelected = true
         editImageAction.hidesWhenSelected = true
         moreInfoAction.hidesWhenSelected = true
-        
-        return [deleteAction, editImageAction, moreInfoAction]
+        //TODO: - 심사이후 진행해야됨 ❌❌❌❌❌
+//        return [deleteAction, editImageAction, moreInfoAction]
+        return [deleteAction, editImageAction]
     }
     
     func collectionView(_ collectionView: UICollectionView, editActionsOptionsForItemAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {

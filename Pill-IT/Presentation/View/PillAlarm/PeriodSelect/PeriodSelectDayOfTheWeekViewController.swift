@@ -20,6 +20,12 @@ final class PeriodSelectDayOfTheWeekViewController: BaseViewController {
         $0.delegate = self
     }
     
+    let customButton = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40)).then {
+        $0.setTitle("완료", for: .normal)
+        $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .heavy)
+        $0.setTitleColor(DesignSystem.colorSet.lightBlack, for: .normal)
+    }
+    
     private var dataSource : UICollectionViewDiffableDataSource<PeriodViewSection, PeriodSpecificDay>!
     
     override func viewDidLoad() {
@@ -35,9 +41,9 @@ final class PeriodSelectDayOfTheWeekViewController: BaseViewController {
         
         navigationItem.title = "특정 요일"
         
-        let rightCompleteBarButton = UIBarButtonItem(title: "완료", style: .done, target: self, action: #selector(rightBarButtonClicked))
-        rightCompleteBarButton.tintColor = DesignSystem.colorSet.lightBlack
-        navigationItem.rightBarButtonItem = rightCompleteBarButton
+        customButton.addTarget(self, action: #selector(rightBarButtonClicked), for: .touchUpInside)
+        customButton.tintColor = DesignSystem.colorSet.lightBlack
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: customButton)
         if #available(iOS 16.0, *) {
             navigationItem.rightBarButtonItem?.isHidden = true
         } else {

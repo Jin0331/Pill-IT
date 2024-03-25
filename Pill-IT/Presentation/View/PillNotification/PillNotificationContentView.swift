@@ -37,6 +37,7 @@ final class PillNotificationContentView : BaseView {
     override func configureLayout() {
         emptyImage.snp.makeConstraints { make in
             make.center.equalTo(safeAreaLayoutGuide)
+            make.size.equalTo(UIScreen.main.bounds.height / 1.8)
         }
         mainCollectionView.snp.makeConstraints { make in
             make.edges.equalTo(safeAreaLayoutGuide)

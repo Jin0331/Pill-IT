@@ -78,6 +78,7 @@ final class PillManagementView : BaseView {
         
         emptyImage.snp.makeConstraints { make in
             make.center.equalTo(safeAreaLayoutGuide)
+            make.size.equalTo(UIScreen.main.bounds.height / 1.8)
         }
     }
     

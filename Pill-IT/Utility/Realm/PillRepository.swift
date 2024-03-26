@@ -13,7 +13,7 @@ final class RealmRepository {
     
     private let realm = try! Realm()
     private let userNotificationCenter = UNUserNotificationCenter.current()
-
+    
     func realmLocation() { print("현재 Realm 위치 🌼 - ",realm.configuration.fileURL!) }
     
     //MARK: - CREATE
@@ -38,7 +38,7 @@ final class RealmRepository {
                                                      "alarmStartDate": alarmStartDate,
                                                      "alarmDate":alarmDate,
                                                      "upDate":Date()
-                                                 ], update: .modified) }
+                                                    ], update: .modified) }
         } catch {
             print(error)
         }
@@ -74,7 +74,7 @@ final class RealmRepository {
             return false
         }
     }
-
+    
     //MARK: - Pill Search
     func fetchPillItem() -> [Pill]? {
         let table = realm.objects(Pill.self).where {
@@ -109,20 +109,58 @@ final class RealmRepository {
     func fetchPillAlarmDateItem(alarmName : String) -> [PillAlarmDate]? {
         let table = realm.objects(PillAlarmDate.self).where {
             $0.alarmName == alarmName && $0.isDeleted == false
-        }.sorted(byKeyPath: "alarmDate", ascending: false)
+        }.sorted(byKeyPath: "alarmDate", ascending: true)
         return Array(table)
     }
     
     func fetchPillAlarmDateItem(alaramDate : Date) -> [PillAlarmDate]? {
-        
         let targetDate = Calendar.current.startOfDay(for: alaramDate)
         let table = realm.objects(PillAlarmDate.self).filter("alarmDate >= %@ AND alarmDate < %@", targetDate, Calendar.current.date(byAdding: .day, value: 1, to: targetDate)!)
             .where {
                 $0.alarmGroup.isDeleted == false && $0.isDeleted == false
-            }.sorted(byKeyPath: "alarmDate", ascending: false)
+            }.sorted(byKeyPath: "alarmDate", ascending: true)
         
         return Array(table)
     }
+    
+    func fetchPillAlarmDateAndUpdateNotification(alarmName : String) -> [PillAlarmDate]? {
+        let currentDate = Date() // 현재 시간
+        let targetDate = Calendar.current.startOfDay(for: currentDate)
+        
+        print(targetDate, "✅✅✅✅✅✅✅✅✅ targetDate")
+        print(currentDate, "✅✅✅✅✅✅✅✅✅ current Date")
+        
+//        // 현재 시간보다 이른 시간은 isDone = true 처리함
+//        let isDoneUpdateTable = realm.objects(PillAlarmDate.self).where {
+//            $0.alarmName == alarmName && $0.isDeleted == false && $0.isDone == false
+//        }.filter("alarmDate >= %@ AND alarmDate < %@", targetDate, currentDate)
+//        
+//        print(isDoneUpdateTable, "✅✅✅✅✅✅✅✅✅ targetDate")
+//        
+//        do {
+//            try realm.write {
+//                for item in isDoneUpdateTable {
+//                    item.isDone = true
+//                    item.upDate = Date()
+//                }           
+//            }
+//        } catch {
+//            print(error)
+//        }
+//        
+//        print(isDoneUpdateTable)
+        
+        
+        // 현재 시간보다 다음시간의 table을 조회한다
+        let notificationTable = realm.objects(PillAlarmDate.self).where {
+            $0.alarmName == alarmName && $0.isDeleted == false && $0.isDone == false
+        }
+            .filter("alarmDate >= %@ AND alarmDate < %@", currentDate, Calendar.current.date(byAdding: .day, value: 1, to: currentDate)!) // 오늘 날짜로 제한 검
+            .sorted(byKeyPath: "alarmDate", ascending: false) // LIFO이므로 최근 데이터가 마지막에 들어가도록
+        
+        return Array(notificationTable)
+    }
+    
     
     
     //MARK: - UPDATE
@@ -161,7 +199,7 @@ final class RealmRepository {
         
         do {
             try realm.write {
-//                table.pillList.removeAll() <- 이것은 기록으로 남겨두는 것이 좋을 것 같다.
+                //                table.pillList.removeAll() <- 이것은 기록으로 남겨두는 것이 좋을 것 같다.
                 table.alarmDate.removeAll()
                 table.upDate = Date()
             }
@@ -174,7 +212,7 @@ final class RealmRepository {
     //MARK: - updatePillAlarmRealtionIsDelete의 하위 항목임!!!
     func updatePillAlarmDateAllIsDelete(alarmName : String) {
         guard let table = fetchPillAlarmDateItem(alarmName: alarmName) else { return }
-
+        
         // 기존 등록된 Noti 제거
         userNotificationCenter.removePendingNotificationRequests(withIdentifiers: table.map { return $0.idToString })
         
@@ -220,7 +258,7 @@ final class RealmRepository {
     func updatePillImage(itemSeq : Int, imagePath : String) {
         
         let table = fetchPillSpecific(itemSeq: itemSeq)!
-    
+        
         do {
             try realm.write {
                 table.urlPath = imagePath

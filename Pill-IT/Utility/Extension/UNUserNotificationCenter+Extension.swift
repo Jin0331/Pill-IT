@@ -10,9 +10,8 @@ import UserNotifications
 
 extension UNUserNotificationCenter {
     // Alert객체를 받아서 Noti를 만들고 NotificationCenter에 추가하는 함수
+    
     func addNotificationRequest(by pillAlarm: PillAlarmDate){
-        
-        print(pillAlarm.alarmDate)
         
         let content = UNMutableNotificationContent()
         content.title = "삐릿 복용 알림 - " + pillAlarm.alarmName + "🔆"
@@ -32,6 +31,15 @@ extension UNUserNotificationCenter {
         //add
         self.add(request, withCompletionHandler: nil)
     }
+    
+    func addNotificationRequest(byList pillAlarmList: [PillAlarmDate]){
+        
+        pillAlarmList.forEach { [weak self] pillAlarm in
+            guard let self = self else { return }
+            addNotificationRequest(by: pillAlarm)
+        }
+    }
+    
     
     func registedNotification() {
         // 등록된 Noti 확인하기

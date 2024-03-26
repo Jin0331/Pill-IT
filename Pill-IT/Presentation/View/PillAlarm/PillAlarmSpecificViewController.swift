@@ -139,6 +139,8 @@ extension PillAlarmSpecificViewController : PillSpecificAction {
             viewModel.createTableTrigger.value = ()
             NotificationCenter.default.post(name: Notification.Name("fetchPillAlarmTable"), object: nil)
             
+            // Current Date의 Local notification 등록
+            
             mainView.activityIndicator.stopAnimating()
             mainView.loadingBgView.removeFromSuperview()
             

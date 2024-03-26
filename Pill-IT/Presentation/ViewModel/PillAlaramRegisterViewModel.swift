@@ -242,9 +242,11 @@ final class PillAlaramRegisterViewModel {
         repository.createPill(pillAlaram)
         
         // Local Notification
-        // 아래의 코드와 합칠지 말지는 고민해야 할 듯. 이해의 측면에서 분리하는 게 나을 듯. 어차피 O(n)이니
-        alarmDateFetch.forEach { pillAlarmDate in
-            userNotificationCenter.addNotificationRequest(by: pillAlarmDate)
+        //TODO: - Current Date의 Local Notification
+        if let alarmDateFetchNotification = repository.fetchPillAlarmDateAndUpdateNotification(alarmName: alarmName), !alarmDateFetchNotification.isEmpty {
+            userNotificationCenter.addNotificationRequest(byList: alarmDateFetchNotification)
+        } else {
+            print("❗️오늘 날짜에 해당되는 알림 목록이 없습니다  🥲")
         }
     }
     
@@ -286,9 +288,11 @@ final class PillAlaramRegisterViewModel {
         }
         
         // Local Notification
-        // 아래의 코드와 합칠지 말지는 고민해야 할 듯. 이해의 측면에서 분리하는 게 나을 듯. 어차피 O(n)이니
-        alarmDateFetch.forEach { pillAlarmDate in
-            userNotificationCenter.addNotificationRequest(by: pillAlarmDate)
+        //TODO: - Current Date의 Local Notification
+        if let alarmDateFetchNotification = repository.fetchPillAlarmDateAndUpdateNotification(alarmName: alarmName), !alarmDateFetchNotification.isEmpty {
+            userNotificationCenter.addNotificationRequest(byList: alarmDateFetchNotification)
+        } else {
+            print("❗️오늘 날짜에 해당되는 알림 목록이 없습니다  🥲")
         }
     }
     

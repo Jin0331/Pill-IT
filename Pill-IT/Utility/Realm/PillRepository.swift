@@ -123,6 +123,18 @@ final class RealmRepository {
         return Array(table)
     }
     
+    // Notification Update에서 사용되는 함수
+    func fetchPillAlarmDateItemIsDone(alaramDate : Date) -> [PillAlarmDate]? {
+        let targetDate = Calendar.current.startOfDay(for: alaramDate)
+        let table = realm.objects(PillAlarmDate.self).filter("alarmDate >= %@ AND alarmDate < %@", targetDate, Calendar.current.date(byAdding: .day, value: 1, to: targetDate)!)
+            .where {
+                $0.alarmGroup.isDeleted == false && $0.isDeleted == false && $0.isDone == false
+            }.sorted(byKeyPath: "alarmDate", ascending: true)
+        
+        return Array(table)
+    }
+    
+    // Notification Update에서 사용되는 함수
     func fetchPillAlarmDateAndUpdateNotification(alarmName : String) -> [PillAlarmDate]? {
         let currentDate = Date() // 현재 시간
         let targetDate = Calendar.current.startOfDay(for: currentDate)
@@ -130,27 +142,28 @@ final class RealmRepository {
         print(targetDate, "✅✅✅✅✅✅✅✅✅ targetDate")
         print(currentDate, "✅✅✅✅✅✅✅✅✅ current Date")
         
-//        // 현재 시간보다 이른 시간은 isDone = true 처리함
-//        let isDoneUpdateTable = realm.objects(PillAlarmDate.self).where {
-//            $0.alarmName == alarmName && $0.isDeleted == false && $0.isDone == false
-//        }.filter("alarmDate >= %@ AND alarmDate < %@", targetDate, currentDate)
-//        
-//        print(isDoneUpdateTable, "✅✅✅✅✅✅✅✅✅ targetDate")
-//        
-//        do {
-//            try realm.write {
-//                for item in isDoneUpdateTable {
-//                    item.isDone = true
-//                    item.upDate = Date()
-//                }           
-//            }
-//        } catch {
-//            print(error)
-//        }
-//        
-//        print(isDoneUpdateTable)
-        
-        
+        // 현재 시간보다 이른 시간은 isDone = true 처리함 ,, 나중에 필요한 경우 사용
+        /*
+                 let isDoneUpdateTable = realm.objects(PillAlarmDate.self).where {
+                     $0.alarmName == alarmName && $0.isDeleted == false && $0.isDone == false
+                 }.filter("alarmDate >= %@ AND alarmDate < %@", targetDate, currentDate)
+         
+                 print(isDoneUpdateTable, "✅✅✅✅✅✅✅✅✅ targetDate")
+         
+                 do {
+                     try realm.write {
+                         for item in isDoneUpdateTable {
+                             item.isDone = true
+                             item.upDate = Date()
+                         }
+                     }
+                 } catch {
+                     print(error)
+                 }
+         
+         //        print(isDoneUpdateTable)
+         */
+
         // 현재 시간보다 다음시간의 table을 조회한다
         let notificationTable = realm.objects(PillAlarmDate.self).where {
             $0.alarmName == alarmName && $0.isDeleted == false && $0.isDone == false
@@ -214,7 +227,8 @@ final class RealmRepository {
         guard let table = fetchPillAlarmDateItem(alarmName: alarmName) else { return }
         
         // 기존 등록된 Noti 제거
-        userNotificationCenter.removePendingNotificationRequests(withIdentifiers: table.map { return $0.idToString })
+//        userNotificationCenter.removePendingNotificationRequests(withIdentifiers: table.map { return $0.idToString })
+        userNotificationCenter.removeAllNotification(by: table)
         
         // 트랜잭션 시작
         try! realm.write {
@@ -224,7 +238,6 @@ final class RealmRepository {
                 item.upDate = Date()
             }
         }
-        
     }
     
     func updatePillIsDelete(itemSeq : Int) {
@@ -311,6 +324,22 @@ final class RealmRepository {
         }
     }
     
+    func updatePillAlarmisDoneTrue(_ _id : String) {
+        guard let table = realm.object(ofType:PillAlarmDate.self, forPrimaryKey: _id) else { return }
+        
+        // 노티 삭제
+        userNotificationCenter.removePendingNotificationRequests(withIdentifiers: [table.idToString])
+        
+        do {
+            try realm.write {
+                table.isDone = true
+                table.upDate = Date()
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
     func updatePillAlarmisDoneFalse(_ _id : ObjectId) {
         guard let table = realm.object(ofType:PillAlarmDate.self, forPrimaryKey: _id) else { return }
         
@@ -353,6 +382,13 @@ final class RealmRepository {
         }
     }
     
-    
-    
+    // Convert a String to ObjectId
+    func stringToObjectId(_ string: String) -> ObjectId? {
+        do {
+            return try ObjectId(string: string)
+        } catch {
+            print("Error creating ObjectId: \(error)")
+            return nil
+        }
+    }
 }

@@ -12,7 +12,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     var repository = RealmRepository()
 
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
@@ -25,20 +24,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.overrideUserInterfaceStyle = .light // 라이트모드 강제
         window?.rootViewController = tabbarController
         window?.makeKeyAndVisible()
-        
-        
-        UNUserNotificationCenter.current().getPendingNotificationRequests { (requests) in
-            for request in requests {
-                print("Notification Identifier: \(request.identifier)")
-                if let trigger = request.trigger as? UNCalendarNotificationTrigger {
-                    let triggerDate = trigger.nextTriggerDate()
-                    print("Notification Scheduled Date: ", triggerDate ?? Date())
-                } else {
-                    print("Notification 없음 🥲")
-                }
-                // 필요한 다른 정보도 여기에서 확인할 수 있습니다
-            }
-        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

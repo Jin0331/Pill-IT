@@ -9,7 +9,28 @@ import Foundation
 import UserNotifications
 
 extension UNUserNotificationCenter {
-    // Alert객체를 받아서 Noti를 만들고 NotificationCenter에 추가하는 함수
+    
+    //MARK: - 등록된 알림 출력
+    func printPendingNotification() {
+        UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
+            for request in requests {
+                print("Identifier: \(request.identifier)")
+                print("Title: \(request.content.title)")
+                print("Body: \(request.content.body)")
+                print("Trigger: \(String(describing: request.trigger))")
+                print("---")
+            }
+        }
+    }
+    
+    //MARK: - 알림 추가
+    func addNotificationRequest(byList pillAlarmList: [PillAlarmDate]){
+        
+        pillAlarmList.forEach { [weak self] pillAlarm in
+            guard let self = self else { return }
+            addNotificationRequest(by: pillAlarm)
+        }
+    }
     
     func addNotificationRequest(by pillAlarm: PillAlarmDate){
         
@@ -32,28 +53,25 @@ extension UNUserNotificationCenter {
         self.add(request, withCompletionHandler: nil)
     }
     
-    func addNotificationRequest(byList pillAlarmList: [PillAlarmDate]){
+    //MARK: - 알림 삭제
+    func removeAllNotification(by pillAlarm : [PillAlarmDate]) {
         
-        pillAlarmList.forEach { [weak self] pillAlarm in
-            guard let self = self else { return }
-            addNotificationRequest(by: pillAlarm)
-        }
+        let removeidentifiers = pillAlarm.map{ $0.idToString }
+        removePendingNotification(identifiers: removeidentifiers)
+        removeDeliveredNotification(identifiers: removeidentifiers)
     }
     
     
-    func registedNotification() {
-        // 등록된 Noti 확인하기
-        UNUserNotificationCenter.current().getPendingNotificationRequests { (requests) in
-            for request in requests {
-                print("Notification Identifier: \(request.identifier)")
-                if let trigger = request.trigger as? UNCalendarNotificationTrigger {
-                    let triggerDate = trigger.nextTriggerDate()
-                    print("Notification Scheduled Date: ", triggerDate ?? Date())
-                } else {
-                    print("Notification 없음 🥲")
-                }
-                // 필요한 다른 정보도 여기에서 확인할 수 있습니다
-            }
-        }
+    func removePendingNotification(identifiers: [String]){
+        UNUserNotificationCenter
+            .current()
+            .removePendingNotificationRequests(withIdentifiers: identifiers)
+    }
+
+    // 발생된 알림 삭제
+    func removeDeliveredNotification(identifiers: [String]){
+        UNUserNotificationCenter
+            .current()
+            .removeDeliveredNotifications(withIdentifiers: identifiers)
     }
 }

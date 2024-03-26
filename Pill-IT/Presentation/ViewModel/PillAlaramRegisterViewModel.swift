@@ -263,8 +263,6 @@ final class PillAlaramRegisterViewModel {
             pillsList.append(pill)
         }
         
-        print(outputAlarmSpecificTimeList.value)
-        
         // AlarmDateList는 새로 Table 생성 후 조회로 등록 이때, alarm name으로 검색함
         outputAlarmSpecificTimeList.value.forEach {
             repository.createPill(PillAlarmDate(alarmName: alarmName, alarmDate: $0))
@@ -340,23 +338,18 @@ final class PillAlaramRegisterViewModel {
     private func periodCaclulator(periodCase :(PeriodCase)) {
         switch periodCase {
         case .always:
-            print("always", inputStartDate.value)
-            
             outputAlarmDateList.value = dateCalculator(startDate: inputStartDate.value,
                                                        byAdding: .day,
                                                        interval: 1)
             outputPeriodType.value = "매일"
             
         case .specificDay:
-            print("specificDay")
             guard let interval = inputDayOfWeekInterval.value else { return }
             
             outputAlarmDateList.value = specificDateCalculate(startDate: inputStartDate.value, interval: interval)
             outputPeriodType.value = interval.count == 7 ? "매일" :interval.map { $0.toString }.joined(separator: ",")
             
         case .period:
-            print("period")
-            
             guard let interval = inputDaysInterval.value else { print("?????실행되냐⭕️");return }
             outputAlarmDateList.value = dateCalculator(startDate: inputStartDate.value,
                                                        byAdding: interval.enumCase.byAdding,

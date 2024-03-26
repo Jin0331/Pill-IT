@@ -11,10 +11,11 @@ import UserNotifications
 extension UNUserNotificationCenter {
     // Alert객체를 받아서 Noti를 만들고 NotificationCenter에 추가하는 함수
     func addNotificationRequest(by pillAlarm: PillAlarmDate){
+        
+        print(pillAlarm.alarmDate)
+        
         let content = UNMutableNotificationContent()
         content.title = "삐릿 복용 알림 - " + pillAlarm.alarmName + "🔆"
-        
-        
         let pillItemList = "복용약 목록 🔆 : " + pillAlarm.alarmGroup.first!.pillList.map({ value in
             return value.itemName
         }).joined(separator: ",")

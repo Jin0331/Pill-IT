@@ -109,7 +109,7 @@ final class RealmRepository {
     func fetchPillAlarmDateItem(alarmName : String) -> [PillAlarmDate]? {
         let table = realm.objects(PillAlarmDate.self).where {
             $0.alarmName == alarmName && $0.isDeleted == false
-        }
+        }.sorted(byKeyPath: "alarmDate", ascending: false)
         return Array(table)
     }
     
@@ -119,9 +119,9 @@ final class RealmRepository {
         let table = realm.objects(PillAlarmDate.self).filter("alarmDate >= %@ AND alarmDate < %@", targetDate, Calendar.current.date(byAdding: .day, value: 1, to: targetDate)!)
             .where {
                 $0.alarmGroup.isDeleted == false && $0.isDeleted == false
-            } 
+            }.sorted(byKeyPath: "alarmDate", ascending: false)
         
-        return Array(table.sorted(byKeyPath: "alarmDate", ascending: true))
+        return Array(table)
     }
     
     

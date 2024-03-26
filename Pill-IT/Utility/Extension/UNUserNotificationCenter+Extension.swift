@@ -7,6 +7,7 @@
 
 import Foundation
 import UserNotifications
+import UIKit
 
 extension UNUserNotificationCenter {
     
@@ -42,11 +43,21 @@ extension UNUserNotificationCenter {
         
         content.body = pillItemList
         content.sound = .default
-        content.badge = 1
+        let currentBadgeCount = UIApplication.shared.applicationIconBadgeNumber
+        content.badge = (currentBadgeCount + 1) as NSNumber
+        content.categoryIdentifier = "replyCategory"
         
+        // notification action
+        let completeAction = UNNotificationAction(identifier: "piliComplete", title: "먹었어요 🔆", options: UNNotificationActionOptions(rawValue: 0))
+        
+        let actionCategory = UNNotificationCategory(identifier: "replyCategory", actions: [completeAction], intentIdentifiers: [], hiddenPreviewsBodyPlaceholder: "", options: .customDismissAction)
+        
+        UNUserNotificationCenter.current().setNotificationCategories([actionCategory])
+        
+        
+        // set notification
         let component = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: pillAlarm.alarmDate)
         let trigger = UNCalendarNotificationTrigger(dateMatching: component, repeats: false)
-        
         let request = UNNotificationRequest(identifier: pillAlarm.idToString, content: content, trigger: trigger)
         
         //add

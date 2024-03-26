@@ -7,12 +7,33 @@
 
 import Foundation
 import UserNotifications
+import UIKit
 
 extension UNUserNotificationCenter {
-    // Alert객체를 받아서 Noti를 만들고 NotificationCenter에 추가하는 함수
-    func addNotificationRequest(by pillAlarm: PillAlarmDate){
+    
+    //MARK: - 등록된 알림 출력
+    func printPendingNotification() {
+        UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
+            for request in requests {
+                print("Identifier: \(request.identifier)")
+                print("Title: \(request.content.title)")
+                print("Body: \(request.content.body)")
+                print("Trigger: \(String(describing: request.trigger))")
+                print("---")
+            }
+        }
+    }
+    
+    //MARK: - 알림 추가
+    func addNotificationRequest(byList pillAlarmList: [PillAlarmDate]){
         
-        print(pillAlarm.alarmDate)
+        pillAlarmList.forEach { [weak self] pillAlarm in
+            guard let self = self else { return }
+            addNotificationRequest(by: pillAlarm)
+        }
+    }
+    
+    func addNotificationRequest(by pillAlarm: PillAlarmDate){
         
         let content = UNMutableNotificationContent()
         content.title = "삐릿 복용 알림 - " + pillAlarm.alarmName + "🔆"
@@ -22,30 +43,46 @@ extension UNUserNotificationCenter {
         
         content.body = pillItemList
         content.sound = .default
-        content.badge = 1
+        let currentBadgeCount = UIApplication.shared.applicationIconBadgeNumber
+        content.badge = (currentBadgeCount + 1) as NSNumber
+        content.categoryIdentifier = "replyCategory"
         
+        // notification action
+        let completeAction = UNNotificationAction(identifier: "piliComplete", title: "먹었어요 🔆", options: UNNotificationActionOptions(rawValue: 0))
+        
+        let actionCategory = UNNotificationCategory(identifier: "replyCategory", actions: [completeAction], intentIdentifiers: [], hiddenPreviewsBodyPlaceholder: "", options: .customDismissAction)
+        
+        UNUserNotificationCenter.current().setNotificationCategories([actionCategory])
+        
+        
+        // set notification
         let component = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: pillAlarm.alarmDate)
         let trigger = UNCalendarNotificationTrigger(dateMatching: component, repeats: false)
-        
         let request = UNNotificationRequest(identifier: pillAlarm.idToString, content: content, trigger: trigger)
         
         //add
         self.add(request, withCompletionHandler: nil)
     }
     
-    func registedNotification() {
-        // 등록된 Noti 확인하기
-        UNUserNotificationCenter.current().getPendingNotificationRequests { (requests) in
-            for request in requests {
-                print("Notification Identifier: \(request.identifier)")
-                if let trigger = request.trigger as? UNCalendarNotificationTrigger {
-                    let triggerDate = trigger.nextTriggerDate()
-                    print("Notification Scheduled Date: ", triggerDate ?? Date())
-                } else {
-                    print("Notification 없음 🥲")
-                }
-                // 필요한 다른 정보도 여기에서 확인할 수 있습니다
-            }
-        }
+    //MARK: - 알림 삭제
+    func removeAllNotification(by pillAlarm : [PillAlarmDate]) {
+        
+        let removeidentifiers = pillAlarm.map{ $0.idToString }
+        removePendingNotification(identifiers: removeidentifiers)
+        removeDeliveredNotification(identifiers: removeidentifiers)
+    }
+    
+    
+    func removePendingNotification(identifiers: [String]){
+        UNUserNotificationCenter
+            .current()
+            .removePendingNotificationRequests(withIdentifiers: identifiers)
+    }
+
+    // 발생된 알림 삭제
+    func removeDeliveredNotification(identifiers: [String]){
+        UNUserNotificationCenter
+            .current()
+            .removeDeliveredNotifications(withIdentifiers: identifiers)
     }
 }

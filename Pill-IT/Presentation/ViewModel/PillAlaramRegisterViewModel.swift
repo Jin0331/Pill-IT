@@ -242,9 +242,11 @@ final class PillAlaramRegisterViewModel {
         repository.createPill(pillAlaram)
         
         // Local Notification
-        // 아래의 코드와 합칠지 말지는 고민해야 할 듯. 이해의 측면에서 분리하는 게 나을 듯. 어차피 O(n)이니
-        alarmDateFetch.forEach { pillAlarmDate in
-            userNotificationCenter.addNotificationRequest(by: pillAlarmDate)
+        //TODO: - Current Date의 Local Notification
+        if let alarmDateFetchNotification = repository.fetchPillAlarmDateAndUpdateNotification(alarmName: alarmName), !alarmDateFetchNotification.isEmpty {
+            userNotificationCenter.addNotificationRequest(byList: alarmDateFetchNotification)
+        } else {
+            print("❗️오늘 날짜에 해당되는 알림 목록이 없습니다  🥲")
         }
     }
     
@@ -260,8 +262,6 @@ final class PillAlaramRegisterViewModel {
         outputSelectedPill.value.forEach { pill in
             pillsList.append(pill)
         }
-        
-        print(outputAlarmSpecificTimeList.value)
         
         // AlarmDateList는 새로 Table 생성 후 조회로 등록 이때, alarm name으로 검색함
         outputAlarmSpecificTimeList.value.forEach {
@@ -286,9 +286,11 @@ final class PillAlaramRegisterViewModel {
         }
         
         // Local Notification
-        // 아래의 코드와 합칠지 말지는 고민해야 할 듯. 이해의 측면에서 분리하는 게 나을 듯. 어차피 O(n)이니
-        alarmDateFetch.forEach { pillAlarmDate in
-            userNotificationCenter.addNotificationRequest(by: pillAlarmDate)
+        //TODO: - Current Date의 Local Notification
+        if let alarmDateFetchNotification = repository.fetchPillAlarmDateAndUpdateNotification(alarmName: alarmName), !alarmDateFetchNotification.isEmpty {
+            userNotificationCenter.addNotificationRequest(byList: alarmDateFetchNotification)
+        } else {
+            print("❗️오늘 날짜에 해당되는 알림 목록이 없습니다  🥲")
         }
     }
     
@@ -336,23 +338,18 @@ final class PillAlaramRegisterViewModel {
     private func periodCaclulator(periodCase :(PeriodCase)) {
         switch periodCase {
         case .always:
-            print("always", inputStartDate.value)
-            
             outputAlarmDateList.value = dateCalculator(startDate: inputStartDate.value,
                                                        byAdding: .day,
                                                        interval: 1)
             outputPeriodType.value = "매일"
             
         case .specificDay:
-            print("specificDay")
             guard let interval = inputDayOfWeekInterval.value else { return }
             
             outputAlarmDateList.value = specificDateCalculate(startDate: inputStartDate.value, interval: interval)
             outputPeriodType.value = interval.count == 7 ? "매일" :interval.map { $0.toString }.joined(separator: ",")
             
         case .period:
-            print("period")
-            
             guard let interval = inputDaysInterval.value else { print("?????실행되냐⭕️");return }
             outputAlarmDateList.value = dateCalculator(startDate: inputStartDate.value,
                                                        byAdding: interval.enumCase.byAdding,

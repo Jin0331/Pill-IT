@@ -159,9 +159,14 @@ extension MainTabBarController : UNUserNotificationCenterDelegate {
         default :
             break
         }
-    
-
         completionHandler()
+    }
+    
+    // Noti를 보내기 전에 어떤 핸들링을 해줄 것인지.
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        
+        // 알림을 배너. 리스트. 뱃지. 사운드까지 표시하도록 설정.
+        completionHandler([.banner, .list, .badge, .sound])
     }
 }
                            

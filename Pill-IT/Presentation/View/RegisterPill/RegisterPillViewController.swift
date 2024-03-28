@@ -58,6 +58,10 @@ final class RegisterPillViewController : BaseViewController {
     
     @objc private func searchError() {
         view.makeToast("검색어를 확인해주세요 ❗️", duration: 2.0, position: .center)
+        
+        // 인디케이터 정지 및 삭제
+        mainView.userInputTextfield.stopLoadingIndicator()
+        mainView.userInputTextfield.text = nil
     }
     
     private func textFieldHandler() {

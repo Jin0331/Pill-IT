@@ -78,5 +78,6 @@ enum DesignSystem {
     enum pillAlarmSwipeImage {
         static let sfSymbolLargeConfig = UIImage.SymbolConfiguration(pointSize: 12, weight: .bold, scale: .large)
         static let trash = UIImage(systemName: "trash", withConfiguration: sfSymbolLargeConfig)
+        static let edit = UIImage(systemName: "square.and.pencil", withConfiguration: sfSymbolLargeConfig)
     }
 }

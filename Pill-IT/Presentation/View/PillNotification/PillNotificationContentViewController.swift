@@ -125,12 +125,58 @@ extension PillNotificationContentViewController : SwipeCollectionViewCellDelegat
             self.showAlert(title: "등록된 알림 삭제", message: "복용약의 알림을 삭제하시겠습니까? 🥲", actions: [confirmAction, cancelAction])
         }
         
+        let reviseAction = SwipeAction(style: .default, title: nil) { [weak self] action, indexPath in
+            
+            guard let self = self else { return }
+            
+            let alert = UIAlertController(title: "복용약 알림 시간 수정하기🔆", message: nil, preferredStyle: .alert)
+            alert.view.tintColor = DesignSystem.colorSet.lightBlack
+            
+            let datePicker = UIDatePicker()
+            datePicker.datePickerMode = .time
+            datePicker.preferredDatePickerStyle = .wheels
+            datePicker.locale = Locale(identifier: "ko_KR")
+            datePicker.setValue(DesignSystem.colorSet.lightBlack, forKeyPath: "textColor")
+            
+            let select = UIAlertAction(title: "선택 완료", style: .default) { [weak self] action in
+                guard let self = self else { return }
+                guard let pk = self.dataSource.itemIdentifier(for: indexPath)?._id else { return }
+                
+                let confirmAction = UIAlertAction(title: "수정할래요", style: .default) { (action) in
+                 
+                    self.viewModel.updatePillItemDateTrigger.value = (pk, datePicker.date)
+                    NotificationCenter.default.post(name: Notification.Name("fetchPillAlarmTableForNotification"), object: nil, userInfo: ["date": datePicker.date])
+                }
+                
+                let cancelAction = UIAlertAction(title: "취소할래요", style: .cancel)
+                confirmAction.setValue(UIColor.red, forKey: "titleTextColor")
+                
+                self.showAlert(title: "등록된 복용약 알림 시간 수정", message: "알림 시간을 수정하시겠습니까? 🔆", actions: [confirmAction, cancelAction])
+            }
+            
+            let cancle = UIAlertAction(title: "취소", style: .cancel)
+            
+            alert.addAction(cancle)
+            alert.addAction(select)
+            
+            let vc = UIViewController()
+            vc.view = datePicker
+            alert.setValue(vc, forKey: "contentViewController")
+            
+            present(alert, animated: true)
+        }
+
         // customize the action appearance
         deleteAction.image = DesignSystem.pillAlarmSwipeImage.trash
         deleteAction.font = .systemFont(ofSize: 17, weight: .heavy)
         deleteAction.hidesWhenSelected = true
         
-        return [deleteAction]
+        reviseAction.image = DesignSystem.pillAlarmSwipeImage.edit
+        reviseAction.font = .systemFont(ofSize: 17, weight: .heavy)
+        reviseAction.backgroundColor = DesignSystem.swipeColor.edit
+        reviseAction.hidesWhenSelected = true
+        
+        return [deleteAction, reviseAction]
     }
     
     

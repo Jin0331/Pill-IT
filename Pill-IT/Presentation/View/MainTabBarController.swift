@@ -17,7 +17,7 @@ final class MainTabBarController: WHTabbarController {
     private var secondVC : PillNotificationViewController!
     private let userNotificationCenter = UNUserNotificationCenter.current()
     private let repository = RealmRepository()
-    private let refresh = RefreshManager.shared
+//    private let refresh = RefreshManager.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,8 +32,6 @@ final class MainTabBarController: WHTabbarController {
             guard let self = self else { return }
             selectedIndex = 0
         }
-        
-        refresh.timerForResetNotification()
     }
     
     override func viewDidLayoutSubviews() {

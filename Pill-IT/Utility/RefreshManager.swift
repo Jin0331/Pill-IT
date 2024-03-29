@@ -14,44 +14,73 @@ final class RefreshManager {
     private init () {}
     
     private let repository = RealmRepository()
-    private let defaults = UserDefaults.standard
-    private let defaultsKey = "lastRefresh"
-    private let calender = Calendar.current
+    private let userDefaults = UserDefaults.standard
     private let userNotificationCenter = UNUserNotificationCenter.current()
+    
+//    func ifNeedRefresh(currentDate : Date) {
+//        
+//        let dateToStringForKey = currentDate.toStringTime(dateFormat: "yyyyMMdd")
+//        print(dateToStringForKey, "오늘 날짜 ✅✅✅✅✅✅", userDefaults.bool(forKey: dateToStringForKey))
+//        
+//        // false -> Timer 등록, true -> x
+//        if !userDefaults.bool(forKey: dateToStringForKey) {
+//            timerForResetNotification()
+//            userDefaults.setValue(true, forKey: dateToStringForKey)
+//        } else {
+//            print("이미 Timer가 한 번 실행되었습니다 🥲")
+//        }
+//        
+//        // 목록 확인
+//        userNotificationCenter.printPendingNotification()
+//    }
     
     
     func timerForResetNotification() {
+        
+        print("백그라운드 타이머입니다 🔆🔆🔆🔆🔆🔆🔆🔆🔆")
+        
         let calendar = Calendar.current
         let now = Date()
         let date = calendar.date(
-            bySettingHour: 00,
-            minute: 00,
-            second: 00,
+            bySettingHour: 0,
+            minute: 0,
+            second: 0,
             of: now)!
         
-        let timer = Timer(fireAt: date, interval: 0, target: self, selector: #selector(resetNotificationAction), userInfo: nil, repeats: false)
+        let timer = Timer(fireAt: date, interval: 24*60*60, target: self, selector: #selector(resetNotificationAction), userInfo: nil, repeats: true)
         
         RunLoop.main.add(timer, forMode: RunLoop.Mode.common)
     }
     
-    @objc private func resetNotificationAction() {
-        print("✅ 타이머 실행")
-        
-        let todayDate = Date()
-        let yesterDate = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
+    @objc func resetNotificationAction() {
+        let currentDate = Date()
+        let dateToStringForKey = currentDate.toStringTime(dateFormat: "yyyyMMdd")
+        print(dateToStringForKey, "오늘 날짜 ✅✅✅✅✅✅", userDefaults.bool(forKey: dateToStringForKey))
 
-        if let todayPillAlarmDateTable = repository.fetchPillAlarmDateItemIsDone(alaramDate: todayDate) {
-            // 현재 날짜의 모든 알림 등록
-            userNotificationCenter.addNotificationRequest(byList: todayPillAlarmDateTable)
-            userNotificationCenter.printPendingNotification()
-        } else { print("오늘의 알림이 없습니다 ✅") }
         
-        if let yesterDatePillAlarmDateTable = repository.fetchPillAlarmDateItemIsDone(alaramDate: yesterDate) {
-            // 어제 날짜의 모든 알림 삭제
-            userNotificationCenter.removeAllNotification(by: yesterDatePillAlarmDateTable)
-        } else { print("어제의 알림이 없습니다 ✅") }
+        print("Notification 등록 ✅")
+        if !userDefaults.bool(forKey: dateToStringForKey) {
+            userDefaults.setValue(true, forKey: dateToStringForKey)
+            
+            let todayDate = Date()
+            let yesterDate = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
 
-        // 목록 확인
-        userNotificationCenter.printPendingNotification()
+            if let todayPillAlarmDateTable = repository.fetchPillAlarmDateItemIsDone(alaramDate: todayDate) {
+                // 현재 날짜의 모든 알림 등록
+                userNotificationCenter.addNotificationRequest(byList: todayPillAlarmDateTable)
+                userNotificationCenter.printPendingNotification()
+            } else { print("오늘의 알림이 없습니다 ✅") }
+            
+            if let yesterDatePillAlarmDateTable = repository.fetchPillAlarmDateItemIsDone(alaramDate: yesterDate) {
+                // 어제 날짜의 모든 알림 삭제
+                userNotificationCenter.removeAllNotification(by: yesterDatePillAlarmDateTable)
+            } else { print("어제의 알림이 없습니다 ✅") }
+            
+            
+        } else {
+            print("이미 등록되었습니다 🥲")
+        }
+        
+
     }
 }

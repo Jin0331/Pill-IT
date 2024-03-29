@@ -10,6 +10,7 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    private let userNotificationCenter = UNUserNotificationCenter.current()
     private let repository = RealmRepository()
     private let refresh = RefreshManager.shared
 
@@ -39,6 +40,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         print("App terminated ✅ - isDeleted == true remove of PillAlarmTable!")
         repository.removeAllPillAlarmDateIsDeleted()
+        
+        userNotificationCenter.enterTerminatedNotification()
+        
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
@@ -65,7 +69,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         refresh.timerForResetNotification()
     }
-
-
 }
 

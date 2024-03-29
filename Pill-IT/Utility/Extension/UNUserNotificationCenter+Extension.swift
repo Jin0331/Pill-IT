@@ -64,6 +64,17 @@ extension UNUserNotificationCenter {
         self.add(request, withCompletionHandler: nil)
     }
     
+    func enterTerminatedNotification() {
+        let content = UNMutableNotificationContent()
+        content.title = "😭 삐릿을 강제 종료하셨네요 ㅠㅠ"
+        content.body = "알림이 도착하지 않을 수 있습니다. 삐릿을 실행해서 예정된 알림이 도착할 수 있도록 해주세요 😅"
+        content.sound = UNNotificationSound.default
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false) // 5초 후에 알림
+        let request = UNNotificationRequest(identifier: "terminated", content: content, trigger: trigger)
+        self.add(request, withCompletionHandler: nil)
+    }
+    
     //MARK: - 알림 삭제
     func removeAllNotification(by pillAlarm : [PillAlarmDate]) {
         

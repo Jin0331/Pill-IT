@@ -17,24 +17,6 @@ final class RefreshManager {
     private let userDefaults = UserDefaults.standard
     private let userNotificationCenter = UNUserNotificationCenter.current()
     
-//    func ifNeedRefresh(currentDate : Date) {
-//        
-//        let dateToStringForKey = currentDate.toStringTime(dateFormat: "yyyyMMdd")
-//        print(dateToStringForKey, "오늘 날짜 ✅✅✅✅✅✅", userDefaults.bool(forKey: dateToStringForKey))
-//        
-//        // false -> Timer 등록, true -> x
-//        if !userDefaults.bool(forKey: dateToStringForKey) {
-//            timerForResetNotification()
-//            userDefaults.setValue(true, forKey: dateToStringForKey)
-//        } else {
-//            print("이미 Timer가 한 번 실행되었습니다 🥲")
-//        }
-//        
-//        // 목록 확인
-//        userNotificationCenter.printPendingNotification()
-//    }
-    
-    
     func timerForResetNotification() {
         
         print("백그라운드 타이머입니다 🔆🔆🔆🔆🔆🔆🔆🔆🔆")
@@ -78,7 +60,8 @@ final class RefreshManager {
             
             
         } else {
-            print("이미 등록되었습니다 🥲")
+            print("이미 오늘의 Notification이 등록되었습니다 🥲")
+            userNotificationCenter.printPendingNotification()
         }
         
 

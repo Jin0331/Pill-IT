@@ -205,27 +205,32 @@ extension PillAlarmReviseItemViewController : PillAlarmReigsterAction {
     
     func completeButtonAction() {
         
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            mainView.setActivityIndicator()
-        }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
-            guard let self = self else { return }
-            guard let viewModel = viewModel else { print("PillAlarmReviseItemViewController - viewModel not init 🥲");return }
-            mainView.activityIndicator.stopAnimating()
-            mainView.loadingBgView.removeFromSuperview()
+        let confirmAction = UIAlertAction(title: "수정할래요", style: .default) { (action) in
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                mainView.setActivityIndicator()
+            }
             
-            
-            if let pillTitle = viewModel.outputGroupId.value, let alarmDateList = viewModel.outputAlarmDateList.value, let periodType = viewModel.outputPeriodType.value, let startDate = viewModel.outputStartDate.value, !pillTitle.isEmpty, viewModel.inputSelectedPill.value.count > 0 {
-                viewModel.revisePeriodTableTrigger.value = ()
-                NotificationCenter.default.post(name: Notification.Name("fetchPillAlarmTable"), object: nil)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
+                guard let self = self else { return }
+                guard let viewModel = viewModel else { print("PillAlarmReviseItemViewController - viewModel not init 🥲");return }
+                mainView.activityIndicator.stopAnimating()
+                mainView.loadingBgView.removeFromSuperview()
                 
-                dismiss(animated: true)
-            } else {
-                //                view.makeToast("입력된 값을 다시 확인해주세요 🥲", duration: 2, position: .center)
+                
+                if let pillTitle = viewModel.outputGroupId.value, let alarmDateList = viewModel.outputAlarmDateList.value, let periodType = viewModel.outputPeriodType.value, let startDate = viewModel.outputStartDate.value, !pillTitle.isEmpty, viewModel.inputSelectedPill.value.count > 0 {
+                    viewModel.revisePeriodTableTrigger.value = ()
+                    NotificationCenter.default.post(name: Notification.Name("fetchPillAlarmTable"), object: nil)
+                    
+                    dismiss(animated: true)
+                }
             }
         }
+        
+        let cancelAction = UIAlertAction(title: "취소할래요", style: .cancel)
+        confirmAction.setValue(UIColor.red, forKey: "titleTextColor")
+        
+        self.showAlert(title: "등록된 복용약 알림 전체 수정", message: "복용약 알림을 전체 수정하시겠습니까? 🤔", actions: [confirmAction, cancelAction])
     }
     
 }

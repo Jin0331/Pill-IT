@@ -113,23 +113,30 @@ extension PillAlarmReviseDateViewController : PillSpecificAction {
     func completeButtonAction() {
         print(#function)
         
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            guard let viewModel = viewModel else { return }
-            
-            mainView.setActivityIndicator()
-            viewModel.revisePeriodTableTrigger.value = ()
+        let confirmAction = UIAlertAction(title: "수정할래요", style: .default) { (action) in
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                guard let viewModel = viewModel else { return }
+                
+                mainView.setActivityIndicator()
+                viewModel.revisePeriodTableTrigger.value = ()
 
-            NotificationCenter.default.post(name: Notification.Name("fetchPillAlarmTable"), object: nil)
+                NotificationCenter.default.post(name: Notification.Name("fetchPillAlarmTable"), object: nil)
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) { [weak self] in
+                guard let self = self else { return }
+                mainView.activityIndicator.stopAnimating()
+                mainView.loadingBgView.removeFromSuperview()
+                
+                dismiss(animated: true)
+            }
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) { [weak self] in
-            guard let self = self else { return }
-            mainView.activityIndicator.stopAnimating()
-            mainView.loadingBgView.removeFromSuperview()
-            
-            dismiss(animated: true)
-        }
+        let cancelAction = UIAlertAction(title: "취소할래요", style: .cancel)
+        confirmAction.setValue(UIColor.red, forKey: "titleTextColor")
+        
+        self.showAlert(title: "등록된 복용약 알림 전체 수정", message: "복용약 알림을 전체 수정하시겠습니까? 🤔", actions: [confirmAction, cancelAction])
     }
 }
 

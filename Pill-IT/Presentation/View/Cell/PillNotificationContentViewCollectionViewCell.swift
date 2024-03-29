@@ -78,7 +78,7 @@ final class PillNotificationContentViewCollectionViewCell: BaseCollectionViewCel
         notiDoneButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview().inset(25)
             make.centerY.equalToSuperview()
-            make.size.equalTo(60)
+            make.size.equalTo(45)
         }
         
         
@@ -102,11 +102,11 @@ final class PillNotificationContentViewCollectionViewCell: BaseCollectionViewCel
         alarmTitleLabel.text = itemIdentifier.alarmName
         
         if itemIdentifier.isDone {
-            notiDoneButton.setImage(DesignSystem.imageByGY.check, for: .normal)
+            notiDoneButton.setImage(DesignSystem.imageByGY.pillIcon, for: .normal)
             notiDoneButton.alpha = 0.8
         } else {
-            notiDoneButton.setImage(DesignSystem.imageByGY.checkFalse, for: .normal)
-            notiDoneButton.alpha = 0.05
+            notiDoneButton.setImage(DesignSystem.imageByGY.pillIcon, for: .normal)
+            notiDoneButton.alpha = 0.1
         }
     }
     

@@ -308,6 +308,26 @@ final class RealmRepository {
         }
     }
     
+    func updatePillAlarmDateRevise(_ _id : ObjectId, _ reviseDate : Date) {
+        guard let table = realm.object(ofType:PillAlarmDate.self, forPrimaryKey: _id) else { return }
+        
+        // 기존 노티 삭제
+        userNotificationCenter.removePendingNotificationRequests(withIdentifiers: [table.idToString])
+        
+        do {
+            try realm.write {
+                table.alarmDate = reviseDate
+                table.isDone = false
+                table.upDate = Date()
+            }
+        } catch {
+            print(error)
+        }
+        
+        // 노티 재등록
+        userNotificationCenter.addNotificationRequest(by: table)
+    }
+    
     func updatePillAlarmisDoneTrue(_ _id : ObjectId) {
         guard let table = realm.object(ofType:PillAlarmDate.self, forPrimaryKey: _id) else { return }
         

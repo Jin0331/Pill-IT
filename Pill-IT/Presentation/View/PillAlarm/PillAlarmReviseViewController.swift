@@ -98,8 +98,8 @@ extension PillAlarmReviseViewController {
         
         navigationController?.navigationBar.titleTextAttributes =  [NSAttributedString.Key.foregroundColor: DesignSystem.colorSet.lightBlack]
         
-        let deleteButton = UIButton(frame: CGRect(x: 0, y: 20, width: 130, height: 40)).then {
-            $0.setTitle(" 알림 삭제하기", for: .normal)
+        let deleteButton = UIButton(frame: CGRect(x: 0, y: 20, width: 150, height: 40)).then {
+            $0.setTitle(" 복용약 그룹 삭제", for: .normal)
             $0.titleLabel?.font = .systemFont(ofSize: 15, weight: .heavy)
             $0.setTitleColor(DesignSystem.colorSet.white, for: .normal)
             $0.tintColor = DesignSystem.colorSet.white
@@ -133,7 +133,7 @@ extension PillAlarmReviseViewController {
         let cancelAction = UIAlertAction(title: "취소할래요", style: .cancel)
         confirmAction.setValue(UIColor.red, forKey: "titleTextColor")
         
-        self.showAlert(title: "등록된 복용약 알림 삭제", message: "등록된 복용약 알림을 삭제하시겠습니까? 🥲", actions: [confirmAction, cancelAction])
+        self.showAlert(title: "복용약 그룹 삭제", message: "등록된 복용약 및 모든 알림을 삭제하시겠습니까? 🥲", actions: [confirmAction, cancelAction])
     }
     
     @objc private func rightBarButtonClicked() {

@@ -218,7 +218,7 @@ extension PillAlarmReviseItemViewController : PillAlarmReigsterAction {
                 mainView.loadingBgView.removeFromSuperview()
                 
                 
-                if let pillTitle = viewModel.outputGroupId.value, let alarmDateList = viewModel.outputAlarmDateList.value, let periodType = viewModel.outputPeriodType.value, let startDate = viewModel.outputStartDate.value, !pillTitle.isEmpty, viewModel.inputSelectedPill.value.count > 0 {
+                if let pillTitle = viewModel.inputAlarmName.value, let alarmDateList = viewModel.outputAlarmDateList.value, let periodType = viewModel.outputPeriodType.value, let startDate = viewModel.outputStartDate.value, !pillTitle.isEmpty, viewModel.inputSelectedPill.value.count > 0 {
                     viewModel.revisePeriodTableTrigger.value = ()
                     NotificationCenter.default.post(name: Notification.Name("fetchPillAlarmTable"), object: nil)
                     

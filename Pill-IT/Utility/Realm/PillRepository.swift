@@ -28,12 +28,12 @@ final class RealmRepository {
         }
     }
     
-    func upsertPillAlarm(alarmName : String, pillList : List<Pill>, type : String, typeTitle : String,
+    func upsertPillAlarm(pk: ObjectId, alarmName : String, pillList : List<Pill>, type : String, typeTitle : String,
                          alarmStartDate : Date, alarmDate : List<PillAlarmDate>) {
         
         do {
             try realm.write {
-                realm.create(PillAlarm.self, value: ["alarmName": alarmName, "pillList": pillList,
+                realm.create(PillAlarm.self, value: ["_id":pk, "alarmName": alarmName, "pillList": pillList,
                                                      "type": type, "typeTitle" : typeTitle,
                                                      "alarmStartDate": alarmStartDate,
                                                      "alarmDate":alarmDate,
@@ -66,14 +66,11 @@ final class RealmRepository {
     
     func fetchPillExist(alarmName : String) -> Bool {
         
-        let table = fetchPillAlarmSpecific(alarmName: alarmName)
+        guard let table = fetchPillAlarm(alarmName: alarmName) else { return false }
         
-        if table != nil {
-            return true
-        } else {
-            return false
-        }
+        return table.isEmpty ? false : true
     }
+    
     
     //MARK: - Pill Search
     func fetchPillItem() -> [Pill]? {
@@ -99,8 +96,9 @@ final class RealmRepository {
         return Array(table)
     }
     
-    func fetchPillAlarmSpecific(alarmName : String) -> PillAlarm?{
-        guard let table = realm.object(ofType:PillAlarm.self, forPrimaryKey: alarmName) else { return nil }
+    // PK로 검색하는 경우
+    func fetchPillAlarmSpecific(_id : ObjectId) -> PillAlarm?{
+        guard let table = realm.object(ofType:PillAlarm.self, forPrimaryKey: _id) else { return nil }
         
         return table
     }
@@ -216,11 +214,11 @@ final class RealmRepository {
     }
     
     //MARK: - 삭제 로직
-    func updatePillAlarmRealtionIsDelete(_ alarmName : String) {
-        guard let table = realm.object(ofType:PillAlarm.self, forPrimaryKey: alarmName) else { return }
+    func updatePillAlarmRealtionIsDelete(_ _id : ObjectId) {
+        guard let table = realm.object(ofType:PillAlarm.self, forPrimaryKey: _id) else { return }
         
         // 기존 존재하던 PillAlarm Table is delete True
-        updatePillAlarmDateAllIsDelete(alarmName: alarmName)
+        updatePillAlarmDateAllIsDelete(alarmName: table.alarmName)
         
         do {
             try realm.write {
@@ -263,8 +261,8 @@ final class RealmRepository {
             // alarm Talbe을 순회하며, Pill이 isDelete가 false count 조회 후 1 이하이면 AlarmTable isDelete true
             alarmTable.forEach {
                 if $0.pillList.filter({ $0.isDeleted == false }).count == 1 {
-                    updatePillAlarmRealtionIsDelete($0.alarmName) // 해당 그룹에 연관된 Date 모두 삭제
-                    updatePillAlarmDelete($0.alarmName)
+                    updatePillAlarmRealtionIsDelete($0._id) // 해당 그룹에 연관된 Date 모두 삭제
+                    updatePillAlarmDelete($0._id)
                     print($0.alarmName, "에 포함된 Pill 없으므로 삭제됩니다. ⭕️⭕️⭕️⭕️⭕️⭕️⭕️⭕️")
                 }
             }
@@ -294,11 +292,12 @@ final class RealmRepository {
         }
     }
     
-    func updatePillAlarmDelete(_ alarmName : String) {
-        guard let table = realm.object(ofType:PillAlarm.self, forPrimaryKey: alarmName) else { return }
+    func updatePillAlarmDelete(_ _id : ObjectId) {
+        guard let table = realm.object(ofType:PillAlarm.self, forPrimaryKey: _id) else { return }
         
         do {
             try realm.write {
+                table.alarmName = table.alarmName + "_deleted_" + table.upDate.toStringTime(dateFormat: "yyyyMMdd")
                 table.isDeleted = true
                 table.upDate = Date()
             }

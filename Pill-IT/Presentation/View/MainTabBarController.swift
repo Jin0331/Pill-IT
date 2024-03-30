@@ -17,7 +17,7 @@ final class MainTabBarController: WHTabbarController {
     private var secondVC : PillNotificationViewController!
     private let userNotificationCenter = UNUserNotificationCenter.current()
     private let repository = RealmRepository()
-//    private let refresh = RefreshManager.shared
+    //    private let refresh = RefreshManager.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,9 +88,15 @@ extension MainTabBarController : PillListAction {
 //MARK: - local notification
 extension MainTabBarController : UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        // Handle the notification tap here
-        if response.actionIdentifier == UNNotificationDefaultActionIdentifier {
-            
+        
+        switch response.actionIdentifier {
+        // notification action
+        case "piliComplete" :
+            let notificationIdentifier = response.notification.request.identifier
+            guard let pk = repository.stringToObjectId(notificationIdentifier) else { return }
+            repository.updatePillAlarmisDoneTrue(pk)
+            NotificationCenter.default.post(name: Notification.Name("fetchPillAlarmTableForNotification"), object: nil, userInfo: ["date": Date()])
+        default :
             let notificationIdentifier = response.notification.request.identifier
             if notificationIdentifier == "terminated" {
                 selectedIndex = 0
@@ -113,20 +119,24 @@ extension MainTabBarController : UNUserNotificationCenterDelegate {
                 
                 self.showAlert(title: "복용 완료", message: "복용하셨나요? 🔆", actions: [confirmAction, cancelAction])
             }
-
-            // notification action
-            switch response.actionIdentifier {
-            case "piliComplete" :
-                let notificationIdentifier = response.notification.request.identifier
+            
+            let confirmAction = UIAlertAction(title: "먹었습니다 💊", style: .default) { [weak self] (action) in
+                guard let self = self else { return }
                 guard let pk = repository.stringToObjectId(notificationIdentifier) else { return }
                 repository.updatePillAlarmisDoneTrue(pk)
+                
                 NotificationCenter.default.post(name: Notification.Name("fetchPillAlarmTableForNotification"), object: nil, userInfo: ["date": Date()])
-            default :
-                break
-            }
             }
             
-
+            let cancelAction = UIAlertAction(title: "아니요 😅", style: .cancel) { [weak self] (action) in
+                guard let _ = self else { return }
+                NotificationCenter.default.post(name: Notification.Name("fetchPillAlarmTableForNotification"), object: nil, userInfo: ["date": Date()])
+            }
+            confirmAction.setValue(UIColor.red, forKey: "titleTextColor")
+            
+            self.showAlert(title: "복용 완료", message: "복용하셨나요? 🔆", actions: [confirmAction, cancelAction])
+        }
+        
         completionHandler()
     }
     
@@ -137,4 +147,4 @@ extension MainTabBarController : UNUserNotificationCenterDelegate {
         completionHandler([.banner, .list, .badge, .sound])
     }
 }
-                           
+

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 final class PillManagementViewModel {
     
@@ -19,7 +20,7 @@ final class PillManagementViewModel {
     var fetchPillAlarmItemTrigger : Observable<Void?> = Observable(nil)
     var updatePillItemisDeleteTrigger : Observable<Pill?> = Observable(nil)
     var removePillItemRemoveTrigger : Observable<Pill?> = Observable(nil)
-    var fetchPillPeriodTitleStartDate : Observable<String?> = Observable(nil)
+    var fetchPillPeriodTitleStartDate : Observable<ObjectId?> = Observable(nil)
     
     init() {
         transform()
@@ -52,7 +53,7 @@ final class PillManagementViewModel {
             guard let self = self else { return }
             guard let value = value else { return }
             
-            guard let table = repository.fetchPillAlarmSpecific(alarmName: value) else { return }
+            guard let table = repository.fetchPillAlarmSpecific(_id: value) else { return }
             outputTypeTitleWithStartDate.value = table.typeTitleWithStartDate
         }
     }

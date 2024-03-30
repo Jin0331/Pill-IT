@@ -12,12 +12,12 @@ final class PopUpPillAlarmGroupViewModel {
     
     var inputCurrentGroupPK : Observable<ObjectId?> = Observable(nil)
     var inputCurrentDate : Observable<Date?> = Observable(nil)
-    var inputCurrentGroupID : Observable<String?> = Observable(nil)
+    var inputCurrentGroupID : Observable<ObjectId?> = Observable(nil)
     var inputCurrentDateAlarmPill : Observable<[Pill]?> = Observable(nil)
     
     var outputCurrentGroupPK : Observable<ObjectId?> = Observable(nil)
     var outputCurrentDate : Observable<Date?> = Observable(nil)
-    var outputCurrentGroupID : Observable<String?> = Observable(nil)
+    var outputCurrentGroupID : Observable<ObjectId?> = Observable(nil)
     var outputCurrentDateAlarmPill : Observable<[Pill]?> = Observable(nil)
     
     init() {

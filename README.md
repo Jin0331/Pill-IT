@@ -71,5 +71,6 @@
   
 
 ## 🔆  **Database Schema**
-![DatabaseSchema](https://github.com/Jin0331/Pill-IT/assets/42958809/ffa5f389-d915-485a-8b02-f704d6569cb1)
+ ![DatabaseSchema](https://github.com/Jin0331/Pill-IT/assets/42958809/d40541b6-5bde-4590-9b90-8f38b45556f3)
+
 

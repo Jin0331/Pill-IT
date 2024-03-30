@@ -152,7 +152,7 @@ extension PillNotificationContentViewController : SwipeCollectionViewCellDelegat
                 let cancelAction = UIAlertAction(title: "취소할래요", style: .cancel)
                 confirmAction.setValue(UIColor.red, forKey: "titleTextColor")
                 
-                self.showAlert(title: "등록된 복용약 알림 시간 수정", message: "알림 시간을 수정하시겠습니까? 🔆", actions: [confirmAction, cancelAction])
+                self.showAlert(title: "등록된 복용약 알림 시간 수정", message: "해당 일의 알림에만 적용됩니다.\n알림 시간을 수정하시겠습니까? 🔆", actions: [confirmAction, cancelAction])
             }
             
             let cancle = UIAlertAction(title: "취소", style: .cancel)

@@ -141,4 +141,19 @@ extension Calendar {
         
         return calendar.date(from: dateComponents)!
     }
+    
+    func hourMinuteRevise(old : Date, new : Date) -> Date{
+        let calendar = Calendar.current
+        let pickerDateComponents = calendar.dateComponents([.hour, .minute], from: new)
+        let oldDateComponents = calendar.dateComponents([.year, .month, .day], from: old)
+        
+        var newDateComponents = DateComponents()
+        newDateComponents.year = oldDateComponents.year!
+        newDateComponents.month = oldDateComponents.month!
+        newDateComponents.day = oldDateComponents.day!
+        newDateComponents.hour = pickerDateComponents.hour!
+        newDateComponents.minute = pickerDateComponents.minute!
+        
+        return calendar.date(from: newDateComponents)!
+    }
 }

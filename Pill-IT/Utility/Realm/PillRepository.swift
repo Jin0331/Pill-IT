@@ -117,10 +117,23 @@ final class RealmRepository {
         let targetDate = Calendar.current.startOfDay(for: alaramDate)
         let table = realm.objects(PillAlarmDate.self).filter("alarmDate >= %@ AND alarmDate < %@", targetDate, Calendar.current.date(byAdding: .day, value: 1, to: targetDate)!)
             .where {
-                $0.alarmGroup.isDeleted == false && $0.isDeleted == false
+                $0.alarmGroup.isDeleted == false &&
+                $0.isDeleted == false
             }.sorted(byKeyPath: "alarmDate", ascending: true)
         
         return Array(table)
+    }
+    
+    // Alarm group에서 동일한 시간이 있는지 없는지 판단
+    func fetchPillAlarmDateItemIsEqual(alarmName : String, alaramDate : Date) -> Bool {
+        let table = realm.objects(PillAlarmDate.self).filter("alarmDate == %@", alaramDate)
+            .where {
+                $0.alarmName == alarmName &&
+                $0.alarmGroup.isDeleted == false &&
+                $0.isDeleted == false
+            }
+        
+        return table.isEmpty
     }
     
     // Notification Update에서 사용되는 함수
@@ -137,13 +150,12 @@ final class RealmRepository {
     // Notification Update에서 사용되는 함수
     func fetchPillAlarmDateAndUpdateNotification(alarmName : String) -> [PillAlarmDate]? {
         let currentDate = Date() // 현재 시간
-        let targetDate = Calendar.current.startOfDay(for: currentDate)
-        
-        print(targetDate, "✅✅✅✅✅✅✅✅✅ targetDate")
-        print(currentDate, "✅✅✅✅✅✅✅✅✅ current Date")
-        
+    
         // 현재 시간보다 이른 시간은 isDone = true 처리함 ,, 나중에 필요한 경우 사용
         /*
+         let targetDate = Calendar.current.startOfDay(for: currentDate)
+         print(targetDate, "✅✅✅✅✅✅✅✅✅ targetDate")
+         print(currentDate, "✅✅✅✅✅✅✅✅✅ current Date")
                  let isDoneUpdateTable = realm.objects(PillAlarmDate.self).where {
                      $0.alarmName == alarmName && $0.isDeleted == false && $0.isDone == false
                  }.filter("alarmDate >= %@ AND alarmDate < %@", targetDate, currentDate)
@@ -310,22 +322,28 @@ final class RealmRepository {
     
     func updatePillAlarmDateRevise(_ _id : ObjectId, _ reviseDate : Date) {
         guard let table = realm.object(ofType:PillAlarmDate.self, forPrimaryKey: _id) else { return }
-        
+        let newAlarmDate = Calendar.current.hourMinuteRevise(old: table.alarmDate, new: reviseDate)
         // 기존 노티 삭제
         userNotificationCenter.removePendingNotificationRequests(withIdentifiers: [table.idToString])
         
-        do {
-            try realm.write {
-                table.alarmDate = reviseDate
-                table.isDone = false
-                table.upDate = Date()
+        if fetchPillAlarmDateItemIsEqual(alarmName: table.alarmName, alaramDate: newAlarmDate) {
+            // 수정된 시간에서 시간 분 추출
+            do {
+                try realm.write {
+                    table.alarmDate = newAlarmDate
+                    table.isDone = false
+                    table.upDate = Date()
+                }
+            } catch {
+                print(error)
             }
-        } catch {
-            print(error)
+            
+            // 노티 재등록
+            userNotificationCenter.addNotificationRequest(by: table)
+        } else {
+            updatePillAlarmDateDelete(_id)
         }
         
-        // 노티 재등록
-        userNotificationCenter.addNotificationRequest(by: table)
     }
     
     func updatePillAlarmisDoneTrue(_ _id : ObjectId) {

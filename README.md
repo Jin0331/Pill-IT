@@ -64,4 +64,12 @@
 
   ​	***SwipeableTabBarController+WHTabbar+Parchment+Tabman*** - 다수의 UITabBarController Library를 활용한 사용자 친화적 UI 구성
 
-  ​	
+* 버전 관리
+
+  ​	***Git(Git-Flow 적용), Github***
+
+  
+
+## 🔆  **Database Schema**
+![DatabaseSchema](https://github.com/Jin0331/Pill-IT/assets/42958809/ffa5f389-d915-485a-8b02-f704d6569cb1)
+

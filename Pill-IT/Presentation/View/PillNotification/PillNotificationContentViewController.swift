@@ -77,8 +77,7 @@ final class PillNotificationContentViewController: BaseViewController {
             cell.viewModel.inputCurrentGroupPK.value = itemIdentifier._id
             cell.viewModel.inputCurrentDate.value = itemIdentifier.alarmDate
             cell.viewModel.inputCurrentDateAlarmPill.value = Array(pillList)
-            cell.viewModel.inputCurrentGroupID.value = itemIdentifier.alarmName
-            
+            cell.viewModel.inputCurrentGroupID.value = itemIdentifier.alarmGroup.first?._id
             return cell
         })
     }
@@ -212,7 +211,7 @@ extension PillNotificationContentViewController : PillNotificationAction {
         self.showAlert(title: "복용 완료", message: "복용하셨나요? 🔆", actions: [confirmAction, cancelAction])
     }
     
-    func containPillButton(_ groupID : String?, _ data : [Pill]?) {
+    func containPillButton(_ groupID : ObjectId?, _ data : [Pill]?) {
         
         guard let groupID = groupID else { return }
         

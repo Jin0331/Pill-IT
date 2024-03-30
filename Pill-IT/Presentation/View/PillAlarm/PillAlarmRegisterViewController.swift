@@ -199,7 +199,7 @@ extension PillAlarmRegisterViewController : PillAlarmReigsterAction {
             mainView.activityIndicator.stopAnimating()
             mainView.loadingBgView.removeFromSuperview()
             
-            if let pillTitle = viewModel.outputGroupId.value, let alarmDateList = viewModel.outputAlarmDateList.value, let periodType = viewModel.outputPeriodType.value, let startDate = viewModel.outputStartDate.value, !pillTitle.isEmpty, viewModel.inputSelectedPill.value.count > 0 {
+            if let pillTitle = viewModel.outputAlarmName.value, let alarmDateList = viewModel.outputAlarmDateList.value, let periodType = viewModel.outputPeriodType.value, let startDate = viewModel.outputStartDate.value, !pillTitle.isEmpty, viewModel.inputSelectedPill.value.count > 0 {
                 
                 let vc = PillAlarmSpecificViewController()
                 vc.viewModel = viewModel
@@ -246,7 +246,7 @@ extension PillAlarmRegisterViewController : UITextFieldDelegate {
                 view.makeToast("이미 등록된 복용약 알림 이릅입니다. \n다른 이름을 사용해주세요 🥲", duration: 2.5, position: .center)
                 textField.text = nil
             } else {
-                viewModel.inputGroupId.value = textTrimmed
+                viewModel.inputAlarmName.value = textTrimmed
             }
         }
     }

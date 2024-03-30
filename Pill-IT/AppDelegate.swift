@@ -8,10 +8,11 @@
 import UIKit
 import NotificationCenter
 import UserNotifications
+import RealmSwift
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
     let userNotificationCenter = UNUserNotificationCenter.current()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -30,24 +31,44 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Thread.sleep(forTimeInterval: 1)
         
+        // realm migration
+        var _id = 0
+        print(Realm.Configuration().fileURL)
+        
+        let configuration = Realm.Configuration(schemaVersion: 1) { migration, oldSchemeVersion in
+            if oldSchemeVersion < 1 {
+                print("Schema : 0 -> 1")
+                migration.enumerateObjects(ofType: PillAlarm.className()) { oldObject, newObject in
+                    
+                    guard let new = newObject else { return }
+                    guard let old = oldObject else { return }
+                    
+                    new["alarmName"] = old["alarmName"] as! String
+                    new["_id"] = ObjectId.generate()
+                }
+            }
+        }
+        
+        Realm.Configuration.defaultConfiguration = configuration
+        
         return true
     }
-
+    
     // MARK: UISceneSession Lifecycle
-
+    
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         // Called when a new scene session is being created.
         // Use this method to select a configuration to create the new scene with.
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
-
+    
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
         // Called when the user discards a scene session.
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
-
-
+    
+    
 }
 
 
@@ -65,5 +86,5 @@ extension AppDelegate: UNUserNotificationCenterDelegate{
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         completionHandler()
     }
-
+    
 }

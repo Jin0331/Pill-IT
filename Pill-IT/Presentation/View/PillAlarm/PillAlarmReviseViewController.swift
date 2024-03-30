@@ -91,7 +91,7 @@ extension PillAlarmReviseViewController {
         navigationController?.navigationBar.barTintColor = DesignSystem.colorSet.white
         
         // title 크게
-        navigationItem.title = "⚠️" + viewModel.inputGroupId.value! + " - 수정하기"
+        navigationItem.title = "⚠️" + viewModel.inputAlarmName.value! + " - 수정하기"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.largeTitleTextAttributes =  [NSAttributedString.Key.foregroundColor: DesignSystem.colorSet.lightBlack,
                                                                          NSAttributedString.Key.font: UIFont.systemFont(ofSize: 22, weight: .heavy)]

@@ -21,7 +21,7 @@ final class PillNotificationViewModel {
     var updatePillItemisDeleteTrigger : Observable<PillAlarmDate?> = Observable(nil)
     var updatePillItemisDoneTrueTrigger : Observable<ObjectId?> = Observable(nil)
     var updatePillItemisDoneFalseTrigger : Observable<ObjectId?> = Observable(nil)
-    var fetchPillPeriodTitleStartDate : Observable<String?> = Observable(nil)
+    var fetchPillPeriodTitleStartDate : Observable<ObjectId?> = Observable(nil)
     
     init() {
         transform()
@@ -73,7 +73,7 @@ final class PillNotificationViewModel {
             guard let self = self else { return }
             guard let value = value else { return }
             
-            guard let table = repository.fetchPillAlarmSpecific(alarmName: value) else { return }
+            guard let table = repository.fetchPillAlarmSpecific(_id: value) else { return }
             outputTypeTitleWithStartDate.value = table.typeTitleWithStartDate
         }
     }

@@ -141,12 +141,13 @@ extension PillNotificationContentViewController : SwipeCollectionViewCellDelegat
             let select = UIAlertAction(title: "선택 완료", style: .default) { [weak self] action in
                 guard let self = self else { return }
                 guard let pk = self.dataSource.itemIdentifier(for: indexPath)?._id else { return }
+                guard let currentDate = self.dataSource.itemIdentifier(for: indexPath)?.alarmDate else { return }
                 
                 let confirmAction = UIAlertAction(title: "수정할래요", style: .default) { (action) in
                  
                     // 다른 날 수정할 때, 해당 일이 아닌 Date()로 처리되어 오늘로 날이 수정 됨
                     self.viewModel.updatePillItemDateTrigger.value = (pk, datePicker.date)
-                    NotificationCenter.default.post(name: Notification.Name("fetchPillAlarmTableForNotification"), object: nil, userInfo: ["date": datePicker.date])
+                    NotificationCenter.default.post(name: Notification.Name("fetchPillAlarmTableForNotification"), object: nil, userInfo: ["date": currentDate])
                 }
                 
                 let cancelAction = UIAlertAction(title: "취소할래요", style: .cancel)

@@ -135,50 +135,24 @@ final class RealmRepository {
     }
     
     // Notification Update에서 사용되는 함수
-    func fetchPillAlarmDateItemIsDone(alaramDate : Date) -> [PillAlarmDate]? {
+    func fetchPillAlarmDateAndUpdateNotification(alaramDate : Date) -> [PillAlarmDate]? {
         let targetDate = Calendar.current.startOfDay(for: alaramDate)
-        let table = realm.objects(PillAlarmDate.self).filter("alarmDate >= %@ AND alarmDate < %@", targetDate, Calendar.current.date(byAdding: .day, value: 1, to: targetDate)!)
+        let notificationTable = realm.objects(PillAlarmDate.self).filter("alarmDate >= %@ AND alarmDate < %@", targetDate, Calendar.current.date(byAdding: .day, value: 2, to: targetDate)!)
             .where {
                 $0.alarmGroup.isDeleted == false && $0.isDeleted == false && $0.isDone == false
             }.sorted(byKeyPath: "alarmDate", ascending: true)
         
-        return Array(table)
+        return Array(notificationTable)
     }
     
     // Notification Update에서 사용되는 함수
     func fetchPillAlarmDateAndUpdateNotification(alarmName : String) -> [PillAlarmDate]? {
         let currentDate = Date() // 현재 시간
-    
-        // 현재 시간보다 이른 시간은 isDone = true 처리함 ,, 나중에 필요한 경우 사용
-        /*
-         let targetDate = Calendar.current.startOfDay(for: currentDate)
-         print(targetDate, "✅✅✅✅✅✅✅✅✅ targetDate")
-         print(currentDate, "✅✅✅✅✅✅✅✅✅ current Date")
-                 let isDoneUpdateTable = realm.objects(PillAlarmDate.self).where {
-                     $0.alarmName == alarmName && $0.isDeleted == false && $0.isDone == false
-                 }.filter("alarmDate >= %@ AND alarmDate < %@", targetDate, currentDate)
-         
-                 print(isDoneUpdateTable, "✅✅✅✅✅✅✅✅✅ targetDate")
-         
-                 do {
-                     try realm.write {
-                         for item in isDoneUpdateTable {
-                             item.isDone = true
-                             item.upDate = Date()
-                         }
-                     }
-                 } catch {
-                     print(error)
-                 }
-         
-         //        print(isDoneUpdateTable)
-         */
-
         // 현재 시간보다 다음시간의 table을 조회한다
-        let notificationTable = realm.objects(PillAlarmDate.self).where {
-            $0.alarmName == alarmName && $0.isDeleted == false && $0.isDone == false
-        }
-            .filter("alarmDate >= %@ AND alarmDate < %@", currentDate, Calendar.current.date(byAdding: .day, value: 1, to: currentDate)!) // 오늘 날짜로 제한 검
+        let notificationTable = realm.objects(PillAlarmDate.self).filter("alarmDate >= %@ AND alarmDate < %@", currentDate, Calendar.current.date(byAdding: .day, value: 2, to: currentDate)!) // 오늘 날짜로 제한 검
+            .where {
+                $0.alarmName == alarmName && $0.isDeleted == false && $0.isDone == false
+            }
             .sorted(byKeyPath: "alarmDate", ascending: false) // LIFO이므로 최근 데이터가 마지막에 들어가도록
         
         return Array(notificationTable)
@@ -429,3 +403,30 @@ final class RealmRepository {
         }
     }
 }
+
+
+
+    // 현재 시간보다 이른 시간은 isDone = true 처리함 ,, 나중에 필요한 경우 사용
+    /*
+     let targetDate = Calendar.current.startOfDay(for: currentDate)
+     print(targetDate, "✅✅✅✅✅✅✅✅✅ targetDate")
+     print(currentDate, "✅✅✅✅✅✅✅✅✅ current Date")
+             let isDoneUpdateTable = realm.objects(PillAlarmDate.self).where {
+                 $0.alarmName == alarmName && $0.isDeleted == false && $0.isDone == false
+             }.filter("alarmDate >= %@ AND alarmDate < %@", targetDate, currentDate)
+     
+             print(isDoneUpdateTable, "✅✅✅✅✅✅✅✅✅ targetDate")
+     
+             do {
+                 try realm.write {
+                     for item in isDoneUpdateTable {
+                         item.isDone = true
+                         item.upDate = Date()
+                     }
+                 }
+             } catch {
+                 print(error)
+             }
+     
+     //        print(isDoneUpdateTable)
+     */

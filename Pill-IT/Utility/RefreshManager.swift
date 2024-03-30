@@ -45,15 +45,15 @@ final class RefreshManager {
             userDefaults.setValue(true, forKey: dateToStringForKey)
             
             let todayDate = Date()
-            let yesterDate = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
+            let yesterDate = Calendar.current.date(byAdding: .day, value: -2, to: Date())!
 
-            if let todayPillAlarmDateTable = repository.fetchPillAlarmDateItemIsDone(alaramDate: todayDate) {
+            if let todayPillAlarmDateTable = repository.fetchPillAlarmDateAndUpdateNotification(alaramDate: todayDate) {
                 // 현재 날짜의 모든 알림 등록
                 userNotificationCenter.addNotificationRequest(byList: todayPillAlarmDateTable)
                 userNotificationCenter.printPendingNotification()
             } else { print("오늘의 알림이 없습니다 ✅") }
             
-            if let yesterDatePillAlarmDateTable = repository.fetchPillAlarmDateItemIsDone(alaramDate: yesterDate) {
+            if let yesterDatePillAlarmDateTable = repository.fetchPillAlarmDateAndUpdateNotification(alaramDate: yesterDate) {
                 // 어제 날짜의 모든 알림 삭제
                 userNotificationCenter.removeAllNotification(by: yesterDatePillAlarmDateTable)
             } else { print("어제의 알림이 없습니다 ✅") }

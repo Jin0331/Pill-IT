@@ -99,9 +99,9 @@
 
 2. ``sceneDidBecomeActive`` (앱이 Terminated 된 후 다시 실행되었을 때)
 
-   PillAlarmDate Table로부터 D-1,D+0,D+1 Date에 해당하는 알림 목록 Fetch하고 ``Local Notification``을 등록하는 함수(RefreshManager.shared.resetNotificationAction) 실행
+   PillAlarmDate Table로부터 ``D-1,D+0,D+1 Date``에 해당하는 알림 목록 Fetch하고 ``Local Notification``을 등록하는 함수(RefreshManager.shared.resetNotificationAction) 실행
 
-   ​	-> 앱이 Active 될때마다 실행되므로, UserDefault를 활용하여 D+0에서 최초 1번 실행한 경우에는 이후 부터 실행되지 않음
+   ​	-> 앱이 Active 될때마다 실행되므로, ``UserDefault를 활용하여 D+0에서 최초 1번 실행``한 경우에는 이후 부터 실행되지 않음
 
    ​	-> 앱이 sceneDidDisconnect 된 경우 알림이 제대로 동작하지 않으므로, 사용자가 다시 앱을 실행할 수 있도록 Local Notification으로 유도
 

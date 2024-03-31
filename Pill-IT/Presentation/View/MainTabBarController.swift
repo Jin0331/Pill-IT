@@ -119,22 +119,6 @@ extension MainTabBarController : UNUserNotificationCenterDelegate {
                 
                 self.showAlert(title: "복용 완료", message: "복용하셨나요? 🔆", actions: [confirmAction, cancelAction])
             }
-            
-            let confirmAction = UIAlertAction(title: "먹었습니다 💊", style: .default) { [weak self] (action) in
-                guard let self = self else { return }
-                guard let pk = repository.stringToObjectId(notificationIdentifier) else { return }
-                repository.updatePillAlarmisDoneTrue(pk)
-                
-                NotificationCenter.default.post(name: Notification.Name("fetchPillAlarmTableForNotification"), object: nil, userInfo: ["date": Date()])
-            }
-            
-            let cancelAction = UIAlertAction(title: "아니요 😅", style: .cancel) { [weak self] (action) in
-                guard let _ = self else { return }
-                NotificationCenter.default.post(name: Notification.Name("fetchPillAlarmTableForNotification"), object: nil, userInfo: ["date": Date()])
-            }
-            confirmAction.setValue(UIColor.red, forKey: "titleTextColor")
-            
-            self.showAlert(title: "복용 완료", message: "복용하셨나요? 🔆", actions: [confirmAction, cancelAction])
         }
         
         completionHandler()

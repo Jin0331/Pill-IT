@@ -190,9 +190,9 @@ extension PillManagementViewController : UICollectionViewDelegate {
 
             //MARK: - 그룹에 속한 Pill 목록 띄우는 팝업뷰 나타남
             let vc = PopUpPillAlarmGroupViewController()
-            vc.viewModel.reviseAlarmPopUpTrigger.value = data.alarmName // 여기는 model을 사용하여 Pill 목록을 띄우는 것
+            vc.viewModel.reviseAlarmPopUpTrigger.value = data._id // 여기는 model을 사용하여 Pill 목록을 띄우는 것
             
-            viewModel.fetchPillPeriodTitleStartDate.value = data.alarmName // String 변환
+            viewModel.fetchPillPeriodTitleStartDate.value = data._id // String 변환
             guard let title = viewModel.outputTypeTitleWithStartDate.value else { return }
             let alert = UIAlertController(title: "🌟" + title , message: nil, preferredStyle: .actionSheet)
             alert.view.tintColor = DesignSystem.colorSet.lightBlack
@@ -210,7 +210,7 @@ extension PillManagementViewController : UICollectionViewDelegate {
                 
                 let vc =  PillAlarmReviseViewController()
                 vc.setupSheetPresentationLarge()
-                vc.viewModel.reviseAlarmPopUpTrigger.value = data.alarmName // 여기는 model을 사용하여 정보를 불러와 수정하는 것
+                vc.viewModel.reviseAlarmPopUpTrigger.value = data._id // 여기는 model을 사용하여 정보를 불러와 수정하는 것
 
                 let nav = UINavigationController(rootViewController: vc)
                 

@@ -22,11 +22,13 @@ final class PillAlaramRegisterViewModel {
     var inputPeriodType : Observable<PeriodCase?> = Observable(nil)
     var inputDayOfWeekInterval : Observable<[PeriodSpecificDay]?> = Observable(nil) // 특정 요일에서 사용하는 옵저버
     var inputDaysInterval : Observable<(enumCase:PeriodDays, days:Int)?> = Observable(nil) // 간격에서 사용하는 옵저버
-    var inputGroupId : Observable<String?> = Observable(nil)
+    var inputGroupId : Observable<ObjectId?> = Observable(nil)
+    var inputAlarmName : Observable<String?> = Observable(nil)
     var inputAlarmSpecificTimeList : Observable<[(hour:Int, minute:Int)]> = Observable([])
     var inputPillAlarmNameExist : Observable<String?> = Observable(nil)
     
-    var outputGroupId : Observable<String?> = Observable(nil)
+    var outputGroupId : Observable<ObjectId?> = Observable(nil)
+    var outputAlarmName : Observable<String?> = Observable(nil)
     var outputAlarmDateList : Observable<[Date]?> = Observable(nil) // 시간이 지정되지 않은 값(날짜만 있음)
     var outputPeriodType : Observable<String?> = Observable(nil)
     var outputSelectedPill : Observable<[Pill]> = Observable([])
@@ -40,8 +42,8 @@ final class PillAlaramRegisterViewModel {
     var reCalculateAlarmDateList : Observable<PeriodCase?> = Observable(nil)
     var createTableTrigger : Observable<Void?> = Observable(nil)
     var revisePeriodTableTrigger : Observable<Void?> = Observable(nil)
-    var reviseAlarmRemoveTrigger : Observable<String?> = Observable(nil) // 알람 수정화면에서 전체 삭제를 위한 트리거
-    var reviseAlarmPopUpTrigger : Observable<String?> = Observable(nil)
+    var reviseAlarmRemoveTrigger : Observable<ObjectId?> = Observable(nil) // 알람 수정화면에서 전체 삭제를 위한 트리거
+    var reviseAlarmPopUpTrigger : Observable<ObjectId?> = Observable(nil)
     
     init() {
         transform()
@@ -56,7 +58,8 @@ final class PillAlaramRegisterViewModel {
             let calendar = Calendar.current
             
             inputSelectedPill.value = Array(value.pillList)
-            inputGroupId.value = value.alarmName
+            inputGroupId.value = value._id
+            inputAlarmName.value = value.alarmName
             outputPeriodType.value = value.typeTitle
     
             // 시작 날짜 시간 초기화... ㅠㅠ
@@ -85,6 +88,13 @@ final class PillAlaramRegisterViewModel {
             guard let value = value else { return }
             
             outputGroupId.value = value
+        }
+        
+        inputAlarmName.bind { [weak self] value in
+            guard let self = self else { return }
+            guard let value = value else { return }
+            
+            outputAlarmName.value = value
         }
         
         inputSelectedPill.bind { [weak self] value in
@@ -190,7 +200,7 @@ final class PillAlaramRegisterViewModel {
         reviseAlarmPopUpTrigger.bind { [weak self ] value in
             guard let self = self else { return }
             guard let value = value else { return }
-            guard let newAlarmModel = repository.fetchPillAlarmSpecific(alarmName: value) else { return }
+            guard let newAlarmModel = repository.fetchPillAlarmSpecific(_id: value) else { return }
 
             inputRegistedPillAlarm.value = newAlarmModel
         }
@@ -213,7 +223,7 @@ final class PillAlaramRegisterViewModel {
     //MARK: - 내부 사용 함수
     private func pillAlaramRegister() {
                 
-        guard let alarmName = inputGroupId.value else { return }
+        guard let alarmName = inputAlarmName.value else { return }
         guard let inputPeriodType = inputPeriodType.value else { return }
         guard let outputPeriodType = outputPeriodType.value else { return }
         
@@ -252,11 +262,12 @@ final class PillAlaramRegisterViewModel {
     
     //TODO: - Pill, Alarm Date 관계 다 끊고 새로 관계 맺기. 기존 AlarmDate는 모두 isDelete처리
     private func pillAlarmPeriodReviseUpsert() {
-        guard let alarmName = inputGroupId.value else { return }
+        guard let pk = inputGroupId.value else { return }
+        guard let alarmName = inputAlarmName.value else { return }
         guard let outputPeriodType = outputPeriodType.value else { return }
         
         // 기존 관계 끊기 및 isDelete
-        repository.updatePillAlarmRealtionIsDelete(alarmName)
+        repository.updatePillAlarmRealtionIsDelete(pk)
         
         let pillsList = List<Pill>()
         outputSelectedPill.value.forEach { pill in
@@ -279,10 +290,10 @@ final class PillAlaramRegisterViewModel {
         // Upsert
         if let inputPeriodType = inputPeriodType.value {
             let newPeriodType = inputPeriodType.rawValue
-            repository.upsertPillAlarm(alarmName: alarmName, pillList: pillsList, type: newPeriodType, typeTitle: outputPeriodType, alarmStartDate: inputStartDate.value, alarmDate: alarmDate)
+            repository.upsertPillAlarm(pk: pk,alarmName: alarmName, pillList: pillsList, type: newPeriodType, typeTitle: outputPeriodType, alarmStartDate: inputStartDate.value, alarmDate: alarmDate)
         } else {
             let newPeriodType = inputRegistedPillAlarm.value!.type
-            repository.upsertPillAlarm(alarmName: alarmName, pillList: pillsList, type: newPeriodType, typeTitle: outputPeriodType, alarmStartDate: inputStartDate.value, alarmDate: alarmDate)
+            repository.upsertPillAlarm(pk: pk,alarmName: alarmName, pillList: pillsList, type: newPeriodType, typeTitle: outputPeriodType, alarmStartDate: inputStartDate.value, alarmDate: alarmDate)
         }
         
         // Local Notification

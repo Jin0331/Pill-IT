@@ -77,8 +77,7 @@ final class PillNotificationContentViewController: BaseViewController {
             cell.viewModel.inputCurrentGroupPK.value = itemIdentifier._id
             cell.viewModel.inputCurrentDate.value = itemIdentifier.alarmDate
             cell.viewModel.inputCurrentDateAlarmPill.value = Array(pillList)
-            cell.viewModel.inputCurrentGroupID.value = itemIdentifier.alarmName
-            
+            cell.viewModel.inputCurrentGroupID.value = itemIdentifier.alarmGroup.first?._id
             return cell
         })
     }
@@ -141,17 +140,19 @@ extension PillNotificationContentViewController : SwipeCollectionViewCellDelegat
             let select = UIAlertAction(title: "선택 완료", style: .default) { [weak self] action in
                 guard let self = self else { return }
                 guard let pk = self.dataSource.itemIdentifier(for: indexPath)?._id else { return }
+                guard let currentDate = self.dataSource.itemIdentifier(for: indexPath)?.alarmDate else { return }
                 
                 let confirmAction = UIAlertAction(title: "수정할래요", style: .default) { (action) in
                  
+                    // 다른 날 수정할 때, 해당 일이 아닌 Date()로 처리되어 오늘로 날이 수정 됨
                     self.viewModel.updatePillItemDateTrigger.value = (pk, datePicker.date)
-                    NotificationCenter.default.post(name: Notification.Name("fetchPillAlarmTableForNotification"), object: nil, userInfo: ["date": datePicker.date])
+                    NotificationCenter.default.post(name: Notification.Name("fetchPillAlarmTableForNotification"), object: nil, userInfo: ["date": currentDate])
                 }
                 
                 let cancelAction = UIAlertAction(title: "취소할래요", style: .cancel)
                 confirmAction.setValue(UIColor.red, forKey: "titleTextColor")
                 
-                self.showAlert(title: "등록된 복용약 알림 시간 수정", message: "알림 시간을 수정하시겠습니까? 🔆", actions: [confirmAction, cancelAction])
+                self.showAlert(title: "등록된 복용약 알림 시간 수정", message: "해당 일의 알림에만 적용됩니다.\n알림 시간을 수정하시겠습니까? 🔆", actions: [confirmAction, cancelAction])
             }
             
             let cancle = UIAlertAction(title: "취소", style: .cancel)
@@ -210,7 +211,7 @@ extension PillNotificationContentViewController : PillNotificationAction {
         self.showAlert(title: "복용 완료", message: "복용하셨나요? 🔆", actions: [confirmAction, cancelAction])
     }
     
-    func containPillButton(_ groupID : String?, _ data : [Pill]?) {
+    func containPillButton(_ groupID : ObjectId?, _ data : [Pill]?) {
         
         guard let groupID = groupID else { return }
         

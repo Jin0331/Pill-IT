@@ -26,6 +26,7 @@ final class PillAlaramRegisterViewModel {
     var inputAlarmName : Observable<String?> = Observable(nil)
     var inputAlarmSpecificTimeList : Observable<[(hour:Int, minute:Int)]> = Observable([])
     var inputPillAlarmNameExist : Observable<String?> = Observable(nil)
+    var inputHasChanged : Observable<Bool> = Observable(false)
     
     var outputGroupId : Observable<ObjectId?> = Observable(nil)
     var outputAlarmName : Observable<String?> = Observable(nil)
@@ -36,7 +37,7 @@ final class PillAlaramRegisterViewModel {
     var outputVisibleSpecificTimeList : Observable<[Date]> = Observable([]) // Diffable Datasource 용
     var outputAlarmSpecificTimeList : Observable<[Date]> = Observable([]) // 실제 Output이 되는 값(날짜 + 시간)
     var outputPillAlarmNameExist : Observable<Bool?> = Observable(nil)
-    
+    var outputHasChanged : Observable<Bool> = Observable(false)
     
     var reCalculateAAlarmSpecificTimeListTrigger : Observable<[(hour:Int, minute:Int)]?> = Observable(nil)
     var reCalculateAlarmDateList : Observable<PeriodCase?> = Observable(nil)
@@ -160,6 +161,12 @@ final class PillAlaramRegisterViewModel {
             
             outputPillAlarmNameExist.value = repository.fetchPillExist(alarmName: value)
             
+        }
+        
+        inputHasChanged.bind { [weak self] value in
+            guard let self = self else { return }
+            
+            outputHasChanged.value = value
         }
         
         //MARK: - Trigger 부분

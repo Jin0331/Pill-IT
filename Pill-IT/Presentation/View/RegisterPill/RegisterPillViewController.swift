@@ -27,8 +27,7 @@ final class RegisterPillViewController : BaseViewController {
         mainView.actionDelegate = self
         mainView.userInputTextfield.delegate = self
     }
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,6 +35,20 @@ final class RegisterPillViewController : BaseViewController {
         
         // RegisterPillViewModel로 부터 오는 Noti, 검색어 잘못되었을 때
         NotificationCenter.default.addObserver(self, selector: #selector(searchError), name: Notification.Name("searchError"), object: nil)
+        navigationController?.presentationController?.delegate = self
+    }
+        
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        // UserTextfield에서 선택 이후에 value값이 true로 바뀌어, modal이 dismiss될 것 같으면 action sheet 출력
+        isModalInPresentation = viewModel.outputHasChanged.value
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        print(#function)
+        mainView.userInputTextfield.hideResultsList()
     }
     
     private func bindData() {
@@ -148,6 +161,7 @@ final class RegisterPillViewController : BaseViewController {
                 mainView.activityIndicator.stopAnimating()
                 mainView.loadingBgView.removeFromSuperview()
                 
+                viewModel.inputHasChanged.value = true
                 view.makeToast("약에 대한 검색이 완료되었어요 ✅", duration: 1.0, position: .center)
             }
         }
@@ -217,7 +231,6 @@ extension RegisterPillViewController : PillRegisterAction {
     func defaultButtonAction() {
         
         mainView.setActivityIndicator()
-        
         viewModel.callcallRequestForImageTrigger.value = viewModel.inputItemSeq.value
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.7, qos: .background) { [weak self] in
@@ -313,8 +326,6 @@ extension RegisterPillViewController : PillRegisterAction {
         } else {
             mainView.pillImageView.kf.setImage(with: provider, options: [.transition(.fade(1))])
         }
-        
-        
     }
     
     private func kfCacheClear() {
@@ -346,6 +357,13 @@ extension RegisterPillViewController : UITextFieldDelegate {
         textField.text = nil
         mainView.userInputTextfield.filterStrings([])
         mainView.pillImageView.image = nil
+        viewModel.inputHasChanged.value = false
     }
+}
+
+extension RegisterPillViewController : UIAdaptivePresentationControllerDelegate {
     
+    func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
+        confirmChangedDisMiss(actionTitle: "복용약 등록 중지할게요 🥲")
+    }
 }

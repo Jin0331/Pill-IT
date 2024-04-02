@@ -28,6 +28,7 @@ final class PillManagementViewController : BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        presentationController?.delegate = self
         bindData()
     }
     
@@ -343,5 +344,19 @@ extension PillManagementViewController : PillListAction {
     
     func completeToast() {
         view.makeToast("복용약이 수정되었습니다 ✅", duration: 2, position: .center)
+    }
+}
+
+extension PillManagementViewController : UIAdaptivePresentationControllerDelegate {
+    
+    func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "변경사항 폐기", style: .destructive) { [weak self] _ in
+            guard let self = self else { return }
+            dismiss(animated: true)
+        })
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+        
+        present(alert, animated: true, completion: nil)
     }
 }

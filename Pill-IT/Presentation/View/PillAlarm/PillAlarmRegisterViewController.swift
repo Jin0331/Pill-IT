@@ -204,6 +204,8 @@ extension PillAlarmRegisterViewController : PillAlarmReigsterAction {
                 let vc = PillAlarmSpecificViewController()
                 vc.viewModel = viewModel
 
+                viewModel.inputHasChanged.value = true
+                
                 navigationController?.pushViewController(vc, animated: true)
                 
             } else {

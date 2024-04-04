@@ -59,16 +59,21 @@ final class PillAlaramRegisterViewModel {
     //MARK: - Rx Input
     struct Input {
         let inputIsCompleted = BehaviorRelay(value: false)
+        let inputIsReviseItemCompleted = BehaviorRelay(value: false)
+        let inputIsReviseDateCompleted = BehaviorRelay(value: false)
     }
-
+    
     //MARK: - Rx Output
     struct Output {
         let outputAlarmname = PublishSubject<String>()
-        let outputAlarmDateList = PublishSubject<[Date]>()
-        let outputPeriodType = PublishSubject<String>()
+        let outputAlarmDateList = BehaviorSubject<Bool>(value: false)
+        let outputAlarmSpecificTimeList = BehaviorSubject<Bool>(value: false)
+        let outputStartDate = BehaviorSubject<Bool>(value: false)
+        let outputPeriodType = BehaviorSubject<Bool>(value: false)
         let outputSelectedPill = PublishSubject<[Pill]>()
         let outputIsCompleted = BehaviorRelay(value: false)
-        
+        let outputIsReviseItemCompleted = BehaviorRelay(value: false)
+        let outputIsReviseDateCompleted = BehaviorRelay(value: false)
     }
     
     init() {
@@ -87,7 +92,7 @@ final class PillAlaramRegisterViewModel {
             inputGroupId.value = value._id
             inputAlarmName.value = value.alarmName
             outputPeriodType.value = value.typeTitle
-    
+            
             // 시작 날짜 시간 초기화... ㅠㅠ
             inputStartDate.value = Calendar.current.hourMinuteInitializer(value.alarmStartDate)
             
@@ -105,6 +110,10 @@ final class PillAlaramRegisterViewModel {
                     self.inputAlarmSpecificTimeList.value.append(tempInterval)
                 }
             })
+            
+            output.outputStartDate.onNext(false)
+            output.outputPeriodType.onNext(false)
+            output.outputAlarmSpecificTimeList.onNext(false)
             
         }
         
@@ -137,6 +146,7 @@ final class PillAlaramRegisterViewModel {
         inputStartDate.bind { [weak self] value in
             guard let self = self else { return }
             outputStartDate.value = value.toString(dateFormat: "yyyy년 MM월 dd일")
+            output.outputStartDate.onNext(true)
             
             // 만약 모든 작업 이후에 다시 날짜가 설정될 경우
             guard let currentPeriodType = inputPeriodType.value else { return }
@@ -181,6 +191,7 @@ final class PillAlaramRegisterViewModel {
             dataSrouceDateList.sort { (($0).compare($1)) == .orderedAscending } // sort
             outputVisibleSpecificTimeList.value = dataSrouceDateList
             outputAlarmSpecificTimeList.value = Array(Set(tableDateList.flatMap{ $0 }))
+            output.outputAlarmSpecificTimeList.onNext(true)
         }
         
         inputPillAlarmNameExist.bind { [weak self] value in
@@ -235,11 +246,12 @@ final class PillAlaramRegisterViewModel {
             guard let self = self else { return }
             guard let value = value else { return }
             guard let newAlarmModel = repository.fetchPillAlarmSpecific(_id: value) else { return }
-
+            
             inputRegistedPillAlarm.value = newAlarmModel
         }
         
         //MARK: - Rx Transform
+        // Alarm Register
         input.inputIsCompleted
             .bind(with: self) { owner, value in
                 
@@ -247,7 +259,7 @@ final class PillAlaramRegisterViewModel {
                 RxSwift.Observable
                     .combineLatest(owner.output.outputAlarmname, owner.output.outputAlarmDateList, owner.output.outputPeriodType, owner.output.outputSelectedPill)
                     .subscribe(with: self) { owner, value in
-                        if !value.0.isEmpty && value.3.count > 0 {
+                        if !value.0.isEmpty && value.2 && value.3.count > 0 {
                             owner.output.outputIsCompleted.accept(true)
                         } else {
                             owner.output.outputIsCompleted.accept(false)
@@ -257,24 +269,60 @@ final class PillAlaramRegisterViewModel {
             }
             .disposed(by: disposeBag)
         
+        // Alarm Revise
+        input.inputIsReviseItemCompleted
+            .bind(with: self) { owner, value in
+                
+                //TODO: - Ovservable Zip
+                RxSwift.Observable
+                    .combineLatest(owner.output.outputPeriodType, owner.output.outputStartDate)
+                    .subscribe(with: self) { owner, value in
+                        
+                        if value.0 || value.1 {
+                            owner.output.outputIsReviseItemCompleted.accept(true)
+                        } else {
+                            owner.output.outputIsReviseItemCompleted.accept(false)
+                        }
+                    }
+                    .disposed(by: owner.disposeBag)
+            }
+            .disposed(by: disposeBag)
+        
+        // Alarm Revise
+        input.inputIsReviseDateCompleted
+            .bind(with: self) { owner, value in
+                
+                owner.output.outputAlarmSpecificTimeList
+                    .subscribe(with: self) { owner, value in
+                        if value {
+                            owner.output.outputIsReviseDateCompleted.accept(true)
+                        } else {
+                            owner.output.outputIsReviseDateCompleted.accept(false)
+                        }
+                    }
+                    .disposed(by: owner.disposeBag)
+            }
+            .disposed(by: disposeBag)
+        
+        
     }
     
     //MARK: - 외부 사용 함수
     func containsTuple(arr: [(Int, Int)], tup:(Int, Int)) -> Bool {
-         let (c1, c2) = tup
-
-         for (v1, v2) in arr {
+        let (c1, c2) = tup
+        
+        for (v1, v2) in arr {
             if v1 == c1 && v2 == c2 {
                 return true
             }
-         }
-
+        }
+        
         return false
     }
     
     //MARK: - 내부 사용 함수
     private func pillAlaramRegister() {
-                
+        
         guard let alarmName = inputAlarmName.value else { return }
         guard let inputPeriodType = inputPeriodType.value else { return }
         guard let outputPeriodType = outputPeriodType.value else { return }
@@ -406,8 +454,8 @@ final class PillAlaramRegisterViewModel {
                                                        interval: 1)
             outputPeriodType.value = "매일"
             
-            output.outputPeriodType.onNext("매일")
-            output.outputAlarmDateList.onNext(outputAlarmDateList.value!)
+            output.outputPeriodType.onNext(true)
+            output.outputAlarmDateList.onNext(true)
             
         case .specificDay:
             guard let interval = inputDayOfWeekInterval.value else { return }
@@ -416,8 +464,8 @@ final class PillAlaramRegisterViewModel {
             let outputPeriodtype = interval.count == 7 ? "매일" :interval.map { $0.toString }.joined(separator: ",")
             outputPeriodType.value = outputPeriodtype
             
-            output.outputPeriodType.onNext(outputPeriodtype)
-            output.outputAlarmDateList.onNext(outputAlarmDateList.value!)
+            output.outputPeriodType.onNext(true)
+            output.outputAlarmDateList.onNext(true)
             
         case .period:
             guard let interval = inputDaysInterval.value else { print("?????실행되냐⭕️");return }
@@ -427,9 +475,9 @@ final class PillAlaramRegisterViewModel {
             
             let outputPeriodtype = interval.enumCase.byAdding == Calendar.Component.day && interval.days == 1 ? "매일" : "\(interval.days)\(interval.enumCase.title)"
             outputPeriodType.value = outputPeriodtype
-    
-            output.outputPeriodType.onNext(outputPeriodtype)
-            output.outputAlarmDateList.onNext(outputAlarmDateList.value!)
+            
+            output.outputPeriodType.onNext(true)
+            output.outputAlarmDateList.onNext(true)
         }
     }
     

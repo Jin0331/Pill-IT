@@ -37,6 +37,7 @@ final class PillAlarmRegisterViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         MarqueeLabel.controllerViewDidAppear(self)
+        navigationController?.presentationController?.delegate = self
     }
     
     private func bindData() {
@@ -68,16 +69,8 @@ final class PillAlarmRegisterViewController: BaseViewController {
     override func configureNavigation() {
         super.configureNavigation()
         navigationItem.title = "🌟 복용약 알림 등록하기"
-        
-        let cancleBarButton = UIBarButtonItem(image: DesignSystem.sfSymbol.cancel, style: .plain, target: self, action: #selector(rightBarButtonClicked))
-        
-        navigationItem.rightBarButtonItem = cancleBarButton
     }
-    
-    @objc private func rightBarButtonClicked() {
-        confirmChangedDisMiss(actionTitle: "복용약 알림 등록을 중지할게요 🥲")
-    }
-    
+        
     private func configureDataSource() {
         
         let cellRegistration = mainView.pillAlarmCellRegistration()
@@ -218,7 +211,7 @@ extension PillAlarmRegisterViewController : PillAlarmReigsterAction {
                 let vc = PillAlarmSpecificViewController()
                 vc.viewModel = viewModel
 
-                viewModel.inputHasChanged.value = true
+//                viewModel.inputHasChanged.value = true
                 
                 navigationController?.pushViewController(vc, animated: true)
                 

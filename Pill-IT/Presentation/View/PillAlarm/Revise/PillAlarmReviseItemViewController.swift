@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 import SwipeCellKit
 import Toast_Swift
 import MarqueeLabel
@@ -14,6 +16,7 @@ final class PillAlarmReviseItemViewController: BaseViewController {
     
     let mainView = PillAlarmReviseItemView()
     var viewModel : PillAlaramRegisterViewModel?
+    let disposeBag = DisposeBag()
     private var dataSource : UICollectionViewDiffableDataSource<PillAlarmViewSection, Pill>!
     
     override func loadView() {
@@ -62,6 +65,15 @@ final class PillAlarmReviseItemViewController: BaseViewController {
             
             mainView.startDateButton.setTitle(value, for: .normal)
         }
+        
+        //MARK: - Rx Output
+        viewModel.output.outputIsReviseItemCompleted
+            .bind(with: self) { owner, value in
+                owner.mainView.completeButton.isEnabled = value
+                owner.mainView.completeButton.backgroundColor = value ? DesignSystem.colorSet.lightBlack : DesignSystem.colorSet.gray
+                owner.isModalInPresentation = value
+            }
+            .disposed(by: disposeBag)
     }
     
     private func configureDataSource() {

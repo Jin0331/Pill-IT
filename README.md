@@ -61,6 +61,8 @@
 
   ​	***Diffable DataSoruce*** - Hashable 기반의 각종 데이터의 변경 사항 추적 및 Snapshot을 활용한 UI 요소의 업데이트
 
+   ***RxSwift + RxCocoa*** - 반응형 UI 구성
+
   ​	***Alamofire*** - Generic과 Router pattern 기반의 다수의 API 호출 및 Error Handling
 
   ​	***SearchTextField*** - User Input 기반의 userStoppedTypingHandler, itemSelectionHandler 구현을 통한 Text Auto Complete

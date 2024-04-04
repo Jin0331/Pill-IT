@@ -23,6 +23,7 @@ final class PillAlarmSpecificViewController: BaseViewController {
         view = mainView
         mainView.actionDelegate = self
         mainView.mainCollectionView.delegate = self
+        navigationController?.presentationController?.delegate = self
     }
     
     override func viewDidLoad() {
@@ -30,8 +31,6 @@ final class PillAlarmSpecificViewController: BaseViewController {
         
         configureDataSource()
         bindData()
-        
-        navigationController?.presentationController?.delegate = self
     }
     
     override func viewWillLayoutSubviews() {

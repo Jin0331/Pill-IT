@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 import SwipeCellKit
 import Toast_Swift
 import MarqueeLabel
@@ -14,6 +16,7 @@ final class PillAlarmRegisterViewController: BaseViewController {
     
     let mainView = PillAlarmRegisterView()
     let viewModel = PillAlaramRegisterViewModel()
+    let disposeBag = DisposeBag()
     private var dataSource : UICollectionViewDiffableDataSource<PillAlarmViewSection, Pill>!
     
     override func loadView() {
@@ -21,6 +24,7 @@ final class PillAlarmRegisterViewController: BaseViewController {
         mainView.actionDelegate = self
         mainView.mainCollectionView.delegate = self
         mainView.userInputTextfield.delegate = self
+        navigationController?.presentationController?.delegate = self
     }
     
     
@@ -36,6 +40,7 @@ final class PillAlarmRegisterViewController: BaseViewController {
     }
     
     private func bindData() {
+        //MARK: - Output
         viewModel.outputSelectedPill.bind { [weak self] value in
             guard let self = self else { return }
             mainView.collectionViewchangeLayout(itemCount: value.count)
@@ -49,6 +54,15 @@ final class PillAlarmRegisterViewController: BaseViewController {
             
             mainView.startDateButton.setTitle(value, for: .normal)
         }
+                
+        //MARK: - Rx Output
+        viewModel.output.outputIsCompleted
+            .bind(with: self) { owner, value in
+                owner.mainView.completeButton.isEnabled = value
+                owner.mainView.completeButton.backgroundColor = value ? DesignSystem.colorSet.lightBlack : DesignSystem.colorSet.gray
+                owner.isModalInPresentation = value
+            }
+            .disposed(by: disposeBag)
     }
     
     override func configureNavigation() {
@@ -61,7 +75,7 @@ final class PillAlarmRegisterViewController: BaseViewController {
     }
     
     @objc private func rightBarButtonClicked() {
-        dismiss(animated: true)
+        confirmChangedDisMiss(actionTitle: "복용약 알림 등록을 중지할게요 🥲")
     }
     
     private func configureDataSource() {
@@ -222,6 +236,7 @@ extension PillAlarmRegisterViewController : UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         print(#function)
         textField.text = nil
+        viewModel.inputAlarmName.value = nil
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -247,10 +262,18 @@ extension PillAlarmRegisterViewController : UITextFieldDelegate {
             if value {
                 view.makeToast("이미 등록된 복용약 알림 이릅입니다. \n다른 이름을 사용해주세요 🥲", duration: 2.5, position: .center)
                 textField.text = nil
+                viewModel.inputAlarmName.value = nil
             } else {
                 viewModel.inputAlarmName.value = textTrimmed
             }
         }
     }
     
+}
+
+extension PillAlarmRegisterViewController : UIAdaptivePresentationControllerDelegate {
+    
+    func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
+        confirmChangedDisMiss(actionTitle: "복용약 알림 등록을 중지할게요 🥲")
+    }
 }

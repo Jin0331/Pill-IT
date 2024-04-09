@@ -60,4 +60,15 @@ class BaseViewController : UIViewController {
 //        navigationItem.rightBarButtonItem = searchButtonItem
     }
     
+    
+    func confirmChangedDisMiss(actionTitle : String) {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: actionTitle, style: .destructive) { [weak self] _ in
+            guard let self = self else { return }
+            dismiss(animated: true)
+        })
+        alert.addAction(UIAlertAction(title: "취소할래요", style: .cancel, handler: nil))
+        
+        present(alert, animated: true, completion: nil)
+    }
 }

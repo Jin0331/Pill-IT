@@ -16,11 +16,13 @@ final class RegisterPillViewModel {
     var inputEntpName : Observable<String?> = Observable(nil)
     var inputEntpNo : Observable<String?> = Observable(nil)
     var inputPrductType : Observable<String?> = Observable(nil)
+    var inputHasChanged : Observable<Bool> = Observable(false)
     var localImageURL : Observable<String?> = Observable(nil)
     var modifyStatus : Observable<Bool> = Observable(false)
     
     var outputItemEntpNameSeqList : Observable<[(itemSeq:String, itemName:String, entpName:String, entpNo:String, prductType:String)]?> = Observable(nil)
     var outputItemImageWebLink : Observable<[URL]?> = Observable(nil)
+    var outputHasChanged : Observable<Bool> = Observable(false)
     
     var callRequestForItemListTrigger : Observable<String?> = Observable(nil)
     var callcallRequestForImageTrigger : Observable<String?> = Observable(nil)
@@ -51,6 +53,12 @@ final class RegisterPillViewModel {
             guard let inputItemName = self.inputItemName.value else { return }
             
             callRequestForWeb(inputItemName)
+        }
+        
+        inputHasChanged.bind { [weak self] value in
+            guard let self = self else { return }
+            
+            outputHasChanged.value = value
         }
     }
     

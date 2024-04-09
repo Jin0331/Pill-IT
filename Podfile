@@ -20,6 +20,8 @@ target 'Pill-IT' do
   pod 'Parchment', '~> 3.3'
   pod 'MarqueeLabel'
   pod 'Tabman', '~> 3.0'
+  pod 'RxSwift', '6.6.0'
+  pod 'RxCocoa', '6.6.0'
 end
 
 post_install do |installer|

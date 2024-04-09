@@ -7,11 +7,15 @@
 
 import UIKit
 import SwipeCellKit
+import RxSwift
+import RxCocoa
+
 
 final class PillAlarmReviseDateViewController: BaseViewController {
 
     let mainView = PillAlarmReviseDateView()
     weak var viewModel : PillAlaramRegisterViewModel?
+    let disposeBag = DisposeBag()
     private var dataSource : UICollectionViewDiffableDataSource<PillAlarmSpecificViewSection, Date>!
     
     override func loadView() {
@@ -34,6 +38,15 @@ final class PillAlarmReviseDateViewController: BaseViewController {
             guard let self = self else { return }
             updateSnapshot(value)
         }
+        
+        //MARK: - Rx Output
+        viewModel.output.outputIsReviseDateCompleted
+            .bind(with: self) { owner, value in
+                owner.mainView.completeButton.isEnabled = value
+                owner.mainView.completeButton.backgroundColor = value ? DesignSystem.colorSet.lightBlack : DesignSystem.colorSet.gray
+                owner.isModalInPresentation = value
+            }
+            .disposed(by: disposeBag)
     }
     
     private func configureDataSource() {

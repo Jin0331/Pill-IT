@@ -23,6 +23,7 @@ final class PillAlarmSpecificViewController: BaseViewController {
         view = mainView
         mainView.actionDelegate = self
         mainView.mainCollectionView.delegate = self
+        navigationController?.presentationController?.delegate = self
     }
     
     override func viewDidLoad() {
@@ -30,6 +31,13 @@ final class PillAlarmSpecificViewController: BaseViewController {
         
         configureDataSource()
         bindData()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        // UserTextfield에서 선택 이후에 value값이 true로 바뀌어, modal이 dismiss될 것 같으면 action sheet 출력
+        guard let viewModel = viewModel else { return }
+        isModalInPresentation = viewModel.outputHasChanged.value
     }
     
     private func bindData() {
@@ -201,5 +209,12 @@ extension PillAlarmSpecificViewController {
         alert.setValue(vc, forKey: "contentViewController")
         
         present(alert, animated: true)
+    }
+}
+
+extension PillAlarmSpecificViewController : UIAdaptivePresentationControllerDelegate {
+    
+    func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
+        confirmChangedDisMiss(actionTitle: "복용약 알림 등록을 중지할게요 🥲")
     }
 }

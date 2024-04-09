@@ -13,6 +13,12 @@ PODS:
   - Realm/Headers (10.45.3)
   - RealmSwift (10.45.3):
     - Realm (= 10.45.3)
+  - RxCocoa (6.6.0):
+    - RxRelay (= 6.6.0)
+    - RxSwift (= 6.6.0)
+  - RxRelay (6.6.0):
+    - RxSwift (= 6.6.0)
+  - RxSwift (6.6.0)
   - SearchTextField (1.2.4)
   - SnapKit (5.7.1)
   - SteviaLayout (5.1.2)
@@ -33,6 +39,8 @@ DEPENDENCIES:
   - NVActivityIndicatorView
   - Parchment (~> 3.3)
   - RealmSwift (~> 10.45.0)
+  - RxCocoa (= 6.6.0)
+  - RxSwift (= 6.6.0)
   - SearchTextField
   - SnapKit (~> 5.7.0)
   - SwipeableTabBarController
@@ -53,6 +61,9 @@ SPEC REPOS:
     - PryntTrimmerView
     - Realm
     - RealmSwift
+    - RxCocoa
+    - RxRelay
+    - RxSwift
     - SearchTextField
     - SnapKit
     - SteviaLayout
@@ -73,6 +84,9 @@ SPEC CHECKSUMS:
   PryntTrimmerView: 6a43cc90df5d99addeabd33d4ba09b1365322130
   Realm: b277b843c7505c1e30e3a70322a24a09283e62bb
   RealmSwift: f6690053e81733801e6619eb5b39993ab76f7050
+  RxCocoa: 44a80de90e25b739b5aeaae3c8c371a32e3343cc
+  RxRelay: 45eaa5db8ee4fb50e5ebd57deec0159e97fa51e6
+  RxSwift: a4b44f7d24599f674deebd1818eab82e58410632
   SearchTextField: 40dc3cc57def5a211f263cac263622c163bbc25a
   SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
   SteviaLayout: 05424e528d643657d39ce72c786e4adf13cfc5f2
@@ -83,6 +97,6 @@ SPEC CHECKSUMS:
   Toast-Swift: dd369e68ee529f542c65bd0d0c6c50cd743cf6f2
   YPImagePicker: afc81b3cffab05a6e7261c5daf80dc31b4e917b4
 
-PODFILE CHECKSUM: 7e34b6675527fdb40a0b2b6612e2355044c58062
+PODFILE CHECKSUM: d63471107d85d175bd5cd5e536d7d90d858ded01
 
 COCOAPODS: 1.15.2

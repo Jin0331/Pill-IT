@@ -403,30 +403,3 @@ final class RealmRepository {
         }
     }
 }
-
-
-
-    // 현재 시간보다 이른 시간은 isDone = true 처리함 ,, 나중에 필요한 경우 사용
-    /*
-     let targetDate = Calendar.current.startOfDay(for: currentDate)
-     print(targetDate, "✅✅✅✅✅✅✅✅✅ targetDate")
-     print(currentDate, "✅✅✅✅✅✅✅✅✅ current Date")
-             let isDoneUpdateTable = realm.objects(PillAlarmDate.self).where {
-                 $0.alarmName == alarmName && $0.isDeleted == false && $0.isDone == false
-             }.filter("alarmDate >= %@ AND alarmDate < %@", targetDate, currentDate)
-     
-             print(isDoneUpdateTable, "✅✅✅✅✅✅✅✅✅ targetDate")
-     
-             do {
-                 try realm.write {
-                     for item in isDoneUpdateTable {
-                         item.isDone = true
-                         item.upDate = Date()
-                     }
-                 }
-             } catch {
-                 print(error)
-             }
-     
-     //        print(isDoneUpdateTable)
-     */

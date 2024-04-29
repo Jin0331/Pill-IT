@@ -86,7 +86,6 @@ final class PillManagementCollectionViewMainCell: BaseCollectionViewCell {
             make.top.equalTo(entpNameLabel.snp.bottom).offset(5)
             make.horizontalEdges.equalTo(itemNameLabel)
             make.bottom.lessThanOrEqualTo(bgView.snp.bottom).inset(20)
-//            make.bottom.equalTo(bgView.snp.bottom).inset(10)
         }
         
         selectedImage.snp.makeConstraints { make in

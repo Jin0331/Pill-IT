@@ -48,10 +48,6 @@ final class PillManagementViewController : BaseViewController {
             }
         }
         mainView.mainCollectionView.deselectAllItems(animated: true)
-        
-        // notificaionCenter remove
-//        NotificationCenter.default.removeObserver(self,
-//                                                  name: Notification.Name("fetchPillAlarmTable"), object: nil)
     }
     private func bindData() {
         // 복용약 리스트

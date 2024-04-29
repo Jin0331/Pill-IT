@@ -50,7 +50,6 @@ final class PillAlarmCollectionViewCell: BaseCollectionViewCell {
         
         itemImage.snp.makeConstraints { make in
             make.leading.top.bottom.equalTo(bgView).inset(5)
-//            make.height.equalTo(40)
             make.width.equalTo(50)
         }
         

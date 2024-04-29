@@ -17,7 +17,6 @@
 		DB0F10DD2B9F83CD000DC430 /* RegisterPillWebSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F10DC2B9F83CD000DC430 /* RegisterPillWebSearchViewController.swift */; };
 		DB0F10E02B9F885E000DC430 /* RegisterPillWebSearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F10DF2B9F885E000DC430 /* RegisterPillWebSearchCollectionViewCell.swift */; };
 		DB1ED6282BADC30F00F1E96C /* PillAlarmReviseItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1ED6272BADC30F00F1E96C /* PillAlarmReviseItemView.swift */; };
-		DB1ED62C2BADDA5C00F1E96C /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1ED62B2BADDA5C00F1E96C /* UILabel+Extension.swift */; };
 		DB1ED62E2BAEC07500F1E96C /* PillAlarmReviseDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1ED62D2BAEC07500F1E96C /* PillAlarmReviseDateView.swift */; };
 		DB1ED6302BAFFA5F00F1E96C /* PopUpPillAlarmGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1ED62F2BAFFA5F00F1E96C /* PopUpPillAlarmGroupViewModel.swift */; };
 		DB1ED6322BB04AC300F1E96C /* UNUserNotificationCenter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1ED6312BB04AC200F1E96C /* UNUserNotificationCenter+Extension.swift */; };
@@ -96,7 +95,6 @@
 		DB0F10DC2B9F83CD000DC430 /* RegisterPillWebSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPillWebSearchViewController.swift; sourceTree = "<group>"; };
 		DB0F10DF2B9F885E000DC430 /* RegisterPillWebSearchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPillWebSearchCollectionViewCell.swift; sourceTree = "<group>"; };
 		DB1ED6272BADC30F00F1E96C /* PillAlarmReviseItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillAlarmReviseItemView.swift; sourceTree = "<group>"; };
-		DB1ED62B2BADDA5C00F1E96C /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		DB1ED62D2BAEC07500F1E96C /* PillAlarmReviseDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillAlarmReviseDateView.swift; sourceTree = "<group>"; };
 		DB1ED62F2BAFFA5F00F1E96C /* PopUpPillAlarmGroupViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopUpPillAlarmGroupViewModel.swift; sourceTree = "<group>"; };
 		DB1ED6312BB04AC200F1E96C /* UNUserNotificationCenter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UNUserNotificationCenter+Extension.swift"; sourceTree = "<group>"; };
@@ -381,7 +379,6 @@
 				DB21CDA82BA03CF00041C892 /* String+Extension.swift */,
 				DB5E59C22BA6F3EE00C753BD /* Formatter+Extension.swift */,
 				DBEE62872BACB582003BD600 /* UIColor+Extension.swift */,
-				DB1ED62B2BADDA5C00F1E96C /* UILabel+Extension.swift */,
 				DB1ED6312BB04AC200F1E96C /* UNUserNotificationCenter+Extension.swift */,
 			);
 			path = Extension;
@@ -626,7 +623,6 @@
 				DB8D12492BA48B38002E34BC /* SharedEnumeration.swift in Sources */,
 				DB5E59E92BA9E36F00C753BD /* PillNotificationContentViewController.swift in Sources */,
 				DBF7351C2B9DD3BE00326852 /* BaseView.swift in Sources */,
-				DB1ED62C2BADDA5C00F1E96C /* UILabel+Extension.swift in Sources */,
 				DB0368272BA1E7E9006A62AD /* PillManagementCollectionViewMainCell.swift in Sources */,
 				DBF446802B9991820021BC0F /* APIKey.swift in Sources */,
 				DB5E59F02BAAF40D00C753BD /* PillNotificationContentView.swift in Sources */,
@@ -791,7 +787,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jinoo.Pill-IT";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -826,7 +822,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jinoo.Pill-IT";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

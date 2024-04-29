@@ -53,11 +53,6 @@ final class PillNotificationViewController: BaseViewController {
         
         moveToToday()
     }
-    
-//    override func viewDidDisappear(_ animated: Bool) {
-//        super.viewDidDisappear(animated)
-//        moveToToday()
-//    }
   
     override func configureHierarchy() {
         addChild(pagingViewController)

@@ -364,6 +364,6 @@ extension RegisterPillViewController : UITextFieldDelegate {
 extension RegisterPillViewController : UIAdaptivePresentationControllerDelegate {
     
     func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
-        confirmChangedDisMiss(actionTitle: "복용약 등록 중지할게요 🥲")
+        confirmChangedDisMiss(actionTitle: "복용약 등록을 중지할게요 🥲")
     }
 }

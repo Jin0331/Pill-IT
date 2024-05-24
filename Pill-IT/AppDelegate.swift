@@ -19,6 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UNUserNotificationCenter.current().delegate = self
         let authrizationOptions = UNAuthorizationOptions(arrayLiteral: [.alert, .badge, .sound])
+        UIApplication.shared.applicationIconBadgeNumber = 0
+        UserDefaults.standard.set(0, forKey: "NotificationBadgeCount")
         
         // 사용자에게 권한을(알림에대한) 요청한다.
         // completionHandler를 통해서 에러처리를 할 수 있다. 결과값은 무시하고 에러 처리정도만 해줌.

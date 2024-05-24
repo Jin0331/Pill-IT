@@ -27,7 +27,7 @@ extension UNUserNotificationCenter {
     //MARK: - 알림 추가
     func addNotificationRequest(byList pillAlarmList: [PillAlarmDate]){
         
-        pillAlarmList.forEach { [weak self] pillAlarm in
+        pillAlarmList.reversed().forEach { [weak self] pillAlarm in
             guard let self = self else { return }
             addNotificationRequest(by: pillAlarm)
         }
@@ -43,8 +43,11 @@ extension UNUserNotificationCenter {
         
         content.body = pillItemList
         content.sound = .default
-        let currentBadgeCount = UIApplication.shared.applicationIconBadgeNumber
-        content.badge = (currentBadgeCount + 1) as NSNumber
+        
+        let badgeCount = UserDefaults.standard.value(forKey: "NotificationBadgeCount") as! Int + 1
+        UserDefaults.standard.set(badgeCount, forKey: "NotificationBadgeCount")
+        content.badge = badgeCount as NSNumber
+        
         content.categoryIdentifier = "replyCategory"
         
         // notification action

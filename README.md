@@ -1,6 +1,6 @@
 # 💊 **삐릿(Pill It) - 복용약 알림, 정보 관리**
 
-[![히히](https://github.com/Jin0331/Pill-IT/assets/42958809/726199d4-52b4-4d23-b667-e619cd81c0f1)]([https://unity3d.com/kr](https://www.apple.com/app-store/](https://apps.apple.com/kr/app/%EC%82%90%EB%A6%BF-pill-it-%EB%B3%B5%EC%9A%A9%EC%95%BD-%EC%95%8C%EB%A6%BC-%EC%A0%95%EB%B3%B4-%EA%B4%80%EB%A6%AC/id6479727658))
+[![히히](https://github.com/Jin0331/Pill-IT/assets/42958809/726199d4-52b4-4d23-b667-e619cd81c0f1)](https://apps.apple.com/kr/app/%EC%82%90%EB%A6%BF-pill-it-%EB%B3%B5%EC%9A%A9%EC%95%BD-%EC%95%8C%EB%A6%BC-%EC%A0%95%EB%B3%B4-%EA%B4%80%EB%A6%AC/id6479727658)
 
 ![PillItImageMerge](https://github.com/Jin0331/Pill-IT/assets/42958809/61ff75bb-22f8-4c07-8824-829048969cf0)
 

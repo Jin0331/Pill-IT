@@ -59,7 +59,7 @@
 
   ​	Realm / RxSwift / Alamofire /	Kingfisher / UserNotifications
 
-  ​ SearchTextField / Toast-Swift / NVActivityIndicatorView / SwipeableTabBarController / WHTabbar / Parchment / Tabman
+  ​ SnapKit / SearchTextField / Toast-Swift / NVActivityIndicatorView / SwipeableTabBarController / WHTabbar / Parchment / Tabman
 
 * ***버전 관리***
 

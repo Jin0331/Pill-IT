@@ -206,7 +206,7 @@ extension PillAlarmRegisterViewController : PillAlarmReigsterAction {
             mainView.activityIndicator.stopAnimating()
             mainView.loadingBgView.removeFromSuperview()
             
-            if let pillTitle = viewModel.outputAlarmName.value, let alarmDateList = viewModel.outputAlarmDateList.value, let periodType = viewModel.outputPeriodType.value, let startDate = viewModel.outputStartDate.value, !pillTitle.isEmpty, viewModel.inputSelectedPill.value.count > 0 {
+            if let pillTitle = viewModel.outputAlarmName.value, let _ = viewModel.outputAlarmDateList.value, let _ = viewModel.outputPeriodType.value, let _ = viewModel.outputStartDate.value, !pillTitle.isEmpty, viewModel.inputSelectedPill.value.count > 0 {
                 
                 let vc = PillAlarmSpecificViewController()
                 vc.viewModel = viewModel

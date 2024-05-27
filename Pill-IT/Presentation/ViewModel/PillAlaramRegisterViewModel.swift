@@ -399,6 +399,7 @@ final class PillAlaramRegisterViewModel {
         // Local Notification
         //TODO: - Current Date의 Local Notification
         if let alarmDateFetchNotification = repository.fetchPillAlarmDateAndUpdateNotification(alarmName: alarmName), !alarmDateFetchNotification.isEmpty {
+            userNotificationCenter.removeAllNotification(by: alarmDateFetchNotification)
             userNotificationCenter.addNotificationRequest(byList: alarmDateFetchNotification)
         } else {
             print("❗️오늘 날짜에 해당되는 알림 목록이 없습니다  🥲")

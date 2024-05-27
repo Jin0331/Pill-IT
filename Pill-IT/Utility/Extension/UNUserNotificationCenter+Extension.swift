@@ -27,9 +27,16 @@ extension UNUserNotificationCenter {
     //MARK: - 알림 추가
     func addNotificationRequest(byList pillAlarmList: [PillAlarmDate]){
         
-        pillAlarmList.forEach { [weak self] pillAlarm in
+        // 현재 시간보다 이전의 시간이 등록되면 무시하도록.
+        pillAlarmList.reversed().forEach { [weak self] pillAlarm in
             guard let self = self else { return }
-            addNotificationRequest(by: pillAlarm)
+            
+            if pillAlarm.alarmDate >= Date() {
+                
+                print(pillAlarm.alarmDate)
+                
+                addNotificationRequest(by: pillAlarm)
+            }
         }
     }
     
@@ -43,8 +50,12 @@ extension UNUserNotificationCenter {
         
         content.body = pillItemList
         content.sound = .default
-        let currentBadgeCount = UIApplication.shared.applicationIconBadgeNumber
-        content.badge = (currentBadgeCount + 1) as NSNumber
+        
+        let badgeCount = UserDefaults.standard.value(forKey: "NotificationBadgeCount") as! Int + 1
+        UserDefaults.standard.set(badgeCount, forKey: "NotificationBadgeCount")
+                
+        content.badge = badgeCount as NSNumber
+        
         content.categoryIdentifier = "replyCategory"
         
         // notification action

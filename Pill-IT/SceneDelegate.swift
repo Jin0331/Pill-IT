@@ -42,7 +42,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidBecomeActive(_ scene: UIScene) {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
-//        UIApplication.shared.applicationIconBadgeNumber = 0
+        
+        UIApplication.shared.applicationIconBadgeNumber = 0
+        UserDefaults.standard.set(0, forKey: "NotificationBadgeCount")
+        
         // timer
         refresh.resetNotificationAction()
 
@@ -57,12 +60,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
         UIApplication.shared.applicationIconBadgeNumber = 0
+        UserDefaults.standard.set(0, forKey: "NotificationBadgeCount")
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
+        UIApplication.shared.applicationIconBadgeNumber = 0
+        UserDefaults.standard.set(0, forKey: "NotificationBadgeCount")
         repository.removeAllPillAlarmDateIsDeleted()
         refresh.timerForResetNotification()
     }

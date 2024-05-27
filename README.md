@@ -1,6 +1,8 @@
 # 💊 **삐릿(Pill It) - 복용약 알림, 정보 관리**
 
-[📱 앱 스토어](https://apps.apple.com/kr/app/%EC%82%90%EB%A6%BF-pill-it-%EB%B3%B5%EC%9A%A9%EC%95%BD-%EC%95%8C%EB%A6%BC-%EC%A0%95%EB%B3%B4-%EA%B4%80%EB%A6%AC/id6479727658)
+<a href="[https://www.apple.com/app-store/](https://apps.apple.com/kr/app/%EC%82%90%EB%A6%BF-pill-it-%EB%B3%B5%EC%9A%A9%EC%95%BD-%EC%95%8C%EB%A6%BC-%EC%A0%95%EB%B3%B4-%EA%B4%80%EB%A6%AC/id6479727658)">
+    <img src="https://cdn.icon-icons.com/icons2/2699/PNG/512/apple_appstore_logo_icon_168587.png" width="10%" height="10%">
+</a>
 
 ![PillItImageMerge](https://github.com/Jin0331/Pill-IT/assets/42958809/61ff75bb-22f8-4c07-8824-829048969cf0)
 
@@ -45,43 +47,93 @@
 
 <br>
 
-## 🔆 **기술 스택**
+## 🔆 **적용 기술**
 
-* **프레임워크**
+* ***프레임워크***
 
-  ​	***UIKit***
+  ​	UIKit
 
-* **디자인패턴**
+* ***아키텍쳐***
 
-  ​	***MVVM + MVC(MainTabbarController 한정)***
+  ​	MVVM
 
-* **라이브러리** - ***Cocoapods(Dependency manager)***
+* ***오픈 소스***(Cocoapods)
 
-  ​	***Realm*** - 복용약(Pill), 복용약 그룹(PillAlarm), 복용약 알림(PillAlarmDate) Table 구성 및 Repository Pattern 기반의 CRUD 구현
+  ​	Realm / RxSwift / Alamofire /	Kingfisher / UserNotifications
 
-  ​	***Diffable DataSoruce*** - Hashable 기반의 각종 데이터의 변경 사항 추적 및 Snapshot을 활용한 UI 요소의 업데이트
+  ​ SearchTextField / Toast-Swift / NVActivityIndicatorView / SwipeableTabBarController / WHTabbar / Parchment / Tabman
 
-   ***RxSwift + RxCocoa*** - 반응형 UI 구성
+* ***버전 관리***
 
-  ​	***Alamofire*** - Generic과 Router pattern 기반의 다수의 API 호출 및 Error Handling
-
-  ​	***SearchTextField*** - User Input 기반의 userStoppedTypingHandler, itemSelectionHandler 구현을 통한 Text Auto Complete
-
-  ​	***Kingfisher*** - Memory Leak 방지를 위한 Manul Cache clear 적용
-
-  ​	***Toast-Swift+NVActivityIndicatorView*** - UX를 고려하여 사용자의 행동에 따른 상태 정보 제공
-
-  ​	***SwipeableTabBarController+WHTabbar+Parchment+Tabman*** - 다수의 UITabBarController Library를 활용한 사용자 친화적 UI 구성
-
-* 버전 관리
-
-  ​	***Git(Git-Flow 적용), Github***
+  ​	Git(Git-Flow 적용) / Github
 
   <br>
 
-## 🔆  **Database Schema**
 
-![DatabaseSchema](https://github.com/Jin0331/Pill-IT/assets/42958809/d40541b6-5bde-4590-9b90-8f38b45556f3)
+## 🔆 **적용 기술 소개**
+
+***MVVM***
+
+* View 및 Business 로직을 분리하기 위한 MVVM 아키텍처를 도입
+
+* Input-Output 패턴 기반의 User Interaction과 View Data 핸들링
+
+
+***Realm***
+
+* Repository Pattern 기반의 데이터 로직 추상화
+
+* 아래와 같은 Database Schema 구성 (**1:N**)
+
+  ![DatabaseSchema](https://github.com/Jin0331/Pill-IT/assets/42958809/d40541b6-5bde-4590-9b90-8f38b45556f3)
+
+***Reactive Programming***
+
+* 비동기 Event의 관리를 위한 Custom Observable과 RxSwift를 이용한 Reactive Programming 구현
+
+* Generic 기반의 Observable 구현
+
+```swift
+final class Observable<T> {
+    
+    private var closure : ((T) -> Void)?
+    
+    var value : T {
+        didSet {
+            closure?(value)
+        }
+    }
+    
+    init(_ text: T) {
+        self.value = text
+    }
+    
+    func bind(_ closure : @escaping (T) -> Void) {
+        closure(value)
+        self.closure = closure
+    }
+}
+
+```
+
+***Alamorfie***
+
+* Router pattern 기반의 네트워크 추상화
+
+* Error Handling을 위한 Result Type 적용
+
+
+***SearchTextField*** 
+
+* User Interaction 기반의 userStoppedTypingHandler, itemSelectionHandler 구현을 통한 TextField의 Autocomplete 적용
+ 
+  ![Simulator Screen Recording - iPhone 15 Pro - 2024-05-27 at 22 04 06](https://github.com/Jin0331/Pill-IT/assets/42958809/35fc427f-2924-4fc3-8679-1aa39cdac51d)
+
+
+***SwipeableTabBarController, WHTabbar, Parchment, Tabman***
+
+* 다수의 UITabBarController 연관 Open Source를 활용한 사용자 친화적 UI 구성
+
 
 <br>
 
@@ -89,39 +141,39 @@
 
 ### 1. App의 Life-Cycle과 Background Timer를 이용한 오늘/내일 알림 등록을 통한 Local Notification 제한 극복
 
-❌ **문제 상황**
+* **문제 상황**
 
-> ​	"iOS 디바이스는 알림을 최신 64개 알림으로 제한"한다. 개발 과정에서 해당 사항을 고려하지 않고, 복용약 알림을 등록할 때 생성되는 모든 Date를 iOS 디바이스에 등록하게 되어 알림이 정상적으로 발생하지 않는 문제 발생
->
-> ​	-> 복용약 알림등록에서 알림 주기를 등록시간 06:00시 기준으로 "매일(365일) - 07:00, 12:00, 19:00"로 설정하는 경우, 365 * 3 = 1095개의 알림이 생성됨.
+  > ​	"iOS 디바이스는 알림을 최신 64개 알림으로 제한"한다. 개발 과정에서 해당 사항을 고려하지 않고, 복용약 알림을 등록할 때 생성되는 모든 Date를 iOS 디바이스에 등록하게 되어 알림이 정상적으로 발생하지 않는 문제 발생
+  >
+  > ​	-> 복용약 알림등록에서 알림 주기를 등록시간 06:00시 기준으로 "매일(365일) - 07:00, 12:00, 19:00"로 설정하는 경우, 365 * 3 = 1095개의 알림이 생성됨.
 
-🔆 **해결 방법**
+* **해결 방법**
 
-1. ``Local Notification``을 관리하는 ``RefreshManager 생성 (Singleton Pattern)``
+  1. ``Local Notification``을 관리하는 ``RefreshManager 생성 (Singleton Pattern)``
 
-2. ``sceneDidBecomeActive`` (앱이 Terminated 된 후 다시 실행되었을 때)
+  2. ``sceneDidBecomeActive`` (앱이 Terminated 된 후 다시 실행되었을 때)
 
-   PillAlarmDate Table로부터 ``D-1,D+0,D+1 Date``에 해당하는 알림 목록 Fetch하고 ``Local Notification``을 등록하는 함수(RefreshManager.shared.resetNotificationAction) 실행
+      PillAlarmDate Table로부터 ``D-1,D+0,D+1 Date``에 해당하는 알림 목록 Fetch하고 ``Local Notification``을 등록하는 함수(RefreshManager.shared.resetNotificationAction) 실행
 
-   ​	-> 앱이 Active 될때마다 실행되므로, ``UserDefault를 활용하여 D+0에서 최초 1번 실행``한 경우에는 이후 부터 실행되지 않음
+        ​	-> 앱이 Active 될때마다 실행되므로, ``UserDefault를 활용하여 D+0에서 최초 1번 실행``한 경우에는 이후 부터 실행되지 않음
 
-   ​	-> 앱이 sceneDidDisconnect 된 경우 알림이 제대로 동작하지 않으므로, 사용자가 다시 앱을 실행할 수 있도록 Local Notification으로 유도
+        ​	-> 앱이 sceneDidDisconnect 된 경우 알림이 제대로 동작하지 않으므로, 사용자가 다시 앱을 실행할 수 있도록 Local Notification으로 유도
 
-3. ``sceneDidEnterBackground`` (앱이 Background로 전환되었을 때)
+  3. ``sceneDidEnterBackground`` (앱이 Background로 전환되었을 때)
 
-   Background -> Foreground 상태로 전환시, 최신 Local Notification을 등록할 수 있도록 Timer 사용
+      Background -> Foreground 상태로 전환시, 최신 Local Notification을 등록할 수 있도록 Timer 사용
 
 <br>
 
 ### 2. Realm Table의 isDeleted Attribute 추가를 통한, Realm과 Diffable Datasource가 연결 되었을 때 삭제시 Snapshot 문제 극복
 
-❌ **문제 상황**
+* **문제 상황**
 
->  DiffableDataSource에서는 Diff을 위해 삭제된 객체를 들고있어야 하는데, Realm은 데이터가 삭제되는 순간 해당 데이터에 접근할 수 없으므로 "Terminating app due to uncaught exception 'RLMException', reason: 'Object has been deleted or invalidated.'" 에러가 발생한다.
+  >  DiffableDataSource에서는 Diff을 위해 삭제된 객체를 들고있어야 하는데, Realm은 데이터가 삭제되는 순간 해당 데이터에 접근할 수 없으므로 "Terminating app due to uncaught exception 'RLMException', reason: 'Object has been deleted or invalidated.'" 에러가 발생한다.
 
-![img](https://blog.kakaocdn.net/dn/yJLGU/btruZPt9FBL/F7mZcbyjuNzpOl4ZF5CYN0/img.png)
+  ![img](https://blog.kakaocdn.net/dn/yJLGU/btruZPt9FBL/F7mZcbyjuNzpOl4ZF5CYN0/img.png)
 
-🔆 **해결 방법**
+* **해결 방법**
 
-1. Realm Table에서 임의의 Attribute인 Bool 타입의 isDeleted 생성 후 해당 Record의 Delete가 발생할 때, Realm Table에서 실제로 삭제되는 것이 아니고 isDeleted에 ``true`` 부여
-2. 또한, Realm Table에서 실제 삭제가 되는 것이 아니므로, 앱이 ``sceneDidDisconnect`` 또는 ``sceneDidEnterBackground`` 상태로 변경될 때 Delete 되도록 함
+  1. Realm Table에서 임의의 Attribute인 Bool 타입의 isDeleted 생성 후 해당 Record의 Delete가 발생할 때, Realm Table에서 실제로 삭제되는 것이 아니고 isDeleted에 ``true`` 부여
+  2. 또한, Realm Table에서 실제 삭제가 되는 것이 아니므로, 앱이 ``sceneDidDisconnect`` 또는 ``sceneDidEnterBackground`` 상태로 변경될 때 Delete 되도록 함

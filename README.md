@@ -1,6 +1,6 @@
 # 💊 **삐릿(Pill It) - 복용약 알림, 정보 관리**
 
-[![히히](https://github.com/Jin0331/Pill-IT/assets/42958809/726199d4-52b4-4d23-b667-e619cd81c0f1)](https://apps.apple.com/kr/app/%EC%82%90%EB%A6%BF-pill-it-%EB%B3%B5%EC%9A%A9%EC%95%BD-%EC%95%8C%EB%A6%BC-%EC%A0%95%EB%B3%B4-%EA%B4%80%EB%A6%AC/id6479727658)
+[📱 앱 스토어](https://apps.apple.com/kr/app/%EC%82%90%EB%A6%BF-pill-it-%EB%B3%B5%EC%9A%A9%EC%95%BD-%EC%95%8C%EB%A6%BC-%EC%A0%95%EB%B3%B4-%EA%B4%80%EB%A6%AC/id6479727658)
 
 ![PillItImageMerge](https://github.com/Jin0331/Pill-IT/assets/42958809/61ff75bb-22f8-4c07-8824-829048969cf0)
 
@@ -59,7 +59,7 @@
 
   ​	Realm / RxSwift / Alamofire /	Kingfisher / UserNotifications
 
-  ​ SnapKit / SearchTextField / Toast-Swift / NVActivityIndicatorView / SwipeableTabBarController / WHTabbar / Parchment / Tabman
+  ​ SearchTextField / Toast-Swift / NVActivityIndicatorView / SwipeableTabBarController / WHTabbar / Parchment / Tabman
 
 * ***버전 관리***
 
@@ -74,7 +74,28 @@
 
 * View 및 Business 로직을 분리하기 위한 MVVM 아키텍처를 도입
 
-* Input-Output 패턴 기반의 User Interaction과 View Data 핸들링
+* Input-Output 패턴의 Protocol을 채택함으로써 User Interaction과 View Data 핸들링
+
+    ```swift
+    protocol ViewModelType {
+        var disposeBag : DisposeBag { get }
+        associatedtype Input
+        associatedtype Output
+        func transform(input : Input) -> Output
+    }
+
+    protocol CombineViewModelType : AnyObject, ObservableObject {
+        associatedtype Input
+        associatedtype Output
+        
+        var cancellables : Set<AnyCancellable> {get set}
+        
+        var input : Input {get set}
+        var output : Output {get set}
+        
+        func transform()
+    }
+    ```
 
 
 ***Realm***
@@ -116,7 +137,7 @@ final class Observable<T> {
 
 ***Alamorfie***
 
-* Router pattern 기반의 네트워크 추상화
+* Router 패턴 기반의 네트워크 통신 추상화
 
 * Error Handling을 위한 Result Type 적용
 
@@ -124,8 +145,11 @@ final class Observable<T> {
 ***SearchTextField*** 
 
 * User Interaction 기반의 userStoppedTypingHandler, itemSelectionHandler 구현을 통한 TextField의 Autocomplete 적용
- 
-  <img src="https://github.com/Jin0331/Pill-IT/assets/42958809/35fc427f-2924-4fc3-8679-1aa39cdac51d" width="20%" height="20%"/>
+
+
+<center>
+ <img src="https://github.com/Jin0331/Pill-IT/assets/42958809/35fc427f-2924-4fc3-8679-1aa39cdac51d" width="20%" height="20%"/>
+</center>
 
 ***SwipeableTabBarController, WHTabbar, Parchment, Tabman***
 

@@ -146,10 +146,11 @@ final class Observable<T> {
 
 * User Interaction 기반의 userStoppedTypingHandler, itemSelectionHandler 구현을 통한 TextField의 Autocomplete 적용
 
-
-<center>
+<p align="center">
  <img src="https://github.com/Jin0331/Pill-IT/assets/42958809/35fc427f-2924-4fc3-8679-1aa39cdac51d" width="20%" height="20%"/>
-</center>
+</p>
+
+<br>
 
 ***SwipeableTabBarController, WHTabbar, Parchment, Tabman***
 

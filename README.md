@@ -137,7 +137,7 @@ final class Observable<T> {
 
 ***Alamorfie***
 
-* Router 패턴 기반의 네트워크 통신 추상화
+* `URLRequestConvertible`을 활용한 `Router 패턴` 기반의 `GET/POST/DEL/PUT` 메소드를 활용한 `RESTful API Network`와의 통신 구현
 
 * Error Handling을 위한 Result Type 적용
 

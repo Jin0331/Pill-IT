@@ -115,8 +115,6 @@ final class PillNotificationViewController: BaseViewController {
     
     // pillAlarm의 조회를 위한 Trigger
     @objc private func triggerFetchPillAlarmTable(_ noti: Notification) {
-        print("PillNotificationViewController triggerFetchPillAlarmTable ❗️❗️❗️❗️❗️❗️❗️")
-        
         pagingViewController.reloadMenu()
         pagingViewController.loadViewIfNeeded()
         
@@ -129,8 +127,6 @@ final class PillNotificationViewController: BaseViewController {
     }
     
     @objc private func triggerFetchPillAlarmTableSpecificDay(_ noti: Notification) {
-        print("PillNotificationViewController triggerFetchPillAlarmTable ❗️❗️❗️❗️❗️❗️❗️")
-        
         guard let value = noti.userInfo?["date"] as? Date else { return }
         
         pagingViewController.reloadMenu()

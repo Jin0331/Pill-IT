@@ -78,8 +78,6 @@ extension PopUpPillAlarmGroupViewController {
         snapshot.appendItems(data, toSection: .main)
         
         dataSource.apply(snapshot) // reloadData
-        
-        print("PillNotificationContentViewCollectionViewCell UpdateSnapShot ❗️❗️❗️❗️❗️❗️❗️")
     }
     
     private func createLayout() -> UICollectionViewLayout {

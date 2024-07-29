@@ -26,3 +26,4 @@ final class Observable<T> {
         self.closure = closure
     }
 }
+

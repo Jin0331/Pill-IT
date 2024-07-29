@@ -111,7 +111,6 @@ final class PillManagementViewController : BaseViewController {
         snapshot.appendItems(data, toSection: .main)
         
         headerDataSource.apply(snapshot) // reloadData
-        print("PillManageMent UpdateSnapShot - Header ❗️❗️❗️❗️❗️❗️❗️")
     }
     
     //MARK: - Main Datasource & SnapShot
@@ -133,8 +132,6 @@ final class PillManagementViewController : BaseViewController {
         snapshot.appendItems(data, toSection: .main)
         
         mainDataSource.apply(snapshot) // reloadData
-        
-        print("PillManageMent UpdateSnapShot - Main ❗️❗️❗️❗️❗️❗️❗️")
     }
     
     //MARK: - 복용약 알림 화면으로 이동하는 부분 ❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️
@@ -164,7 +161,6 @@ final class PillManagementViewController : BaseViewController {
     
     // pillAlarm의 조회를 위한 Trigger
     @objc private func triggerFetchPillAlarmTable(_ noti: Notification) {
-        print("PillManagementViewController triggerFetchPillAlarmTable ❗️❗️❗️❗️❗️❗️❗️")
         selectedCellRelease()
         viewModel.fetchPillAlarmItemTrigger.value = ()
         

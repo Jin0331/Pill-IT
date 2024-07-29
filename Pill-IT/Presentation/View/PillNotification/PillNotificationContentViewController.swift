@@ -88,7 +88,6 @@ final class PillNotificationContentViewController: BaseViewController {
         snapshot.appendItems(data, toSection: .main)
         
         dataSource.apply(snapshot) // reloadData
-        print("PillNotificationContentViewController UpdateSnapShot ❗️❗️❗️❗️❗️❗️❗️")
     }
 
     deinit {

@@ -66,7 +66,6 @@ final class PillAlarmReviseDateViewController: BaseViewController {
         snapshot.appendItems(data, toSection: .main)
         
         dataSource.apply(snapshot) // reloadData
-        print("PillManageMent UpdateSnapShot ❗️❗️❗️❗️❗️❗️❗️")
     }
     
     deinit {

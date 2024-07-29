@@ -88,8 +88,6 @@ final class PillAlarmRegisterViewController: BaseViewController {
         snapshot.appendItems(data, toSection: .main)
         
         dataSource.apply(snapshot) // reloadData
-        
-        print(#function, "PillAlarm UpdateSnapShot ❗️❗️❗️❗️❗️❗️❗️")
     }
     
     

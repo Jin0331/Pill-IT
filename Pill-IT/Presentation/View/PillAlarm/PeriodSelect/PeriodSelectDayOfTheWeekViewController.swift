@@ -150,7 +150,5 @@ extension PeriodSelectDayOfTheWeekViewController {
         snapshot.appendItems(data, toSection: .main)
         
         dataSource.apply(snapshot) // reloadData
-        
-        print(#function, "PeriodSelectDayOfTheWeekViewController UpdateSnapShot ❗️❗️❗️❗️❗️❗️❗️")
     }
 }

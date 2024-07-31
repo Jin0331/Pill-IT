@@ -8,6 +8,8 @@
 import Foundation
 import UIKit
 import RealmSwift
+import RxSwift
+import RxCocoa
 
 protocol PillRegisterAction : AnyObject {
     func disMissPresent()
@@ -41,4 +43,11 @@ protocol PillSpecificAction : AnyObject {
 protocol PillNotificationAction : AnyObject {
     func containPillButton(_ groupID : ObjectId?, _ data : [Pill]?)
     func notiDoneButton(_ pk : ObjectId?, _ today : Date?)
+}
+
+protocol ViewModelType {
+    var disposeBag : DisposeBag { get }
+    associatedtype Input
+    associatedtype Output
+    func transform(input : Input) -> Output
 }

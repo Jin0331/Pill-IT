@@ -22,6 +22,8 @@ target 'Pill-IT' do
   pod 'Tabman', '~> 3.0'
   pod 'RxSwift', '6.6.0'
   pod 'RxCocoa', '6.6.0'
+  pod 'RxDataSources', '~> 5.0'
+  pod 'Reusable'
 end
 
 post_install do |installer|

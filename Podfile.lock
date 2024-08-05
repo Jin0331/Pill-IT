@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (5.9.0)
+  - Differentiator (5.0.0)
   - Kingfisher (7.11.0)
   - MarqueeLabel (4.5.0)
   - NVActivityIndicatorView (5.1.1):
@@ -13,9 +14,18 @@ PODS:
   - Realm/Headers (10.45.3)
   - RealmSwift (10.45.3):
     - Realm (= 10.45.3)
+  - Reusable (4.1.2):
+    - Reusable/Storyboard (= 4.1.2)
+    - Reusable/View (= 4.1.2)
+  - Reusable/Storyboard (4.1.2)
+  - Reusable/View (4.1.2)
   - RxCocoa (6.6.0):
     - RxRelay (= 6.6.0)
     - RxSwift (= 6.6.0)
+  - RxDataSources (5.0.0):
+    - Differentiator (~> 5.0)
+    - RxCocoa (~> 6.0)
+    - RxSwift (~> 6.0)
   - RxRelay (6.6.0):
     - RxSwift (= 6.6.0)
   - RxSwift (6.6.0)
@@ -39,7 +49,9 @@ DEPENDENCIES:
   - NVActivityIndicatorView
   - Parchment (~> 3.3)
   - RealmSwift (~> 10.45.0)
+  - Reusable
   - RxCocoa (= 6.6.0)
+  - RxDataSources (~> 5.0)
   - RxSwift (= 6.6.0)
   - SearchTextField
   - SnapKit (~> 5.7.0)
@@ -53,6 +65,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - Differentiator
     - Kingfisher
     - MarqueeLabel
     - NVActivityIndicatorView
@@ -61,7 +74,9 @@ SPEC REPOS:
     - PryntTrimmerView
     - Realm
     - RealmSwift
+    - Reusable
     - RxCocoa
+    - RxDataSources
     - RxRelay
     - RxSwift
     - SearchTextField
@@ -76,6 +91,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: 02b772c9910e8eba1a079227c32fbd9e46c90a24
+  Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
   Kingfisher: b9c985d864d43515f404f1ef4a8ce7d802ace3ac
   MarqueeLabel: 4b46d196abd253448e830cbd976f9eacc3af0849
   NVActivityIndicatorView: 1f6c5687f1171810aa27a3296814dc2d7dec3667
@@ -84,7 +100,9 @@ SPEC CHECKSUMS:
   PryntTrimmerView: 6a43cc90df5d99addeabd33d4ba09b1365322130
   Realm: b277b843c7505c1e30e3a70322a24a09283e62bb
   RealmSwift: f6690053e81733801e6619eb5b39993ab76f7050
+  Reusable: 6bae6a5e8aa793c9c441db0213c863a64bce9136
   RxCocoa: 44a80de90e25b739b5aeaae3c8c371a32e3343cc
+  RxDataSources: aa47cc1ed6c500fa0dfecac5c979b723542d79cf
   RxRelay: 45eaa5db8ee4fb50e5ebd57deec0159e97fa51e6
   RxSwift: a4b44f7d24599f674deebd1818eab82e58410632
   SearchTextField: 40dc3cc57def5a211f263cac263622c163bbc25a
@@ -97,6 +115,6 @@ SPEC CHECKSUMS:
   Toast-Swift: dd369e68ee529f542c65bd0d0c6c50cd743cf6f2
   YPImagePicker: afc81b3cffab05a6e7261c5daf80dc31b4e917b4
 
-PODFILE CHECKSUM: d63471107d85d175bd5cd5e536d7d90d858ded01
+PODFILE CHECKSUM: 4e0b5a86c90ffb23ba1c3b61d77ba1388cce746b
 
 COCOAPODS: 1.15.2

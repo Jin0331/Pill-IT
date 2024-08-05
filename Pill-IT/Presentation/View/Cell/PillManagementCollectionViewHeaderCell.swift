@@ -9,8 +9,9 @@ import UIKit
 import SnapKit
 import Then
 import MarqueeLabel
+import Reusable
 
-final class PillManagementCollectionViewHeaderCell : UICollectionViewCell {
+final class PillManagementCollectionViewHeaderCell : UICollectionViewCell, Reusable {
     
     let bgView = UIView().then {
         $0.layer.cornerRadius = DesignSystem.viewLayout.cornerRadius

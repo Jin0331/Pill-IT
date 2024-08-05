@@ -8,12 +8,15 @@
 import UIKit
 import SnapKit
 import Then
+import RxDataSources
+import Reusable
 
 final class PillManagementView : BaseView {
     
     lazy var headerCollecionView  : UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: headerCreateLayout())
         view.backgroundColor = DesignSystem.colorSet.white
+        view.register(cellType: PillManagementCollectionViewHeaderCell.self)
         
         return view
     }()
@@ -28,6 +31,7 @@ final class PillManagementView : BaseView {
         let view = UICollectionView(frame: .zero, collectionViewLayout: mainCreateLayout())
         view.backgroundColor = DesignSystem.colorSet.white
         view.allowsMultipleSelection = true
+        view.register(cellType: PillManagementCollectionViewMainCell.self)
         
         return view
     }()

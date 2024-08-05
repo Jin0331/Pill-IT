@@ -9,8 +9,9 @@ import UIKit
 import SnapKit
 import Then
 import Kingfisher
+import Reusable
 
-final class PillManagementCollectionViewMainCell: BaseCollectionViewCell {
+final class PillManagementCollectionViewMainCell: BaseCollectionViewCell, Reusable {
     
     let bgView = UIView().then {
         $0.layer.cornerRadius = DesignSystem.viewLayout.cornerRadius

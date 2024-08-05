@@ -44,6 +44,7 @@
 		DB8D12492BA48B38002E34BC /* SharedEnumeration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8D12482BA48B38002E34BC /* SharedEnumeration.swift */; };
 		DB8D124B2BA48FD0002E34BC /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8D124A2BA48FD0002E34BC /* UIViewController+Extension.swift */; };
 		DBC482532C043CE0006AE1AA /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = DBC482522C043CE0006AE1AA /* PrivacyInfo.xcprivacy */; };
+		DBD720002C60A5E8009C191D /* Reactive+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD71FFF2C60A5E8009C191D /* Reactive+Extension.swift */; };
 		DBE56E372C5A0A1100496147 /* RxDataSource+Typealias.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE56E362C5A0A1100496147 /* RxDataSource+Typealias.swift */; };
 		DBEE627B2BAAFAC1003BD600 /* PillNotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEE627A2BAAFAC1003BD600 /* PillNotificationViewModel.swift */; };
 		DBEE627D2BAB085A003BD600 /* PillNotificationContentViewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEE627C2BAB085A003BD600 /* PillNotificationContentViewCollectionViewCell.swift */; };
@@ -124,6 +125,7 @@
 		DB8D12482BA48B38002E34BC /* SharedEnumeration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedEnumeration.swift; sourceTree = "<group>"; };
 		DB8D124A2BA48FD0002E34BC /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		DBC482522C043CE0006AE1AA /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		DBD71FFF2C60A5E8009C191D /* Reactive+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reactive+Extension.swift"; sourceTree = "<group>"; };
 		DBE56E362C5A0A1100496147 /* RxDataSource+Typealias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RxDataSource+Typealias.swift"; sourceTree = "<group>"; };
 		DBEE627A2BAAFAC1003BD600 /* PillNotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillNotificationViewModel.swift; sourceTree = "<group>"; };
 		DBEE627C2BAB085A003BD600 /* PillNotificationContentViewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillNotificationContentViewCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -402,6 +404,7 @@
 				DBEE62872BACB582003BD600 /* UIColor+Extension.swift */,
 				DB1ED6312BB04AC200F1E96C /* UNUserNotificationCenter+Extension.swift */,
 				DBE56E362C5A0A1100496147 /* RxDataSource+Typealias.swift */,
+				DBD71FFF2C60A5E8009C191D /* Reactive+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -587,6 +590,7 @@
 				DB21CDA92BA03CF00041C892 /* String+Extension.swift in Sources */,
 				DBF735282B9DF02500326852 /* RegisterPillViewModel.swift in Sources */,
 				DB0F10D92B9F311B000DC430 /* UIView+Extension.swift in Sources */,
+				DBD720002C60A5E8009C191D /* Reactive+Extension.swift in Sources */,
 				DBF7351E2B9DD3E700326852 /* Observable.swift in Sources */,
 				DBF735262B9DECCE00326852 /* SharedProtocol.swift in Sources */,
 				DBEE627B2BAAFAC1003BD600 /* PillNotificationViewModel.swift in Sources */,

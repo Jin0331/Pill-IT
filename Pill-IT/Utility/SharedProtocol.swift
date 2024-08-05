@@ -45,7 +45,7 @@ protocol PillNotificationAction : AnyObject {
     func notiDoneButton(_ pk : ObjectId?, _ today : Date?)
 }
 
-protocol ViewModelType {
+protocol ViewModel {
     var disposeBag : DisposeBag { get }
     associatedtype Input
     associatedtype Output

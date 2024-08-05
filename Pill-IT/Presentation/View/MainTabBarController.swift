@@ -63,7 +63,8 @@ extension MainTabBarController {
     
     func configureView() {
         // 추후 접근을 이용해서 수정일 일이 생길 수 있으므로, 변수에 할당해서 관리
-        firstVC = PillManagementViewController()
+        firstVC = PillManagementViewController(mainView: PillManagementView(),
+                                               viewModel: PillManagementViewModel(repository: RealmRepository()))
         let firstNav = UINavigationController(rootViewController: firstVC)
         
         secondVC = PillNotificationViewController()
@@ -76,7 +77,7 @@ extension MainTabBarController {
 extension MainTabBarController : PillListAction {
     func fetchPillTable() {
         print("✅ fetchPillTable")
-        firstVC.viewModel.fetchPillItemTrigger.value = ()
+//        firstVC.viewModel.fetchPillItemTrigger.value = ()
     }
     
     func completeToast() {

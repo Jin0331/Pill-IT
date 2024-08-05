@@ -19,8 +19,9 @@ final class PillNotificationContentViewController: BaseViewController {
     var moveTopView : (() -> Void)?
     
     init(currentDate : Date) {
-        super.init(nibName: nil, bundle: nil)
+//        super.init()
         viewModel.inputCurrentDate.value = currentDate
+        super.init()
     }
     
     required init?(coder: NSCoder) {

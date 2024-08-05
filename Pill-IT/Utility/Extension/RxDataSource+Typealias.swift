@@ -12,6 +12,10 @@ struct PillListDataSection {
     var items : [Pill]
 }
 
+struct PillAlarmListDataSection {
+    var items : [PillAlarm]
+}
+
 extension PillListDataSection : SectionModelType {
     
     init(original: PillListDataSection, items: [Pill]) {
@@ -20,4 +24,12 @@ extension PillListDataSection : SectionModelType {
     }
 }
 
+extension PillAlarmListDataSection : SectionModelType {
+    init(original: PillAlarmListDataSection, items: [PillAlarm]) {
+        self = original
+        self.items = items
+    }
+}
+
 typealias PillListRxDataSource = RxCollectionViewSectionedReloadDataSource<PillListDataSection>
+typealias PillAlarmListRxDataSource = RxCollectionViewSectionedReloadDataSource<PillAlarmListDataSection>

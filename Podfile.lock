@@ -29,6 +29,9 @@ PODS:
   - RxRelay (6.6.0):
     - RxSwift (= 6.6.0)
   - RxSwift (6.6.0)
+  - RxViewController (2.0.0):
+    - RxCocoa (~> 6.0)
+    - RxSwift (~> 6.0)
   - SearchTextField (1.2.4)
   - SnapKit (5.7.1)
   - SteviaLayout (5.1.2)
@@ -53,6 +56,7 @@ DEPENDENCIES:
   - RxCocoa (= 6.6.0)
   - RxDataSources (~> 5.0)
   - RxSwift (= 6.6.0)
+  - RxViewController
   - SearchTextField
   - SnapKit (~> 5.7.0)
   - SwipeableTabBarController
@@ -79,6 +83,7 @@ SPEC REPOS:
     - RxDataSources
     - RxRelay
     - RxSwift
+    - RxViewController
     - SearchTextField
     - SnapKit
     - SteviaLayout
@@ -105,6 +110,7 @@ SPEC CHECKSUMS:
   RxDataSources: aa47cc1ed6c500fa0dfecac5c979b723542d79cf
   RxRelay: 45eaa5db8ee4fb50e5ebd57deec0159e97fa51e6
   RxSwift: a4b44f7d24599f674deebd1818eab82e58410632
+  RxViewController: 56486fa0afd629a1d6b5ba077f3b8cd9dc31b5d2
   SearchTextField: 40dc3cc57def5a211f263cac263622c163bbc25a
   SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
   SteviaLayout: 05424e528d643657d39ce72c786e4adf13cfc5f2
@@ -115,6 +121,6 @@ SPEC CHECKSUMS:
   Toast-Swift: dd369e68ee529f542c65bd0d0c6c50cd743cf6f2
   YPImagePicker: afc81b3cffab05a6e7261c5daf80dc31b4e917b4
 
-PODFILE CHECKSUM: 4e0b5a86c90ffb23ba1c3b61d77ba1388cce746b
+PODFILE CHECKSUM: 385ebe6cce5433bd001fdc5198d3ae230f2e50d8
 
 COCOAPODS: 1.15.2

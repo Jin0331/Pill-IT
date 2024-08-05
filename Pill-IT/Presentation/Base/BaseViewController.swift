@@ -6,8 +6,28 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
+
+class RxBaseViewController : BaseViewController {
+    var loadBag: RxSwift.DisposeBag = DisposeBag()
+    var disposeBag = DisposeBag()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+}
 
 class BaseViewController : UIViewController {
+    
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available (*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,15 +36,14 @@ class BaseViewController : UIViewController {
         configureLayout()
         configureView()
         configureNavigation()
+        bind()
     }
     
-    func configureHierarchy() {
-        
-    }
+    func bind() { }
     
-    func configureLayout() {
-        
-    }
+    func configureHierarchy() { }
+    
+    func configureLayout() { }
     
     func configureView() {
         
